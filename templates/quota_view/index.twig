@@ -1,0 +1,248 @@
+{% extends 'folder/template-sales/' ~ layout ~  '.twig' %}
+
+{% block body %}
+
+
+    <!-- Right sidebar / Top on mobile -->
+    <div id="sidebar-right" class="col-md-4 col-md-push-8">
+        <div class="bs-docs-section">
+
+            <!-- Incoming relations Main container
+            =========================================
+            -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+                            <!-- Render the referenced datas from php
+                            ============================================= -->
+                            {% include 'components/relations.twig' %}
+                            <!--  End of rendering the referencing
+            =========================================================-->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Main container -->
+    <div class="col-md-8 col-md-pull-4">
+        <div class="bs-docs-section main-container">
+
+            <div class="row">
+                <h2>Welcome to {{ controller.model().dbRow().name | default("Unamed Portal") }}</h2>
+            </div>
+
+            <div class="row block">
+                <div class="space"></div>
+                <div class="title_head">Company</div>
+                <div class="col-md-12">
+                    <table class="table">
+                        <tbody>
+                        {% for field in fields.all() %}
+                            {% if renderConfig(config["block-company"] , field.label) %}
+                                {% if field.hidden == 0 %}
+                                    <tr>
+                                        {% if field.show_text_only == 0 %}
+                                            <td style="width: 25%; font-weight: bold">{{ renderLabel(field) | raw }}</td>
+                                        {% endif %}
+                                        <td {% if field.show_text_only == 1 %}colspan="2"{% endif %}>
+                                            {{ renderValue(field, portal.item_id, portal.settings().get().first()) | raw }}
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row block">
+                <div class="space"></div>
+                <div class="title_head">Description</div>
+                <div class="col-md-12">
+                    <table class="table">
+                        <tbody>
+                        {% for field in fields.all() %}
+                            {% if renderConfig(config["block-informations"] , field.label) %}
+                                {% if field.hidden == 0 %}
+                                    <tr>
+                                        {% if field.show_text_only == 0 %}
+                                            <td style="width: 25%; font-weight: bold">{{ renderLabel(field) | raw }}</td>
+                                        {% endif %}
+                                        <td {% if field.show_text_only == 1 %}colspan="2"{% endif %}>
+                                            {{ renderValue(field, portal.item_id, portal.settings().get().first()) | raw }}
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row block">
+                <div class="space"></div>
+                <div class="title_head">Leads</div>
+                <div class="col-md-12">
+                    <table class="table">
+                        <tbody>
+                        {% for field in fields.all() %}
+                            {% if renderConfig(config["block-leads"] , field.label) %}
+                                {% if field.hidden == 0 %}
+                                    <tr>
+                                        {% if field.show_text_only == 0 %}
+                                            <td style="width: 25%; font-weight: bold">{{ renderLabel(field) | raw }}</td>
+                                        {% endif %}
+                                        <td {% if field.show_text_only == 1 %}colspan="2"{% endif %}>
+                                            {{ renderValue(field, portal.item_id, portal.settings().get().first()) | raw }}
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row block">
+                <div class="space"></div>
+                <div class="title_head">Values</div>
+                <div class="col-md-12">
+                    <table class="table">
+                        <tbody>
+                        {% for field in fields.all() %}
+                            {% if renderConfig(config["block-values"] , field.label) %}
+                                {% if field.hidden == 0 %}
+                                    <tr>
+                                        {% if field.show_text_only == 0 %}
+                                            <td style="width: 25%; font-weight: bold">{{ renderLabel(field) | raw }}</td>
+                                        {% endif %}
+                                        <td {% if field.show_text_only == 1 %}colspan="2"{% endif %}>
+                                            {{ renderValue(field, portal.item_id, portal.settings().get().first()) | raw }}
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row block">
+                <div class="space"></div>
+                <div class="title_head">Addresses</div>
+                <div class="col-md-12">
+                    <table class="table">
+                        <tbody>
+                        {% for field in fields.all() %}
+                            {% if renderConfig(config["block-addresses"] , field.label) %}
+                                {% if field.hidden == 0 %}
+                                    <tr>
+                                        {% if field.show_text_only == 0 %}
+                                            <td style="width: 25%; font-weight: bold">{{ renderLabel(field) | raw }}</td>
+                                        {% endif %}
+                                        <td {% if field.show_text_only == 1 %}colspan="2"{% endif %}>
+                                            {{ renderValue(field, portal.item_id, portal.settings().get().first()) | raw }}
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row block" id="bloc_others">
+                <div class="space"></div>
+                <div class="title_head">Others</div>
+                <div class="col-md-12">
+                    <table class="table" id="table_others">
+                        <tbody>
+
+                        {% for field in fields %}
+                            {% if field.hidden == 0 %}
+                                {% if field.label != (renderConfig(config["block-company"] , field.label)
+                                or renderConfig(config["block-informations"] , field.label)
+                                or renderConfig(config["block-leads"] , field.label)
+                                or renderConfig(config["block-values"] , field.label)
+                                or renderConfig(config["block-addresses"] , field.label))
+                                %}
+                                    <tr>
+                                        {% if field.show_text_only == 0 %}
+                                            <td style="width: 25%; font-weight: bold">
+                                                {{ renderLabel(field) | raw }}
+                                            </td>
+                                        {% endif %}
+                                        <td {% if field.show_text_only == 1 %}colspan="2"{% endif %}>
+                                            {{ renderValue(field, portal.item_id ,  portal.settings().get().first()) | raw }}
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row block">
+                <div class="space"></div>
+                <div class="title_head">File Attachments</div>
+                <div class="col-md-12">
+                    <div class="panel-body">
+                        <form enctype="multipart/form-data" action="#">
+                            <div class="form-group" id="add_file">
+                                <label for="exampleInputFile">Add a file</label>
+                                <input type="file" id="uploadAFile">
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Table -->
+                    <table class="table" id="filesTable">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>File name</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for relationship fields -->
+    <div class="modal fade" id="relationship_modal" tabindex="-1" role="dialog" aria-labelledby="relationship_modal_id">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="relationship_modal_id">Referenced</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-default" data-dismiss="modal">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}

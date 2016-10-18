@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <title>{{ controller.model().dbRow().name | default("Unamed Portal") }}</title>
+
+    <!-- Material Design fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="{{ base_url('css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Bootstrap Material Design -->
+    <link href="{{ base_url('css/bootstrap-material-design.css') }}" rel="stylesheet">
+    <link href="{{ base_url('css/ripples.min.css') }}" rel="stylesheet">
+
+    <!-- Slider-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/4.10.0/css/bootstrap-slider.min.css" />
+    <link rel="stylesheet" href="/css/template_sales.css" >
+    <link rel="stylesheet" href="/css/bootstrap-validator.css" >
+
+    <link href="{{ base_url('css/standard.css') }}" rel="stylesheet">
+    <link href="{{ base_url('css/chat.css') }}" rel="stylesheet">
+    <link href="{{ base_url('css/slidenav.css') }}" rel="stylesheet">
+
+    <!--  Css for incomng relations  -->
+    <link href="{{ base_url('css/incomingRelations.css') }}" rel="stylesheet">
+
+    <!-- Plugins -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+    <link href="{{ base_url('css/fileinput.min.css') }}" media="all" rel="stylesheet" type="text/css">
+
+    <!-- Addons -->
+    <link href="{{ base_url('css/bootstrap-slider.min.css') }}" rel="stylesheet">
+    <link href="{{ base_url('css/select2.min.css') }}" rel="stylesheet">
+    <link href="{{ base_url('css/select2-bootstrap.css') }}" rel="stylesheet">
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+</head>
+<body class="b-standard">
+
+
+<nav class="navbar navbar-fixed-top navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button onclick="window.location='/b/{{ controller.model().dbRow().slug | default('wau') }}/logout'" type="button" class="navbar-toggle collapsed" aria-expanded="false" aria-controls="navbar">
+                <i class="material-icons">exit_to_app</i>
+            </button>
+            <button type="button" class="navbar-toggle collapsed" aria-expanded="false" aria-controls="navbar" data-toggle="slidenav" data-target="#navmenu-chat">
+                <i class="material-icons">forum</i>
+            </button>
+            {% if webforms.isEmpty() == false %}
+            <button type="button" class="navbar-toggle collapsed" aria-expanded="false" aria-controls="navbar" data-toggle="slidenav" data-target="#navmenu-webform">
+                <i class="material-icons">keyboard</i>
+            </button>
+            {% endif %}
+            <a class="navbar-brand" href="#"><img src="{{ base_url('img/logo.png') }}" style="width:40px; margin-top: -2px;"></a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                {% if webforms.isEmpty() == false %}
+                    <li>
+                        <a href="#webform" data-toggle="slidenav" data-target="#navmenu-webform" title="Webform">
+                            <i class="material-icons">keyboard</i>
+                        </a>
+                    </li>
+                {% endif %}
+                <li>
+                    <a href="#chat" data-toggle="slidenav" data-target="#navmenu-chat" title="Chat Messages">
+                        <i class="material-icons">forum</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="/b/{{ controller.model().dbRow().slug | default('wau') }}/logout" title="Logout">
+                        <i class="material-icons">exit_to_app</i>
+                    </a>
+                </li>
+            </ul>
+        </div><!-- /.nav-collapse -->
+    </div><!-- /.container -->
+</nav>
+
+<!-- container wrapper -->
+<div class="container">
+
+    <script type="text/javascript" src="{{ base_url('js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ base_url('js/jquery.countdown.min.js') }}"></script>
+
+    <div class="row" id="main-wrapper">
+
+        {% block body %}
+
+        {% endblock body %}
+
+    </div>
+
+
+    {#<script type="text/javascript" src="{{ base_url('js/jquery.min.js') }}"></script>#}
+    {#<script type="text/javascript" src="{{ base_url('js/material.min.js') }}"></script>#}
+    <script type="text/javascript" src="{{ base_url('js/material.js') }}"></script>
+    <script type="text/javascript" src="{{ base_url('js/ripples.js') }}"></script>
+    <script type="text/javascript" src="{{ base_url('js/slidenav.js') }}"></script>
+
+    {% include 'components/chat.twig' %}
+
+    <!-- Slide for webform -->
+    {% if webforms.isEmpty() == false %}
+        <div id="navmenu-webform" class="slidenav hide slideInRight" style="max-height:91%; padding-bottom: 20px!important;">
+            {{ webforms.toHtml() | raw }}
+        </div>
+    {% endif %}
+
+</div><!-- Main container -->
+
+<!-- Modal Success-->
+<div class="modal fade reloadModal" id="successModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title success">Success</h4>
+            </div>
+            <div class="modal-body">
+                <p class="success">Your modification is successful</p>
+                <p>For your changes to be fully effective, you need to refresh your page by closing this window, or wait for a few seconds and it will automatically refresh</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div><!-- Modal Error-->
+<div class="modal fade reloadModal" id="errorModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title error">Error</h4>
+            </div>
+            <div class="modal-body">
+                <p class="error">Errors encountered: <span></span></p>
+                <p>You need to refresh your page by closing this window, or wait for a few seconds and it will automatically refresh</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/noUiSlider/6.2.0/jquery.nouislider.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="{{ base_url('js/ie10-viewport-bug-workaround.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+<script src="{{ base_url('js/bootstrap-slider.min.js') }}"></script>
+<script src="{{ base_url('js/select2.full.js') }}"></script>
+<script src="{{ base_url('js/x-editable.ext.duration.js') }}"></script>
+<script src="{{ base_url('js/x-editable.ext.money.js') }}"></script>
+
+
+<script>
+    $(function () {
+        $.material.init();
+        if($(".shor").length > 0){
+            $(".shor").noUiSlider({
+                start: 40,
+                connect: "lower",
+                range: {
+                    min: 0,
+                    max: 100
+                }
+            });
+        }
+
+        if($(".svert").length > 0){
+            $(".svert").noUiSlider({
+                orientation: "vertical",
+                start: 40,
+                connect: "lower",
+                range: {
+                    min: 0,
+                    max: 100
+                }
+            });
+        }
+
+//        JS for incoming relations refreshes
+        $("#reloadReferences").click(function(){
+            $("#accordion").html("<div style='text-align: center;'>Reloading...</div>");
+            $.post('/ajax/referenceReload ',
+                    {
+                        item_id: {{ portal.item_id }},
+                        app_id: {{ portal.app_id }}
+                    },
+                    function(data){
+                $("#accordion").html(data.el);
+            }, 'json');
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).on('click', '.panel-heading span.icon_minim', function (e) {
+        var $this = $(this);
+        if (!$this.hasClass('panel-collapsed')) {
+            $this.parents('.panel').find('.panel-body').slideUp();
+            $this.addClass('panel-collapsed');
+            $this.removeClass('glyphicon-minus').addClass('glyphicon-plus');
+        } else {
+            $this.parents('.panel').find('.panel-body').slideDown();
+            $this.removeClass('panel-collapsed');
+            $this.removeClass('glyphicon-plus').addClass('glyphicon-minus');
+        }
+    });
+    $(document).on('focus', '.panel-footer input.chat_input', function (e) {
+        var $this = $(this);
+        if ($('#minim_chat_window').hasClass('panel-collapsed')) {
+            $this.parents('.panel').find('.panel-body').slideDown();
+            $('#minim_chat_window').removeClass('panel-collapsed');
+            $('#minim_chat_window').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+        }
+    });
+    $(document).on('click', '#new_chat', function (e) {
+        var size = $( ".chat-window:last-child" ).css("margin-left");
+        size_total = parseInt(size) + 400;
+        alert(size_total);
+        var clone = $( "#chat_window_1" ).clone().appendTo( ".container" );
+        clone.css("margin-left", size_total);
+    });
+</script>
+
+
+<!--Xeditable in plavce-->
+<script type="text/javascript">
+
+    var urlToPost = "/ajax/updatePortal?item_id={{ portal.item_id }}&app_id={{ portal.app_id }}&tz={{ tz }}";
+    function updateValue(value, names, $context) {
+
+//        console.log(value, names, $context);
+
+        var obj = {};
+        obj[names] = value;
+        // send item params
+        obj['pk'] = parseInt($context.data('pk'));
+
+        if(typeof value == 'object' && value.length == 0){
+            obj['isEmpty'] = 1;
+            obj['name'] = names;
+            obj['value'] = "";
+        }
+        var request = $.ajax({
+            url: urlToPost,
+            type: "post",
+            data: obj
+        });
+
+        // Callback handler that will be called on success
+        request.done(function (response, textStatus, jqXHR) {
+            // Log a message to the console
+            //console.log("Hooray, it worked!");
+        });
+
+        // Callback handler that will be called on failure
+        request.fail(function (jqXHR, textStatus, errorThrown) {
+            // Log the error to the console
+            console.error("The following error occurred: " + textStatus, errorThrown);
+        });
+    }
+
+    /*This is the block for tinyMCE editor that replace seditable textareas*/
+
+    tinymce.init({
+        selector:'.tinyMCEditables',
+        menubar:'',
+        plugins:'save, link',
+        toolbar:'bold, italic, underline, formatselect, bullist, numlist, blockquote,link , save',
+        save_onsavecallback: function () {
+
+            //set the datas
+            var obj = {};
+            var originalTextarea = tinyMCE.activeEditor.getElement();
+            var names = originalTextarea.getAttribute("data-name");
+
+            obj[names] = tinyMCE.activeEditor.getContent();
+
+            //set up the request and launch it
+            var request = $.ajax({
+                url: urlToPost,
+                type: "post",
+                data: obj
+            });
+
+            // Callback handler that will be called on success
+            request.done(function (response, textStatus, jqXHR) {
+                // Log a message to the console
+                //console.log("Hooray, it worked!");
+            });
+
+            // Callback handler that will be called on failure
+            request.fail(function (jqXHR, textStatus, errorThrown) {
+                // Log the error to the console
+                console.error("The following error occurred: " + textStatus, errorThrown);
+            });
+        }
+    });
+    /*===================================*/
+
+    $(document).ready(function () {
+        $('table','table.table.table-striped').each(function(index, el){
+            $(el).addClass('table').addClass('table-striped');
+        });
+
+        $.fn.editable.defaults.mode = 'inline';
+        var successCallbackForEditable = function(response, newValue){
+            if(!response.success) {
+                $(".reloadModal .error span").html(response.error);
+                $("#errorModal").modal("show");
+                setTimeout(function(){
+                    $('#errorModal').modal("hide");
+                }, 10000);
+            } else {
+                if(response.need_refresh)
+                {
+                    $("#successModal").modal("show");
+                    setTimeout(function(){
+                        $('#successModal').modal("hide");
+                    }, 10000);
+                }
+            }
+        };
+        $('.mk-editable').editable({
+            url: urlToPost,
+            success: successCallbackForEditable
+        });
+
+        /*
+         //category field, multiple value allowed
+         $('.cat-n-editable').editable({
+         url: urlToPost,
+         type:'checkbox-material',
+         success: successCallbackForEditable
+         });
+
+         //category field, multiple value allowed
+         $('.cat-1-editable').editable({
+         url: urlToPost,
+         type:'radio-material',
+         success: successCallbackForEditable
+         });
+
+         $('.editable-radio-group input').on('change', function(e){
+         updateValue(
+         $(this).attr('value'),
+         $(this).attr('name'),
+         $(this)
+         );
+         });
+         */
+
+        $('.editable-checkbox-group').on('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+
+            var $group = $(this).parent();
+            if($group.data('multiple') == 0){
+                var isActive = $(this).hasClass('active');
+                console.info('cannot handle multiple choices', this);
+                $group.children().removeClass('active');
+                $group.children().find('input').removeAttr('checked');
+                if(!isActive){
+                    $(this).addClass('active');
+                    $(this).find('input').prop('checked', '');
+                }
+            } else {
+                $(this).button('toggle');
+            }
+
+            var value = [];
+            $(this).parent().children().filter('.active').each(function(i, item){
+                value.push(parseInt($(item).find('input').attr('value')));
+            });
+            var name = $(this).find('input').attr('name');
+            name = name.replace(/[\[\]]+/, "");
+            updateValue(value, name, $(this).find('input'));
+        });
+
+        $('.mk-date-editable').editable({
+            url: urlToPost,
+            mode: 'popup',
+            success: function(response, newValue) {
+//                console.log(response);
+//                return;
+                if(!response.success) {
+                    $(".reloadModal .error span").html(response.error);
+                    $("#errorModal").modal("show");
+                    setTimeout(function(){
+                        $('#errorModal').modal("hide");
+                    }, 10000);
+                }
+                else {
+                    if(response.need_refresh)
+                    {
+                        $("#successModal").modal("show");
+                        setTimeout(function(){
+                            $('#successModal').modal("hide");
+                        }, 10000);
+                    }
+                }
+            }
+        });
+
+        $('.mk-duration-editable, .mk-money-editable').editable({
+            url: urlToPost,
+            //mode:'popup',
+            display: function(value) {
+                if(typeof value == 'function'){
+                    value = value.apply(this);
+                }
+                if(!value) {
+                    $(this).empty();
+                    return;
+                }
+                $(this).html(value.formatted);
+            }
+        });
+
+        $(".reloadModal").on('hide.bs.modal', function (event){
+            location.reload();
+        });
+
+        //Handle modal for relationship field texts
+        $('#relationship_modal').on('show.bs.modal', function(event){
+
+            var linkTrigger = $(event.relatedTarget);
+            var wholetext = linkTrigger.data('wholetext');
+            var title = linkTrigger.data('modaltitle');
+
+            //put it in the modal opened
+            var modal = $(this);
+            modal.find('.modal-body').html(wholetext);
+            $('#relationship_modal_id').html(title);
+        });
+
+        promotionHandler = function (response) {
+            $( '.promotion-container' ).empty();
+            $('.promotion-container').append(response.body);
+        };
+
+        // contact list and editable with select2
+        $.ajax("/ajax/contactlist", {
+            type:'post',
+            dataType:'json',
+            data:{
+                "item_id" : '{{ portal.item_id }}',
+                "app_id" : '{{ portal.app_id }}'
+            },
+            success:function(data, status){
+                console.log(data.Object);
+                $('.mk-contact-editable').editable({
+                    source: data.Object,
+                    url: urlToPost,
+                    type: 'select2',
+                    select2: {
+                        cacheDataSource: true,
+                        multiple: true,
+                        tags: true,
+                        width: '270px',
+                        data:data.Object,
+                        id: function (item) {
+                            return item.id;
+                        },
+                        templateResult: function(state){
+                            return $(
+                                    "<span style=\"display: block; line-height: 1.3em; font-size: 95%\">" +
+                                    "<img style=\"width:32px; float:left; margin-top:2px; margin-right: 4px;\" src=\"" + state.image + "\" class=\"img\" />" +
+                                    "<b>" + state.text + "</b>" +
+                                    "<br/>" + state.title +
+                                    "</span>"
+                            );
+                        },
+                        initSelection: function (item, callback) {
+                            var id = item.val();
+                            var text = element.text();
+                            var data = { id: id, text: text };
+                            callback(data);
+                        }
+                    },
+                    //Displaying value after update
+                    display:function(value, sourceData){
+                        if(typeof value == 'object' || value == 0 || typeof value == 'number')
+                            return;
+
+                        var values = value.toString().split(',');
+                        value = [];
+                        $.each(values, function(i, id){
+                            $.each(data.Object, function(j, item){
+                                if(id == item.id)
+                                    value.push(item.text);
+                            });
+                        });
+
+                        $(this).html(value.join(', '));
+                    }
+                });
+            }
+        });
+
+        var myCustomTemplates = {
+            custom1: function (context) {
+                return "<li>" +
+                        "<a class='btn btn-sm btn-primary' data-wysihtml5-command='saving'>Save</a>" +
+                        "</li>";
+            }
+        };
+
+        var renderFilesEntries = function(){
+            var datas = {{  files|raw }};
+
+            //update the html
+            datas.forEach(function(data){
+                var lineNumber = $("#filesTable > tbody > tr").length + 1;
+                var link = '/assets/{{ portal.item_id }}/' + data;
+                var downloadLink = "<a href='"+link+"' download><i class=\"glyphicon glyphicon-download\"></i></a>";
+                $("#filesTable > tbody").append("<tr><td>"+lineNumber+"</td><td>"+data+"</td><td>"+downloadLink+"</td></tr>");
+            });
+        };
+        renderFilesEntries();
+
+        $(':file').change(function(){
+            if(!$('#uploadAFile')[0].files[0])
+                return;
+            //upload the file with ajax
+            var file = $('#uploadAFile')[0].files[0]; //Files[0] = 1st file
+
+            var reader = new FileReader();
+            var f = reader.readAsDataURL(file);
+            reader.onload = shipOff;
+        });
+
+        function shipOff(event) {
+            var result = event.target.result;
+            var fileName = $('#uploadAFile')[0].files[0].name; //Should be 'picture.jpg'
+            $.post('/ajax/sendFile',
+                    {
+                        data: result,
+                        name: fileName,
+                        item_id: {{ portal.item_id }} ,
+                        app_id: {{ portal.app_id }}
+                    },
+                    function(data){
+                if(data.success){
+                    var lineNumber = $("#filesTable > tbody > tr").length + 1;
+                    var downloadLink = "<a href='/assets/{{ portal.item_id }}/" + fileName + "' download><i class=\"glyphicon glyphicon-download\"></i></a>";
+                    $("#filesTable > tbody").append("<tr><td>"+lineNumber+"</td><td>"+fileName+"</td><td>"+downloadLink+"</td></tr>");
+                    $("#alertSuccessFileTransfer").fadeIn();
+                    setTimeout(function() { $("#alertSuccessFileTransfer").fadeOut(); }, 5000);
+                } else {
+                    $("#alertFailedFileTransfer").fadeIn();
+                    setTimeout(function() { $("#alertFailedFileTransfer").fadeOut(); }, 5000);
+                }
+                $(':file').val("");
+            }, "json");
+        }
+
+        $('.bs-slider').each(function(i, item){
+            var slider = $(item).css({
+                'width' : '100%'
+            }).slider({
+                tooltip : 'always',
+                tooltip_position:'bottom',
+                formatter:function(value){
+                    return value + '%';
+                }
+            });
+
+            if(slider.hasClass('editable')){
+                slider.on('slideStop', function(e){
+                    updateValue(e.value, slider.data('name'), slider);
+                })
+            } else {
+                slider.slider('disable');
+            }
+        });
+    });
+</script>
+
+{% if images.isEmpty() == false %}
+    <script src="/lib/vendor/bootstrap-fileinput/js/fileinput.min.js"></script>
+
+    <script type="text/javascript">
+        var imgConf = {{ images.toJson() | raw }};
+        var deleteUrl = "/ajax/updatePortal?item_id={{ portal.item_id }}&app_id={{ portal.app_id }}&tz={{ tz }}&action=delete";
+        $(document).on("ready", function(){
+            $.each(imgConf, function(id, preImages){
+
+                var initialPreview = [];
+                var initialPreviewConfig = [];
+                $.each(preImages, function(idx, image){
+                    initialPreview.push(image.url);
+                    initialPreviewConfig.push({
+                        key : image.key,
+                        url : deleteUrl,
+                        extra : {
+                            name : id
+                        }
+                    });
+                });
+                $("#" + id).fileinput({
+                    initialPreview: initialPreview,
+                    initialPreviewAsData: true,
+                    initialPreviewConfig: initialPreviewConfig,
+                    layoutTemplates:{
+                        actionDrag:""
+                    },
+                    uploadUrl : "/ajax/updatePortal?item_id={{ portal.item_id }}&app_id={{ portal.app_id }}&tz={{ tz }}&action=upload",
+                    overwriteInitial: false,
+                    maxFileCount : 1,
+                    uploadExtraData : {
+                        base_url : "{{ base_url() }}",
+                        delete_url : deleteUrl
+                    }
+                });
+            });
+        });
+    </script>
+
+{% endif %}
+
+{% if gmaps.isEmpty() == false %}
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSy0-MklN_AMsRKI5OzmSSxKBSbyKJD-Y&libraries=places&callback=initMap"></script>
+
+    <script type="text/javascript">
+        var mapConf = {{ gmaps.toJson() | raw }};
+
+        function buildMap(div, address){
+            var map = new google.maps.Map(div, {
+                center: address.location,
+                zoom: 15
+            });
+
+            var marker = new google.maps.Marker({
+                position: address.location,
+                map: map,
+                anchorPoint: new google.maps.Point(0, -29),
+                title:address.text
+            });
+
+            if($(div).hasClass('editable')){
+                // implement autocomplete input attached to the map
+                var input = document.getElementById($(div).data('inputControler'));
+
+                map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+                var autocomplete = new google.maps.places.Autocomplete(input);
+                autocomplete.bindTo('bounds', map);
+
+                autocomplete.addListener('place_changed', function() {
+                    marker.setVisible(false);
+                    var place = autocomplete.getPlace();
+                    if (!place.geometry) {
+                        console.error("[ERROR] Autocomplete's returned place contains no geometry");
+                        $(input).val("Autocomplete's returned place contains no geometry!");
+                        setInterval(function(){
+                            $(input).val("");
+                        }, 2000);
+
+                        return;
+                    }
+
+                    map.setZoom(16);
+
+                    // If the place has a geometry, then present it on a map.
+                    map.setCenter(place.geometry.location);
+
+                    marker.setPosition(place.geometry.location);
+                    marker.setVisible(true);
+
+                    // data to send
+                    var data = $.extend($(input).data(), {
+                        lat : place.geometry.location.lat(),
+                        lng : place.geometry.location.lng(),
+                        formatted : place.formatted_address
+                    });
+                    updateValue(data, data.name, $(input));
+                });
+            }
+
+            $(div).siblings().filter('.form-group').remove();
+            return [map, marker];
+        }
+
+        function initMap(){
+            $.each(mapConf, function(id, address){
+                console.info(id, address);
+                var canvas = document.getElementById(id);
+                var $canvas = $(canvas);
+
+                if ($canvas.data('isnull') == 1) {
+                    //console.warn("[Portal.Warning] No location geometry given. Set a random position");
+                    console.warn("[Portal.Warning] No location geometry given. Trying to localize your current position");
+                    if (navigator.geolocation && window.location.href.match(/https/)) {
+                        navigator.geolocation.getCurrentPosition(function(location) {
+                            console.log(location);
+                            buildMap(canvas, {
+                                'text':'Current location',
+                                'location':{
+                                    lat:location.coords.latitude,
+                                    lng:location.coords.longitude
+                                }
+                            });
+                        });
+                    } else {
+                        // random position
+                        buildMap(canvas, {
+                            'text':'Current location',
+                            'location':{
+                                lat : Math.random() * 45,
+                                lng : Math.random() * 45
+                            }
+                        });
+                        console.warn("[Portal.Warning] Geolocation is not supported by your browser, Get random position as default");
+                    }
+                } else {
+                    buildMap(canvas, address);
+                }
+            });
+        }
+
+
+    </script>
+{% endif %}
+
+
+{% block scripts %}
+    <script src="/js/template_sales.js"></script>
+    <script src="/js/bootstrap-validator.js"></script>
+{% endblock scripts %}
+
+</body></html>
