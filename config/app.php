@@ -3,7 +3,7 @@
 return [
     
     //Required
-    'baseUrl'     => env('APP_BASEURL', 'http://localhost'),
+    'baseUrl'     => env('APP_BASEURL', 'http://quota.wau.travel'),
     
     //Basic
     'debug'       => (Boolean)env('APP_DEBUG', false),

@@ -1,37 +1,6 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Start Bootstrap</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">About</a>
-                    </li>
-                    <li>
-                        <a href="#">Services</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
 
     <!-- Page Content -->
     <div class="container">
@@ -42,56 +11,147 @@
             <div class="col-md-8">
 
                 <h1 class="page-header">
-                    Page Heading
-                    <small>Secondary Text</small>
+                    Quota hotels
                 </h1>
 
                 <!-- First Blog Post -->
-                <h2>
-                    <a href="#">Blog Post Title</a>
-                </h2>
                 <p class="lead">
-                    by <a href="index.php">Start Bootstrap</a>
+                    <a class="based_on" href="">Based on Single room</a>
                 </p>
-                <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:00 PM</p>
-                <hr>
-                <img class="img-responsive" src="http://placehold.it/900x300" alt="">
-                <hr>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis ipsum officiis rerum.</p>
-                <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <div class="calculation_quota">
+                    <table class="flat-table">
+
+                        <tbody>
+                            <tr>
+                                <th>Designation</th>
+                                <th class="td_amount">Amount Ar</th>
+                                <th class="td_amount">Amount Euro</th>
+                            </tr>
+                            <tr>
+                                <td>Single to</td>
+                                <td class="td_amount">12000</td>
+                                <td class="td_amount">15000</td>
+                            </tr>
+                            <tr>
+                                <td>Breakfast</td>
+                                <td class="td_amount">12000</td>
+                                <td class="td_amount">15000</td>
+                            </tr>
+                            <tr>
+                                <td>Dinner</td>
+                                <td class="td_amount">12000</td>
+                                <td class="td_amount">15000</td>
+                            </tr>
+                            <tr>
+                                <td>Lunch</td>
+                                <td class="td_amount">12000</td>
+                                <td class="td_amount">15000</td>
+                            </tr>
+                            <tr>
+                                <td>Vignette</td>
+                                <td class="td_amount">12000</td>
+                                <td class="td_amount">15000</td>
+                            </tr>
+                            <tr>
+                                <td>Various tax</td>
+                                <td class="td_amount">12000</td>
+                                <td class="td_amount">15000</td>
+                            </tr>
+                            <tr class="tr_total">
+                                <td>Total per pax</td>
+                                <td class="td_amount">12000</td>
+                                <td class="td_amount">15000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="detail" id="only">
+                    <div class="detail_head">Detail<span class="glyphicon glyphicon-menu-down"></span></div>
+
+                    <div class="detail_body">
+                        <div class="detail_hr"></div>
+                        <div class="detail_body_elements">
+
+                            blabla<br/>
+                            bleble<br/>
+                            blibli<br/>
+                            bloblo<br/>
+                            blublu
+
+                        </div>
+                    </div>
+                </div>
+
 
                 <hr>
-
-                <!-- Second Blog Post -->
-                <h2>
-                    <a href="#">Blog Post Title</a>
-                </h2>
+                <!-- twice Blog Post -->
                 <p class="lead">
-                    by <a href="index.php">Start Bootstrap</a>
+                    <a class="based_on" href="">Based on Double room</a>
                 </p>
-                <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:45 PM</p>
-                <hr>
-                <img class="img-responsive" src="http://placehold.it/900x300" alt="">
-                <hr>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam, quasi, fugiat, asperiores harum voluptatum tenetur a possimus nesciunt quod accusamus saepe tempora ipsam distinctio minima dolorum perferendis labore impedit voluptates!</p>
-                <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <div class="calculation_quota">
+                    <table class="flat-table">
 
-                <hr>
+                        <tbody>
+                        <tr>
+                            <th>Designation</th>
+                            <th class="td_amount">Amount Ar</th>
+                            <th class="td_amount">Amount Euro</th>
+                        </tr>
+                        <tr>
+                            <td>Double to</td>
+                            <td class="td_amount">12000</td>
+                            <td class="td_amount">15000</td>
+                        </tr>
+                        <tr>
+                            <td>Breakfast</td>
+                            <td class="td_amount">12000</td>
+                            <td class="td_amount">15000</td>
+                        </tr>
+                        <tr>
+                            <td>Dinner</td>
+                            <td class="td_amount">12000</td>
+                            <td class="td_amount">15000</td>
+                        </tr>
+                        <tr>
+                            <td>Lunch</td>
+                            <td class="td_amount">12000</td>
+                            <td class="td_amount">15000</td>
+                        </tr>
+                        <tr>
+                            <td>Vignette</td>
+                            <td class="td_amount">12000</td>
+                            <td class="td_amount">15000</td>
+                        </tr>
+                        <tr>
+                            <td>Various tax</td>
+                            <td class="td_amount">12000</td>
+                            <td class="td_amount">15000</td>
+                        </tr>
+                        <tr class="tr_total">
+                            <td>Total per pax</td>
+                            <td class="td_amount">12000</td>
+                            <td class="td_amount">15000</td>
+                        </tr>
+                        </tbody>
+                    </table>
 
-                <!-- Third Blog Post -->
-                <h2>
-                    <a href="#">Blog Post Title</a>
-                </h2>
-                <p class="lead">
-                    by <a href="index.php">Start Bootstrap</a>
-                </p>
-                <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:45 PM</p>
-                <hr>
-                <img class="img-responsive" src="http://placehold.it/900x300" alt="">
-                <hr>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, voluptates, voluptas dolore ipsam cumque quam veniam accusantium laudantium adipisci architecto itaque dicta aperiam maiores provident id incidunt autem. Magni, ratione.</p>
-                <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                </div>
+                <div class="detail" id="double">
+                    <div class="detail_head">Detail<span class="glyphicon glyphicon-menu-down"></span></div>
 
+                    <div class="detail_body">
+                        <div class="detail_hr"></div>
+                        <div class="detail_body_elements">
+
+                            blabla<br/>
+                            bleble<br/>
+                            blibli<br/>
+                            bloblo<br/>
+                            blublu
+
+                        </div>
+                    </div>
+                </div>
                 <hr>
 
                 <!-- Pager -->
@@ -169,17 +229,6 @@
         <!-- /.row -->
 
         <hr>
-
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-        </footer>
 
     </div>
     <!-- /.container -->
