@@ -6,6 +6,8 @@
 
 
     <title>{{ controller.model().dbRow().name | default("Unamed Portal") }}</title>
+    <meta property="og:title" content="{{ controller.model().dbRow().name | default("Unamed Portal") }}" />
+    <link rel="icon" type="image/png" href="{% if settings.values.favicon %}{{ base_url('assets/' ~ settings.app_id) ~ '/' ~ settings.values.favicon }}{% else %}{{ base_url('img/logo_smal.png') }}{% endif %}">
 
     <!-- Material Design fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
@@ -17,11 +19,6 @@
     <!-- Bootstrap Material Design -->
     <link href="{{ base_url('css/bootstrap-material-design.css') }}" rel="stylesheet">
     <link href="{{ base_url('css/ripples.min.css') }}" rel="stylesheet">
-
-    <!-- Slider-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/4.10.0/css/bootstrap-slider.min.css" />
-    <link rel="stylesheet" href="/css/template_sales.css" >
-    <link rel="stylesheet" href="/css/bootstrap-validator.css" >
 
     <link href="{{ base_url('css/standard.css') }}" rel="stylesheet">
     <link href="{{ base_url('css/chat.css') }}" rel="stylesheet">
@@ -39,6 +36,7 @@
     <link href="{{ base_url('css/select2.min.css') }}" rel="stylesheet">
     <link href="{{ base_url('css/select2-bootstrap.css') }}" rel="stylesheet">
     <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+
 </head>
 <body class="b-standard">
 
@@ -49,15 +47,22 @@
             <button onclick="window.location='/b/{{ controller.model().dbRow().slug | default('wau') }}/logout'" type="button" class="navbar-toggle collapsed" aria-expanded="false" aria-controls="navbar">
                 <i class="material-icons">exit_to_app</i>
             </button>
+            {% if settings.values.chat %}
             <button type="button" class="navbar-toggle collapsed" aria-expanded="false" aria-controls="navbar" data-toggle="slidenav" data-target="#navmenu-chat">
                 <i class="material-icons">forum</i>
             </button>
+            {% endif %}
             {% if webforms.isEmpty() == false %}
             <button type="button" class="navbar-toggle collapsed" aria-expanded="false" aria-controls="navbar" data-toggle="slidenav" data-target="#navmenu-webform">
                 <i class="material-icons">keyboard</i>
             </button>
             {% endif %}
-            <a class="navbar-brand" href="#"><img src="{{ base_url('img/logo.png') }}" style="width:40px; margin-top: -2px;"></a>
+
+            {% if settings.values.logo %}
+                <a class="navbar-brand" href="#"><img src="{{ base_url('assets/' ~ settings.app_id) ~ '/' ~ settings.values.logo }}" style="height:40px; margin-top: -5px;"></a>
+            {% else %}
+                <a class="navbar-brand" href="#"><img src="{{ base_url('img/index.png') }}" style="height:40px; margin-top: -5px;"></a>
+            {% endif %}
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -68,11 +73,13 @@
                         </a>
                     </li>
                 {% endif %}
+                {% if settings.values.chat %}
                 <li>
                     <a href="#chat" data-toggle="slidenav" data-target="#navmenu-chat" title="Chat Messages">
                         <i class="material-icons">forum</i>
                     </a>
                 </li>
+                {% endif %}
                 <li>
                     <a href="/b/{{ controller.model().dbRow().slug | default('wau') }}/logout" title="Logout">
                         <i class="material-icons">exit_to_app</i>
@@ -97,14 +104,13 @@
 
     </div>
 
-
-    {#<script type="text/javascript" src="{{ base_url('js/jquery.min.js') }}"></script>#}
-    {#<script type="text/javascript" src="{{ base_url('js/material.min.js') }}"></script>#}
     <script type="text/javascript" src="{{ base_url('js/material.js') }}"></script>
     <script type="text/javascript" src="{{ base_url('js/ripples.js') }}"></script>
     <script type="text/javascript" src="{{ base_url('js/slidenav.js') }}"></script>
 
-    {% include 'components/chat.twig' %}
+    {% if settings.values.chat %}
+        {% include 'components/chat.twig' %}
+    {% endif %}
 
     <!-- Slide for webform -->
     {% if webforms.isEmpty() == false %}
@@ -156,6 +162,9 @@
 
     </div>
 </div>
+<div>
+
+</div>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/noUiSlider/6.2.0/jquery.nouislider.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
@@ -168,7 +177,6 @@
 <script src="{{ base_url('js/select2.full.js') }}"></script>
 <script src="{{ base_url('js/x-editable.ext.duration.js') }}"></script>
 <script src="{{ base_url('js/x-editable.ext.money.js') }}"></script>
-
 
 <script>
     $(function () {
@@ -202,7 +210,8 @@
             $.post('/ajax/referenceReload ',
                     {
                         item_id: {{ portal.item_id }},
-                        app_id: {{ portal.app_id }}
+                        app_id: {{ portal.app_id }},
+                        slug: '{{ slug }}'
                     },
                     function(data){
                 $("#accordion").html(data.el);
@@ -468,7 +477,7 @@
                 "app_id" : '{{ portal.app_id }}'
             },
             success:function(data, status){
-                console.log(data.Object);
+//                console.log(data.Object);
                 $('.mk-contact-editable').editable({
                     source: data.Object,
                     url: urlToPost,
@@ -527,14 +536,16 @@
         };
 
         var renderFilesEntries = function(){
-            var datas = {{  files|raw }};
-
+            var datas = {{ files | raw}};
             //update the html
             datas.forEach(function(data){
+                var file_id = Object.keys(data);
+                var file_name = data[file_id];
                 var lineNumber = $("#filesTable > tbody > tr").length + 1;
-                var link = '/assets/{{ portal.item_id }}/' + data;
+                var link = '/assets/{{ portal.item_id }}/' + file_name ;
                 var downloadLink = "<a href='"+link+"' download><i class=\"glyphicon glyphicon-download\"></i></a>";
-                $("#filesTable > tbody").append("<tr><td>"+lineNumber+"</td><td>"+data+"</td><td>"+downloadLink+"</td></tr>");
+                var deleteLink = "<a><i data-id="+file_id+" class=\"glyphicon glyphicon-remove deleterow\"></i></a>";
+                $("#filesTable > tbody").append("<tr><td>"+lineNumber+"</td><td>"+file_name+"</td><td>"+downloadLink+"</td><td>"+deleteLink+"</td></tr>");
             });
         };
         renderFilesEntries();
@@ -562,9 +573,12 @@
                     },
                     function(data){
                 if(data.success){
+                    var file_id = data['file_id'];
                     var lineNumber = $("#filesTable > tbody > tr").length + 1;
-                    var downloadLink = "<a href='/assets/{{ portal.item_id }}/" + fileName + "' download><i class=\"glyphicon glyphicon-download\"></i></a>";
-                    $("#filesTable > tbody").append("<tr><td>"+lineNumber+"</td><td>"+fileName+"</td><td>"+downloadLink+"</td></tr>");
+                    var link = '/assets/{{ portal.item_id }}/' + fileName ;
+                    var downloadLink = "<a href='"+link+"' download><i class=\"glyphicon glyphicon-download\"></i></a>";
+                    var deleteLink = "<a><i id=\"deleterow\" data-id="+file_id+" class=\"glyphicon glyphicon-remove\"></i></a>";
+                    $("#filesTable > tbody").append("<tr><td>"+lineNumber+"</td><td>"+fileName+"</td><td>"+downloadLink+"</td><td>"+deleteLink+"</td></tr>");
                     $("#alertSuccessFileTransfer").fadeIn();
                     setTimeout(function() { $("#alertSuccessFileTransfer").fadeOut(); }, 5000);
                 } else {
@@ -594,7 +608,21 @@
                 slider.slider('disable');
             }
         });
+        $('.deleterow').each(function(i, item){
+            $(item).on('click' , function(e){
+                $.post('/ajax/deleteFile',
+                        {
+                            file_id: $(item).data('id'),
+                            success: function () {
+                                $("#filesTable").on('click', '.deleterow', function () {
+                                    $(this).closest('tr').remove();
+                                });
+                            }
+                        },"json");
+            } )
+        })
     });
+
 </script>
 
 {% if images.isEmpty() == false %}
@@ -743,10 +771,51 @@
     </script>
 {% endif %}
 
+{#{% if slug == 'wau' %}#}
+    {#<script type="text/javascript">#}
+        {#$(document).ready(function() {#}
+            {#$('.settings-handle').on('click', function (e) {#}
+                {#e.preventDefault();#}
 
-{% block scripts %}
-    <script src="/js/template_sales.js"></script>
-    <script src="/js/bootstrap-validator.js"></script>
-{% endblock scripts %}
+                {#var item_id = $(this).data('item_id');#}
+
+                {#$('#settings_modal').modal('show');#}
+
+
+            {#});#}
+
+            {#var ajaxRetrieveRefSettings = function (item_id, modal) {#}
+                {#$.post('/ajax/loadReferenceSettings',#}
+                        {#{#}
+                            {#item_id: item_id#}
+                        {#},#}
+                        {#function (data) {#}
+                            {#if (data.success) {#}
+                                {#var settings = data.settings;#}
+                                {#modalBody = modal.find('.modal-body');#}
+                                {#$('#app_id').val(settings.app_id);#}
+                            {#} else {#}
+{#//                                    $("#alertFailedFileTransfer").fadeIn();#}
+{#//                                    setTimeout(function() { $("#alertFailedFileTransfer").fadeOut(); }, 5000);#}
+                            {#}#}
+                            {#//                            $(':file').val("");#}
+                        {#}, "json");#}
+            {#};#}
+
+            {#//Handle modal for relationship field texts#}
+            {#$('#settings_modal').on('show.bs.modal', function (event) {#}
+
+                {#var linkTrigger = $(event.relatedTarget);#}
+                {#var item_id = linkTrigger.data('item_id');#}
+
+                {#//put it in the modal opened#}
+                {#var modal = $(this);#}
+                {#ajaxRetrieveRefSettings(item_id, modal);#}
+            {#});#}
+        {#});#}
+    {#</script>#}
+{#{% endif %}#}
+
+
 
 </body></html>
