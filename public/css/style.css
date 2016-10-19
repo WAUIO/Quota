@@ -1,13 +1,88 @@
-/*!
- * Start Bootstrap - Blog Home (http://startbootstrap.com/)
- * Copyright 2013-2016 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
- */
+#title{
+    font-weight: bold ;
+}
+body{
+    font-family: "Open Sans", sans-serif;
+}
+h1 {
+    text-align: center;
+}
+h4 {
+    margin-top: 5%;
+    margin-bottom: 15%;
+    text-align: center;
+}
+h3 {
+    text-align: left;
+}
+.column-name {
+    cursor: pointer;
 
-body {
-    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+.workspace-table .cell-action {
+    width: 10%;
+}
+.workspace-table {
+    width: 60%;
+    padding: 1px 6px;
+
+}
+.ak-top-title {
+     color: #5092bd ;
+     margin-bottom: 50px;
+ }
+.ak-title {
+    color: #5092bd ;
+    margin-bottom: 15px;
+}
+.bg-color-base{
+    background-color: #5092bd;
+}
+.container-fluid{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.navbar-default .navbar-brand {
+    color: #ffffff;
+}
+.navbar-default .navbar-nav > li > a {
+     color: #ffffff;
+ }
+.ak-border-form {
+    border: 2px solid #deebed;
+    border-radius: 2px;
+    padding: 24px 12px;
+  /*  height: 145px;*/
+  /*  margin-bottom: 50px;*/
+}
+.table-responsive {
+    margin-top: 40px;
+}
+.bg-color-danger {
+    background-color: #d9534f;
 }
 
-footer {
-    margin: 50px 0;
+
+.form-control{
+    margin-left: auto;
+    margin-right: auto;
 }
+
+.button {
+    width:300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#message{
+    display: none;
+}
+
+.form_hook input ,select {
+}
+
+.fil-de-fer{
+
+    margin-left: auto;
+    margin-right: auto;
+}
+

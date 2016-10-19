@@ -4,9 +4,12 @@ Gemfile.lock
 _site
 .idea
 vendor
-
+project.dev_error_log*
 .env
 composer.lock
+
+public/hook.wau-error_log
+public/hook.wau-access_log
 
 storages/*/*
 !storages/*/*/.gitkeep
@@ -14,3 +17,6 @@ storages/*/*
 
 config/develop/*
 config/local/*
+config/dev/podio.php
+composer.phar
+
