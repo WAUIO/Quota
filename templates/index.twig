@@ -11,147 +11,73 @@
             <div class="col-md-8">
 
                 <h1 class="page-header">
-                    Quota hotels
+                    Hotel room quota
                 </h1>
-
-                <!-- First Blog Post -->
-                <p class="lead">
-                    <a class="based_on" href="">Based on Single room</a>
-                </p>
-                <div class="calculation_quota">
-                    <table class="flat-table">
-
-                        <tbody>
+                {% for base in base_rooms %}
+                    <p class="base_title">Based on {{ base.type }}</p>
+                    <div class="calculation_quota">
+                        <table class="flat-table">
+                            <tbody>
                             <tr>
-                                <th>Designation</th>
-                                <th class="td_amount">Amount Ar</th>
-                                <th class="td_amount">Amount Euro</th>
+                                <th class="td_designation">DESIGNATION</th>
+                                <th class="td_amount">ARIARY</th>
+                                <th class="td_amount">EURO</th>
                             </tr>
-                            <tr>
-                                <td>Single to</td>
-                                <td class="td_amount">12000</td>
-                                <td class="td_amount">15000</td>
-                            </tr>
-                            <tr>
-                                <td>Breakfast</td>
-                                <td class="td_amount">12000</td>
-                                <td class="td_amount">15000</td>
-                            </tr>
-                            <tr>
-                                <td>Dinner</td>
-                                <td class="td_amount">12000</td>
-                                <td class="td_amount">15000</td>
-                            </tr>
-                            <tr>
-                                <td>Lunch</td>
-                                <td class="td_amount">12000</td>
-                                <td class="td_amount">15000</td>
-                            </tr>
-                            <tr>
-                                <td>Vignette</td>
-                                <td class="td_amount">12000</td>
-                                <td class="td_amount">15000</td>
-                            </tr>
-                            <tr>
-                                <td>Various tax</td>
-                                <td class="td_amount">12000</td>
-                                <td class="td_amount">15000</td>
-                            </tr>
+                            {% for content in base.content %}
+                                <tr>
+                                    <td>
+                                        <span
+                                            {% if(content[0]in ['Single room','Double room','Triple room','Family room','']) %}
+                                                class="glyphicon glyphicon-bed"
+                                            {% elseif(content[0]) in ['Breakfast','Dinner','Lunch'] %}
+                                                class="glyphicon glyphicon-cutlery"
+                                            {% else %}
+                                                class="glyphicon glyphicon-usd"
+                                            {% endif %}
+                                            >
+                                        </span>
+                                        <span class="designation_element">
+                                            {{ content[0] }}
+                                        </span>
+                                    </td>
+                                    <td class="td_amount">{{ content[1] }}</td>
+                                    <td class="td_amount">{{ content[2] }}</td>
+                                </tr>
+                            {% endfor %}
                             <tr class="tr_total">
-                                <td>Total per pax</td>
-                                <td class="td_amount">12000</td>
-                                <td class="td_amount">15000</td>
+                                <td>
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                    <span class="designation_total">
+                                        {{ base.total[0] }}
+                                    </span>
+                                </td>
+                                <td class="td_amount">{{ base.total[1] }}</td>
+                                <td class="td_amount">{{ base.total[2] }}</td>
                             </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="detail" id="only">
-                    <div class="detail_head">Detail<span class="glyphicon glyphicon-menu-down"></span></div>
+                            </tbody>
+                        </table>
+                    </div>
 
-                    <div class="detail_body">
-                        <div class="detail_hr"></div>
-                        <div class="detail_body_elements">
+                    <div class="detail" id="only">
+                        <div class="detail_head">Details<span class="glyphicon glyphicon-menu-down"></span></div>
 
-                            blabla<br/>
-                            bleble<br/>
-                            blibli<br/>
-                            bloblo<br/>
-                            blublu
+                        <div class="detail_body">
+                            <div class="detail_hr"></div>
+                            <div class="detail_body_elements">
 
+                                blabla<br/>
+                                bleble<br/>
+                                blibli<br/>
+                                bloblo<br/>
+                                blublu
+
+                            </div>
                         </div>
                     </div>
-                </div>
 
+                    <hr>
+                {% endfor %}
 
-                <hr>
-                <!-- twice Blog Post -->
-                <p class="lead">
-                    <a class="based_on" href="">Based on Double room</a>
-                </p>
-                <div class="calculation_quota">
-                    <table class="flat-table">
-
-                        <tbody>
-                        <tr>
-                            <th>Designation</th>
-                            <th class="td_amount">Amount Ar</th>
-                            <th class="td_amount">Amount Euro</th>
-                        </tr>
-                        <tr>
-                            <td>Double to</td>
-                            <td class="td_amount">12000</td>
-                            <td class="td_amount">15000</td>
-                        </tr>
-                        <tr>
-                            <td>Breakfast</td>
-                            <td class="td_amount">12000</td>
-                            <td class="td_amount">15000</td>
-                        </tr>
-                        <tr>
-                            <td>Dinner</td>
-                            <td class="td_amount">12000</td>
-                            <td class="td_amount">15000</td>
-                        </tr>
-                        <tr>
-                            <td>Lunch</td>
-                            <td class="td_amount">12000</td>
-                            <td class="td_amount">15000</td>
-                        </tr>
-                        <tr>
-                            <td>Vignette</td>
-                            <td class="td_amount">12000</td>
-                            <td class="td_amount">15000</td>
-                        </tr>
-                        <tr>
-                            <td>Various tax</td>
-                            <td class="td_amount">12000</td>
-                            <td class="td_amount">15000</td>
-                        </tr>
-                        <tr class="tr_total">
-                            <td>Total per pax</td>
-                            <td class="td_amount">12000</td>
-                            <td class="td_amount">15000</td>
-                        </tr>
-                        </tbody>
-                    </table>
-
-                </div>
-                <div class="detail" id="double">
-                    <div class="detail_head">Detail<span class="glyphicon glyphicon-menu-down"></span></div>
-
-                    <div class="detail_body">
-                        <div class="detail_hr"></div>
-                        <div class="detail_body_elements">
-
-                            blabla<br/>
-                            bleble<br/>
-                            blibli<br/>
-                            bloblo<br/>
-                            blublu
-
-                        </div>
-                    </div>
-                </div>
                 <hr>
 
                 <!-- Pager -->
