@@ -11,6 +11,7 @@ return [
     'connected'   => (Boolean)env('APP_CONNECTED', false),
     'logdir'      => ROOT_PATH . '/storages/logs',
     'templatedir' => ROOT_PATH . '/templates',
+    'defaultContentType'     => 'text/html',
 
     // Locale
     'timezone'    => 'UTC',
