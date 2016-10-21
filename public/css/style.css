@@ -6,18 +6,35 @@ body {
 footer {
     margin: 50px 0;
 }
+
 .navbar-fixed-top{
     background: #1BBC9B;
 }
+
 .title-logo, .navbar-nav{
     color:white;
 }
+
+.content {
+    top:0px;
+ }
+.sidebar-outer {
+    min-width: 100px;
+    position: relative;
+}
+.well{
+    min-width: 200px;
+}
+.fixed {
+    position: fixed;
+}
+
+
 
 .base_title{
     font-size: 170%;
     color: #1BBC9B;
 }
-
 
 .calculation_quota{
     height: 250px;
@@ -105,6 +122,12 @@ td {
     padding: 20px;
 }
 
+.base_types a{
+    text-decoration: none;
+    color: #1BBC9B;
+    margin-left: 10px;
+    cursor: pointer;
+}
 .glyphicon-menu-down, .glyphicon-menu-up{
     float: right;
 }

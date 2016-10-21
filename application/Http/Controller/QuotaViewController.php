@@ -4,7 +4,6 @@
 use Symfony\Component\HttpFoundation\Request;
 use Wau\Http\Controller;
 
-
 class QuotaViewController extends Controller
 {
 
@@ -13,24 +12,26 @@ class QuotaViewController extends Controller
     {
         $data = array();
         $base_rooms = array();
-        $room_data = array([3000, "single room", 1000, 20, 100, 50, 150, 200],[3000, "double room", 2000, 30, 100, 50, 150, 200],[15000, "family room", 2000, 50, 200, 10, 1500, 3000]);
-        $single_room  = new RoomBase($room_data[0]);
-        $double_room  = new RoomBase($room_data[1]);
-        $family_room  = new RoomBase($room_data[2]);
+        $details = array();
+
+        $single_room  = new RoomBase(array(3000, "single room", 1000, 20, 100, 50, 150, 200));
+        $double_room  = new RoomBase(array(3000, "double room", 2000, 30, 100, 50, 150, 200));
+        $family_room  = new RoomBase(array(3000, "family room", 15000, 50, 200, 10, 1500, 3000));
 
         array_push($base_rooms, $single_room, $double_room, $family_room);
 
+        array_set($data, 'details', $details);
+        array_set($data, 'base_type', RoomBase::$room_type);
         array_set($data, 'base_rooms', $base_rooms);
         array_set($data, 'request', $request);
 
         array_set($data, 'tz', array_get($_SESSION, 'tz', 'UTC'));
-        //var_dump($data);
 
         return $this->app()->make('twig.view')->render('index.twig',$data);
     }
 
 }
-class RoomBase
+/*class RoomBase
 {
     var $exchange;
     var $type;
@@ -43,8 +44,11 @@ class RoomBase
     var $vignette;
     var $total;
 
+    static $room_type = array();
+
     public function __construct($array)
     {
+
         $this->content = array();
         $exchange   = $array[0];
         $type       = $array[1];
@@ -56,12 +60,13 @@ class RoomBase
         $tax        = $array[7];
 
         $somme = 0;
-        $array_type = array("integer", "string");
+        $array_type = array("integer", "double");
 
-        $this->exchange     = $exchange;
-        $this->type         = $type;
+        $this->exchange     = round($exchange, 2);
+        $this->type         = trim($type);
 
-        $this->room[0] = ucfirst($type);
+        $this->room[0] = ucfirst($this->type);
+        array_push(self::$room_type, $this->room[0]);
         if(isset($room) && in_array(gettype($room), $array_type) ){
             $this->room[1]      = round($room, 2);
             $this->room[2]      = round($room / $exchange, 2);
@@ -92,14 +97,6 @@ class RoomBase
             $somme += $this->lunch[1];
         }
 
-        $this->vignette[0] = ucfirst("vignette");
-        if(isset($vignette) && in_array(gettype($vignette), $array_type) ){
-            $this->vignette[1]  = round($vignette, 2);
-            $this->vignette[2]  = round($vignette / $exchange, 2);
-
-            $somme += $this->vignette[1];
-        }
-
         $this->tax[0] = ucfirst("various taxes");
         if(isset($tax) && in_array(gettype($tax), $array_type) ){
             $this->tax[1]       = round($tax, 2);
@@ -108,11 +105,19 @@ class RoomBase
             $somme += $this->tax[1];
         }
 
-        array_push($this->content, $this->room, $this->breakfast, $this->lunch, $this->dinner, $this->tax, $this->vignette);
+        $this->vignette[0] = ucfirst("vignette");
+        if(isset($vignette) && in_array(gettype($vignette), $array_type) ){
+            $this->vignette[1]  = round($vignette, 2);
+            $this->vignette[2]  = round($vignette / $exchange, 2);
+
+            $somme += $this->vignette[1];
+        }
+
+        array_push($this->content, $this->room, $this->breakfast, $this->lunch, $this->dinner, $this->vignette, $this->tax);
 
         $this->total[0] = ucfirst("total / pax");
         $this->total[1]     = round($somme, 2);
         $this->total[2]     = round($this->total[1] / $exchange, 2);
 
     }
-}
+}*/
