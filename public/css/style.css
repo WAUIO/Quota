@@ -16,21 +16,46 @@ footer {
 }
 
 .content {
-    top:0px;
+    top:0;
  }
 .sidebar-outer {
     min-width: 100px;
     position: relative;
 }
 .well{
+    padding-top: 5px;
+    right:0;
+    width: 100%;
     min-width: 200px;
+}
+
+#search_glyphicon{
+  cursor: pointer;
+}
+
+#quota_list{
+    max-height:170px;
+    overflow: auto;
+    position: relative;
 }
 .fixed {
     position: fixed;
 }
 
+.page-header{
+    font-size:300%;
+}
+
+#reference{
+    background: #f4f4f4;
+    color: #6F6F6F;
+    padding: 10px;
+    font-size:120%;
+    font-weight: bold;
+}
 
 
+/******* For quota view *******/
 .base_title{
     font-size: 170%;
     color: #1BBC9B;
@@ -61,9 +86,6 @@ td {
     padding-left: 10px;
     /*padding: 20px 30px;*/
 }
-.page-header{
-    font-size:300%;
-}
 
 .td_designation{
     padding-left: 20px;
@@ -86,6 +108,8 @@ td {
     background-color: rgba(35, 130, 255, 0.63);
 }
 
+
+/******* For detail *******/
 .detail{
     background: #f4f4f4;
 }
@@ -122,12 +146,94 @@ td {
     padding: 20px;
 }
 
-.base_types a{
+
+/******* For no_quota *******/
+.no_quota, .no_base{
+    font-style: italic;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    color: #FF0F22;
+}
+
+
+/******* For quota base *******/
+.base_types a, .quota_listes a{
     text-decoration: none;
     color: #1BBC9B;
     margin-left: 10px;
     cursor: pointer;
 }
-.glyphicon-menu-down, .glyphicon-menu-up{
+
+.add_room_button{
+    font-size: 110%;
+    font-weight: bold;
+    width:100%;
+    height:40px;
+    color: white;
+    text-align: center;
+    line-height: 40px;
+    background: #1BBC9B;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.add_room_button:hover{
+    background: #00CC99;
+}
+
+.glyphicon-menu-down, .glyphicon-menu-up, .glyphicon-chevron-up, .glyphicon-chevron-down{
     float: right;
+}
+
+/* For edit quota pop up */
+.popup {
+    width:100%;
+    height:100%;
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    background:rgba(0,0,0,0.75);
+}
+
+/* Inner */
+.popup-inner {
+    max-width:700px;
+    width:90%;
+    padding:40px;
+    position:absolute;
+    top:50%;
+    left:50%;
+    -webkit-transform:translate(-50%, -50%);
+    transform:translate(-50%, -50%);
+    box-shadow:0 2px 6px rgba(0,0,0,1);
+    border-radius:3px;
+    background:#fff;
+}
+
+/* Close Button */
+.popup-close {
+    width:30px;
+    height:30px;
+    padding-top:4px;
+    display:inline-block;
+    position:absolute;
+    top:0px;
+    right:0px;
+    transition:ease 0.25s all;
+    -webkit-transform:translate(50%, -50%);
+    transform:translate(50%, -50%);
+    border-radius:1000px;
+    background:rgba(0,0,0,0.8);
+    font-size:20px;
+    text-align:center;
+    line-height:100%;
+    color:#fff;
+}
+
+.popup-close:hover {
+    -webkit-transform:translate(50%, -50%) rotate(180deg);
+    transform:translate(50%, -50%) rotate(180deg);
+    background:rgba(0,0,0,1);
+    text-decoration:none;
 }

@@ -13,86 +13,100 @@
                 <h1 class="page-header">
                     Hotel room quota
                 </h1>
-                {% for base in base_rooms %}
-                    <p class="base_title" id="{{ base.type|replace({' ' : '_'}) }}">Based on {{ base.type }}</p>
-                    <div class="calculation_quota">
 
-                        <!--table for each quota-->
-                        <table class="flat-table">
-                            <tbody>
-                            <tr>
-                                <th class="td_designation">DESIGNATION</th>
-                                <th class="td_amount">ARIARY</th>
-                                <th class="td_amount">EURO</th>
-                            </tr>
-                            {% for content in base.content %}
+                <p id="reference">Quota n°1200</p>
+                {% if(base_rooms|length > 0) %}
+                    {% for base in base_rooms %}
+                        <p class="base_title" id="{{ base.type|replace({' ' : '_'}) }}">Based on {{ base.type }}</p>
+                        <div class="calculation_quota">
+
+                            <!--table for each quota-->
+                            <table class="flat-table">
+                                <tbody>
                                 <tr>
+                                    <th class="td_designation">DESIGNATION</th>
+                                    <th class="td_amount">ARIARY</th>
+                                    <th class="td_amount">EURO</th>
+                                </tr>
+                                {% for content in base.content %}
+                                    <tr>
+                                        <td>
+                                            <span
+                                                {% if(content[0]in ['Vignette','Various taxes']) %}
+                                                    class="glyphicon glyphicon-usd"
+                                                {% elseif(content[0]) in ['Breakfast','Dinner','Lunch'] %}
+                                                    class="glyphicon glyphicon-cutlery"
+                                                {% else %}
+                                                    class="glyphicon glyphicon-bed"
+                                                {% endif %}
+                                            >
+                                            </span>
+                                            <span class="designation_element">
+                                                {{ content[0] }}
+                                            </span>
+                                        </td>
+                                        <td class="td_amount">{{ content[1] }}</td>
+                                        <td class="td_amount">{{ content[2] }}</td>
+                                    </tr>
+                                {% endfor %}
+                                <tr class="tr_total">
                                     <td>
-                                        <span
-                                            {% if(content[0]in ['Vignette','Various taxes']) %}
-                                                class="glyphicon glyphicon-usd"
-                                            {% elseif(content[0]) in ['Breakfast','Dinner','Lunch'] %}
-                                                class="glyphicon glyphicon-cutlery"
-                                            {% else %}
-                                                class="glyphicon glyphicon-bed"
-                                            {% endif %}
-                                        >
-                                        </span>
-                                        <span class="designation_element">
-                                            {{ content[0] }}
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                        <span class="designation_total">
+                                            {{ base.total[0] }}
                                         </span>
                                     </td>
-                                    <td class="td_amount">{{ content[1] }}</td>
-                                    <td class="td_amount">{{ content[2] }}</td>
+                                    <td class="td_amount">{{ base.total[1] }}</td>
+                                    <td class="td_amount">{{ base.total[2] }}</td>
                                 </tr>
-                            {% endfor %}
-                            <tr class="tr_total">
-                                <td>
-                                    <span class="glyphicon glyphicon-plus"></span>
-                                    <span class="designation_total">
-                                        {{ base.total[0] }}
-                                    </span>
-                                </td>
-                                <td class="td_amount">{{ base.total[1] }}</td>
-                                <td class="td_amount">{{ base.total[2] }}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                </tbody>
+                            </table>
+                        </div>
 
-                    <div class="detail" id="detail_{{ base.type|replace({' ' : '_'}) }}">
-                        <div class="detail_head">Details<span class="glyphicon glyphicon-menu-down"></span></div>
+                        <div class="detail" id="detail_{{ base.type|replace({' ' : '_'}) }}">
+                            <div class="detail_head">Details<span class="glyphicon glyphicon-menu-down"></span></div>
 
-                        <div class="detail_body">
-                            <div class="detail_hr"></div>
-                            <div class="detail_body_elements">
+                            <div class="detail_body">
+                                <div class="detail_hr"></div>
+                                <div class="detail_body_elements">
 
-
+                                    <!--
+                                     detail here
+                                     *
+                                     **
+                                     ***
+                                     ****
+                                     -->
+                                </div>
                             </div>
                         </div>
+
+                        <hr>
+                    {% endfor %}
+                {% else %}
+                    <div class="no_quota">
+                        No quota for this customer !<br/><br/>
+                        <div class="add_room_button" data-popup-open="popup-1">Add quota</div>
                     </div>
-
-                    <hr>
-                {% endfor %}
-
+                {% endif %}
                 <hr>
 
                 <!-- Pager -->
-                <ul class="pager">
-                    <li class="previous">
-                        <a href="#">&larr; Older</a>
-                    </li>
-                    <li class="next">
-                        <a href="#">Newer &rarr;</a>
-                    </li>
-                </ul>
+                {#<ul class="pager">#}
+                    {#<li class="previous">#}
+                        {#<a href="#">&larr; Older</a>#}
+                    {#</li>#}
+                    {#<li class="next">#}
+                        {#<a href="#">Newer &rarr;</a>#}
+                    {#</li>#}
+                {#</ul>#}
             </div>
 
             <!--Content RIGHT-->
             <div class="col-xs-3 sidebar-outer" >
                 <div class="fixed col-xs-3">
                     <div class="well">
-                        <h4>Quota Search</h4>
+                        <h4>Quota Search <span id="search_glyphicon" class="glyphicon glyphicon-chevron-up"></span></h4>
                         <div class="input-group">
                             <input type="text" class="form-control">
                             <span class="input-group-btn">
@@ -100,60 +114,54 @@
                                     <span class="glyphicon glyphicon-search"></span>
                             </button>
                             </span>
-                        </div>
+                        </div><br/>
                         <!-- /.input-group -->
+                        <div class="row" id="quota_list">
+                            <div class="col-lg-6">
+                                {% for i in 1..20 %}
+                                    <p class="quota_listes">
+                                        <a href="#">Quota n°{{ i }}</a>
+                                    </p>
+                                {% endfor %}
+                            </div>
+                            <!-- /.col-lg-6 -->
+                        </div>
                     </div>
 
-                    <!-- Blog Categories Well -->
-                    <div class="well">
-                        <h4>Blog Categories</h4>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <ul class="list-unstyled">
-                                    <li><a href="#">Category Name</a>
-                                    </li>
-                                    <li><a href="#">Category Name</a>
-                                    </li>
-                                    <li><a href="#">Category Name</a>
-                                    </li>
-                                    <li><a href="#">Category Name</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- /.col-lg-6 -->
-                            <div class="col-lg-6">
-                                <ul class="list-unstyled">
-                                    <li><a href="#">Category Name</a>
-                                    </li>
-                                    <li><a href="#">Category Name</a>
-                                    </li>
-                                    <li><a href="#">Category Name</a>
-                                    </li>
-                                    <li><a href="#">Category Name</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- /.col-lg-6 -->
-                        </div>
-                        <!-- /.row -->
-                    </div>
 
                     <!-- Side Widget Well -->
                     <div class="well">
                         <h4>Existing base for this quota</h4>
-                        {% for base in base_type %}
-                            <p class="base_types">
-                                <a class="base_type" href="#{{ (base|lower)|replace({' ' : '_'}) }}" >{{ base }}</a>
-                            </p>
-                        {% endfor %}
-
+                        {% if(existing_base|length > 0) %}
+                            {% for base in existing_base %}
+                                <p class="base_types">
+                                    <a class="base_type" href="#{{ (base|lower)|replace({' ' : '_'}) }}" >{{ base }}</a>
+                                </p>
+                            {% endfor %}
+                        {% else %}
+                            <div class="no_base">
+                                No base for this quota !
+                            </div>
+                            <br/>
+                        {% endif %}
+                        <div class="add_room_button" data-popup-open="popup-1">Add hotel / room</div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- /.row -->
-
     </div>
     <!-- /.container -->
+
+
+    <!--Contact Form -->
+    <div class="popup" data-popup="popup-1">
+        <div class="popup-inner">
+            <h2>Wow! This is Awesome! (Popup #1)</h2>
+            <p>Donec in volutpat nisi. In quam lectus, aliquet rhoncus cursus a, congue et arcu. Vestibulum tincidunt neque id nisi pulvinar aliquam. Nulla luctus luctus ipsum at ultricies. Nullam nec velit dui. Nullam sem eros, pulvinar sed pellentesque ac, feugiat et turpis. Donec gravida ipsum cursus massa malesuada tincidunt. Nullam finibus nunc mauris, quis semper neque ultrices in. Ut ac risus eget eros imperdiet posuere nec eu lectus.</p>
+            <p><a data-popup-close="popup-1" href="#">Close</a></p>
+            <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+        </div>
+    </div>
 
 {% endblock body %}

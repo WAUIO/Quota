@@ -1,6 +1,9 @@
 <?php
 
-class RoomBase {
+namespace App\Utils;
+
+class RoomBase
+{
     var $exchange;
     var $type;
     var $content;
@@ -14,7 +17,8 @@ class RoomBase {
 
     static $room_type = array();
 
-    public function __construct($array) {
+    public function __construct($array)
+    {
         $this->content = array();
         $exchange   = $array[0];
         $type       = $array[1];
@@ -32,7 +36,6 @@ class RoomBase {
         $this->type         = trim($type);
 
         $this->room[0] = ucfirst($this->type);
-        array_push(self::$room_type, $this->room[0]);
         if(isset($room) && in_array(gettype($room), $array_type) ){
             $this->room[1]      = round($room, 2);
             $this->room[2]      = round($room / $exchange, 2);
@@ -84,5 +87,7 @@ class RoomBase {
         $this->total[0] = ucfirst("total / pax");
         $this->total[1]     = round($somme, 2);
         $this->total[2]     = round($this->total[1] / $exchange, 2);
+
+        array_push(self::$room_type, $this->room[0]);
     }
 }
