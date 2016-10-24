@@ -1,103 +1,123 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/css/sss.css" rel="stylesheet">
-    <title>WAU Travel Quotation</title>
-    <link rel="icon" type="image/png" href="/images/icon.png" />
-</head>
+{% extends 'layout.twig' %}
 
-<body>
+{% block body %}
 
-<div class="header">
-        <img src="/images/logo.png"/>
-</div>
+    <!-- Page Content -->
+    <div class="container">
 
-<div class="row">
-    <div class="col-3 menu">
-        <ul>
-            <li>Quota</li>
-            <li>Customer</li>
-            <li>Hotel</li>
-            <li>Memberships</li>
-        </ul>
-    </div>
-    <div class="col-5">
-        <h1>Information for quotation</h1>
-    <form action="submit">
-        <label>Customer ref : </label>
-        <input type="text" class="form-control"  aria-describedby="sizing-addon1" required oninvalid="this.setCustomValidity('Please complete this field')" /> </br> </br>
-        <label>Name : </label>
-        <input type="text" class="form-control"  aria-describedby="sizing-addon1"> </br> </br>
-        <label>Number of adults : </label>
-        <input type="number" class="form-control"  aria-describedby="sizing-addon1"> </br> </br>
-        <label>Number of children : </label>
-        <input type="number" class="form-control"  aria-describedby="sizing-addon1"> </br> </br>
-        <label>Beginning of stay : </label>
-        <input type="date" class="form-control"  aria-describedby="sizing-addon1"> </br> </br>
-        <input type="submit" class="form-submit" value="Next">
 
-    </form>
-    </div>
+        <div class="row">
 
-    <div class="col-4">
+            <!--Content LEFT-->
+            <div class="col-xs-8 content">
+                <h1 class="page-header">
+                    Customer information
+                </h1>
 
-            <div class="mySlides fade">
-                <img src="/images/isalo.jpg" style="width:100%">
-                <div class="text">Allée des baobabs</div>
+
+                    <div class="customer_info">
+
+
+                        <table class="flat-table">
+                            <tbody>
+
+                            <form action="submit">
+                                <div class="field">
+                                    </br>
+                                    <label class="form-label">Customer ref : </label>
+                                    <input type="text" class="form-control"  required="required"/></br> </br>
+                                </div>
+                                <div class="field">
+                                    <label class="form-label">Name : </label>
+                                    <input type="text" class="form-control"> </br> </br>
+                                </div>
+                                <div class="field">
+                                    <label class="form-label">Number of adults : </label>
+                                    <input type="number" class="form-control" > </br> </br>
+                                </div>
+                                <div class="field">
+                                    <label class="form-label">Number of children : </label>
+                                    <input type="number" class="form-control" > </br> </br>
+                                </div>
+                                <div class="field">
+                                    <label class="form-label">Beginning of stay : </label>
+                                    <input type="date" class="form-control" > </br> </br>
+                                </div>
+
+                              <input type="submit" class="form-submit" value="Next &rarr;">
+                            </form>
+
+                            </tbody>
+                        </table>
+                    </div>
             </div>
 
-            <div class="mySlides fade">
-                <img src="/images/brkfast.jpg" style="width:100%">
-                <div class="text">Motel Isalo</div>
-            </div>
+            <!--Content RIGHT-->
+            <div class="col-xs-3 sidebar-outer" >
+                <div class="fixed col-xs-3">
+                    <div class="well">
+                        <h4>Quota Search</h4>
+                        <div class="input-group">
+                            <input type="text" class="form-control">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                        <!-- /.input-group -->
+                    </div>
 
-            <div class="mySlides fade">
-                <img src="/images/room.jpg" style="width:100%">
-                <div class="text">Ranomafana parc</div>
-            </div>
+                    <!-- Blog Categories Well -->
+                    <div class="well">
+                        <h4>Blog Categories</h4>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <ul class="list-unstyled">
+                                    <li><a href="#">Category Name</a>
+                                    </li>
+                                    <li><a href="#">Category Name</a>
+                                    </li>
+                                    <li><a href="#">Category Name</a>
+                                    </li>
+                                    <li><a href="#">Category Name</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- /.col-lg-6 -->
+                            <div class="col-lg-6">
+                                <ul class="list-unstyled">
+                                    <li><a href="#">Category Name</a>
+                                    </li>
+                                    <li><a href="#">Category Name</a>
+                                    </li>
+                                    <li><a href="#">Category Name</a>
+                                    </li>
+                                    <li><a href="#">Category Name</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- /.col-lg-6 -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
 
-            <div class="mySlides fade">
-                <img src="/images/plage.jpg" style="width:100%">
-                <div class="text">Ranomafana parc</div>
-            </div>
+                    <!-- Side Widget Well -->
+                    <div class="well">
+                        <h4>Existing base for this quota</h4>
 
-            <div class="mySlides fade">
-                <img src="/images/lunch.jpg" style="width:100%">
-                <div class="text">Ranomafana parc</div>
-            </div>
+                            <p class="base_types">
+                                <a class="base_type" href="#{{ (base|lower)|replace({' ' : '_'}) }}" >{{ base }}</a>
+                            </p>
 
-        <div class="mySlides fade">
-            <img src="/images/dbl.jpg" style="width:100%">
-            <div class="text">Ranomafana parc</div>
+
+                    </div>
+                </div>
+            </div>
         </div>
+        <!-- /.row -->
 
-        <div style="text-align:center">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </div>
     </div>
+    <!-- /.container -->
 
-</div>
-
-<div class="footer">
-
-    <div class="copyright">
-<p><marquee direction="left" scrollamount="2">
-        <p>Address: Lot ID 72 Cité Gaillard Ambohidahy Antananarivo 101 / Phone: +261 (0)20 22 382 14 / Mail: post@wau.mg / N.I.F.: 2 001 330 703 / R.C.S.: RCS-T 2013 B 00 582 / STAT.: 79120 11 2013 0 10746</marquee></p>
-    </div>
-    <div class="container" style="margin-top: auto">
-        <p class="text-muted"> Copyright WAU Travel - {{ 'now' | date("Y") }}</p>
-    </div>
-</div>
-
-{% block scripts %}
-    <script src="/js/function.js"></script>
-{% endblock scripts %}
-</body>
-</html>
-
+{% endblock body %}
