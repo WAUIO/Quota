@@ -1,0 +1,41 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__.'/vendor/autoload.php';
+
+use Wau\Console\Lunatic;
+use Wau\Application as WauApp;
+use Wau\Request as WauRequest;
+
+$request = WauRequest::createFromGlobals();
+$request->setSession(new \Symfony\Component\HttpFoundation\Session\Session());
+
+// Init the Wau Application
+$app = require_once dirname(__FILE__) . '/bootstrap/app.php';
+
+$app->middleware('podio.console', 'Wau\Podio\PodioAuthMiddleware');
+
+$app->init();
+$app->middlewareProcess('app.console', $request);
+
+// Instantiate the Lunitic Console
+$console = new Lunatic('Wau Lunatic, Symfony based console', WauApp::VERSION);
+$console->setApplicationContainer($app);
+
+// Set commands
+$console->addCommands([
+    new \Wau\Console\CommandCreateCommand(),
+    new \Wau\Console\Podio\HookListCommand(),
+    new \Wau\Console\Podio\HookDeleteCommand(),
+    new \Wau\Console\Podio\HookAttachCommand(),
+    new \Wau\Console\Podio\AppGetCommand(),
+    new \Wau\Console\Podio\SpaceGetCommand(),
+    new \Wau\Console\Podio\ItemGetCommand(),
+    new \Wau\Console\Podio\FlowsGetCommand(),
+    new \Wau\Console\CacheCleanCommand(),
+    new \Wau\Console\RouteCommand(),
+    new \Wau\Console\ServeCommand(),
+    new \Wau\Console\HookSimulateCommand(),
+]);
+
+$console->run();

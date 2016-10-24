@@ -1,0 +1,17 @@
+
+.DS_Store
+Gemfile.lock
+.bundle
+_site
+.idea
+vendor
+
+.env
+composer.lock
+
+storages/*/*
+!storages/*/*/.gitkeep
+!storages/*/.gitkeep
+
+config/develop/*
+config/local/*
