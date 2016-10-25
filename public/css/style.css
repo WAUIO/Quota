@@ -36,8 +36,8 @@ footer {
 #quota_list{
     max-height:170px;
     overflow: auto;
-    position: relative;
 }
+
 .fixed {
     position: fixed;
 }
@@ -198,9 +198,8 @@ td {
 
 /* Inner */
 .popup-inner {
-    max-width:700px;
-    width:90%;
-    padding:40px;
+    width:70%;
+    padding:30px 0 30px 0;
     position:absolute;
     top:50%;
     left:50%;
@@ -210,11 +209,19 @@ td {
     border-radius:3px;
     background:#fff;
 }
+.select_data{
+    width:100%;
+    max-height:450px;
+    overflow: auto;
+    position: relative;
+}
 
 /* Close Button */
 .popup-close {
     width:30px;
     height:30px;
+    margin-top:8px;
+    margin-right:-3px;
     padding-top:4px;
     display:inline-block;
     position:absolute;
@@ -236,4 +243,58 @@ td {
     transform:translate(50%, -50%) rotate(180deg);
     background:rgba(0,0,0,1);
     text-decoration:none;
+}
+
+
+/****************/
+#board{
+    width: 60px;
+    height: 40px;
+}
+#room {
+    width: 60px;
+    height: 40px;
+}
+#logo{
+    width: 90px;
+    position: relative;
+    top:-10px;
+}
+h3{
+    color:#2B838E;
+    font-weight: bolder;
+}
+.form-control{
+    margin: auto;
+    margin-right:auto;
+}
+.field_option{
+    margin-top: 7px;
+}
+.icon{
+    width: 15px;
+    height: 15px;
+}
+.pull-right{
+    margin-right: 70px;
+    cursor: pointer;
+    background: #CCCCCC;
+    color:white;
+    width: 80px;
+    height: 34px;
+    text-align: center;
+    line-height: 34px;
+    border-radius: 2px;
+}
+.pull-right:hover{
+    background: #A3A3A3;
+}
+
+#hotel{
+    width: 60px;
+    height:40px;
+}
+#sgl{
+    width:10px;
+    height:10px;
 }

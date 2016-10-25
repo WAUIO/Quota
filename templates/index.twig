@@ -4,10 +4,7 @@
 
     <!-- Page Content -->
     <div class="container">
-
-
         <div class="row">
-
             <!--Content LEFT-->
             <div class="col-xs-8 content">
                 <h1 class="page-header">
@@ -90,16 +87,6 @@
                     </div>
                 {% endif %}
                 <hr>
-
-                <!-- Pager -->
-                {#<ul class="pager">#}
-                    {#<li class="previous">#}
-                        {#<a href="#">&larr; Older</a>#}
-                    {#</li>#}
-                    {#<li class="next">#}
-                        {#<a href="#">Newer &rarr;</a>#}
-                    {#</li>#}
-                {#</ul>#}
             </div>
 
             <!--Content RIGHT-->
@@ -108,7 +95,7 @@
                     <div class="well">
                         <h4>Quota Search <span id="search_glyphicon" class="glyphicon glyphicon-chevron-up"></span></h4>
                         <div class="input-group">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" id="search_control">
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">
                                     <span class="glyphicon glyphicon-search"></span>
@@ -157,10 +144,315 @@
     <!--Contact Form -->
     <div class="popup" data-popup="popup-1">
         <div class="popup-inner">
-            <h2>Wow! This is Awesome! (Popup #1)</h2>
-            <p>Donec in volutpat nisi. In quam lectus, aliquet rhoncus cursus a, congue et arcu. Vestibulum tincidunt neque id nisi pulvinar aliquam. Nulla luctus luctus ipsum at ultricies. Nullam nec velit dui. Nullam sem eros, pulvinar sed pellentesque ac, feugiat et turpis. Donec gravida ipsum cursus massa malesuada tincidunt. Nullam finibus nunc mauris, quis semper neque ultrices in. Ut ac risus eget eros imperdiet posuere nec eu lectus.</p>
-            <p><a data-popup-close="popup-1" href="#">Close</a></p>
-            <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+            <div class="select_data">
+                <div class="col-md-10 col-md-offset-1">
+                    <form class="form-horizontal" role="form">
+                        <div class="row field_option">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-2" for="name"><img id="hotel" src="/images/hotel.png"/></label>
+                                    <div class="col-md-6">
+                                        <select class="selectpicker" data-style="">
+                                            <option value="">Select</option>
+                                            <option value="un">Jade</option>
+                                            <option value="deux">Sapphire</option>
+                                            <option value="trois">Ruby</option>
+                                            <option value="quatre">Diamond</option>
+                                            <option value="cinq">Gold</option>
+                                        </select>
+                                    </div>
+                                    <label class="col-md-2">Exchange rate</label>
+                                    <div class="col-md-2"><input type="text" class="form-control"/></div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h3 class="col-md-8">ADULT</h3>
+                        </div>
+                        <div class="row">
+                            <div id="right" class="col-md-6 col-md-push-6">
+                                <div class="form-group">
+                                    <label class="col-md-2" for="name"><img id="board" src="/images/board.png"/></label>
+                                    <div class="col-md-10">
+                                        <div class="row field_option">
+                                            <div class="col-md-4">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input id="adult-breakfast" type="checkbox"> Breakfast
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select class="form-control">
+                                                    <option disabled selected value="">Select</option>
+                                                    <option value="un">1</option>
+                                                    <option value="deux">2</option>
+                                                    <option value="trois">3</option>
+                                                    <option value="quatre">4</option>
+                                                    <option value="cinq">5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row field_option">
+                                            <div class="col-md-4">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input id="adult-lunch" type="checkbox"> Lunch
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select class="form-control">
+                                                    <option disabled selected value="">Select</option>
+                                                    <option value="un">1</option>
+                                                    <option value="deux">2</option>
+                                                    <option value="trois">3</option>
+                                                    <option value="quatre">4</option>
+                                                    <option value="cinq">5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row field_option">
+                                            <div class="col-md-4">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input id="adult-dinner" type="checkbox"> Dinner
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" >
+                                                <select class="form-control">
+                                                    <option disabled selected value="">Select</option>
+                                                    <option value="un">1</option>
+                                                    <option value="deux">2</option>
+                                                    <option value="trois">3</option>
+                                                    <option value="quatre">4</option>
+                                                    <option value="cinq">5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="left-child" class="col-md-6 col-md-pull-6">
+                                <div class="form-group">
+                                    <label class="col-md-2" for="name"><img id="room" src="/images/room.png"/></label>
+                                    <div class="col-md-10">
+                                        <div id="singlebed" class="row field_option">
+                                            <div class="col-md-4">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input id="single" type="checkbox"> Single
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select class="form-control">
+                                                    <option disabled selected value="">Select</option>
+                                                    <option value="un">1</option>
+                                                    <option value="deux">2</option>
+                                                    <option value="trois">3</option>
+                                                    <option value="quatre">4</option>
+                                                    <option value="cinq">5</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                        <div id="doublebed" class="row field_option">
+                                            <div class="col-md-4">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input id="double" type="checkbox"> Double
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select class="form-control">
+                                                    <option disabled selected value="" style="background-image:url('/images/double.png');">Select</option>
+                                                    <option value="un">1</option>
+                                                    <option value="deux">2</option>
+                                                    <option value="trois">3</option>
+                                                    <option value="quatre">4</option>
+                                                    <option value="cinq">5</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                        <div id="triplebed" class="row field_option">
+                                            <div class="col-md-4">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input id="triple" type="checkbox"> Triple
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select class="form-control">
+                                                    <option disabled selected value="" style="background-image:url('/images/triple.png');">Select</option>
+                                                    <option value="un">1</option>
+                                                    <option value="deux">2</option>
+                                                    <option value="trois">3</option>
+                                                    <option value="quatre">4</option>
+                                                    <option value="cinq">5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div id="familybed" class="row field_option">
+                                            <div class="col-md-4">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input id="family" type="checkbox"> Family
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select class="form-control">
+                                                    <option disabled selected value="" style="background-image:url('/images/family.png');">Select</option>
+                                                    <option value="un">1</option>
+                                                    <option value="deux">2</option>
+                                                    <option value="trois">3</option>
+                                                    <option value="quatre">4</option>
+                                                    <option value="cinq">5</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                        <div id="extrabed" class="row field_option">
+                                            <div class="col-md-4">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input id="extra-adult" type="checkbox"> Extra-bed
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select class="form-control">
+                                                    <option disabled selected value="" style="background-image:url('/images/extra.png');">Select</option>
+                                                    <option value="un">1</option>
+                                                    <option value="deux">2</option>
+                                                    <option value="trois">3</option>
+                                                    <option value="quatre">4</option>
+                                                    <option value="cinq">5</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div name="child" class="row">
+                            <h3 class="col-md-8">CHILD</h3>
+                        </div>
+                        <div name="child" class="row field_option">
+                            <div id="right" class="col-md-6 col-md-push-6">
+                                <div class="form-group">
+                                    <label class="col-md-2" for="name"><img id="board" src="/images/board.png"/></label>
+                                    <div class="col-md-10">
+                                        <div class="row field_option">
+                                            <div class="col-md-4">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input id="child-breakfast" type="checkbox"> Breakfast
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select class="form-control">
+                                                    <option disabled selected value="">Select</option>
+                                                    <option value="un">1</option>
+                                                    <option value="deux">2</option>
+                                                    <option value="trois">3</option>
+                                                    <option value="quatre">4</option>
+                                                    <option value="cinq">5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row field_option">
+                                            <div class="col-md-4">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input id="child-lunch" type="checkbox"> Lunch
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select class="form-control">
+                                                    <option disabled selected value="">Select</option>
+                                                    <option value="un">1</option>
+                                                    <option value="deux">2</option>
+                                                    <option value="trois">3</option>
+                                                    <option value="quatre">4</option>
+                                                    <option value="cinq">5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row field_option">
+                                            <div class="col-md-4">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input id="child-dinner" type="checkbox"> Dinner
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" >
+                                                <select class="form-control">
+                                                    <option disabled selected value="">Select</option>
+                                                    <option value="un">1</option>
+                                                    <option value="deux">2</option>
+                                                    <option value="trois">3</option>
+                                                    <option value="quatre">4</option>
+                                                    <option value="cinq">5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="left-child" class="col-md-6 col-md-pull-6">
+                                <div class="form-group">
+                                    <label class="col-md-2" for="name"><img id="room" src="/images/room.png"/></label>
+                                    <div class="col-md-10">
+                                        <div class="row field_option">
+                                            <div class="col-md-4">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input id="extra-child" type="checkbox"> Extra-bed
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select class="form-control">
+                                                    <option disabled selected value="" style="background-image:url('/images/extra.png');">Select</option>
+                                                    <option value="un">1</option>
+                                                    <option value="deux">2</option>
+                                                    <option value="trois">3</option>
+                                                    <option value="quatre">4</option>
+                                                    <option value="cinq">5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="pull-right">
+                                Save
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <a class="popup-close" data-popup-close="popup-1" href="#"><span class="glyphicon glyphicon-remove"></span></a>
         </div>
     </div>
 
