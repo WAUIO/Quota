@@ -68,7 +68,7 @@ $(document).ready(function () {
     /*******checkbox event*******/
     $("input[type=checkbox]").click(function () {
         var checkbox_id = $('#'+$(this).closest(this).attr("id"));
-        var parent = checkbox_id.parents().eq(3);
+        var parent = checkbox_id.parents().eq(2);
         var select_picker = parent.find('select');
         if($(this).is(':checked')){
             $(select_picker).attr('disabled', !this.checked).selectpicker('refresh');
