@@ -1,6 +1,5 @@
 $(document).ready(function () {
     $('#quota_list').perfectScrollbar();
-    $('.select_data').perfectScrollbar();
 
     $('.based_on').removeAttr("href");
 
@@ -48,6 +47,7 @@ $(document).ready(function () {
         var targeted_popup_class = jQuery(this).attr('data-popup-open');
         $('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);
 
+        $('.select_data').perfectScrollbar();
         e.preventDefault();
     });
 
@@ -61,29 +61,24 @@ $(document).ready(function () {
 
 
     /**************/
+    $(".selectpicker").attr("disabled","disabled");
     $(".form-control").attr("disabled","disabled");
     $("#select-hotel").removeAttr("disabled");
-    checkRoom();
-    singleRoom();
-    doubleRoom();
-    tripleRoom();
-    familyRoom();
-    extraAdultRoom();
-    extraChildRoom();
-    adultBreakfast();
-    adultLunch();
-    adultDinner();
-    childBreakfast();
-    childLunch();
-    childDinner();
-    simpleBase();
-    doubleBase();
-    tripleBase();
-    familyBase();
-    extraBase();
 
-    $('#search_control').prop( 'disabled', false );
-    $('#search_control').removeAttr('disabled');
+    /*******checkbox event*******/
+    $("input[type=checkbox]").click(function () {
+        var checkbox_id = $('#'+$(this).closest(this).attr("id"));
+        var parent = checkbox_id.parents().eq(3);
+        var select_picker = parent.find('select');
+        if($(this).is(':checked')){
+            $(select_picker).attr('disabled', !this.checked).selectpicker('refresh');
+        }else{
+            $(select_picker).attr('disabled', !this.checked).selectpicker('refresh');
+        }
+    });
+
+    checkRoom();
+    simpleBase();
 });
 
 
@@ -117,172 +112,8 @@ function checkRoom() {
 
     });
 }
-function singleRoom(){
-    $("#single").click(function () {
-        var parent=$(this).parents().eq(3);
-        var child=parent.children().eq(1);
-        if($(this).is(':checked')){
-            child.children().removeAttr("disabled");
-        }else{
-            child.children().attr("disabled","disabled");
-        }
-    });
 
 
-}
-
-function doubleRoom(){
-    $("#double").click(function () {
-        var parent=$(this).parents().eq(3);
-        var child=parent.children().eq(1);
-        if($(this).is(':checked')){
-            child.children().removeAttr("disabled");
-        }else{
-            child.children().attr("disabled","disabled");
-        }
-    });
-
-
-}
-
-function tripleRoom(){
-    $("#triple").click(function () {
-        var parent=$(this).parents().eq(3);
-        var child=parent.children().eq(1);
-        if($(this).is(':checked')){
-            child.children().removeAttr("disabled");
-        }else{
-            child.children().attr("disabled","disabled");
-        }
-    });
-
-
-}
-function familyRoom(){
-    $("#family").click(function () {
-        var parent=$(this).parents().eq(3);
-        var child=parent.children().eq(1);
-        if($(this).is(':checked')){
-            child.children().removeAttr("disabled");
-        }else{
-            child.children().attr("disabled","disabled");
-        }
-    });
-
-
-}
-
-
-function extraAdultRoom(){
-    $("#extra-adult").click(function () {
-        var parent=$(this).parents().eq(3);
-        var child=parent.children().eq(1);
-        if($(this).is(':checked')){
-            child.children().removeAttr("disabled");
-        }else{
-            child.children().attr("disabled","disabled");
-        }
-    });
-
-
-}
-function extraChildRoom(){
-    $("#extra-child").click(function () {
-        var parent=$(this).parents().eq(3);
-        var child=parent.children().eq(1);
-        if($(this).is(':checked')){
-            child.children().removeAttr("disabled");
-        }else{
-            child.children().attr("disabled","disabled");
-        }
-    });
-
-
-}
-
-function adultBreakfast(){
-    $("#adult-breakfast").click(function () {
-        var parent=$(this).parents().eq(3);
-        var child=parent.children().eq(1);
-        if($(this).is(':checked')){
-            child.children().removeAttr("disabled");
-        }else{
-            child.children().attr("disabled","disabled");
-        }
-    });
-
-
-}
-
-function adultLunch(){
-    $("#adult-lunch").click(function () {
-        var parent=$(this).parents().eq(3);
-        var child=parent.children().eq(1);
-        if($(this).is(':checked')){
-            child.children().removeAttr("disabled");
-        }else{
-            child.children().attr("disabled","disabled");
-        }
-    });
-
-
-}
-
-function adultDinner(){
-    $("#adult-dinner").click(function () {
-        var parent=$(this).parents().eq(3);
-        var child=parent.children().eq(1);
-        if($(this).is(':checked')){
-            child.children().removeAttr("disabled");
-        }else{
-            child.children().attr("disabled","disabled");
-        }
-    });
-
-
-}
-
-function childBreakfast(){
-    $("#child-breakfast").click(function () {
-        var parent=$(this).parents().eq(3);
-        var child=parent.children().eq(1);
-        if($(this).is(':checked')){
-            child.children().removeAttr("disabled");
-        }else{
-            child.children().attr("disabled","disabled");
-        }
-    });
-
-
-}
-
-function childLunch(){
-    $("#child-lunch").click(function () {
-        var parent=$(this).parents().eq(3);
-        var child=parent.children().eq(1);
-        if($(this).is(':checked')){
-            child.children().removeAttr("disabled");
-        }else{
-            child.children().attr("disabled","disabled");
-        }
-    });
-
-
-}
-
-function childDinner() {
-    $("#child-dinner").click(function () {
-        var parent = $(this).parents().eq(3);
-        var child = parent.children().eq(1);
-        if ($(this).is(':checked')) {
-            child.children().removeAttr("disabled");
-        } else {
-            child.children().attr("disabled", "disabled");
-        }
-    });
-
-
-}
 function simpleBase(){
     $("#save").click(function(){
         var data="";
@@ -293,9 +124,9 @@ function simpleBase(){
         if($("#single").is(':checked')){
             var singleVal=$("#single").parents().eq(3).children().eq(1).children().find('option:selected').text();
             data+=', singleVal='+singleVal;
-            var adultBreakfast=$("#adult-breakfast").parents().eq(3).children().eq(1).children().find('option:selected').text();
-            var adultLunch=$("#adult-lunch").parents().eq(3).children().eq(1).children().find('option:selected').text();
-            var adultDinner=$("#adult-dinner").parents().eq(3).children().eq(1).children().find('option:selected').text();
+            var adultBreakfast = $("#adult-breakfast").parents().eq(3).children().eq(1).children().find('option:selected').text();
+            var adultLunch = $("#adult-lunch").parents().eq(3).children().eq(1).children().find('option:selected').text();
+            var adultDinner =  $("#adult-dinner").parents().eq(3).children().eq(1).children().find('option:selected').text();
             if($("#adult-breakfast").is(':checked')){
                 data+=', adultBreakfast='+adultBreakfast;
             }
@@ -306,7 +137,6 @@ function simpleBase(){
                 data+=', adultDinner='+adultDinner;
 
             }
-            alert(data);
         }
     });
 
@@ -372,23 +202,25 @@ function extraBase(){
         var data="";
         var hotel=$('#select-hotel').find('option:selected').text();
         data+='hotel='+hotel;
-        if($("#extra-adult").is(':checked')){
-            var extraVal=$("#extra-adult").parents().eq(3).children().eq(1).children().find('option:selected').text();
+        var extra_adult = $("#extra-adult");
+        var adult_breakfast = $("#adult-breakfast");
+        var adult_lunch = $("#adult-lunch");
+        var adult_dinner = $("#adult-dinner");
+        if(extra_adult.is(':checked')){
+            var extraVal= extra_adult.parents().eq(3).children().eq(1).children().find('option:selected').text();
             data+='extraVal='+extraVal;
-            var adultBreakfast=$("#adult-breakfast").parents().eq(3).children().eq(1).children().find('option:selected').text();
-            var adultLunch=$("#adult-lunch").parents().eq(3).children().eq(1).children().find('option:selected').text();
-            var adultDinner=$("#adult-dinner").parents().eq(3).children().eq(1).children().find('option:selected').text();
-            if($("#adult-breakfast").is(':checked')){
+            var adultBreakfast=adult_breakfast.parents().eq(3).children().eq(1).children().find('option:selected').text();
+            var adultLunch=adult_lunch.parents().eq(3).children().eq(1).children().find('option:selected').text();
+            var adultDinner=adult_dinner.parents().eq(3).children().eq(1).children().find('option:selected').text();
+            if(adult_breakfast.is(':checked')){
                 data+=', adultBreakfast='+adultBreakfast;
             }
-            if($("#adult-lunch").is(':checked')){
+            if(adult_lunch.is(':checked')){
                 data+=', adultLunch='+adultLunch;
             }
-            if($("#adult-dinner").is(':checked')){
+            if(adult_dinner.is(':checked')){
                 data+=', adultDinner='+adultDinner;
-
             }
-            alert(data);
         }
     });
 

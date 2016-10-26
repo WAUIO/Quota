@@ -2,14 +2,43 @@
 body {
     padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
-
 footer {
     margin: 50px 0;
 }
-
 .navbar-fixed-top{
     background: #1BBC9B;
 }
+.navbar-nav li li {
+    max-height:0;
+    overflow: hidden;
+    transition: all .5s;
+    border-radius:0;
+    background: #444;
+    box-shadow: none;
+    border:none;
+    margin:0
+}
+.navbar-nav a {
+    display:block;
+    text-decoration: none;
+    color: #fff;
+    padding: 8px 0;
+    font-size:1.2em
+}
+.navbar-nav ul li a, .navbar-nav li:hover li a {
+    font-size:1em
+}
+.navbar-nav li li:hover {
+    background: #999;
+}
+.navbar-nav ul li:last-child {
+    border-radius: 0 0 6px 6px;
+    border:none;
+}
+.navbar-nav li:hover li {
+    max-height: 15em;
+}
+
 
 .title-logo, .navbar-nav{
     color:white;
@@ -28,24 +57,20 @@ footer {
     width: 100%;
     min-width: 200px;
 }
-
 #search_glyphicon{
   cursor: pointer;
 }
-
 #quota_list{
     max-height:170px;
     overflow: auto;
+    position: relative;
 }
-
 .fixed {
     position: fixed;
 }
-
 .page-header{
     font-size:300%;
 }
-
 #reference{
     background: #f4f4f4;
     color: #6F6F6F;
@@ -60,12 +85,10 @@ footer {
     font-size: 170%;
     color: #1BBC9B;
 }
-
 .calculation_quota{
     height: 250px;
     background: #f4f4f4;
 }
-
 .flat-table {
     font-family: sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -84,7 +107,6 @@ td {
     background-color: rgb(238, 238, 238);
     color: rgb(111, 111, 111);
     padding-left: 10px;
-    /*padding: 20px 30px;*/
 }
 
 .td_designation{
@@ -96,12 +118,10 @@ td {
 .designation_total{
     padding-left: 7px;
 }
-
 .td_amount{
     padding-right: 20px;
     text-align: right;
 }
-
 .tr_total{
     font-weight: bold;
     font-size: 110%;
@@ -113,7 +133,6 @@ td {
 .detail{
     background: #f4f4f4;
 }
-
 .detail_head{
     color: #1BBC9B;
     margin-top: 2px;
@@ -130,18 +149,15 @@ td {
     user-select: none;           /* Non-prefixed version, currently
                                   not supported by any browser */
 }
-
 .detail_hr{
     height: 1px;
     background: white;
     margin: 0px 10px 0px 10px;
 }
-
 .detail_body{
     display: none;
     height: 200px;
 }
-
 .detail_body_elements{
     padding: 20px;
 }
@@ -157,11 +173,21 @@ td {
 
 
 /******* For quota base *******/
-.base_types a, .quota_listes a{
+.quota_lists{
+    height: 25px;
+    line-height: 25px;
+}
+.quota_lists:hover{
+    cursor: pointer;
+    background: #CCCCCC;
+}
+.base_types a, .quota_lists a{
     text-decoration: none;
     color: #1BBC9B;
     margin-left: 10px;
-    cursor: pointer;
+}
+.base_types{
+    height: 30px;
 }
 
 .add_room_button{
@@ -176,11 +202,9 @@ td {
     border-radius: 2px;
     cursor: pointer;
 }
-
 .add_room_button:hover{
     background: #00CC99;
 }
-
 .glyphicon-menu-down, .glyphicon-menu-up, .glyphicon-chevron-up, .glyphicon-chevron-down{
     float: right;
 }
@@ -198,12 +222,12 @@ td {
 
 /* Inner */
 .popup-inner {
-    width:70%;
+    width:75%;
     padding:30px 0 30px 0;
     position:absolute;
-    top:50%;
+    top:52%;
     left:50%;
-    -webkit-transform:translate(-50%, -50%);
+    -webkit-transform:translate(-52%, -50%);
     transform:translate(-50%, -50%);
     box-shadow:0 2px 6px rgba(0,0,0,1);
     border-radius:3px;
@@ -220,14 +244,12 @@ td {
 .popup-close {
     width:30px;
     height:30px;
-    margin-top:8px;
-    margin-right:-3px;
     padding-top:4px;
     display:inline-block;
     position:absolute;
     top:0px;
     right:0px;
-    transition:ease 0.25s all;
+    /*transition:ease 0.25s all;*/
     -webkit-transform:translate(50%, -50%);
     transform:translate(50%, -50%);
     border-radius:1000px;
@@ -237,7 +259,6 @@ td {
     line-height:100%;
     color:#fff;
 }
-
 .popup-close:hover {
     -webkit-transform:translate(50%, -50%) rotate(180deg);
     transform:translate(50%, -50%) rotate(180deg);
@@ -264,6 +285,9 @@ h3{
     color:#2B838E;
     font-weight: bolder;
 }
+.selectpicker{
+
+}
 .form-control{
     margin: auto;
     margin-right:auto;
@@ -276,7 +300,6 @@ h3{
     height: 15px;
 }
 .pull-right{
-    margin-right: 70px;
     cursor: pointer;
     background: #CCCCCC;
     color:white;
@@ -289,7 +312,6 @@ h3{
 .pull-right:hover{
     background: #A3A3A3;
 }
-
 #hotel{
     width: 60px;
     height:40px;
