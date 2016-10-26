@@ -1,4 +1,3 @@
-<?php session_start();?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -12,9 +11,9 @@
 
     <title>WAU Travel Quota</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <!--<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">-->
     <link rel="stylesheet" href="/css/bootstrap.min.css" >
-    <!--<link rel="stylesheet" href="/bootstrap-select/dist/css/bootstrap-select.min.css">-->
+    <link rel="stylesheet" href="/css/bootstrap-multiselect.css">
     <!-- Optional theme -->
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
 
@@ -32,7 +31,6 @@
     </div>
 </nav>
 
-
 {% block body %}
 
     <div class="container">
@@ -43,11 +41,11 @@
                         <div class="form-group">
                             <label class="col-md-2" for="name"><img id="hotel" src="/img/hotel.png"/></label>
                             <div class="col-md-6">
-                                <select id="select-hotel" class="selectpicker" data-style="btn-primary">
-                                    <option disabled selected value="">Select</option>
+                                <select class="form-control">
+                                    <option disabled selected value="">select</option>
                                     <option value="un">Jade</option>
-                                    <option value="deux">Sapphireblablabalkal</option>
-                                    <option value="trois">Ruby</option>
+                                    <option value="deux">Sapphire</option>
+                                    <option value="trois">Rubis</option>
                                     <option value="quatre">Diamond</option>
                                     <option value="cinq">Gold</option>
                                 </select>
@@ -64,7 +62,7 @@
                 <div class="row">
                     <div id="right" class="col-md-6 col-md-push-6">
                         <div class="form-group">
-                            <label class="col-md-2" for="name"><img id="board" src="/img/board.png"/></label>
+                            <label class="col-md-2" for="name"><span class="label label-default">BOARD</span></label>
                             <div class="col-md-10">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -75,13 +73,16 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <select class="selectpicker">
-                                            <option disabled selected value="">Select</option>
-                                            <option value="un">1</option>
-                                            <option value="deux">2</option>
-                                            <option value="trois">3</option>
-                                            <option value="quatre">4</option>
-                                            <option value="cinq">5</option>
+                                        <span>
+                                            <img class="img" src="/img/breakfast.png">
+                                        </span>
+                                        <select>
+                                            <option disabled selected value="">select</option>
+                                            <option value="un">Jade</option>
+                                            <option value="deux">Sapphire</option>
+                                            <option value="trois">Rubis</option>
+                                            <option value="quatre">Diamond</option>
+                                            <option value="cinq">Gold</option>
                                         </select>
                                     </div>
                                 </div>
@@ -94,13 +95,16 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                         <span>
+                                            <img class="img" src="/img/lunch.png">
+                                        </span>
                                         <select class="selectpicker">
-                                            <option disabled selected value="">Select</option>
-                                            <option value="un">1</option>
-                                            <option value="deux">2</option>
-                                            <option value="trois">3</option>
-                                            <option value="quatre">4</option>
-                                            <option value="cinq">5</option>
+                                            <option disabled selected value="">select</option>
+                                            <option value="un">Jade</option>
+                                            <option value="deux">Sapphire</option>
+                                            <option value="trois">Rubis</option>
+                                            <option value="quatre">Diamond</option>
+                                            <option value="cinq">Gold</option>
                                         </select>
                                     </div>
                                 </div>
@@ -113,13 +117,16 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6" >
+                                         <span>
+                                            <img class="img" src="/img/dinner.png">
+                                        </span>
                                         <select class="selectpicker">
-                                            <option disabled selected value="">Select</option>
-                                            <option value="un">1</option>
-                                            <option value="deux">2</option>
-                                            <option value="trois">3</option>
-                                            <option value="quatre">4</option>
-                                            <option value="cinq">5</option>
+                                            <option disabled selected value="">select</option>
+                                            <option value="un">Jade</option>
+                                            <option value="deux">Sapphire</option>
+                                            <option value="trois">Rubis</option>
+                                            <option value="quatre">Diamond</option>
+                                            <option value="cinq">Gold</option>
                                         </select>
                                     </div>
                                 </div>
@@ -129,7 +136,7 @@
                     </div>
                     <div id="left-child" class="col-md-6 col-md-pull-6">
                         <div class="form-group">
-                            <label class="col-md-2" for="name"><img id="room" src="/img/room.png"/></label>
+                            <label class="col-md-2" for="name"><span class="label label-default">ROOM</span></label>
                             <div class="col-md-10">
                                 <div id="singlebed" class="row">
                                     <div class="col-md-4">
@@ -140,13 +147,16 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                         <span>
+                                            <img class="img" src="/img/single.png">
+                                        </span>
                                         <select class="selectpicker">
-                                            <option disabled selected value="">Select</option>
-                                            <option value="un">1</option>
-                                            <option value="deux">2</option>
-                                            <option value="trois">3</option>
-                                            <option value="quatre">4</option>
-                                            <option value="cinq">5</option>
+                                            <option disabled selected value="">select</option>
+                                            <option value="un">Jade</option>
+                                            <option value="deux">Sapphire</option>
+                                            <option value="trois">Rubis</option>
+                                            <option value="quatre">Diamond</option>
+                                            <option value="cinq">Gold</option>
                                         </select>
 
                                     </div>
@@ -160,13 +170,16 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                         <span>
+                                            <img class="img" src="/img/double.png">
+                                        </span>
                                         <select class="selectpicker">
-                                            <option disabled selected value="" style="background-image:url('/img/double.png');">Select</option>
-                                            <option value="un">1</option>
-                                            <option value="deux">2</option>
-                                            <option value="trois">3</option>
-                                            <option value="quatre">4</option>
-                                            <option value="cinq">5</option>
+                                            <option disabled selected value="">select</option>
+                                            <option value="un">Jade</option>
+                                            <option value="deux">Sapphire</option>
+                                            <option value="trois">Rubis</option>
+                                            <option value="quatre">Diamond</option>
+                                            <option value="cinq">Gold</option>
                                         </select>
 
                                     </div>
@@ -180,13 +193,16 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                         <span>
+                                            <img class="img" src="/img/triple.png">
+                                        </span>
                                         <select class="selectpicker">
-                                            <option disabled selected value="" style="background-image:url('/img/triple.png');">Select</option>
-                                            <option value="un">1</option>
-                                            <option value="deux">2</option>
-                                            <option value="trois">3</option>
-                                            <option value="quatre">4</option>
-                                            <option value="cinq">5</option>
+                                            <option disabled selected value="">select</option>
+                                            <option value="un">Jade</option>
+                                            <option value="deux">Sapphire</option>
+                                            <option value="trois">Rubis</option>
+                                            <option value="quatre">Diamond</option>
+                                            <option value="cinq">Gold</option>
                                         </select>
                                     </div>
                                 </div>
@@ -199,13 +215,16 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                         <span>
+                                            <img class="img" src="/img/family.png">
+                                        </span>
                                         <select class="selectpicker">
-                                            <option disabled selected value="" style="background-image:url('/img/family.png');">Select</option>
-                                            <option value="un">1</option>
-                                            <option value="deux">2</option>
-                                            <option value="trois">3</option>
-                                            <option value="quatre">4</option>
-                                            <option value="cinq">5</option>
+                                            <option disabled selected value="">select</option>
+                                            <option value="un">Jade</option>
+                                            <option value="deux">Sapphire</option>
+                                            <option value="trois">Rubis</option>
+                                            <option value="quatre">Diamond</option>
+                                            <option value="cinq">Gold</option>
                                         </select>
 
                                     </div>
@@ -219,13 +238,16 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                         <span>
+                                            <img class="img" src="/img/extra.png">
+                                        </span>
                                         <select class="selectpicker">
-                                            <option disabled selected value="">Select</option>
-                                            <option value="un">1</option>
-                                            <option value="deux">2</option>
-                                            <option value="trois">3</option>
-                                            <option value="quatre">4</option>
-                                            <option value="cinq">5</option>
+                                            <option disabled selected value="">select</option>
+                                            <option value="un">Jade</option>
+                                            <option value="deux">Sapphire</option>
+                                            <option value="trois">Rubis</option>
+                                            <option value="quatre">Diamond</option>
+                                            <option value="cinq">Gold</option>
                                         </select>
 
                                     </div>
@@ -242,7 +264,7 @@
                 <div name="child" class="row">
                     <div id="right" class="col-md-6 col-md-push-6">
                         <div class="form-group">
-                            <label class="col-md-2" for="name"><img id="board" src="/img/board.png"/></label>
+                            <label class="col-md-2" for="name"><span class="label label-default">BOARD</span></label>
                             <div class="col-md-10">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -253,13 +275,16 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                        <span>
+                                            <img class="img" src="/img/breakfast.png">
+                                        </span>
                                         <select class="selectpicker">
-                                            <option disabled selected value="">Select</option>
-                                            <option value="un">1</option>
-                                            <option value="deux">2</option>
-                                            <option value="trois">3</option>
-                                            <option value="quatre">4</option>
-                                            <option value="cinq">5</option>
+                                            <option disabled selected value="">select</option>
+                                            <option value="un">Jade</option>
+                                            <option value="deux">Sapphire</option>
+                                            <option value="trois">Rubis</option>
+                                            <option value="quatre">Diamond</option>
+                                            <option value="cinq">Gold</option>
                                         </select>
                                     </div>
                                 </div>
@@ -272,13 +297,16 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                        <span>
+                                            <img class="img" src="/img/lunch.png">
+                                        </span>
                                         <select class="selectpicker">
-                                            <option disabled selected value="">Select</option>
-                                            <option value="un">1</option>
-                                            <option value="deux">2</option>
-                                            <option value="trois">3</option>
-                                            <option value="quatre">4</option>
-                                            <option value="cinq">5</option>
+                                            <option disabled selected value="">select</option>
+                                            <option value="un">Jade</option>
+                                            <option value="deux">Sapphire</option>
+                                            <option value="trois">Rubis</option>
+                                            <option value="quatre">Diamond</option>
+                                            <option value="cinq">Gold</option>
                                         </select>
                                     </div>
                                 </div>
@@ -291,13 +319,16 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6" >
+                                         <span>
+                                            <img class="img" src="/img/dinner.png">
+                                        </span>
                                         <select class="selectpicker">
-                                            <option disabled selected value="">Select</option>
-                                            <option value="un">1</option>
-                                            <option value="deux">2</option>
-                                            <option value="trois">3</option>
-                                            <option value="quatre">4</option>
-                                            <option value="cinq">5</option>
+                                            <option disabled selected value="">select</option>
+                                            <option value="un">Jade</option>
+                                            <option value="deux">Sapphire</option>
+                                            <option value="trois">Rubis</option>
+                                            <option value="quatre">Diamond</option>
+                                            <option value="cinq">Gold</option>
                                         </select>
                                     </div>
                                 </div>
@@ -307,7 +338,7 @@
                     </div>
                     <div id="left-child" class="col-md-6 col-md-pull-6">
                         <div class="form-group">
-                            <label class="col-md-2" for="name"><img id="room" src="/img/room.png"/></label>
+                            <label class="col-md-2" for="name"><span class="label label-default">ROOM</span></label>
                             <div class="col-md-10">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -318,13 +349,16 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                         <span>
+                                            <img class="img" src="/img/extra.png">
+                                        </span>
                                         <select class="selectpicker">
-                                            <option disabled selected value="" >Select</option>
-                                            <option value="un">1</option>
-                                            <option value="deux">2</option>
-                                            <option value="trois">3</option>
-                                            <option value="quatre">4</option>
-                                            <option value="cinq">5</option>
+                                            <option disabled selected value="">select</option>
+                                            <option value="un">Jade</option>
+                                            <option value="deux">Sapphire</option>
+                                            <option value="trois">Rubis</option>
+                                            <option value="quatre">Diamond</option>
+                                            <option value="cinq">Gold</option>
                                         </select>
                                     </div>
                                 </div>
@@ -336,19 +370,11 @@
                 </div>
                 <div class="row">
                     <div class="pull-right">
-                        <img class="btn" id="save" src="/img/save.png">
+                        <button><img id="save" src="/img/save.png"></button>
                     </div>
                 </div>
 
             </form>
-        </div>
-    </div>
-    <button id="add_room_button" data-popup-open="popup-1">Add room hotel</button>
-    <div class="popup" data-popup="popup-1">
-        <div class="popup-inner">
-
-            <p><a data-popup-close="popup-1" href="#">Close</a></p>
-            <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
         </div>
     </div>
 
@@ -360,9 +386,9 @@
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
-<!--<script src="/bootstrap-select/dist/js/bootstrap-select.min.js"></script>-->
+<script src="/js/bootstrap-multiselect.js"></script>
 <!-- Latest compiled and minified JavaScript -->
-<script src="/js/jquery-2.2.4.min.js"></script>
+<script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 {% block scripts %}
     <script src="/js/function.js"></script>
