@@ -1,6 +1,13 @@
 <ifModule mod_rewrite.c>
+<<<<<<< HEAD
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php [QSA,L]
+=======
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php [QSA,L]
+>>>>>>> 5ec53b15887eef6db8ffbaefd7b3f405e8c26a40
 </ifModule>

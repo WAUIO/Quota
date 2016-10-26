@@ -9,3 +9,4 @@ $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware
 
 $app->get('/[home]', 'App\Http\Controller\WelcomeController@index');
 $app->get('/info', 'App\Http\Controller\WelcomeController@info');
+$app->get('/', 'App\Http\Controller\QuotaViewController@index');

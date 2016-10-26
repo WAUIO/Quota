@@ -17,6 +17,13 @@
   "autoload": {
     "psr-4": {
       "App\\": "application/"
+<<<<<<< HEAD
     }
+=======
+    },
+    "files": [
+      "application/Utils/RoomBase.php"
+    ]
+>>>>>>> 5ec53b15887eef6db8ffbaefd7b3f405e8c26a40
   }
 }

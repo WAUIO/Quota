@@ -1,17 +1,37 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5ec53b15887eef6db8ffbaefd7b3f405e8c26a40
 .DS_Store
 Gemfile.lock
 .bundle
 _site
 .idea
 vendor
+<<<<<<< HEAD
 
 .env
 composer.lock
 
+=======
+project.dev_error_log*
+.env
+composer.lock
+
+public/hook.wau-error_log
+public/hook.wau-access_log
+
+>>>>>>> 5ec53b15887eef6db8ffbaefd7b3f405e8c26a40
 storages/*/*
 !storages/*/*/.gitkeep
 !storages/*/.gitkeep
 
 config/develop/*
+<<<<<<< HEAD
 config/local/*
+=======
+config/local/*
+config/dev/podio.php
+composer.phar
+
+>>>>>>> 5ec53b15887eef6db8ffbaefd7b3f405e8c26a40
