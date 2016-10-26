@@ -10,4 +10,8 @@ class WelcomeController extends Controller
         return $this->app()->make('twig.view')->render('form.twig');
     }
 
+    public function info(){
+        return $this->app()->make('twig.view')->render('info.twig');
+    }
+
 }

@@ -3,7 +3,7 @@
 return [
 
     //Required
-    'baseUrl'     => env('APP_BASEURL', 'http://localhost'),
+    'baseUrl'     => env('APP_BASEURL', 'http://quota.wau.travel'),
 
     //Basic
     'debug'       => (Boolean)env('APP_DEBUG', false),
@@ -18,9 +18,8 @@ return [
     'locale'      => 'en_US',
     'lang'        => 'en',
     'charset'     => 'UTF-8',
-    'defaultContentType'     => 'text/html',
+    'defaultContentType' => 'text/html',
 
     // Envrironment
-    'hostaname'   => shell_exec('hostname'),
-
+    'hostname'   => shell_exec('hostname'),
 ];

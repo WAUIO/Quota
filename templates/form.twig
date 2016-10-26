@@ -14,7 +14,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="/css/bootstrap.min.css" >
-
+    <!--<link rel="stylesheet" href="/bootstrap-select/dist/css/bootstrap-select.min.css">-->
     <!-- Optional theme -->
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
 
@@ -23,6 +23,7 @@
 </head>
 
 <body class="main">
+
 <nav class="navbar navbar-fixed-top" role="navigation">
     <div class="navbar-header">
         <div class="pull-left">
@@ -30,7 +31,6 @@
         </div>
     </div>
 </nav>
-
 
 
 {% block body %}
@@ -43,17 +43,17 @@
                         <div class="form-group">
                             <label class="col-md-2" for="name"><img id="hotel" src="/img/hotel.png"/></label>
                             <div class="col-md-6">
-                                <select id="select-hotel" class="form-control">
-                                    <option disabled selected data-icon="glyphicon-picture" value="">Select</option>
+                                <select id="select-hotel" class="selectpicker" data-style="btn-primary">
+                                    <option disabled selected value="">Select</option>
                                     <option value="un">Jade</option>
-                                    <option value="deux">Sapphire</option>
+                                    <option value="deux">Sapphireblablabalkal</option>
                                     <option value="trois">Ruby</option>
                                     <option value="quatre">Diamond</option>
                                     <option value="cinq">Gold</option>
                                 </select>
                             </div>
-                            <label class="col-md-2">EURO -> ARIARY</label>
-                            <div class="col-md-2"><input type="text" class="form-control" value="EUR/AR"/></div>
+                            <label class="col-md-2"></label>
+                            <div class="col-md-2"><input type="text" value="£/AR/$"/></div>
                         </div>
 
                     </div>
@@ -75,7 +75,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <select class="form-control">
+                                        <select class="selectpicker">
                                             <option disabled selected value="">Select</option>
                                             <option value="un">1</option>
                                             <option value="deux">2</option>
@@ -94,7 +94,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <select class="form-control">
+                                        <select class="selectpicker">
                                             <option disabled selected value="">Select</option>
                                             <option value="un">1</option>
                                             <option value="deux">2</option>
@@ -113,7 +113,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6" >
-                                        <select class="form-control">
+                                        <select class="selectpicker">
                                             <option disabled selected value="">Select</option>
                                             <option value="un">1</option>
                                             <option value="deux">2</option>
@@ -140,7 +140,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <select class="form-control">
+                                        <select class="selectpicker">
                                             <option disabled selected value="">Select</option>
                                             <option value="un">1</option>
                                             <option value="deux">2</option>
@@ -160,7 +160,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <select class="form-control">
+                                        <select class="selectpicker">
                                             <option disabled selected value="" style="background-image:url('/img/double.png');">Select</option>
                                             <option value="un">1</option>
                                             <option value="deux">2</option>
@@ -180,7 +180,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <select class="form-control">
+                                        <select class="selectpicker">
                                             <option disabled selected value="" style="background-image:url('/img/triple.png');">Select</option>
                                             <option value="un">1</option>
                                             <option value="deux">2</option>
@@ -199,7 +199,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <select class="form-control">
+                                        <select class="selectpicker">
                                             <option disabled selected value="" style="background-image:url('/img/family.png');">Select</option>
                                             <option value="un">1</option>
                                             <option value="deux">2</option>
@@ -219,8 +219,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <select class="form-control">
-                                            <option disabled selected value="" style="background-image:url('/img/extra.png');">Select</option>
+                                        <select class="selectpicker">
+                                            <option disabled selected value="">Select</option>
                                             <option value="un">1</option>
                                             <option value="deux">2</option>
                                             <option value="trois">3</option>
@@ -253,7 +253,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <select class="form-control">
+                                        <select class="selectpicker">
                                             <option disabled selected value="">Select</option>
                                             <option value="un">1</option>
                                             <option value="deux">2</option>
@@ -272,7 +272,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <select class="form-control">
+                                        <select class="selectpicker">
                                             <option disabled selected value="">Select</option>
                                             <option value="un">1</option>
                                             <option value="deux">2</option>
@@ -291,7 +291,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6" >
-                                        <select class="form-control">
+                                        <select class="selectpicker">
                                             <option disabled selected value="">Select</option>
                                             <option value="un">1</option>
                                             <option value="deux">2</option>
@@ -318,8 +318,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <select class="form-control">
-                                            <option disabled selected value="" style="background-image:url('/img/extra.png');">Select</option>
+                                        <select class="selectpicker">
+                                            <option disabled selected value="" >Select</option>
                                             <option value="un">1</option>
                                             <option value="deux">2</option>
                                             <option value="trois">3</option>
@@ -360,6 +360,7 @@
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
+<!--<script src="/bootstrap-select/dist/js/bootstrap-select.min.js"></script>-->
 <!-- Latest compiled and minified JavaScript -->
 <script src="/js/jquery-2.2.4.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
