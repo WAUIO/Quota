@@ -1,123 +1,41 @@
 {% extends 'layout.twig' %}
+{% block edit_client %}
+    <div class="col-xs-9 content">
+        <h1 class="page-header">
+            Customer information
+        </h1>
+        <div class="customer_info">
+            <table class="flat-table">
+                <tbody>
 
-{% block body %}
-
-    <!-- Page Content -->
-    <div class="container">
-
-
-        <div class="row">
-
-            <!--Content LEFT-->
-            <div class="col-xs-8 content">
-                <h1 class="page-header">
-                    Customer information
-                </h1>
-
-
-                    <div class="customer_info">
-
-
-                        <table class="flat-table">
-                            <tbody>
-
-                            <form action="submit">
-                                <div class="field">
-                                    </br>
-                                    <label class="form-label">Customer ref : </label>
-                                    <input type="text" class="form-control"  required="required"/></br> </br>
-                                </div>
-                                <div class="field">
-                                    <label class="form-label">Name : </label>
-                                    <input type="text" class="form-control"> </br> </br>
-                                </div>
-                                <div class="field">
-                                    <label class="form-label">Number of adults : </label>
-                                    <input type="number" class="form-control" > </br> </br>
-                                </div>
-                                <div class="field">
-                                    <label class="form-label">Number of children : </label>
-                                    <input type="number" class="form-control" > </br> </br>
-                                </div>
-                                <div class="field">
-                                    <label class="form-label">Beginning of stay : </label>
-                                    <input type="date" class="form-control" > </br> </br>
-                                </div>
-
-                              <input type="submit" class="form-submit" value="Next &rarr;">
-                            </form>
-
-                            </tbody>
-                        </table>
+                <form action="submit">
+                    <div class="field">
+                        </br>
+                        <label class="form-label">Customer ref : </label>
+                        <input type="text" class="form-control"  required="required"/></br> </br>
                     </div>
-            </div>
-
-            <!--Content RIGHT-->
-            <div class="col-xs-3 sidebar-outer" >
-                <div class="fixed col-xs-3">
-                    <div class="well">
-                        <h4>Quota Search</h4>
-                        <div class="input-group">
-                            <input type="text" class="form-control">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-                            </span>
-                        </div>
-                        <!-- /.input-group -->
+                    <div class="field">
+                        <label class="form-label">Name : </label>
+                        <input type="text" class="form-control"> </br> </br>
+                    </div>
+                    <div class="field">
+                        <label class="form-label">Number of adults : </label>
+                        <input type="number" class="form-control" > </br> </br>
+                    </div>
+                    <div class="field">
+                        <label class="form-label">Number of children : </label>
+                        <input type="number" class="form-control" > </br> </br>
+                    </div>
+                    <div class="field">
+                        <label class="form-label">Beginning of stay : </label>
+                        <input type="date" class="form-control" > </br> </br>
                     </div>
 
-                    <!-- Blog Categories Well -->
-                    <div class="well">
-                        <h4>Blog Categories</h4>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <ul class="list-unstyled">
-                                    <li><a href="#">Category Name</a>
-                                    </li>
-                                    <li><a href="#">Category Name</a>
-                                    </li>
-                                    <li><a href="#">Category Name</a>
-                                    </li>
-                                    <li><a href="#">Category Name</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- /.col-lg-6 -->
-                            <div class="col-lg-6">
-                                <ul class="list-unstyled">
-                                    <li><a href="#">Category Name</a>
-                                    </li>
-                                    <li><a href="#">Category Name</a>
-                                    </li>
-                                    <li><a href="#">Category Name</a>
-                                    </li>
-                                    <li><a href="#">Category Name</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- /.col-lg-6 -->
-                        </div>
-                        <!-- /.row -->
-                    </div>
+                    <input type="submit" class="form-submit" value="Next &rarr;">
+                </form>
 
-                    <!-- Side Widget Well -->
-                    <div class="well">
-                        <h4>Existing base for this quota</h4>
-
-                            <p class="base_types">
-                                <a class="base_type" href="#{{ (base|lower)|replace({' ' : '_'}) }}" >{{ base }}</a>
-                            </p>
-
-
-                    </div>
-                </div>
-            </div>
+                </tbody>
+            </table>
         </div>
-        <!-- /.row -->
-
     </div>
-    <!-- /.container -->
-
-{% endblock body %}
+{% endblock edit_client %}

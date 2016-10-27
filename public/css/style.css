@@ -6,61 +6,34 @@ footer {
     margin: 50px 0;
 }
 .navbar-fixed-top{
-    background: #1BBC9B;
-}
-.navbar-nav li li {
-    max-height:0;
-    overflow: hidden;
-    transition: all .5s;
-    border-radius:0;
-    background: #444;
-    box-shadow: none;
-    border:none;
-    margin:0
-}
-.navbar-nav a {
-    display:block;
-    text-decoration: none;
-    color: #fff;
-    padding: 8px 0;
-    font-size:1.2em
-}
-.navbar-nav ul li a, .navbar-nav li:hover li a {
-    font-size:1em
-}
-.navbar-nav li li:hover {
-    background: #999;
-}
-.navbar-nav ul li:last-child {
-    border-radius: 0 0 6px 6px;
-    border:none;
-}
-.navbar-nav li:hover li {
-    max-height: 15em;
+    background: #2B838E;
 }
 
+#logo{
+    width: 90px;
+    position: relative;
+    top:-10px;
+}
 
 .title-logo, .navbar-nav{
     color:white;
 }
-
 .content {
     top:0;
  }
 .sidebar-outer {
-    min-width: 100px;
     position: relative;
 }
 .well{
     padding-top: 5px;
     right:0;
-    width: 100%;
     min-width: 200px;
 }
 #search_glyphicon{
   cursor: pointer;
 }
 #quota_list{
+    margin-top: 10px;
     max-height:170px;
     overflow: auto;
     position: relative;
@@ -83,7 +56,7 @@ footer {
 /******* For quota view *******/
 .base_title{
     font-size: 170%;
-    color: #1BBC9B;
+    color: #2B838E;
 }
 .calculation_quota{
     height: 250px;
@@ -97,7 +70,7 @@ footer {
     height: 250px;
 }
 th {
-    background-color: #1BBC9B;
+    background-color: #2B838E;
     color: white;
     font-weight: normal;
     font-size: 110%;
@@ -134,7 +107,7 @@ td {
     background: #f4f4f4;
 }
 .detail_head{
-    color: #1BBC9B;
+    color: #2B838E;
     margin-top: 2px;
     margin-left: 14px;
     height: 30px;
@@ -183,7 +156,7 @@ td {
 }
 .base_types a, .quota_lists a{
     text-decoration: none;
-    color: #1BBC9B;
+    color: #2B838E;
     margin-left: 10px;
 }
 .base_types{
@@ -198,12 +171,12 @@ td {
     color: white;
     text-align: center;
     line-height: 40px;
-    background: #1BBC9B;
+    background: #2B838E;
     border-radius: 2px;
     cursor: pointer;
 }
 .add_room_button:hover{
-    background: #00CC99;
+    background: #2aa198;
 }
 .glyphicon-menu-down, .glyphicon-menu-up, .glyphicon-chevron-up, .glyphicon-chevron-down{
     float: right;
@@ -235,7 +208,7 @@ td {
 }
 .select_data{
     width:100%;
-    max-height:450px;
+    max-height:400px;
     overflow: auto;
     position: relative;
 }
@@ -268,38 +241,28 @@ td {
 
 
 /****************/
-#board{
-    width: 60px;
-    height: 40px;
+#choose_hotel_label{
+    margin-left: 20px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 120%;
+    font-weight: bolder;
 }
-#room {
-    width: 60px;
-    height: 40px;
+#choose_hotel_select{
+    max-width: 300px;
+    height: 50px;
+    line-height: 50px;
 }
-#logo{
-    width: 90px;
-    position: relative;
-    top:-10px;
+.type_client{
+    margin-left: 20px;
 }
 h3{
     color:#2B838E;
     font-weight: bolder;
 }
-.selectpicker{
 
-}
-.form-control{
-    margin: auto;
-    margin-right:auto;
-}
-.field_option{
-    margin-top: 7px;
-}
-.icon{
-    width: 15px;
-    height: 15px;
-}
-.pull-right{
+.save_btn{
+    float: right;
     cursor: pointer;
     background: #CCCCCC;
     color:white;
@@ -309,9 +272,10 @@ h3{
     line-height: 34px;
     border-radius: 2px;
 }
-.pull-right:hover{
+.save_btn:hover{
     background: #A3A3A3;
 }
+
 #hotel{
     width: 60px;
     height:40px;
@@ -320,3 +284,133 @@ h3{
     width:10px;
     height:10px;
 }
+
+
+
+
+
+/* Principal */
+
+
+.navbar-nav a{
+    float: left;
+    color: white;
+    font: bold 12px/25px Arial, Helvetica;
+    text-decoration: none;
+}
+
+.navbar-nav li:hover > a{
+    color: #000000;
+    background: #D1D3D4;
+}
+
+*html .navbar-nav li a:hover{ /* IE6 */
+    color: #fafafa;
+}
+
+.navbar-nav li:hover > ul{
+    display: block;
+}
+
+/* Sous-menu */
+
+.navbar-nav ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    z-index: 99999;
+    background: #2B838E;
+    background: -moz-linear-gradient(#2B838E, #2B838E);
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #2B838E),color-stop(1, #2B838E));
+    background: -webkit-linear-gradient(#2B838E, #2B838E);
+    background: -o-linear-gradient(#2B838E, #2B838E);
+    background: -ms-linear-gradient(#2B838E, #2B838E);
+    background: linear-gradient(#2B838E, #2B838E);
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
+.navbar-nav ul li{
+    float: none;
+    margin: 0;
+    padding: 1px 0 0 0;
+    display: block;
+    -moz-box-shadow: 0 0 0 #2B838E, 0 1px 0 #fff;
+    -webkit-box-shadow: 0 0 0 #2B838E, 0 1px 0 #fff;
+    box-shadow: 0 0 0 #2B838E, 0 1px 0 #fff;
+}
+/*.navbar-nav ul li:first-child{*/
+    /*-moz-box-shadow: 0 -1px 0 #2B838E, 0 1px 0 #fff;*/
+    /*-webkit-box-shadow: 0 -1px 0 #2B838E, 0 1px 0 #fff;*/
+    /*box-shadow: 0 -1px 0 #2B838E, 0 1px 0 #fff;*/
+/*}*/
+.navbar-nav ul li:last-child{
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.navbar-nav ul a{
+    padding: 10px;
+    height: auto;
+    line-height: 1;
+    display: block;
+    white-space: nowrap;
+    float: none;
+    text-transform: none;
+}
+
+*:first-child+html .navbar-nav ul a{ /* IE7 */
+    height: 10px;
+    width: 150px;
+}
+
+.navbar-nav ul a:hover{
+    background: #D1D3D4;
+    background: -moz-linear-gradient(#D1D3D4,  #D1D3D4);
+    background: -webkit-gradient(linear, left top, left bottom, from(#D1D3D4), to(#D1D3D4));
+    background: -webkit-linear-gradient(#D1D3D4,  #D1D3D4);
+    background: -o-linear-gradient(#D1D3D4,  #D1D3D4);
+    background: -ms-linear-gradient(#D1D3D4,  #D1D3D4);
+    background: linear-gradient(#D1D3D4,  #D1D3D4);
+}
+
+
+/*.navbar-nav ul li:first-child a:after{*/
+    /*content: '';*/
+    /*position: absolute;*/
+    /*left: 30px;*/
+    /*top: -8px;*/
+    /*width: 0;*/
+    /*height: 0;*/
+    /*border-left: 5px solid transparent;*/
+    /*border-right: 5px solid transparent;*/
+    /*border-bottom: 8px solid #2B838E;*/
+/*}*/
+
+.navbar-nav ul li:first-child a:hover:after{
+    /*border-bottom-color: #000;*/
+}
+
+.navbar-nav ul li:last-child a{
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
+
+/* Rétablissement du flottement */
+.navbar-nav:after{
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+* html .navbar-nav             { zoom: 1; } /* IE6 */
+*:first-child+html .navbar-nav { zoom: 1; } /* IE7 */

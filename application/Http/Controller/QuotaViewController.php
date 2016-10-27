@@ -16,9 +16,11 @@ class QuotaViewController extends Controller
         $details = array();
 
 
-        $single_room  = new RoomBase(array(3000, "single room", 1000, 20, 100, 50, 150, 200));
-        $double_room  = new RoomBase(array(3000, "double room", 2000, 30, 100, 50, 150, 200));
-        $family_room  = new RoomBase(array(3000, "family room", 15000, 50, 200, 10, 1500, 3000));
+        $euro = 3000;
+        $dollar = 2500;
+        $single_room  = new RoomBase(array("single room", 1000, 20, 100, 50, 150, 200, $euro, $dollar));
+        $double_room  = new RoomBase(array("double room", 2000, 30, 100, 50, 150, 200, $euro, $dollar));
+        $family_room  = new RoomBase(array("family room", 15000, 50, 200, 10, 1500, 3000, $euro, $dollar));
 
         $existing_base = RoomBase::$room_type;
 
@@ -30,7 +32,7 @@ class QuotaViewController extends Controller
         array_set($data, 'request', $request);
 
 
-        return $this->app()->make('twig.view')->render('index.twig',$data);
+        return $this->app()->make('twig.view')->render('room_quota.twig',$data);
     }
 
 }
