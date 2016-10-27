@@ -4,13 +4,6 @@
 use Wau\Http\Middleware\MiddlewareAbstract;
 
 class AuthMiddleware extends MiddlewareAbstract
-//<<<<<<< HEAD
-//{
-//    public function handle($args = null){
-//        return true;
-//    }
-//
-//=======
 {
     protected function controlMail($user)
 {
