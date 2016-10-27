@@ -38,9 +38,6 @@ footer {
     overflow: auto;
     position: relative;
 }
-.fixed {
-    position: fixed;
-}
 .page-header{
     font-size:300%;
 }

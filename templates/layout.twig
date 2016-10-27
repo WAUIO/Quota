@@ -66,16 +66,19 @@
 <!-- Page Content -->
 <div class="container">
     <div class="row">
-        {% block edit_client %}
-        {% endblock edit_client %}
+        <div class="col-xs-9">
+            {% block edit_client %}
+            {% endblock edit_client %}
 
-        {% block room_quota %}
-        {% endblock room_quota %}
+            {% block room_quota %}
+            {% endblock room_quota %}
+        </div>
 
-        {% block search_menu %}
-            <!--Content RIGHT-->
-            <div class="col-xs-3" >
-                <div class="fixed">
+
+        <div class="col-xs-3">
+            {% block search_menu %}
+                <!--Content RIGHT-->
+                <div class="fixed_right">
                     <div class="well">
                         <h4>Quota Search <span id="search_glyphicon" class="glyphicon glyphicon-chevron-up"></span></h4>
                         <div class="input-group">
@@ -103,12 +106,11 @@
                     {% endblock menu_room %}
 
                 </div>
-            </div>
-        {% endblock search_menu %}
+            {% endblock search_menu %}
 
-        {% block edit_room %}
-        {% endblock edit_room %}
-
+            {% block edit_room %}
+            {% endblock edit_room %}
+        </div>
     </div>
     <!-- /.row -->
 </div>

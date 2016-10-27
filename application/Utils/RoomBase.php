@@ -28,9 +28,8 @@ class RoomBase
         $lunch      = $array[4];
         $vignette   = $array[5];
         $tax        = $array[6];
-
-        $euro   = $array[7];
-        $dollar = $array[8];
+        $euro       = $array[7];
+        $dollar     = $array[8];
 
         $somme = 0;
         $array_type = array("integer", "double");
@@ -81,8 +80,8 @@ class RoomBase
         $this->total[0] = "Total / pax";
         $this->total[1] = round($somme, 2);
 
-        $this->euro   = round($euro, 2);
-        $this->dollar = round($dollar, 2);
+        $this->euro   = $euro;
+        $this->dollar = $dollar;
 
         array_push($this->content, $this->room, $this->breakfast, $this->lunch, $this->dinner, $this->vignette, $this->tax);
 
