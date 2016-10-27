@@ -1,6 +1,8 @@
 
+<?php session_start();?>
+
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,14 +13,17 @@
 
     <title>WAU Travel Quota</title>
 
-    <!--<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="/css/bootstrap.min.css" >
-    <link rel="stylesheet" href="/css/bootstrap-multiselect.css">
+
     <!-- Optional theme -->
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-select.css">
 
     <!--Stylesheet-->
     <link href="/css/form.css" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/images/favicon.ico">
 </head>
 
 <body class="main">
@@ -41,8 +46,8 @@
                         <div class="form-group">
                             <label class="col-md-2" for="name"><img id="hotel" src="/img/hotel.png"/></label>
                             <div class="col-md-6">
-                                <select class="form-control">
-                                    <option disabled selected value="">select</option>
+                                <select id="select-hotel" class="form-control">
+                                    <option value="">select</option>
                                     <option value="un">Jade</option>
                                     <option value="deux">Sapphire</option>
                                     <option value="trois">Rubis</option>
@@ -73,11 +78,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <span>
-                                            <img class="img" src="/img/breakfast.png">
-                                        </span>
-                                        <select>
-                                            <option disabled selected value="">select</option>
+                                        <select class="selectpicker form-control show-tick" data-live-search="true">
+                                            <option value="">select</option>
                                             <option value="un">Jade</option>
                                             <option value="deux">Sapphire</option>
                                             <option value="trois">Rubis</option>
@@ -95,11 +97,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                         <span>
-                                            <img class="img" src="/img/lunch.png">
-                                        </span>
-                                        <select class="selectpicker">
-                                            <option disabled selected value="">select</option>
+                                        <select class="selectpicker form-control show-tick" data-live-search="true">
+                                            <option value="">select</option>
                                             <option value="un">Jade</option>
                                             <option value="deux">Sapphire</option>
                                             <option value="trois">Rubis</option>
@@ -117,11 +116,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6" >
-                                         <span>
-                                            <img class="img" src="/img/dinner.png">
-                                        </span>
-                                        <select class="selectpicker">
-                                            <option disabled selected value="">select</option>
+                                        <select class="selectpicker form-control show-tick" data-live-search="true">
+                                            <option value="">select</option>
                                             <option value="un">Jade</option>
                                             <option value="deux">Sapphire</option>
                                             <option value="trois">Rubis</option>
@@ -147,11 +143,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                         <span>
-                                            <img class="img" src="/img/single.png">
-                                        </span>
-                                        <select class="selectpicker">
-                                            <option disabled selected value="">select</option>
+                                        <select class="selectpicker form-control show-tick" data-live-search="true">
+                                            <option value="">select</option>
                                             <option value="un">Jade</option>
                                             <option value="deux">Sapphire</option>
                                             <option value="trois">Rubis</option>
@@ -170,11 +163,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                         <span>
-                                            <img class="img" src="/img/double.png">
-                                        </span>
-                                        <select class="selectpicker">
-                                            <option disabled selected value="">select</option>
+                                        <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
+                                            <option value="">select</option>
                                             <option value="un">Jade</option>
                                             <option value="deux">Sapphire</option>
                                             <option value="trois">Rubis</option>
@@ -193,11 +183,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                         <span>
-                                            <img class="img" src="/img/triple.png">
-                                        </span>
-                                        <select class="selectpicker">
-                                            <option disabled selected value="">select</option>
+                                        <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
+                                            <option value="">select</option>
                                             <option value="un">Jade</option>
                                             <option value="deux">Sapphire</option>
                                             <option value="trois">Rubis</option>
@@ -215,11 +202,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                         <span>
-                                            <img class="img" src="/img/family.png">
-                                        </span>
-                                        <select class="selectpicker">
-                                            <option disabled selected value="">select</option>
+                                        <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
+                                            <option value="">select</option>
                                             <option value="un">Jade</option>
                                             <option value="deux">Sapphire</option>
                                             <option value="trois">Rubis</option>
@@ -238,11 +222,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                         <span>
-                                            <img class="img" src="/img/extra.png">
-                                        </span>
-                                        <select class="selectpicker">
-                                            <option disabled selected value="">select</option>
+                                        <select class="selectpicker form-control show-tick" data-live-search="true">
+                                            <option value="">select</option>
                                             <option value="un">Jade</option>
                                             <option value="deux">Sapphire</option>
                                             <option value="trois">Rubis</option>
@@ -275,11 +256,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <span>
-                                            <img class="img" src="/img/breakfast.png">
-                                        </span>
-                                        <select class="selectpicker">
-                                            <option disabled selected value="">select</option>
+                                        <select class="selectpicker form-control show-tick" data-live-search="true">
+                                            <option value="">select</option>
                                             <option value="un">Jade</option>
                                             <option value="deux">Sapphire</option>
                                             <option value="trois">Rubis</option>
@@ -297,11 +275,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <span>
-                                            <img class="img" src="/img/lunch.png">
-                                        </span>
-                                        <select class="selectpicker">
-                                            <option disabled selected value="">select</option>
+                                        <select class="selectpicker form-control show-tick" data-live-search="true">
+                                            <option value="">select</option>
                                             <option value="un">Jade</option>
                                             <option value="deux">Sapphire</option>
                                             <option value="trois">Rubis</option>
@@ -319,11 +294,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6" >
-                                         <span>
-                                            <img class="img" src="/img/dinner.png">
-                                        </span>
-                                        <select class="selectpicker">
-                                            <option disabled selected value="">select</option>
+                                        <select class="selectpicker form-control show-tick" data-live-search="true">
+                                            <option value=""></option>
                                             <option value="un">Jade</option>
                                             <option value="deux">Sapphire</option>
                                             <option value="trois">Rubis</option>
@@ -349,11 +321,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                         <span>
-                                            <img class="img" src="/img/extra.png">
-                                        </span>
-                                        <select class="selectpicker">
-                                            <option disabled selected value="">select</option>
+                                        <select class="selectpicker form-control show-tick" data-live-search="true">
+                                            <option value="">select</option>
                                             <option value="un">Jade</option>
                                             <option value="deux">Sapphire</option>
                                             <option value="trois">Rubis</option>
@@ -370,7 +339,7 @@
                 </div>
                 <div class="row">
                     <div class="pull-right">
-                        <button><img id="save" src="/img/save.png"></button>
+                        <img class="btn" id="save" src="/img/save.png">
                     </div>
                 </div>
 
@@ -381,15 +350,9 @@
 
 {% endblock body %}
 
-
-
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<script src="/js/bootstrap-multiselect.js"></script>
-<!-- Latest compiled and minified JavaScript -->
-<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-2.2.4.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap-select.min.js"></script>
 {% block scripts %}
     <script src="/js/form.js"></script>
 {% endblock scripts %}

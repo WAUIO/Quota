@@ -62,7 +62,7 @@ $(document).ready(function () {
 
     /**************/
     $(".selectpicker").attr("disabled","disabled");
-    $(".form-control").attr("disabled","disabled");
+    // $(".form-control").attr("disabled","disabled");
     $("#select-hotel").removeAttr("disabled");
 
     /*******checkbox event*******/
@@ -77,8 +77,8 @@ $(document).ready(function () {
         }
     });
 
-    checkRoom();
-    simpleBase();
+    //checkRoom();
+    //simpleBase();
 });
 
 
