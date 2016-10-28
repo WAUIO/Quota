@@ -1,6 +1,5 @@
-<?php
+<?php namespace App\Utils;
 
-namespace App\Utils;
 
 class RoomQuota
 {

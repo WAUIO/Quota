@@ -19,7 +19,7 @@
       "App\\": "application/"
     },
     "files": [
-      "application/Utils/RoomBase.php"
+      "application/Utils/RoomQuota.php"
     ]
   }
 }
