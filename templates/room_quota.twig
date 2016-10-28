@@ -1,12 +1,12 @@
 {% extends 'layout.twig' %}
 
+
 {% block room_quota %}
     <!--Content LEFT-->
-    <h1 class="page-header">
-        Hotel room quota
+    <h1 class="page-header" id="reference">
+        Quota room : {{ reference_quota }}
     </h1>
 
-    <p id="reference">Quota n°1200</p>
     {% if(base_rooms|length > 0) %}
         {% for base in base_rooms %}
             <p class="base_title" id="{{ base.type|replace({' ' : '_'}) }}">Based on {{ base.type }}</p>
@@ -15,36 +15,36 @@
                 <!--table for each quota-->
                 <table class="flat-table">
                     <tbody>
-                    <tr>
-                        <th class="td_designation">DESIGNATION</th>
-                        <th class="td_amount">ARIARY</th>
-                        <th class="td_amount">EURO</th>
-                        <th class="td_amount">USD</th>
-                    </tr>
-                    {% for content in base.content %}
-                        <tr {% if(content[0] == 'Total / pax') %}class="tr_total" {% endif %}>
-                            <td>
-                                <span {% if(content[0]in ['Vignette','Various taxes']) %}
-                                        class="glyphicon glyphicon-usd"
-                                    {% elseif(content[0]) in ['Breakfast','Dinner','Lunch'] %}
-                                        class="glyphicon glyphicon-cutlery"
-                                    {% elseif(content[0]) == 'Total / pax' %}
-                                        class="glyphicon glyphicon-plus"
-                                    {% else %}
-                                        class="glyphicon glyphicon-bed"
-                                    {% endif %}
-                                >
-                                </span>
-
-                                <span {% if(content[0] == 'Total / pax') %}class="designation_total"{% else %}class="designation_element"{% endif %}>
-                                    {{ content[0] }}
-                                </span>
-                            </td>
-                            <td class="td_amount">{{ content[1] }}</td>
-                            <td class="td_amount">{{ (content[1] / base.euro)|number_format(2, '.', ',') }}</td>
-                            <td class="td_amount">{{ (content[1] / base.dollar)|number_format(2, '.', ',')}}</td>
+                        <tr>
+                            <th class="td_designation">DESIGNATION</th>
+                            <th class="td_amount">ARIARY</th>
+                            <th class="td_amount">EURO</th>
+                            <th class="td_amount">USD</th>
                         </tr>
-                    {% endfor %}
+                        {% for content in base.content %}
+                            <tr {% if(content[0] == 'Total / pax') %} class="tr_total" {% endif %}>
+                                <td>
+                                    <span {% if(content[0]in ['Vignette','Various taxes']) %}
+                                            class="glyphicon glyphicon-usd"
+                                        {% elseif(content[0]) in ['Breakfast','Dinner','Lunch'] %}
+                                            class="glyphicon glyphicon-cutlery"
+                                        {% elseif(content[0]) == 'Total / pax' %}
+                                            class="glyphicon glyphicon-plus"
+                                        {% else %}
+                                            class="glyphicon glyphicon-bed"
+                                        {% endif %}
+                                    >
+                                    </span>
+
+                                    <span {% if(content[0] == 'Total / pax') %} class="designation_total" {% else %} class="designation_element" {% endif %}>
+                                        {{ content[0] }}
+                                    </span>
+                                </td>
+                                <td class="td_amount">{{ content[1] }}</td>
+                                <td class="td_amount">{{ (content[1] / base.euro)|number_format(2, '.', ',') }}</td>
+                                <td class="td_amount">{{ (content[1] / base.dollar)|number_format(2, '.', ',')}}</td>
+                            </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>

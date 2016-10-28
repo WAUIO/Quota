@@ -63,9 +63,10 @@
     <!-- /.container -->
 </nav>
 
-<!-- Page Content -->
+
 <div class="container">
     <div class="row">
+        <!--/span-->
         <div class="col-xs-9">
             {% block edit_client %}
             {% endblock edit_client %}
@@ -79,49 +80,47 @@
             {% block total_quota %}
             {% endblock total_quota %}
 
-
         </div>
-
+        <!--/span-->
         <div class="col-xs-3">
-            {% block search_menu %}
-                <!--Content RIGHT-->
-                <div class="fixed_right">
-                    <div class="well">
+            <div class="sidebar-nav-fixed pull-right affix">
+                <div class="well">
+                    <div>
                         <h4>Quota Search <span id="search_glyphicon" class="glyphicon glyphicon-chevron-up"></span></h4>
-                        <div class="input-group">
-                            <input type="text" class="form-control search_control">
-                            <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                            </span>
-                        </div>
-                        <!-- /.input-group -->
-                        <div class="row" id="quota_list">
-                            <div class="col-lg-12">
-                                {% for i in 1..20 %}
-                                    <div class="quota_lists">
-                                        <a href="#">Quota n°{{ i }}</a>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                            <!-- /.col-lg-6 -->
-                        </div>
                     </div>
 
-                    {% block menu_room %}
-                    {% endblock menu_room %}
-
+                    <div class="input-group">
+                        <input type="text" class="form-control search_control">
+                        <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                    </span>
+                    </div>
+                    <!-- /.input-group -->
+                    <div class="row" id="quota_list">
+                        {% for i in 1..20 %}
+                            <div class="quota_lists">
+                                <a href="#">Quota n°{{ i }}</a>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
-            {% endblock search_menu %}
 
-            {% block edit_room %}
-            {% endblock edit_room %}
+                {% block menu_room %}
+                {% endblock menu_room %}
+            <!--/.well -->
+            </div>
+            <!--/sidebar-nav-fixed -->
         </div>
+        <!--/span-->
     </div>
-    <!-- /.row -->
+    <!--/row-->
 </div>
-<!-- /.container -->
+<!--/.fluid-container-->
+
+{% block edit_room %}
+{% endblock edit_room %}
 
 <footer class="footer">
     <div class="container" style="margin-top: auto">
@@ -135,6 +134,8 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="/js/jquery-2.2.4.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
+<script src="/js/dataTables.bootstrap.min.js"></script>
+<script src="/js/jquery.dataTables.min.js"></script>
 <script src="/js/bootstrap-select.min.js"></script>
 <script src="/js/perfect-scrollbar.jquery.min.js"></script>
 <script src="/js/perfect-scrollbar.min.js"></script>

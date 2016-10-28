@@ -11,13 +11,14 @@ class QuotaViewController extends Controller
 
     public function room_quota(Request $request)
     {
-        $ref = "quota n°xxxx";
+        $ref = "quota n°123";
         $data = array();
         $details = array();
 
         $base_rooms = $this->getRoom($ref);
         $existing_base = RoomQuota::$room_type;
 
+        array_set($data, 'reference_quota', $ref);
         array_set($data, 'details', $details);
         array_set($data, 'existing_base', $existing_base);
         array_set($data, 'base_rooms', $base_rooms);
@@ -43,11 +44,12 @@ class QuotaViewController extends Controller
 
     public function total_quota(Request $request)
     {
-        $ref = "quota n°xxxx";
+        $ref = "quota n°123";
         $data = array();
         $details = array();
         $base_rooms = $this->getRoom($ref);
 
+        array_set($data, 'reference_quota', $ref);
         array_set($data, 'details', $details);
         array_set($data, 'base_rooms', $base_rooms);
         array_set($data, 'request', $request);

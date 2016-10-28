@@ -12,7 +12,7 @@ footer {
 #logo{
     width: 90px;
     position: relative;
-    top:-10px;
+    top:0px;
 }
 
 .title-logo, .navbar-nav{
@@ -21,13 +21,12 @@ footer {
 .content {
     top:0;
  }
-.sidebar-outer {
-    position: relative;
-}
 .well{
+    min-width: 175px;
     padding-top: 5px;
-    right:0;
-    min-width: 200px;
+}
+.sidebar-nav-fixed {
+    width:20%;
 }
 #search_glyphicon{
   cursor: pointer;
@@ -42,11 +41,7 @@ footer {
     font-size:300%;
 }
 #reference{
-    background: #f4f4f4;
     color: #6F6F6F;
-    padding: 10px;
-    font-size:120%;
-    font-weight: bold;
 }
 
 
