@@ -19,7 +19,6 @@
       "App\\": "application/"
     },
     "files": [
-      "application/Utils/RoomQuota.php"
     ]
   }
 }

@@ -9,22 +9,8 @@ use App\Utils\TotalQuota;
 class QuotaViewController extends Controller
 {
 
-    function convert_currency($amount, $from_code, $to_code){
-        ini_set('max_execution_time', 60);
-        $temp = 'http://www.google.com/ig/calculator?hl=en&q=' . $amount . $from_code . '=?' . $to_code;
-
-        $response = file_get_contents($temp);
-        $result_string = explode('"', $response);
-
-        $final_result = $result_string['3'];
-
-        $float_result = preg_replace("/[^0-9\.]/", '', $final_result);
-
-        return $float_result;
-    }
     public function room_quota(Request $request)
     {
-        var_dump($this->convert_currency( 1000, "EUR", "USD"));
         $ref = "quota n°xxxx";
         $data = array();
         $details = array();
