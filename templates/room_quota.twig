@@ -22,19 +22,21 @@
                         <th class="td_amount">USD</th>
                     </tr>
                     {% for content in base.content %}
-                        <tr>
+                        <tr {% if(content[0] == 'Total / pax') %}class="tr_total" {% endif %}>
                             <td>
-                                <span
-                                    {% if(content[0]in ['Vignette','Various taxes']) %}
+                                <span {% if(content[0]in ['Vignette','Various taxes']) %}
                                         class="glyphicon glyphicon-usd"
                                     {% elseif(content[0]) in ['Breakfast','Dinner','Lunch'] %}
                                         class="glyphicon glyphicon-cutlery"
+                                    {% elseif(content[0]) == 'Total / pax' %}
+                                        class="glyphicon glyphicon-plus"
                                     {% else %}
                                         class="glyphicon glyphicon-bed"
                                     {% endif %}
                                 >
                                 </span>
-                                <span class="designation_element">
+
+                                <span {% if(content[0] == 'Total / pax') %}class="designation_total"{% else %}class="designation_element"{% endif %}>
                                     {{ content[0] }}
                                 </span>
                             </td>
@@ -43,17 +45,6 @@
                             <td class="td_amount">{{ (content[1] / base.dollar)|number_format(2, '.', ',')}}</td>
                         </tr>
                     {% endfor %}
-                    <tr class="tr_total">
-                        <td>
-                            <span class="glyphicon glyphicon-plus"></span>
-                            <span class="designation_total">
-                                {{ base.total[0] }}
-                            </span>
-                        </td>
-                        <td class="td_amount">{{ base.total[1] }}</td>
-                        <td class="td_amount">{{ (base.total[1] / base.euro)|number_format(2, '.', ',') }}</td>
-                        <td class="td_amount">{{ (base.total[1] / base.dollar) |number_format(2, '.', ',') }}</td>
-                    </tr>
                     </tbody>
                 </table>
             </div>

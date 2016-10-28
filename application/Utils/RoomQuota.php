@@ -2,7 +2,7 @@
 
 namespace App\Utils;
 
-class RoomBase
+class RoomQuota
 {
     var $euro;
     var $dollar;
@@ -83,7 +83,7 @@ class RoomBase
         $this->euro   = $euro;
         $this->dollar = $dollar;
 
-        array_push($this->content, $this->room, $this->breakfast, $this->lunch, $this->dinner, $this->vignette, $this->tax);
+        array_push($this->content, $this->room, $this->breakfast, $this->lunch, $this->dinner, $this->vignette, $this->tax, $this->total);
 
 
         array_push(self::$room_type, $this->room[0]);

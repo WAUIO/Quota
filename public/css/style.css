@@ -8,22 +8,17 @@ footer {
 .navbar-fixed-top{
     background: #2B838E;
 }
-
 #logo{
     width: 90px;
     position: relative;
     top:-10px;
 }
-
 .title-logo, .navbar-nav{
     color:white;
 }
 .content {
     top:0;
  }
-.sidebar-outer {
-    position: relative;
-}
 .well{
     padding-top: 5px;
     right:0;
