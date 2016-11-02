@@ -1,0 +1,74 @@
+{% extends 'layout.twig' %}
+
+{% block prestation %}
+    <div class="col-xs-9 content">
+        <h1 class="page-header">
+            Services offered
+        </h1>
+
+        <form action="submit_prestation">
+        <div class="col-xs-6 content">
+        <table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%" >
+            <thead>
+            <tr>
+                <th><img src="/images/indi.png">   Individual services</th>
+            </tr>
+            <td>
+                <div style="width:375px;height:250px;overflow:auto;">
+                    <div class="funkyradio">
+                    <div class="funkyradio-success">
+                        <input type="checkbox" name="checkbox" id="checkbox1"/>
+                        <label for="checkbox1" style="border: none">Park</label>
+                    </div>
+                    <div class="funkyradio-success">
+                        <input type="checkbox" name="checkbox" id="checkbox2"/>
+                        <label for="checkbox2" style="border: none">SPA</label>
+                    </div>
+                    <div class="funkyradio-success">
+                        <input type="checkbox" name="checkbox" id="checkbox3"/>
+                        <label for="checkbox3" style="border: none">Swimming</label>
+                    </div>
+                    <div class="funkyradio-success">
+                        <input type="checkbox" name="checkbox" id="checkbox4"/>
+                        <label for="checkbox4" style="border: none">Museum</label>
+                    </div>
+                    </div>
+                </div>
+            </td>
+            </thead>
+        </table>
+        </div>
+
+        <div class="col-xs-6 content">
+        <table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
+            <thead>
+            <tr>
+                <th><img src="/images/coll.png">   Collectives services</th>
+            </tr>
+            <td>
+                <div style="width:375px;height:250px;overflow:auto;">
+                    <div class="funkyradio">
+                        <div class="funkyradio-success">
+                            <input type="checkbox" name="checkbox" id="checkbox1c"/>
+                            <label for="checkbox1c" style="border: none">Transfert</label>
+                        </div>
+                        <div class="funkyradio-success">
+                            <input type="checkbox" name="checkbox" id="checkbox2c"/>
+                            <label for="checkbox2c" style="border: none">Guide</label>
+                        </div>
+                        <div class="funkyradio-success">
+                            <input type="checkbox" name="checkbox" id="checkbox3c"/>
+                            <label for="checkbox3c" style="border: none">Boat</label>
+                        </div>
+
+                    </div>
+                </div>
+            </td>
+            </thead>
+        </table>
+        </div>
+        </form>
+        <input type="submit" class="form-submit" value="Next &rarr;">
+    </div>
+
+{% endblock prestation %}

@@ -1,103 +1,42 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/css/sss.css" rel="stylesheet">
-    <title>WAU Travel Quotation</title>
-    <link rel="icon" type="image/png" href="/images/icon.png" />
-</head>
+{% extends 'layout.twig' %}
 
-<body>
+{% block edit_client %}
+    <div class="col-xs-9 content">
+        <h1 class="page-header">
+            Customer information
+        </h1>
+        <div class="customer_info">
+            <table class="flat-table">
+                <tbody>
 
-<div class="header">
-        <img src="/images/logo.png"/>
-</div>
+                <form action="submit">
+                    <div class="field">
+                        </br>
+                        <label class="form-label">Customer ref : </label>
+                        <input type="text" class="form-control"  required="required"/></br> </br>
+                    </div>
+                    <div class="field">
+                        <label class="form-label">Name : </label>
+                        <input type="text" class="form-control"> </br> </br>
+                    </div>
+                    <div class="field">
+                        <label class="form-label">Number of adults : </label>
+                        <input type="number" class="form-control" > </br> </br>
+                    </div>
+                    <div class="field">
+                        <label class="form-label">Number of children : </label>
+                        <input type="number" class="form-control" > </br> </br>
+                    </div>
+                    <div class="field">
+                        <label class="form-label">Beginning of stay : </label>
+                        <input type="date" class="form-control" > </br> </br>
+                    </div>
 
-<div class="row">
-    <div class="col-3 menu">
-        <ul>
-            <li>Quota</li>
-            <li>Customer</li>
-            <li>Hotel</li>
-            <li>Memberships</li>
-        </ul>
-    </div>
-    <div class="col-5">
-        <h1>Information for quotation</h1>
-    <form action="submit">
-        <label>Customer ref : </label>
-        <input type="text" class="form-control"  aria-describedby="sizing-addon1" required oninvalid="this.setCustomValidity('Please complete this field')" /> </br> </br>
-        <label>Name : </label>
-        <input type="text" class="form-control"  aria-describedby="sizing-addon1"> </br> </br>
-        <label>Number of adults : </label>
-        <input type="number" class="form-control"  aria-describedby="sizing-addon1"> </br> </br>
-        <label>Number of children : </label>
-        <input type="number" class="form-control"  aria-describedby="sizing-addon1"> </br> </br>
-        <label>Beginning of stay : </label>
-        <input type="date" class="form-control"  aria-describedby="sizing-addon1"> </br> </br>
-        <input type="submit" class="form-submit" value="Next">
+                    <input type="submit" class="form-submit" value="Next &rarr;">
+                </form>
 
-    </form>
-    </div>
-
-    <div class="col-4">
-
-            <div class="mySlides fade">
-                <img src="/images/isalo.jpg" style="width:100%">
-                <div class="text">Allée des baobabs</div>
-            </div>
-
-            <div class="mySlides fade">
-                <img src="/images/brkfast.jpg" style="width:100%">
-                <div class="text">Motel Isalo</div>
-            </div>
-
-            <div class="mySlides fade">
-                <img src="/images/room.jpg" style="width:100%">
-                <div class="text">Ranomafana parc</div>
-            </div>
-
-            <div class="mySlides fade">
-                <img src="/images/plage.jpg" style="width:100%">
-                <div class="text">Ranomafana parc</div>
-            </div>
-
-            <div class="mySlides fade">
-                <img src="/images/lunch.jpg" style="width:100%">
-                <div class="text">Ranomafana parc</div>
-            </div>
-
-        <div class="mySlides fade">
-            <img src="/images/dbl.jpg" style="width:100%">
-            <div class="text">Ranomafana parc</div>
-        </div>
-
-        <div style="text-align:center">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
+                </tbody>
+            </table>
         </div>
     </div>
-
-</div>
-
-<div class="footer">
-
-    <div class="copyright">
-<p><marquee direction="left" scrollamount="2">
-        <p>Address: Lot ID 72 Cité Gaillard Ambohidahy Antananarivo 101 / Phone: +261 (0)20 22 382 14 / Mail: post@wau.mg / N.I.F.: 2 001 330 703 / R.C.S.: RCS-T 2013 B 00 582 / STAT.: 79120 11 2013 0 10746</marquee></p>
-    </div>
-    <div class="container" style="margin-top: auto">
-        <p class="text-muted"> Copyright WAU Travel - {{ 'now' | date("Y") }}</p>
-    </div>
-</div>
-
-{% block scripts %}
-    <script src="/js/function.js"></script>
-{% endblock scripts %}
-</body>
-</html>
-
+{% endblock edit_client %}

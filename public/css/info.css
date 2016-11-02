@@ -1,0 +1,33 @@
+
+.form-control {
+    float: right;
+    max-width: 400px;
+}
+.form-label {
+    float: left;
+}
+.field {
+    margin: 1px 10px 10px 10px;
+}
+.customer_info {
+    max-width: 800px;
+    height: 350px;
+    float: center;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+}
+.form-submit {
+    float: right;
+    background-color :#2B838E;
+    color : #ffffff;
+    border : none;
+    margin-right: 25px;
+}
+.form-submit:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: #3BA8A5;
+}
+.col-xs-6 .content {
+    max-width: 200px;
+    border-radius: 5px;
+}
