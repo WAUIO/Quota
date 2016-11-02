@@ -12,7 +12,7 @@ footer {
 #logo{
     width: 90px;
     position: relative;
-    top:-10px;
+    top:0px;
 }
 
 .title-logo, .navbar-nav{
@@ -21,13 +21,12 @@ footer {
 .content {
     top:0;
  }
-.sidebar-outer {
-    position: relative;
-}
 .well{
+    min-width: 175px;
     padding-top: 5px;
-    right:0;
-    min-width: 200px;
+}
+.sidebar-nav-fixed {
+    width:20%;
 }
 #search_glyphicon{
   cursor: pointer;
@@ -38,28 +37,22 @@ footer {
     overflow: auto;
     position: relative;
 }
-.fixed {
-    position: fixed;
-}
 .page-header{
     font-size:300%;
 }
 #reference{
-    background: #f4f4f4;
     color: #6F6F6F;
-    padding: 10px;
-    font-size:120%;
-    font-weight: bold;
 }
 
 
 /******* For quota view *******/
 .base_title{
+    text-align: center;
     font-size: 170%;
     color: #2B838E;
 }
 .calculation_quota{
-    height: 250px;
+    /*height: 250px;*/
     background: #f4f4f4;
 }
 .flat-table {
@@ -147,6 +140,7 @@ td {
 
 /******* For quota base *******/
 .quota_lists{
+    margin: 0 15px 0 15px;
     height: 25px;
     line-height: 25px;
 }
@@ -157,7 +151,7 @@ td {
 .base_types a, .quota_lists a{
     text-decoration: none;
     color: #2B838E;
-    margin-left: 10px;
+    margin-left: 5px;
 }
 .base_types{
     height: 30px;
@@ -464,3 +458,31 @@ li .lign{
 
 * html .navbar-nav             { zoom: 1; } /* IE6 */
 *:first-child+html .navbar-nav { zoom: 1; } /* IE7 */
+
+
+/*****total_table*****/
+
+.table-editable {
+    position: relative;
+}
+
+.table-remove {
+    color: #700;
+    cursor: pointer;
+
+}
+
+.table-up, .table-down {
+    color: #007;
+    cursor: pointer;
+
+}
+
+.table-add {
+    color: #070;
+    cursor: pointer;
+    position: absolute;
+    top: 8px;
+    right: 0;
+
+}

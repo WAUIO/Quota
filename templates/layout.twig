@@ -51,8 +51,9 @@
                 <li>
                     <a href="#">Service</a>
                     <ul>
-                        <li><a href="#">Room</a></li>
-                        <li><a href="#">Prestation</a></li>
+                        <li><a href="\room">Room</a></li>
+                        <li><a href="\prestation">Prestation</a></li>
+                        <li><a href="\total">Total</a></li>
                     </ul>
                 </li>
                 <li><a href="#">About</a></li>
@@ -62,61 +63,72 @@
         <!-- /.navbar-collapse -->
     </div>
 </nav>
-<!-- Page Content -->
+
 <div class="container">
     <div class="row">
-        {% block edit_client %}
-        {% endblock edit_client %}
+        <!--/left side-->
 
-        {% block room_quota %}
-        {% endblock room_quota %}
-        {% block body %}
-        {% endblock body %}
+        <div class="col-xs-9">
+            {% block edit_client %}
+            {% endblock edit_client %}
 
-        {% block content %}
-        {% endblock content %}
+            {% block room_quota %}
+            {% endblock room_quota %}
 
-        {% block search_menu %}
-            <!--Content RIGHT-->
-            <div class="col-xs-3" >
-                <div class="fixed">
-                    <div class="well">
-                        <h4>Quota Search <span id="search_glyphicon" class="glyphicon glyphicon-chevron-up"></span></h4>
-                        <div class="input-group">
-                            <input type="text" class="form-control search_control" disabled="disabled">
-                            <span class="input-group-btn">
+            {% block body %}
+            {% endblock body %}
+
+            {% block prestation_quota %}
+            {% endblock prestation_quota %}
+
+            {% block total_quota %}
+            {% endblock total_quota %}
+
+            {% block content %}
+            {% endblock content %}
+
+        </div>
+        
+        <!--/right side-->
+        <div class="col-xs-3">
+            <div class="sidebar-nav-fixed pull-right affix">
+                <div class="well">
+                    <div>
+                        <h4>List of quotations<span id="search_glyphicon" class="glyphicon glyphicon-chevron-up"></span></h4>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="text" class="form-control search_control">
+                        <span class="input-group-btn">
                             <button class="btn btn-default" type="button">
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
-                            </span>
-                        </div>
-                        <!-- /.input-group -->
-                        <div class="row" id="quota_list">
-                            <div class="col-lg-12">
-                                {% for i in 1..20 %}
-                                    <div class="quota_lists">
-                                        <a href="#">Quota n°{{ i }}</a>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                            <!-- /.col-lg-6 -->
-                        </div>
+                        </span>
                     </div>
-
-                    {% block menu_room %}
-                    {% endblock menu_room %}
-
+                    <!-- /.input-group -->
+                    <div class="row" id="quota_list">
+                        {% for i in 1..20 %}
+                            <div class="quota_lists">
+                                <a href="#">Quota n°{{ i }}</a>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
+
+                {% block menu_room %}
+                {% endblock menu_room %}
+            <!--/.well -->
             </div>
-        {% endblock search_menu %}
-
-        {% block edit_room %}
-        {% endblock edit_room %}
-
+            <!--/sidebar-nav-fixed -->
+        </div>
+        <!--/span-->
     </div>
-    <!-- /.row -->
+    <!--/row-->
 </div>
-<!-- /.container -->
+<!--/.fluid-container-->
+
+{% block edit_room %}
+{% endblock edit_room %}
 
 <footer class="footer">
     <div class="container" style="margin-top: auto">
@@ -130,6 +142,8 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="/js/jquery-2.2.4.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
+<script src="/js/dataTables.bootstrap.min.js"></script>
+<script src="/js/jquery.dataTables.min.js"></script>
 <script src="/js/bootstrap-select.min.js"></script>
 <script src="/js/perfect-scrollbar.jquery.min.js"></script>
 <script src="/js/perfect-scrollbar.min.js"></script>

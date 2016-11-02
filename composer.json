@@ -20,7 +20,6 @@
       "App\\": "application/"
     },
     "files": [
-      "application/Utils/RoomBase.php"
     ]
   }
 }

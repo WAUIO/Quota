@@ -1,8 +1,7 @@
-<?php
+<?php namespace App\Utils;
 
-namespace App\Utils;
 
-class RoomBase
+class RoomQuota
 {
     var $euro;
     var $dollar;
@@ -15,6 +14,8 @@ class RoomBase
     var $tax;
     var $vignette;
     var $total;
+    var $margin;
+    var $vat;
 
     static $room_type = array();
 
@@ -28,9 +29,8 @@ class RoomBase
         $lunch      = $array[4];
         $vignette   = $array[5];
         $tax        = $array[6];
-
-        $euro   = $array[7];
-        $dollar = $array[8];
+        $euro       = $array[7];
+        $dollar     = $array[8];
 
         $somme = 0;
         $array_type = array("integer", "double");
@@ -81,12 +81,13 @@ class RoomBase
         $this->total[0] = "Total / pax";
         $this->total[1] = round($somme, 2);
 
-        $this->euro   = round($euro, 2);
-        $this->dollar = round($dollar, 2);
+        $this->euro   = $euro;
+        $this->dollar = $dollar;
 
-        array_push($this->content, $this->room, $this->breakfast, $this->lunch, $this->dinner, $this->vignette, $this->tax);
+        array_push($this->content, $this->room, $this->breakfast, $this->lunch, $this->dinner, $this->vignette, $this->tax, $this->total);
 
-
+        $this->margin = $array[9];
+        $this->vat = $array[10];
         array_push(self::$room_type, $this->room[0]);
     }
 }

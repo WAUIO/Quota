@@ -74,4 +74,80 @@ $(document).ready(function () {
         }
     });
     $("#search_control").removeAttr("disabled");
+    total_dataTable();
+    somme("#table_single_room");
+    //somme("#table_double_room");
 });
+
+function somme(table_id){
+    length = $('.tr_'+table_id).length;
+
+    long = $(table_id+' tbody tr:eq(1) td').length;
+    for (i=0;i<long-3;i++) {
+        var total = 0;
+        $('td_'+table_id+':eq(' + i + ')', '.tr_'+table_id).each(function(i) {
+            console.log($(this).text());
+            total = total + parseInt($(this).text());
+        });
+        //console.log('total : '+total);
+        $('tr_total .total_'+table_id).eq(i).text(total);
+    }
+}
+
+function total_dataTable(){
+    var $TABLE = $('#table');
+    var $BTN = $('#export-btn');
+    var $EXPORT = $('#export');
+
+    $('.table-add').click(function () {
+        table_id = $(this).siblings('table').attr('id');
+        var $clone = $TABLE.find('#'+table_id+' tr.hide').clone(true).removeClass('#'+table_id+' hide');
+        $TABLE.find('#'+table_id+' .tr_total').before($clone);
+    });
+
+    $('.table-remove').click(function () {
+        $(this).parents('tr').detach();
+    });
+
+    /*$('.table-up').click(function () {
+        var $row = $(this).parents('tr');
+        if ($row.index() === 1) return; // Don't go above the header
+        $row.prev().before($row.get(0));
+    });
+
+    $('.table-down').click(function () {
+        var $row = $(this).parents('tr');
+        $row.next().after($row.get(0));
+    });*/
+
+// A few jQuery helpers for exporting only
+    jQuery.fn.pop = [].pop;
+    jQuery.fn.shift = [].shift;
+
+    $BTN.click(function () {
+        var $rows = $TABLE.find('tr:not(:hidden)');
+        var headers = [];
+        var data = [];
+
+        // Get the headers (add special header logic here)
+        $($rows.shift()).find('th:not(:empty)').each(function () {
+            headers.push($(this).text().toLowerCase());
+        });
+
+        // Turn all existing rows into a loopable array
+        $rows.each(function () {
+            var $td = $(this).find('td');
+            var h = {};
+
+            // Use the headers from earlier to name our hash keys
+            headers.forEach(function (header, i) {
+                h[header] = $td.eq(i).text();
+            });
+
+            data.push(h);
+        });
+
+        // Output the result
+        $EXPORT.text(JSON.stringify(data));
+    });
+}

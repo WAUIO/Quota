@@ -3,36 +3,72 @@
 
 use Symfony\Component\HttpFoundation\Request;
 use Wau\Http\Controller;
-use App\Utils\RoomBase;
+use App\Utils\PrestationQuota;
+use App\Utils\RoomQuota;
+use App\Utils\TotalQuota;
 
 class QuotaViewController extends Controller
 {
 
-    //function index interface (list all workspace available for the users
-    public function index(Request $request)
+    public function room_quota(Request $request)
     {
+        $reference_quota = "quota n°123";
         $data = array();
-        $base_rooms = array();
         $details = array();
 
+        $base_rooms = $this->getRoom($reference_quota);
+        $existing_base = RoomQuota::$room_type;
 
-        $euro = 3000;
-        $dollar = 2500;
-        $single_room  = new RoomBase(array("single room", 1000, 20, 100, 50, 150, 200, $euro, $dollar));
-        $double_room  = new RoomBase(array("double room", 2000, 30, 100, 50, 150, 200, $euro, $dollar));
-        $family_room  = new RoomBase(array("family room", 15000, 50, 200, 10, 1500, 3000, $euro, $dollar));
-
-        $existing_base = RoomBase::$room_type;
-
-        array_push($base_rooms, $single_room, $double_room, $family_room);
-
+        array_set($data, 'reference_quota', $reference_quota);
         array_set($data, 'details', $details);
         array_set($data, 'existing_base', $existing_base);
         array_set($data, 'base_rooms', $base_rooms);
         array_set($data, 'request', $request);
 
-
         return $this->app()->make('twig.view')->render('room_quota.twig',$data);
     }
 
+    public function getRoom($reference_quota){
+        $base_rooms = array();
+
+        $euro = 3000;
+        $dollar = 2500;
+        $margin = 10;
+        $vat = 20;
+        $single_room  = new RoomQuota(array("single room", 1000, 20, 100, 50, 150, 200, $euro, $dollar, $margin, $vat));
+        $double_room  = new RoomQuota(array("double room", 2000, 30, 100, 50, 150, 200, $euro, $dollar, $margin, $vat));
+        $family_room  = new RoomQuota(array("family room", 15000, 50, 200, 10, 1500, 3000, $euro, $dollar, $margin, $vat));
+
+        array_push($base_rooms, $single_room, $double_room, $family_room);
+
+        return $base_rooms;
+    }
+
+    public function getPrestation($reference_quota){
+        $min = 2;
+        $max = 9;
+        $margin = 20;
+        $vat = 20;
+        $prestation = new PrestationQuota(array($min, $max, array(11,22,33,44,55,66,77,88), $margin, $vat));
+        return $prestation;
+    }
+
+    public function total_quota(Request $request)
+    {
+        $data = array();
+        $reference_quota = "quota n°123";
+
+        $prestation = $this->getPrestation($reference_quota);
+        $base_rooms = $this->getRoom($reference_quota);
+
+        $existing_base = RoomQuota::$room_type;
+
+        array_set($data, 'reference_quota', $reference_quota);
+        array_set($data, 'prestation', $prestation);
+        array_set($data, 'base_rooms', $base_rooms);
+        array_set($data, 'existing_base', $existing_base);
+        array_set($data, 'request', $request);
+
+        return $this->app()->make('twig.view')->render('total_quota.twig',$data);
+    }
 }
