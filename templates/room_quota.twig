@@ -8,8 +8,8 @@
     </h1>
 
     {% if(base_rooms|length > 0) %}
-        {% for base in base_rooms %}
-            <p class="base_title" id="{{ base.type|replace({' ' : '_'}) }}">Based on {{ base.type }}</p>
+        {% for room in base_rooms %}
+            <p class="base_title" id="{{ room.type|replace({' ' : '_'}) }}">Based on {{ room.type }}</p>
             <div class="calculation_quota">
 
                 <!--table for each quota-->
@@ -21,7 +21,7 @@
                             <th class="td_amount">EURO</th>
                             <th class="td_amount">USD</th>
                         </tr>
-                        {% for content in base.content %}
+                        {% for content in room.content %}
                             <tr {% if(content[0] == 'Total / pax') %} class="tr_total" {% endif %}>
                                 <td>
                                     <span {% if(content[0]in ['Vignette','Various taxes']) %}
@@ -41,15 +41,15 @@
                                     </span>
                                 </td>
                                 <td class="td_amount">{{ content[1] }}</td>
-                                <td class="td_amount">{{ (content[1] / base.euro)|number_format(2, '.', ',') }}</td>
-                                <td class="td_amount">{{ (content[1] / base.dollar)|number_format(2, '.', ',')}}</td>
+                                <td class="td_amount">{{ (content[1] / room.euro)|number_format(2, '.', ',') }}</td>
+                                <td class="td_amount">{{ (content[1] / room.dollar)|number_format(2, '.', ',')}}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
 
-            <div class="detail" id="detail_{{ base.type|replace({' ' : '_'}) }}">
+            <div class="detail" id="detail_{{ room.type|replace({' ' : '_'}) }}">
                 <div class="detail_head">Details<span class="glyphicon glyphicon-menu-down"></span></div>
 
                 <div class="detail_body">

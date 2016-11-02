@@ -50,8 +50,9 @@
                 <li>
                     <a href="#">Service</a>
                     <ul>
-                        <li><a href="#">Room</a></li>
-                        <li><a href="#">Prestation</a></li>
+                        <li><a href="\room">Room</a></li>
+                        <li><a href="\prestation">Prestation</a></li>
+                        <li><a href="\total">Total</a></li>
                     </ul>
                 </li>
                 <li><a href="#">About</a></li>
@@ -66,7 +67,8 @@
 
 <div class="container">
     <div class="row">
-        <!--/span-->
+        <!--/left side-->
+
         <div class="col-xs-9">
             {% block edit_client %}
             {% endblock edit_client %}
@@ -81,21 +83,22 @@
             {% endblock total_quota %}
 
         </div>
-        <!--/span-->
+        
+        <!--/right side-->
         <div class="col-xs-3">
             <div class="sidebar-nav-fixed pull-right affix">
                 <div class="well">
                     <div>
-                        <h4>Quota Search <span id="search_glyphicon" class="glyphicon glyphicon-chevron-up"></span></h4>
+                        <h4>List of quotations<span id="search_glyphicon" class="glyphicon glyphicon-chevron-up"></span></h4>
                     </div>
 
                     <div class="input-group">
                         <input type="text" class="form-control search_control">
                         <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </button>
-                    </span>
+                            <button class="btn btn-default" type="button">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
                     </div>
                     <!-- /.input-group -->
                     <div class="row" id="quota_list">

@@ -76,69 +76,79 @@ $(document).ready(function () {
     $("#select-hotel").removeAttr("disabled");
     $("#search_control").removeAttr("disabled");
     total_dataTable();
+    somme("#table_single_room");
+    //somme("#table_double_room");
 });
 
-var editor;
+function somme(table_id){
+    length = $('.tr_'+table_id).length;
+
+    long = $(table_id+' tbody tr:eq(1) td').length;
+    for (i=0;i<long-3;i++) {
+        var total = 0;
+        $('td_'+table_id+':eq(' + i + ')', '.tr_'+table_id).each(function(i) {
+            console.log($(this).text());
+            total = total + parseInt($(this).text());
+        });
+        //console.log('total : '+total);
+        $('tr_total .total_'+table_id).eq(i).text(total);
+    }
+}
+
 function total_dataTable(){
-    editor = new $.fn.dataTable.Editor( {
-        ajax: "../php/staff.php",
-        table: "#example",
-        fields: [ {
-            label: "First name:",
-            name: "first_name"
-        }, {
-            label: "Last name:",
-            name: "last_name"
-        }, {
-            label: "Position:",
-            name: "position"
-        }, {
-            label: "Office:",
-            name: "office"
-        }, {
-            label: "Extension:",
-            name: "extn"
-        }, {
-            label: "Start date:",
-            name: "start_date",
-            type: "datetime"
-        }, {
-            label: "Salary:",
-            name: "salary"
-        }
-        ]
-    } );
+    var $TABLE = $('#table');
+    var $BTN = $('#export-btn');
+    var $EXPORT = $('#export');
 
-    // Activate an inline edit on click of a table cell
-    $('#example').on( 'click', 'tbody td:not(:first-child)', function (e) {
-        editor.inline( this );
-    } );
+    $('.table-add').click(function () {
+        table_id = $(this).siblings('table').attr('id');
+        var $clone = $TABLE.find('#'+table_id+' tr.hide').clone(true).removeClass('#'+table_id+' hide');
+        $TABLE.find('#'+table_id+' .tr_total').before($clone);
+    });
 
-    $('#example').DataTable( {
-        dom: "Bfrtip",
-        ajax: "../php/staff.php",
-        columns: [
-            {
-                data: null,
-                defaultContent: '',
-                className: 'select-checkbox',
-                orderable: false
-            },
-            { data: "first_name" },
-            { data: "last_name" },
-            { data: "position" },
-            { data: "office" },
-            { data: "start_date" },
-            { data: "salary", render: $.fn.dataTable.render.number( ',', '.', 0, '$' ) }
-        ],
-        select: {
-            style:    'os',
-            selector: 'td:first-child'
-        },
-        buttons: [
-            { extend: "create", editor: editor },
-            { extend: "edit",   editor: editor },
-            { extend: "remove", editor: editor }
-        ]
-    } );
+    $('.table-remove').click(function () {
+        $(this).parents('tr').detach();
+    });
+
+    /*$('.table-up').click(function () {
+        var $row = $(this).parents('tr');
+        if ($row.index() === 1) return; // Don't go above the header
+        $row.prev().before($row.get(0));
+    });
+
+    $('.table-down').click(function () {
+        var $row = $(this).parents('tr');
+        $row.next().after($row.get(0));
+    });*/
+
+// A few jQuery helpers for exporting only
+    jQuery.fn.pop = [].pop;
+    jQuery.fn.shift = [].shift;
+
+    $BTN.click(function () {
+        var $rows = $TABLE.find('tr:not(:hidden)');
+        var headers = [];
+        var data = [];
+
+        // Get the headers (add special header logic here)
+        $($rows.shift()).find('th:not(:empty)').each(function () {
+            headers.push($(this).text().toLowerCase());
+        });
+
+        // Turn all existing rows into a loopable array
+        $rows.each(function () {
+            var $td = $(this).find('td');
+            var h = {};
+
+            // Use the headers from earlier to name our hash keys
+            headers.forEach(function (header, i) {
+                h[header] = $td.eq(i).text();
+            });
+
+            data.push(h);
+        });
+
+        // Output the result
+        $EXPORT.text(JSON.stringify(data));
+    });
 }

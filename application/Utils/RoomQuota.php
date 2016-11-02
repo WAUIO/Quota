@@ -14,6 +14,8 @@ class RoomQuota
     var $tax;
     var $vignette;
     var $total;
+    var $margin;
+    var $vat;
 
     static $room_type = array();
 
@@ -84,7 +86,8 @@ class RoomQuota
 
         array_push($this->content, $this->room, $this->breakfast, $this->lunch, $this->dinner, $this->vignette, $this->tax, $this->total);
 
-
+        $this->margin = $array[9];
+        $this->vat = $array[10];
         array_push(self::$room_type, $this->room[0]);
     }
 }

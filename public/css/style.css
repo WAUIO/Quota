@@ -52,7 +52,7 @@ footer {
     color: #2B838E;
 }
 .calculation_quota{
-    height: 250px;
+    /*height: 250px;*/
     background: #f4f4f4;
 }
 .flat-table {
@@ -140,6 +140,7 @@ td {
 
 /******* For quota base *******/
 .quota_lists{
+    margin: 0 15px 0 15px;
     height: 25px;
     line-height: 25px;
 }
@@ -150,7 +151,7 @@ td {
 .base_types a, .quota_lists a{
     text-decoration: none;
     color: #2B838E;
-    margin-left: 10px;
+    margin-left: 5px;
 }
 .base_types{
     height: 30px;
@@ -407,3 +408,31 @@ h3{
 
 * html .navbar-nav             { zoom: 1; } /* IE6 */
 *:first-child+html .navbar-nav { zoom: 1; } /* IE7 */
+
+
+/*****total_table*****/
+
+.table-editable {
+    position: relative;
+}
+
+.table-remove {
+    color: #700;
+    cursor: pointer;
+
+}
+
+.table-up, .table-down {
+    color: #007;
+    cursor: pointer;
+
+}
+
+.table-add {
+    color: #070;
+    cursor: pointer;
+    position: absolute;
+    top: 8px;
+    right: 0;
+
+}
