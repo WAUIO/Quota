@@ -277,17 +277,13 @@ h3{
 }
 
 #hotel{
-    width: 60px;
+    width: 90px;
     height:40px;
 }
 #sgl{
     width:10px;
     height:10px;
 }
-
-
-
-
 
 /* Principal */
 
@@ -343,11 +339,6 @@ h3{
     -webkit-box-shadow: 0 0 0 #2B838E, 0 1px 0 #fff;
     box-shadow: 0 0 0 #2B838E, 0 1px 0 #fff;
 }
-/*.navbar-nav ul li:first-child{*/
-    /*-moz-box-shadow: 0 -1px 0 #2B838E, 0 1px 0 #fff;*/
-    /*-webkit-box-shadow: 0 -1px 0 #2B838E, 0 1px 0 #fff;*/
-    /*box-shadow: 0 -1px 0 #2B838E, 0 1px 0 #fff;*/
-/*}*/
 .navbar-nav ul li:last-child{
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
@@ -378,20 +369,6 @@ h3{
     background: -ms-linear-gradient(#D1D3D4,  #D1D3D4);
     background: linear-gradient(#D1D3D4,  #D1D3D4);
 }
-
-
-/*.navbar-nav ul li:first-child a:after{*/
-    /*content: '';*/
-    /*position: absolute;*/
-    /*left: 30px;*/
-    /*top: -8px;*/
-    /*width: 0;*/
-    /*height: 0;*/
-    /*border-left: 5px solid transparent;*/
-    /*border-right: 5px solid transparent;*/
-    /*border-bottom: 8px solid #2B838E;*/
-/*}*/
-
 .navbar-nav ul li:first-child a:hover:after{
     /*border-bottom-color: #000;*/
 }
@@ -411,6 +388,79 @@ h3{
     clear: both;
     height: 0;
 }
+
+.main{
+    background-color:whitesmoke;
+}
+.form-horizontal{
+    padding-top:40px;
+    padding-bottom:40px;
+}
+#board{
+    width: 60px;
+    height: 40px;
+}
+#room {
+    width: 60px;
+    height: 40px;
+}
+/*#logo{*/
+    /*width: 90px;*/
+    /*position: relative;*/
+    /*top:-10px;*/
+/*}*/
+.form-control{
+    margin: auto;
+    /*margin-left: auto;*/
+    /*margin-right:auto;*/
+    /*margin-top: 5px;*/
+}
+.icon{
+    width: 15px;
+    height: 15px;
+}
+#save{
+    width: 90px;
+    height: 50px;
+}
+.container{
+    /*margin-top: 80px;*/
+    background-color: rgba(1,1,1,0.03);
+}
+.row{
+    margin-top: 10px;
+}
+.btn{
+    width:100px;
+}
+.img{
+    width:15%;
+    height:10%;
+}
+.selectpicker{
+    margin-top: 10px;
+}
+.currency{
+    width:30px;
+    height:30px;
+}
+ul{
+    list-style: none;
+}
+li .lign{
+ background-color: whitesmoke;
+    border-radius: 8px;
+}
+.lign{
+    margin-top: 3px;
+}
+.bootstrap-select > #select-hotel{
+    width:90%;
+}
+#Thead{
+    background-color:#2B838E ;
+}
+
 
 * html .navbar-nav             { zoom: 1; } /* IE6 */
 *:first-child+html .navbar-nav { zoom: 1; } /* IE7 */

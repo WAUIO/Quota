@@ -4,6 +4,8 @@ $(document).ready(function () {
     $('[type="checkbox"]').prop('checked', false);
 
      $("select").attr("disabled","disabled");
+    $("#select-hotel").removeAttr("disabled");
+
    checkOption();
     simpleBase();
     doubleBase();
@@ -55,84 +57,3 @@ function Base(){
     });
 
 }
-//
-// function doubleBase(){
-//     $("#save").click(function(){
-//         var data="";
-//         var hotel=$('#select-hotel').find('option:selected').text();
-//         data+='hotel='+hotel;
-//         if($("#double").is(':checked')){
-//             var doubleVal=$("#double").parents().eq(3).children().eq(1).children().find('option:selected').text();
-//             data+=', doubleVal='+doubleVal;
-//             var adultBreakfast=adultbreakfast.parents().eq(3).children().eq(1).children().find('option:selected').text();
-//             var adultLunch=adultlunch.parents().eq(3).children().eq(1).children().find('option:selected').text();
-//             var adultDinner=adultdinner.parents().eq(3).children().eq(1).children().find('option:selected').text();
-//             if(adultbreakfast.is(':checked')){
-//                 data+=', adultBreakfast='+adultBreakfast;
-//             }
-//             if(adultlunch.is(':checked')){
-//                 data+=', adultLunch='+adultLunch;
-//             }
-//             if(adultdinner.is(':checked')){
-//                 data+=', adultDinner='+adultDinner;
-//
-//             }
-//             alert(data);
-//         }
-//     });
-//
-// }
-//
-// function tripleBase(){
-//     $("#save").click(function(){
-//         var data="";
-//         var hotel=$('#select-hotel').find('option:selected').text();
-//         data+='hotel='+hotel;
-//         if($("#triple").is(':checked')){
-//             var tripleVal=$("#triple").parents().eq(3).children().eq(1).children().find('option:selected').text();
-//             data+='tripleVal='+tripleVal;
-//             var adultBreakfast=adultbreakfast.parents().eq(3).children().eq(1).children().find('option:selected').text();
-//             var adultLunch=adultlunch.parents().eq(3).children().eq(1).children().find('option:selected').text();
-//             var adultDinner=adultdinner.parents().eq(3).children().eq(1).children().find('option:selected').text();
-//             if(adultbreakfast.is(':checked')){
-//                 data+=', adultBreakfast='+adultBreakfast;
-//             }
-//             if(adultlunch.is(':checked')){
-//                 data+=', adultLunch='+adultLunch;
-//             }
-//             if(adultdinner.is(':checked')){
-//                 data+=', adultDinner='+adultDinner;
-//
-//             }
-//             alert(data);
-//         }
-//     });
-//
-// }
-//
-//
-// function extraBase() {
-//     $("#save").click(function () {
-//         var data = "";
-//         var hotel = $('#select-hotel').find('option:selected').text();
-//         data += 'hotel=' + hotel;
-//         if ($("#extra-adult").is(':checked')) {
-//             var extraVal = $("#extra-adult").parents().eq(3).children().eq(1).children().find('option:selected').text();
-//             data += 'extraVal=' + extraVal;
-//             var adultBreakfast = adultbreakfast.parents().eq(3).children().eq(1).children().find('option:selected').text();
-//             var adultLunch = adultlunch.parents().eq(3).children().eq(1).children().find('option:selected').text();
-//             var adultDinner = adultdinner.parents().eq(3).children().eq(1).children().find('option:selected').text();
-//             if (adultbreakfast.is(':checked')) {
-//                 data += ', adultBreakfast=' + adultBreakfast;
-//             }
-//             if (adultlunch.is(':checked')) {
-//                 data += ', adultLunch=' + adultLunch;
-//             }
-//             if (adultdinner.is(':checked')) {
-//                 data += ', adultDinner=' + adultDinner;
-//
-//             }
-//             alert(data);
-//         }
-//     });
-// }

@@ -1,3 +1,4 @@
+
 <?php session_start();?>
 
 <!DOCTYPE html>
@@ -24,13 +25,14 @@
     <link href="/css/info.css" rel="stylesheet">
     <link href="/css/funky.css" rel="stylesheet">
     <link href="/css/perfect-scrollbar.min.css" rel="stylesheet">
+
     <link rel="shortcut icon" href="/images/favicon.ico">
 </head>
 
 <body class="main">
 
 <!-- Navigation -->
-<nav class="navbar  navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-fixed-top" role="navigation">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -44,7 +46,7 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul  class="nav navbar-nav" id="menu">
+            <ul class="nav navbar-nav" id="menu">
                 <li><a href="#">Home</a></li>
                 <li>
                     <a href="#">Service</a>
@@ -59,9 +61,7 @@
         </div>
         <!-- /.navbar-collapse -->
     </div>
-    <!-- /.container -->
 </nav>
-
 <!-- Page Content -->
 <div class="container">
     <div class="row">
@@ -70,6 +70,11 @@
 
         {% block room_quota %}
         {% endblock room_quota %}
+        {% block body %}
+        {% endblock body %}
+
+        {% block content %}
+        {% endblock content %}
 
         {% block search_menu %}
             <!--Content RIGHT-->
@@ -131,6 +136,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-checkbox/1.4.0/bootstrap-checkbox.min.js"></script>
 {% block scripts %}
     <script src="/js/function.js"></script>
+    <script src="/js/form.js"></script>
 {% endblock scripts %}
 
 </body>
