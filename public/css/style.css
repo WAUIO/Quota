@@ -2,6 +2,7 @@
 body {
     padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
+
 footer {
     margin: 50px 0;
 }
@@ -18,6 +19,7 @@ footer {
 .title-logo, .navbar-nav{
     color:white;
 }
+
 .content {
     top:0;
  }
@@ -62,6 +64,7 @@ footer {
     height: 250px;
     background: #f4f4f4;
 }
+
 .flat-table {
     font-family: sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -91,16 +94,17 @@ td {
 .designation_total{
     padding-left: 7px;
 }
+
 .td_amount{
     padding-right: 20px;
     text-align: right;
 }
+
 .tr_total{
     font-weight: bold;
     font-size: 110%;
     background-color: rgba(35, 130, 255, 0.63);
 }
-
 
 /******* For detail *******/
 .detail{
@@ -127,14 +131,15 @@ td {
     background: white;
     margin: 0px 10px 0px 10px;
 }
+
 .detail_body{
     display: none;
     height: 200px;
 }
+
 .detail_body_elements{
     padding: 20px;
 }
-
 
 /******* For no_quota *******/
 .no_quota, .no_base{
@@ -414,3 +419,4 @@ h3{
 
 * html .navbar-nav             { zoom: 1; } /* IE6 */
 *:first-child+html .navbar-nav { zoom: 1; } /* IE7 */
+
