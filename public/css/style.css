@@ -1,4 +1,6 @@
-
+.bootstrap-select {
+    outline: none !important;
+}
 body {
     padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
@@ -22,21 +24,50 @@ footer {
     top:0;
  }
 .well{
-    min-width: 175px;
+    min-width: 200px;
     padding-top: 5px;
+
 }
 .sidebar-nav-fixed {
     width:20%;
 }
+.menu_glyphicon{
+    cursor: pointer;
+    position:static;
+}
+.menu_glyphicon:hover{
+    color: #2B838E;
+}
+#menu_hamburger{
+    float: right;
+}
 #search_glyphicon{
-  cursor: pointer;
+    float: left;
+}
+#search_menu_title{
+    float: left;
+    height: 40px;
+    line-height: 40px;
+}
+#search_menu_button{
+    float: right;
+    height:40px;
+    line-height: 40px;
 }
 #quota_list{
     margin-top: 10px;
     max-height:170px;
-    overflow: auto;
+    overflow-y: auto;
     position: relative;
 }
+#expand{
+    padding :10px 50%;
+    height:20px;
+}
+.glyphicon-chevron-up, .glyphicon-chevron-down{
+    float:none;
+}
+
 .page-header{
     font-size:300%;
 }
@@ -53,6 +84,7 @@ footer {
 }
 .calculation_quota{
     /*height: 250px;*/
+    width:100%;
     background: #f4f4f4;
 }
 .flat-table {
@@ -63,6 +95,7 @@ footer {
     height: 250px;
 }
 th {
+    white-space: nowrap;
     background-color: #2B838E;
     color: white;
     font-weight: normal;
@@ -70,12 +103,14 @@ th {
     padding: 5px 10px;
 }
 td {
+    white-space: nowrap;
     background-color: rgb(238, 238, 238);
     color: rgb(111, 111, 111);
     padding-left: 10px;
 }
 
 .td_designation{
+    width:100%;
     padding-left: 20px;
 }
 .designation_element{
@@ -93,7 +128,43 @@ td {
     font-size: 110%;
     background-color: rgba(35, 130, 255, 0.63);
 }
+.others{
+    font-weight: normal !important;
+}
+.table_header{
+    text-align: center;
+    vertical-align: middle !important;
+}
+table > thead > tr > th, .total_designation {
+    vertical-align: middle !important;;
+}
 
+/*table::selection {*/
+    /*background-color:transparent;*/
+/*}*/
+/*table::-moz-selection {*/
+    /*background-color:transparent;*/
+/*}*/
+/*table {*/
+    /*-webkit-user-select: none;*/
+    /*-moz-user-select: -moz-none;*/
+    /*!*IE10*!*/
+    /*-ms-user-select: none;*/
+    /*user-select: none;*/
+
+    /*!*You just need this if you are only concerned with android and not desktop browsers.*!*/
+    /*-webkit-tap-highlight-color: rgba(0, 0, 0, 0);*/
+/*}*/
+
+.designation{
+    font-weight: bold;
+}
+.td_value, .tr_value{
+    text-align: right;
+}
+.devise{
+    font-weight: normal !important;
+}
 
 /******* For detail *******/
 .detail{
@@ -172,7 +243,7 @@ td {
 .add_room_button:hover{
     background: #2aa198;
 }
-.glyphicon-menu-down, .glyphicon-menu-up, .glyphicon-chevron-up, .glyphicon-chevron-down{
+.glyphicon-menu-down, .glyphicon-menu-up{
     float: right;
 }
 
@@ -283,22 +354,23 @@ h3{
 
 
 
-/* Principal */
+/* Menu */
 
 
 .navbar-nav a{
     float: left;
-    color: white;
-    font: bold 12px/25px Arial, Helvetica;
+    color: #fafafa;
+    font-weight: bold;
     text-decoration: none;
 }
 
 .navbar-nav li:hover > a{
-    color: #000000;
-    background: #D1D3D4;
+    color: #000;
+    background: #2B838E;
 }
 
 *html .navbar-nav li a:hover{ /* IE6 */
+    background: #2B838E;
     color: #fafafa;
 }
 
@@ -333,20 +405,20 @@ h3{
     margin: 0;
     padding: 1px 0 0 0;
     display: block;
-    -moz-box-shadow: 0 0 0 #2B838E, 0 1px 0 #fff;
-    -webkit-box-shadow: 0 0 0 #2B838E, 0 1px 0 #fff;
-    box-shadow: 0 0 0 #2B838E, 0 1px 0 #fff;
+    -moz-box-shadow: 0 0 0 #2B838E, 0 1px 0 #D1D3D4;
+    -webkit-box-shadow: 0 0 0 #2B838E, 0 1px 0 #D1D3D4;
+    box-shadow: 0 0 0 #2B838E, 0 1px 0 #D1D3D4;
 }
-/*.navbar-nav ul li:first-child{*/
-    /*-moz-box-shadow: 0 -1px 0 #2B838E, 0 1px 0 #fff;*/
-    /*-webkit-box-shadow: 0 -1px 0 #2B838E, 0 1px 0 #fff;*/
-    /*box-shadow: 0 -1px 0 #2B838E, 0 1px 0 #fff;*/
+.navbar-nav ul li:first-child{
+    -moz-box-shadow: 0 -1px 0 #D1D3D4, 0 1px 0 #D1D3D4;
+    -webkit-box-shadow: 0 -1px 0 #D1D3D4, 0 1px 0 #D1D3D4;
+    box-shadow: 0 -1px 0 #D1D3D4, 0 1px 0 #D1D3D4;
+}
+/*.navbar-nav ul li:last-child{*/
+    /*-moz-box-shadow: none;*/
+    /*-webkit-box-shadow: none;*/
+    /*box-shadow: 0 0 0 #2B838E, 0 1px 0 #D1D3D4;*/
 /*}*/
-.navbar-nav ul li:last-child{
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
 
 .navbar-nav ul a{
     padding: 10px;
@@ -364,13 +436,13 @@ h3{
 }
 
 .navbar-nav ul a:hover{
-    background: #D1D3D4;
-    background: -moz-linear-gradient(#D1D3D4,  #D1D3D4);
-    background: -webkit-gradient(linear, left top, left bottom, from(#D1D3D4), to(#D1D3D4));
-    background: -webkit-linear-gradient(#D1D3D4,  #D1D3D4);
-    background: -o-linear-gradient(#D1D3D4,  #D1D3D4);
-    background: -ms-linear-gradient(#D1D3D4,  #D1D3D4);
-    background: linear-gradient(#D1D3D4,  #D1D3D4);
+    background: #2B838E;
+    background: -moz-linear-gradient(#2B838E,  #2B838E);
+    background: -webkit-gradient(linear, left top, left bottom, from(#2B838E), to(#2B838E));
+    background: -webkit-linear-gradient(#2B838E,  #2B838E);
+    background: -o-linear-gradient(#2B838E,  #2B838E);
+    background: -ms-linear-gradient(#2B838E,  #2B838E);
+    background: linear-gradient(#2B838E,  #2B838E);
 }
 
 
@@ -387,7 +459,7 @@ h3{
 /*}*/
 
 .navbar-nav ul li:first-child a:hover:after{
-    /*border-bottom-color: #000;*/
+    border-bottom-color: #D1D3D4;
 }
 
 .navbar-nav ul li:last-child a{
@@ -413,6 +485,7 @@ h3{
 /*****total_table*****/
 
 .table-editable {
+    overflow-x: auto;
     position: relative;
 }
 
@@ -422,17 +495,8 @@ h3{
 
 }
 
-.table-up, .table-down {
-    color: #007;
-    cursor: pointer;
-
-}
-
 .table-add {
     color: #070;
     cursor: pointer;
-    position: absolute;
-    top: 8px;
-    right: 0;
 
 }

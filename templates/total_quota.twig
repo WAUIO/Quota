@@ -5,23 +5,27 @@
     <h1 class="page-header" id="reference">
         Quota total : {{ reference_quota }}
     </h1>
+    <div style="display: none">
+        <span id="euro_exchange">{{ exchange['euro'] }}</span>
+        <span id="dollar_exchange">{{ exchange['dollar'] }}</span>
+    </div>
     {% if(base_rooms|length > 0) %}
         {% for room in base_rooms %}
             <p class="base_title" id="{{ room.type|replace({' ' : '_'}) }}">Based on {{ room.type }}</p>
             <div class="calculation_quota">
 
                 <div id="table" class="table-editable">
-                    <span class="table-add glyphicon glyphicon-plus"></span>
                     <table class="table" id="table_{{ room.type|replace({' ' : '_'}) }}">
+
                         <thead>
                         <tr>
-                            <th rowspan="2" colspan="2">Designation</th>
-                            <th colspan="{{ prestation.max - prestation.min + 1 }}">Pax</th>
-                            <th rowspan="2"></th>
+                            <th class="table_header" rowspan="2" colspan="2">Designation</th>
+                            <th class="table_header" colspan="{{ prestation.max - prestation.min + 1 }}">Pax</th>
+                            <th class="table_header col_abs" rowspan="2"></th>
                         </tr>
                         <tr>
                             {% for i in prestation.min..prestation.max %}
-                                <th>{{ i }}</th>
+                                <th class="tr_value">{{ i }}</th>
                             {% endfor %}
                         </tr>
 
@@ -31,31 +35,31 @@
                         <!--Prestation-->
                         <tbody>
                             <tr class="tr_{{ room.type|replace({' ' : '_'}) }}">
-                                <td>Prestation</td>
+                                <td class="designation">Prestation</td>
                                 <td></td>
 
                                 {% for i in prestation.min..prestation.max %}
-                                    <td class="td_{{ room.type|replace({' ' : '_'}) }}">{{ prestation.value[i-prestation.min] }}</td>
+                                    <td class="td_value td_{{ room.type|replace({' ' : '_'}) }}">{{ prestation.value[i-prestation.min] }}</td>
                                 {% endfor %}
 
                                 <td></td>
                             </tr>
                             <tr class="tr_{{ room.type|replace({' ' : '_'}) }}">
-                                <td>Margin</td>
+                                <td class="designation">Margin</td>
                                 <td>{{ prestation.margin }}%</td>
 
                                 {% for i in prestation.min..prestation.max %}
-                                    <td class="td_{{ room.type|replace({' ' : '_'}) }}">{{ prestation.value[i-prestation.min] *  prestation.margin /100 }}</td>
+                                    <td class="td_value td_{{ room.type|replace({' ' : '_'}) }}">{{ prestation.value[i-prestation.min] *  prestation.margin /100 }}</td>
                                 {% endfor %}
 
                                 <td></td>
                             </tr>
                             <tr class="tr_{{ room.type|replace({' ' : '_'}) }}">
-                                <td>VAT</td>
+                                <td class="designation">VAT</td>
                                 <td>{{ prestation.vat }}%</td>
 
                                 {% for i in prestation.min..prestation.max %}
-                                    <td class="td_{{ room.type|replace({' ' : '_'}) }}">{{ (prestation.value[i-prestation.min] * prestation.margin /100) * prestation.vat /100 }}</td>
+                                    <td class="td_value td_{{ room.type|replace({' ' : '_'}) }}">{{ (prestation.value[i-prestation.min] * prestation.margin /100) * prestation.vat /100 }}</td>
                                 {% endfor %}
 
                                 <td></td>
@@ -63,67 +67,109 @@
 
                             <!-- Room -->
                             <tr class="tr_{{ room.type|replace({' ' : '_'}) }}">
-                                <td>{{ room.type|capitalize }}</td>
-                                <td></td>
+                                <td class="designation">{{ room.type|capitalize }}</td>
+                                <td>{{ room.total[1]}}</td>
 
                                 {% for i in prestation.min..prestation.max %}
-                                    <td class="td_{{ room.type|replace({' ' : '_'}) }}">{{ room.total[1]}}</td>
+                                    <td class="td_value td_{{ room.type|replace({' ' : '_'}) }}">{{ room.total[1]}}</td>
                                 {% endfor %}
 
                                 <td></td>
                             </tr>
                             <tr class="tr_{{ room.type|replace({' ' : '_'}) }}">
-                                <td>Margin</td>
-                                <td>{{ prestation.margin }}%</td>
+                                <td class="designation">Margin</td>
+                                <td>{{ room.margin }}%</td>
 
                                 {% for i in prestation.min..prestation.max %}
-                                    <td class="td_{{ room.type|replace({' ' : '_'}) }}">{{ room.total[1] *  room.margin /100 }}</td>
+                                    <td class="td_value td_{{ room.type|replace({' ' : '_'}) }}">{{ room.total[1] *  room.margin /100 }}</td>
                                 {% endfor %}
 
                                 <td></td>
                             </tr>
                             <tr class="tr_{{ room.type|replace({' ' : '_'}) }}">
-                                <td>VAT</td>
+                                <td class="designation">VAT</td>
                                 <td>{{ room.vat }}%</td>
 
                                 {% for i in prestation.min..prestation.max %}
-                                    <td class="td_{{ room.type|replace({' ' : '_'}) }}">{{ (room.total[1] * room.margin /100) * room.vat /100 }}</td>
+                                    <td class="td_value td_{{ room.type|replace({' ' : '_'}) }}">{{ (room.total[1] * room.margin /100) * room.vat /100 }}</td>
                                 {% endfor %}
 
                                 <td></td>
                             </tr>
 
-                            <!-- This is our clonable table line -->
-                            <tr class="tr_{{ room.type|replace({' ' : '_'}) }} hide">
-                                <td></td>
-                                <td contenteditable="true">Untitled</td>
+                            <tr class="tr_{{ room.type|replace({' ' : '_'}) }}">
+                                <td class="designation">Fees</td>
+                                <td class="others">------</td>
                                 {% for i in prestation.min..prestation.max %}
-                                    <td class="td_{{ room.type|replace({' ' : '_'}) }}">0</td>
+                                    <td class="td_value td_{{ room.type|replace({' ' : '_'}) }}"></td>
                                 {% endfor %}
                                 <td>
                                     <span class="table-remove glyphicon glyphicon-remove"></span>
                                 </td>
                             </tr>
-                        <tr class="tr_total">
-                            <td>TOTAL</td>
-                            <td></td>
+                            <tr class="tr_{{ room.type|replace({' ' : '_'}) }}">
+                                <td class="designation">Guides flight</td>
+                                <td class="others">------</td>
+                                {% for i in prestation.min..prestation.max %}
+                                    <td class="td_value td_{{ room.type|replace({' ' : '_'}) }}"></td>
+                                {% endfor %}
+                                <td>
+                                    <span class="table-remove glyphicon glyphicon-remove"></span>
+                                </td>
+                            </tr>
+                            <tr class="tr_{{ room.type|replace({' ' : '_'}) }}">
+                                <td class="designation">Customers flight</td>
+                                <td class="others">------</td>
+                                {% for i in prestation.min..prestation.max %}
+                                    <td class="td_value td_{{ room.type|replace({' ' : '_'}) }}"></td>
+                                {% endfor %}
+                                <td>
+                                    <span class="table-remove glyphicon glyphicon-remove"></span>
+                                </td>
+                            </tr>
+                            <!-- This is our clonable table line -->
+                            <tr class="tr_{{ room.type|replace({' ' : '_'}) }} hide">
+                                <td class="designation">Others</td>
+                                <td class="others">------</td>
+                                {% for i in prestation.min..prestation.max %}
+                                    <td class="td_value td_{{ room.type|replace({' ' : '_'}) }}"></td>
+                                {% endfor %}
+                                <td>
+                                    <span class="table-remove glyphicon glyphicon-remove"></span>
+                                </td>
+                            </tr>
+                            <tr class="tr_total tr_MGA">
+                                <td rowspan="3" class="designation total_designation">TOTAL</td>
+                                <td class="devise">MGA</td>
 
-                            {% for i in prestation.min..prestation.max %}
-                                <td class="total_{{ room.type|replace({' ' : '_'}) }}"></td>
-                            {% endfor %}
+                                {% for i in prestation.min..prestation.max %}
+                                    <td class="td_value total_{{ room.type|replace({' ' : '_'}) }}"></td>
+                                {% endfor %}
 
-                            <td></td>
-                        </tr>
-                        {#</<tr class="tr_total">#}
-                            {#<td>TOTAL</td>#}
-                            {#<td></td>#}
+                                <td>
+                                    <span class="table-add glyphicon glyphicon-plus"></span>
+                                </td>
+                            </tr>
+                            <tr class="tr_total tr_EUR">
+                                <td class="devise">EUR</td>
 
-                            {#{% for i in prestation.min..prestation.max %}#}
-                                {#<td>{{ (room.total[1] * room.margin /100) * room.vat /100 }}</td>#}
-                            {#{% endfor %}#}
+                                {% for i in prestation.min..prestation.max %}
+                                    <td class="td_value total_{{ room.type|replace({' ' : '_'}) }}"></td>
+                                {% endfor %}
 
-                            {#<td></td>#}
-                        {#</tr>#}
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="tr_total tr_USD">
+                                <td class="devise">USD</td>
+
+                                {% for i in prestation.min..prestation.max %}
+                                    <td class="td_value total_{{ room.type|replace({' ' : '_'}) }}"></td>
+                                {% endfor %}
+
+                                <td>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -138,12 +184,11 @@
     {% endif %}
 
 
-
     <hr>
 {% endblock total_quota %}
 {% block menu_room %}
     <!-- Side Widget Well -->
-    <div class="well">
+    <div class="row well">
         <h4>Existing room for this quota</h4>
         {% if(existing_base|length > 0) %}
             {% for base in existing_base %}

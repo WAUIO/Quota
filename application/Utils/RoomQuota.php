@@ -29,8 +29,8 @@ class RoomQuota
         $lunch      = $array[4];
         $vignette   = $array[5];
         $tax        = $array[6];
-        $euro       = $array[7];
-        $dollar     = $array[8];
+        $euro       = $array[7]['euro'];
+        $dollar     = $array[7]['dollar'];
 
         $somme = 0;
         $array_type = array("integer", "double");
@@ -86,8 +86,8 @@ class RoomQuota
 
         array_push($this->content, $this->room, $this->breakfast, $this->lunch, $this->dinner, $this->vignette, $this->tax, $this->total);
 
-        $this->margin = $array[9];
-        $this->vat = $array[10];
+        $this->margin = $array[8];
+        $this->vat = $array[9];
         array_push(self::$room_type, $this->room[0]);
     }
 }
