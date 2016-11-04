@@ -74,6 +74,9 @@ td {
     color: rgb(111, 111, 111);
     padding-left: 10px;
 }
+input{
+    width:80px;
+}
 
 .td_designation{
     padding-left: 20px;
@@ -250,7 +253,7 @@ td {
 .type_client{
     margin-left: 20px;
 }
-h3{
+h2{
     color:#2B838E;
     font-weight: bolder;
 }
@@ -470,6 +473,9 @@ li .lign{
     color: #700;
     cursor: pointer;
 
+}
+.btn-danger{
+    margin-right: 20px;
 }
 
 .table-up, .table-down {

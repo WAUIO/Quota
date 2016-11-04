@@ -1,11 +1,84 @@
 $(document).ready(function () {
+    $("#click").click(function(){
+    addColumn();
+});
 
+});
+function addColumn() {
+    var minvalues= [];
+    var maxvalues= [];
+    var tr=$("#Tbody > tr");
+        tr.each(function(){
+            var min=$(this).find("td > [name='paxmin']").val();
+            var max=$(this).find("td > [name='paxmax']").val();
+           if(min!=="" && max !==""){
+               minvalues.push(parseInt(min));
+               maxvalues.push(parseInt(max));
+           }
+        });
+
+
+    var minimum=Math.min.apply(Math,minvalues);
+    var maximum=Math.max.apply(Math,maxvalues);
+
+
+    if(minimum<=maximum){
+        for (var i=minimum;i<=maximum;i++){
+            var colhead=$("<th>");
+
+            colhead.attr("rowspan","2");
+            colhead.text(i);
+            $("#Thead").append(colhead);
+
+        }
+
+        for (var i=minimum;i<=maximum;i++){
+            var bigtotal=0;
+            var colfoot=$("<td>");
+             tr.each(function(){
+                 var min=$(this).find("td > [name='paxmin']").val();
+                 var max=$(this).find("td > [name='paxmax']").val();
+                 var svc_unit=parseInt($(this).find("td > [name='nbsvc']").val());
+                 var amount=parseInt($(this).find(".tarif").html());
+                 var total=svc_unit*amount;
+
+
+                     $(this).find('td').eq(7).html(total);
+
+
+                     var colbody=$("<td>");
+                     var subtotal =(total/i);
+                     if(i<min || i>max){
+                         colbody.text("0");
+
+                     }else{
+                         colbody.html(subtotal.toFixed(2));
+                         bigtotal=bigtotal+subtotal;
+                     }
+
+                     $(this).append(colbody);
+
+
+                 $(".table").append($(this));
+            });
+            colfoot.html(bigtotal.toFixed(2));
+            $("#Tfoot").append(colfoot);
+
+        }
+
+    }else{
+        alert('WARNING: Pax min> Pax max');
+    }
+}
+
+function loadJson() {
+    var url="/Json/data.json";
     $ajax({
         type:"GET",
-        url:"/Json/prestation.json",
-        data:"JSON",
+        url:url,
+        data: { get_param: 'value' },
+        dataType:"JSON",
         success:function (data) {
-            alert(data);
             $.each(data,function (index,quota) {
 
                 for(var i=1;i<data.length;i++){
@@ -58,7 +131,7 @@ $(document).ready(function () {
             });
         }
     });
-})
+}
 
 
 

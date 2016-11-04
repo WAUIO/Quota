@@ -2,7 +2,7 @@
 {% extends 'layout.twig' %}
 {% block body %}
 
-    <div class="container">
+    <div class="cont">
         <div class="col-md-10 col-md-offset-1">
             <form class="form-horizontal" role="form">
                 <div class="row">
@@ -20,12 +20,8 @@
                                 </select>
                             </div>
                             <div class="col-md-2">
-                                <ul>
-                                    <li>
-                                        <div class="lign"><span><img  class="currency" src="/img/dollar-icon.png"></span>  3110</div>
-                                        <div class="lign"><span><img class="currency" src="/img/euro-icon.png"></span>  {{ currency }}</div>
-                                    </li>
-                                </ul>
+                               <span class="lign"><img  class="currency" src="/img/dollar-icon.png"> 3110</span>
+                                <span class="lign"><img class="currency" src="/img/euro-icon.png"> {{ currency }}</span>
                             </div>
                         </div>
                     </div>
@@ -39,14 +35,14 @@
                             <label class="col-md-2" for="name"><img id="board" src="/img/board.png"></label>
                             <div class="col-md-10">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                         <div class="checkbox">
                                             <label>
                                                 <input id="adult-breakfast" type="checkbox"> Breakfast
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
                                             <option value="">select</option>
                                             <option value="un">Jade</option>
@@ -58,14 +54,14 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                         <div class="checkbox">
                                             <label>
                                                 <input id="adult-lunch" type="checkbox"> Lunch
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
                                             <option value="">select</option>
                                             <option value="un">Jade</option>
@@ -77,14 +73,14 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                         <div class="checkbox">
                                             <label>
                                                 <input id="adult-dinner" type="checkbox"> Dinner
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-6" >
+                                    <div class="col-md-5" >
                                         <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
                                             <option value="">select</option>
                                             <option value="un">Jade</option>
@@ -104,14 +100,14 @@
                             <label class="col-md-2" for="name"><img id="room" src="/img/room.png"></label>
                             <div class="col-md-10">
                                 <div id="singlebed" class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                         <div class="checkbox">
                                             <label>
                                                 <input id="single" type="checkbox"> Single
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
                                             <option value="">select</option>
                                             <option value="un">Jade</option>
@@ -124,14 +120,14 @@
                                     </div>
                                 </div>
                                 <div id="doublebed" class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                         <div class="checkbox">
                                             <label>
                                                 <input id="double" type="checkbox"> Double
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
                                             <option value="">select</option>
                                             <option value="un">Jade</option>
@@ -144,14 +140,14 @@
                                     </div>
                                 </div>
                                 <div id="triplebed" class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                         <div class="checkbox">
                                             <label>
                                                 <input id="triple" type="checkbox"> Triple
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
                                             <option value="">select</option>
                                             <option value="un">Jade</option>
@@ -163,14 +159,14 @@
                                     </div>
                                 </div>
                                 <div id="familybed" class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                         <div class="checkbox">
                                             <label>
                                                 <input id="family" type="checkbox"> Family
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
                                             <option value="">select</option>
                                             <option value="un">Jade</option>
@@ -183,14 +179,14 @@
                                     </div>
                                 </div>
                                 <div id="extrabed" class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                         <div class="checkbox">
                                             <label>
                                                 <input id="extra-adult" type="checkbox"> Extra-bed
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
                                             <option value="">select</option>
                                             <option value="un">Jade</option>
@@ -217,14 +213,14 @@
                             <label class="col-md-2" for="name"><img id="board" src="/img/board.png"></label>
                             <div class="col-md-10">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                         <div class="checkbox">
                                             <label>
                                                 <input id="child-breakfast" type="checkbox"> Breakfast
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
                                             <option value="">select</option>
                                             <option value="un">Jade</option>
@@ -236,14 +232,14 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                         <div class="checkbox">
                                             <label>
                                                 <input id="child-lunch" type="checkbox"> Lunch
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
                                             <option value="">select</option>
                                             <option value="un">Jade</option>
@@ -255,14 +251,14 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                         <div class="checkbox">
                                             <label>
                                                 <input id="child-dinner" type="checkbox"> Dinner
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-6" >
+                                    <div class="col-md-5" >
                                         <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
                                             <option value=""></option>
                                             <option value="un">Jade</option>
@@ -282,14 +278,14 @@
                             <label class="col-md-2" for="name"><img id="room" src="/img/room.png"></label>
                             <div class="col-md-10">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                         <div class="checkbox">
                                             <label>
                                                 <input id="extra-child" type="checkbox"> Extra-bed
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
                                             <option value="">select</option>
                                             <option value="un">Jade</option>

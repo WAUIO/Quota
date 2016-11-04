@@ -4,19 +4,9 @@
 
    <div class="col-md-12 col-md-offset-1">
        <div class="col-md-2 col-md-push-10"></div>
-       <div class="col-md-10 col-md-pull-2">
-           <div class="row">
-               <div class="col-lg-6">
-                   <div id="search" class="input-group">
-                       <input type="text" class="form-control" placeholder="search quota">
-                       <span class="input-group-btn">
-                    <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search" style="right: 24px;color: black;"></i></button>
-                </span>
-                   </div>
-               </div>
-           </div>
-           <div class="row">
-               <table class="table-striped">
+       <div class="col-md-11 col-md-pull-1">
+           <div class="table-responsive">
+               <table class="table table-striped">
                    <thead>
                        <tr id="Thead">
                            <th rowspan="2">Code</th>
@@ -27,19 +17,14 @@
                            <th rowspan="2">
                                Pax max
                            </th>
-                           <th rowspan="2">
-                               <th>Rate/day</th>
-                           </th>
-                           <th rowspan="2">
-                               <th>Number</th>
-
-                           </th>
+                           <th >
+                               Rate/day</th>
+                           <th >
+                               Number</th>
+                           <th >
+                              Person</th>
                            <th rowspan="2">
                                Total price
-                           </th>
-                           <th rowspan="2">
-                               <th>Personne</th>
-
                            </th>
                        </tr>
                         <tr>
@@ -49,12 +34,44 @@
                         </tr>
                    </thead>
                    <tbody id="Tbody">
+                        <tr>
+                            <td class="cod">1</td>
+                            <td ><span>Guide</span></td>
+                            <td title="min"><input name="paxmin" type="text" ></td>
+                            <td  title="max"><input name="paxmax" type="text" ></td>
+                            <td class="tarif">80000</td>
+                            <td title="number"><input type="text" name="nbsvc"/></td>
 
+                            <td >Pax</td>
+                            <td class="total"> </td>
+                        </tr>
+                        <tr>
+                            <td class="cod">2</td>
+                            <td><span >Location voiture</span></td>
+                            <td title="min"><input name="paxmin" type="text" ></td>
+                            <td  title="max"><input name="paxmax" type="text" ></td>
+                            <td class="tarif">100000</td>
+                            <td  title="number"><input type="text" name="nbsvc" /></td>
+
+                            <td >Pax</td>
+                            <td class="total"></td>
+                        </tr>
+                        <tr>
+                            <td class="cod">3</td>
+                            <td ><span>Entree parc</span></td>
+                            <td title="min"><input name="paxmin" type="text" ></td>
+                            <td  title="max"><input name="paxmax" type="text"></td>
+                            <td class="tarif">5000</td>
+                            <td  title="number"><input type="text" name="nbsvc"/></td>
+
+                            <td >Person</td>
+                            <td class="total"></td>
+                        </tr>
                    </tbody>
                    <tfoot>
-                    <tr>
+                    <tr id="Tfoot">
                         <td colspan="8">
-                            <h3>Total</h3>
+                            <h2><button class="btn btn-danger" id="click">Quotation</button>Total</h2>
                         </td>
                     </tr>
                    </tfoot>

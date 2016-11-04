@@ -19,37 +19,21 @@ class WelcomeController extends Controller
     }
     public function currency(){
         $value=0;
-//        try{
-//            $xchangeUrl = 'http://www.commercialesolutions.com/samples.html';//http://xchange-madagascar.com/home/cours';
-//            $ch = curl_init();
-//            curl_setopt($ch, CURLOPT_URL, $xchangeUrl);
-//            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-//            $result = curl_exec ($ch);
-       // var_dump($result);
-
-//        curl_close($ch);
-//            $xchangePage = new \DOMDocument();
-//
+            $xchangeUrl = 'http://xchange-madagascar.com/home/cours';
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $xchangeUrl);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $result = curl_exec ($ch);
+            curl_close($ch);
+            $xchangePage = new \DOMDocument();
 //            $xchangePage->loadHTML($result);
-//
-//
-//
-//
-//           $division=$xchangePage->getElementsByClassName('cours');
-//           $child=$division->find('ul > li')->filter(':first');
-//            foreach($child->getElementsByTagName('div') as $div){
-//                if($div->getAttribute('class') == "col1 achat"){
-//                    $value = $div->item(1)->nodeValue;
+//            $division=$xchangePage->find('div')->getElementsByClassName('cours');
+//            $child=$division->find('ul > li')->filter(':first');
+//                foreach($child->getElementsByTagName('div') as $div){
+//                    if($div->getAttribute('class') == "col1 achat"){
+//                        $value = $div->item(1)->nodeValue;
+//                    }
 //                }
-//            }
-
-//
-//        }catch(\Exception $e){
-//            $e->getFile();
-//            $e->getCode();
-//            $e->getMessage();
-//            $e->getTrace();
-//        }
         return $value;
 
     }
