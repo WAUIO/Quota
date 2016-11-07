@@ -68,7 +68,7 @@
     <div class="row">
         <!--/left side-->
 
-        <div class="col-xs-9">
+        {#<div class="col-xs-9">#}
             {% block edit_client %}
             {% endblock edit_client %}
 
@@ -87,41 +87,41 @@
             {% block content %}
             {% endblock content %}
 
-        </div>
+        {#</div>#}
         
-        <!--/right side-->
-        <div class="col-xs-3">
-            <div class="sidebar-nav-fixed pull-right affix">
-                <div class="well">
-                    <div>
-                        <h4>List of quotations<span id="search_glyphicon" class="glyphicon glyphicon-chevron-up"></span></h4>
-                    </div>
+        {#<!--/right side-->#}
+        {#<div class="col-xs-3">#}
+            {#<div class="sidebar-nav-fixed pull-right affix">#}
+                {#<div class="well">#}
+                    {#<div>#}
+                        {#<h4>List of quotations<span id="search_glyphicon" class="glyphicon glyphicon-chevron-up"></span></h4>#}
+                    {#</div>#}
 
-                    <div class="input-group">
-                        <input type="text" class="form-control search_control">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                        </span>
-                    </div>
-                    <!-- /.input-group -->
-                    <div class="row" id="quota_list">
-                        {% for i in 1..20 %}
-                            <div class="quota_lists">
-                                <a href="#">Quota n°{{ i }}</a>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
+                    {#<div class="input-group">#}
+                        {#<input type="text" class="form-control search_control">#}
+                        {#<span class="input-group-btn">#}
+                            {#<button class="btn btn-default" type="button">#}
+                                {#<span class="glyphicon glyphicon-search"></span>#}
+                            {#</button>#}
+                        {#</span>#}
+                    {#</div>#}
+                    {#<!-- /.input-group -->#}
+                    {#<div class="row" id="quota_list">#}
+                        {#{% for i in 1..20 %}#}
+                            {#<div class="quota_lists">#}
+                                {#<a href="#">Quota n°{{ i }}</a>#}
+                            {#</div>#}
+                        {#{% endfor %}#}
+                    {#</div>#}
+                {#</div>#}
 
-                {% block menu_room %}
-                {% endblock menu_room %}
-            <!--/.well -->
-            </div>
-            <!--/sidebar-nav-fixed -->
-        </div>
-        <!--/span-->
+                {#{% block menu_room %}#}
+                {#{% endblock menu_room %}#}
+            {#<!--/.well -->#}
+            {#</div>#}
+            {#<!--/sidebar-nav-fixed -->#}
+        {#</div>#}
+        {#<!--/span-->#}
     </div>
     <!--/row-->
 </div>

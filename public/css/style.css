@@ -43,7 +43,9 @@ footer {
 #reference{
     color: #6F6F6F;
 }
-
+.quota{
+    float:left;
+}
 
 /******* For quota view *******/
 .base_title{
@@ -75,9 +77,14 @@ td {
     padding-left: 10px;
 }
 input{
-    width:80px;
+    width:30px;
 }
-
+#Tbody > tr > td{
+    font-weight: bold;
+}
+#Tfoot > tr > td{
+    font-weight:bold;
+}
 .td_designation{
     padding-left: 20px;
 }
@@ -253,7 +260,7 @@ input{
 .type_client{
     margin-left: 20px;
 }
-h2{
+h2,h3{
     color:#2B838E;
     font-weight: bolder;
 }
@@ -401,16 +408,10 @@ h2{
     width: 60px;
     height: 40px;
 }
-/*#logo{*/
-    /*width: 90px;*/
-    /*position: relative;*/
-    /*top:-10px;*/
-/*}*/
+
 .form-control{
     margin: auto;
-    /*margin-left: auto;*/
-    /*margin-right:auto;*/
-    /*margin-top: 5px;*/
+
 }
 .icon{
     width: 15px;
@@ -421,7 +422,6 @@ h2{
     height: 50px;
 }
 .container{
-    /*margin-top: 80px;*/
     background-color: rgba(1,1,1,0.03);
 }
 .row{

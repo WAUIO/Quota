@@ -1,5 +1,6 @@
 $(document).ready(function () {
     $("#click").click(function(){
+        $(".quota").remove();
     addColumn();
 });
 
@@ -27,6 +28,7 @@ function addColumn() {
             var colhead=$("<th>");
 
             colhead.attr("rowspan","2");
+            colhead.attr("class","quota");
             colhead.text(i);
             $("#Thead").append(colhead);
 
@@ -35,9 +37,11 @@ function addColumn() {
         for (var i=minimum;i<=maximum;i++){
             var bigtotal=0;
             var colfoot=$("<td>");
+            colfoot.attr("class","quota");
              tr.each(function(){
                  var min=$(this).find("td > [name='paxmin']").val();
                  var max=$(this).find("td > [name='paxmax']").val();
+                 var type=$(this).find(".type").html();
                  var svc_unit=parseInt($(this).find("td > [name='nbsvc']").val());
                  var amount=parseInt($(this).find(".tarif").html());
                  var total=svc_unit*amount;
@@ -45,9 +49,14 @@ function addColumn() {
 
                      $(this).find('td').eq(7).html(total);
 
-
                      var colbody=$("<td>");
-                     var subtotal =(total/i);
+                    colbody.attr("class","quota");
+                    if(type==="Pax"){
+                        var subtotal =(total/i);
+                    }else {
+                        var subtotal =total;
+                    }
+
                      if(i<min || i>max){
                          colbody.text("0");
 
@@ -62,6 +71,7 @@ function addColumn() {
                  $(".table").append($(this));
             });
             colfoot.html(bigtotal.toFixed(2));
+            colfoot.css({"font-weight":"bold","color":"#2B838E"});
             $("#Tfoot").append(colfoot);
 
         }
