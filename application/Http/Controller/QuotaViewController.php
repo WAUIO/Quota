@@ -6,6 +6,7 @@ use Wau\Http\Controller;
 use App\Utils\PrestationQuota;
 use App\Utils\RoomQuota;
 use App\Utils\TotalQuota;
+use App\Utils\Exchange;
 
 class QuotaViewController extends Controller
 {
@@ -29,10 +30,15 @@ class QuotaViewController extends Controller
     }
 
     public function getRoom($reference_quota){
+        //exchange[0] => achat
+        //exchange[1] => vente
+        //exchange[2] => mid
+
         $base_rooms = array();
-        $euro = 3000;
-        $dollar = 2500;
-        $exchange = array('euro'=>$euro, 'dollar'=>$dollar);
+        $euro = new Exchange(0);
+        $dollar = new Exchange(1);
+
+        $exchange = array('euro'=>$euro->exchange[0], 'dollar'=>$dollar->exchange[0]);
 
         $margin = 10;
         $vat = 20;
@@ -47,11 +53,10 @@ class QuotaViewController extends Controller
 
     public function getPrestation($reference_quota){
         $min = 2;
-        $max = 23;
+        $max = 22;
         $margin = 20;
         $vat = 20;
-        $prestation = new PrestationQuota(array($min, $max, array(11,22,33,44,55,66,77,88,99,10,11,22,33,44,55,66,77,88,99,10,11,12), $margin, $vat));
-        return $prestation;
+        return new PrestationQuota(array($min, $max, array(11,22,33,44,55,66,77,88,99,10,11,22,33,44,55,66,77,88,99,10,11,12), $margin, $vat));
     }
 
     public function total_quota(Request $request)
@@ -59,9 +64,14 @@ class QuotaViewController extends Controller
         $data = array();
         $reference_quota = "quota n°123";
 
-        $euro = 3000;
-        $dollar = 2500;
-        $exchange = array('euro'=>$euro, 'dollar'=>$dollar);
+        $euro = new Exchange(0);
+        $dollar = new Exchange(1);
+
+        //exchange[0] achat
+        //exchange[1] vente
+        //exchange[2] mid
+
+        $exchange = array('euro'=>$euro->exchange[0], 'dollar'=>$dollar->exchange[0]);
 
         $prestation = $this->getPrestation($reference_quota);
         $base_rooms = $this->getRoom($reference_quota);

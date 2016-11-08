@@ -128,7 +128,7 @@ td {
     font-size: 110%;
     background-color: rgba(35, 130, 255, 0.63);
 }
-.others{
+.others, .taxes{
     font-weight: normal !important;
 }
 .table_header{
@@ -137,6 +137,9 @@ td {
 }
 table > thead > tr > th, .total_designation {
     vertical-align: middle !important;;
+}
+.red, .others{
+    color: #DD1144;
 }
 
 /*table::selection {*/
