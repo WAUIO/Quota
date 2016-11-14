@@ -9,33 +9,41 @@
             <table class="flat-table">
                 <tbody>
 
-                <form action="submit">
+               <!-- <form method="post" action="infoController.php"> -->
                     <div class="field">
                         </br>
                         <label class="form-label">Customer ref : </label>
-                        <input type="text" class="form-control"  required="required"/></br> </br>
+                        <input type="text" class="form-control" id="customerRef" name="customerRef"/></br> </br>
                     </div>
                     <div class="field">
                         <label class="form-label">Name : </label>
-                        <input type="text" class="form-control"> </br> </br>
+                        <input type="text" class="form-control" id="name" name="name"> </br> </br>
                     </div>
                     <div class="field">
                         <label class="form-label">Number of adults : </label>
-                        <input type="number" class="form-control" > </br> </br>
+                        <input type="number" class="form-control" id="nbAdults" name="nbAdults"> </br> </br>
                     </div>
                     <div class="field">
                         <label class="form-label">Number of children : </label>
-                        <input type="number" class="form-control" > </br> </br>
+                        <input type="number" class="form-control" id="nbChildren" name="nbChildren"> </br> </br>
                     </div>
                     <div class="field">
                         <label class="form-label">Beginning of stay : </label>
-                        <input type="date" class="form-control" > </br> </br>
+                        <input type="date" class="form-control" id="stay" name="stay"> </br> </br>
                     </div>
-                    <input type="submit" class="form-submit" value="Next &rarr;">
-                </form>
-
+               <!---  <input type="submit" class="form-submit" value="Next &rarr;">
+                 </form> -->
+                <button class="btn btn-primary form-submit" id="btn-save">
+                    <span class="glyphicon glyphicon-next">
+                        Next =>
+                    </span>
+                </button>
                 </tbody>
             </table>
         </div>
     </div>
 {% endblock edit_client %}
+{% block scripts %}
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/function.js"></script>
+{% endblock scripts %}

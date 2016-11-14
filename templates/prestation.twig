@@ -6,92 +6,107 @@
             Services offered
         </h1>
 
-        <form action="submit_prestation">
+        <form action="submit_prestation" method="post">
         <div class="col-xs-6 content">
         <table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%" >
+
+            <div class="input-group">
+                <input type="text" class="form-control search_control" placeholder="Individual service search">
+                            <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                            </span>
+            </div> <br>
             <thead>
             <tr>
                 <th><img src="/images/indi.png">   Individual services</th>
             </tr>
+            </thead>
+            <tboby>
             <td>
                 <div style="width:375px;height:250px;overflow:auto;">
-                    <div class="funkyradio">
-                    <div class="funkyradio-success">
-                        <input type="checkbox" name="checkbox" id="checkbox1"/>
-                        <label for="checkbox1" style="border: none">Park</label>
-                    </div>
-                    <div class="funkyradio-success">
-                        <input type="checkbox" name="checkbox" id="checkbox2"/>
-                        <label for="checkbox2" style="border: none">SPA</label>
-                    </div>
-                    <div class="funkyradio-success">
-                        <input type="checkbox" name="checkbox" id="checkbox3"/>
-                        <label for="checkbox3" style="border: none">Swimming</label>
-                    </div>
-                    <div class="funkyradio-success">
-                        <input type="checkbox" name="checkbox" id="checkbox4"/>
-                        <label for="checkbox4" style="border: none">Museum</label>
-                    </div>
-                    <div class="funkyradio-success">
-                        <input type="checkbox" name="checkbox" id="checkbox5"/>
-                        <label for="checkbox5" style="border: none">Individual1</label>
-                    </div>
-                    <div class="funkyradio-success">
-                        <input type="checkbox" name="checkbox" id="checkbox6"/>
-                        <label for="checkbox6" style="border: none">Individual2</label>
-                    </div>
-                    <div class="funkyradio-success">
-                        <input type="checkbox" name="checkbox" id="checkbox7"/>
-                        <label for="checkbox7" style="border: none">Individual3</label>
-                    </div>
-                    </div>
+
+                    <input type="checkbox" name="individual[]" value="A00287"/> A00287: Cirque Rouge Mahajanga - Resident<br/>
+                    <input type="checkbox" name="individual[]" value="A00286"/> A00286: Cirque Rouge Mahajanga - Non Resident<br/>
+                    <input type="checkbox" name="individual[]" value="A00287"/> A00337: Transmalala Guide - Tulear<br/>
+                    <input type="checkbox" name="individual[]" value="A00287"/> A00336: WAU Guide's accommodation <br/>
+                    <input type="checkbox" name="individual[]" value="A00287"/> A00311: Anjohibe Cave - 2 nights<br/>
+                    <input type="checkbox" name="individual[]" value="A00287"/> A00332: Anjà Park - Guide Minimum Duration<br/>
+                    <input type="checkbox" name="individual[]" value="A00287"/> A00286: Cirque Rouge Mahajanga -Non Residen<br/>
+                    <input type="checkbox" name="individual[]" value="A00287"/> A00336: WAU Guide's accommodation<br/>
+                    <input type="checkbox" name="individual[]" value="A00287"/> A00286: Cirque Rouge Mahajanga -Non Resident<br/>
+                    <input type="checkbox" name="individual[]" value="A00287"/> A00332: Anjà Park - Guide Minimum Duration<br/>
+                    <input type="checkbox" name="individual[]" value="A00287"/> A00287: Cirque Rouge Mahajanga - Resident<br/>
+                    <input type="checkbox" name="individual[]" value="A00286"/> A00286: Cirque Rouge Mahajanga - Non Resident<br/>
+                    <input type="checkbox" name="individual[]" value="A00287"/> A00337: Transmalala Guide - Tulear<br/>
+                    <input type="checkbox" name="individual[]" value="A00287"/> A00336: WAU Guide's accommodation <br/>
+                    <input type="checkbox" name="individual[]" value="A00287"/> A00311: Anjohibe Cave - 2 nights<br/>
+                    <input type="checkbox" name="individual[]" value="A00287"/> A00332: Anjà Park - Guide Minimum Duration<br/>
+                    <input type="checkbox" name="individual[]" value="A00287"/> A00286: Cirque Rouge Mahajanga -Non Residen<br/>
+                    <input type="checkbox" name="individual[]" value="A00287"/> A00336: WAU Guide's accommodation<br/>
+                    <input type="checkbox" name="individual[]" value="A00287"/> A00286: Cirque Rouge Mahajanga -Non Resident<br/>
+                    <input type="checkbox" name="individual[]" value="A00287"/> A00332: Anjà Park - Guide Minimum Duration<br/>
+                    <input type="checkbox" name="individual[]" value="A00287"/> A00311: Anjohibe Cave - 2 nights
+
                 </div>
             </td>
-            </thead>
+            </tboby>
         </table>
         </div>
 
         <div class="col-xs-6 content">
         <table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
+
+            <div class="input-group">
+                <input type="text" class="form-control search_control" placeholder="Collective service search"/>
+                            <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                            </span>
+            </div>
+            <br/>
             <thead>
             <tr>
-                <th><img src="/images/coll.png">   Collectives services</th>
+                <th><img src="/images/coll.png">   Collectives services
+
+                </th>
             </tr>
+            </thead>
             <td>
                 <div class="scroll" style="width:375px;height:250px;overflow:auto;">
                     <div class="funkyradio">
-                        <div class="funkyradio-success">
-                            <input type="checkbox" name="checkbox" id="checkbox1c"/>
-                            <label for="checkbox1c" style="border: none">Transfert</label>
+                       <div class="funkyradio-success" style="padding-bottom: 2px">
+                            <input type="checkbox" name="collective[]" id="checkbox1ca"/>
+                            <label for="checkbox1c" style="border: none">A00337: Transmalala Guide - Tulear</label>
                         </div>
                         <div class="funkyradio-success">
-                            <input type="checkbox" name="checkbox" id="checkbox2c"/>
-                            <label for="checkbox2c" style="border: none">Guide</label>
+                            <input type="checkbox" name="collective[]" id="checkbox2c"/>
+                            <label for="checkbox2c" style="border: none">A00336: WAU Guide's accommodation</label>
                         </div>
                         <div class="funkyradio-success">
-                            <input type="checkbox" name="checkbox" id="checkbox3c"/>
-                            <label for="checkbox3c" style="border: none">Boat</label>
+                            <input type="checkbox" name="collective[]" id="checkbox3c"/>
+                            <label for="checkbox3c" style="border: none">A00335: Guide in Morondava - Andry</label>
                         </div>
                         <div class="funkyradio-success">
-                            <input type="checkbox" name="checkbox" id="checkbox4c"/>
-                            <label for="checkbox4c" style="border: none">Collective1</label>
+                            <input type="checkbox" name="collective[]" id="checkbox4c"/>
+                            <label for="checkbox4c" style="border: none">A00332: Anjà Park - Guide Minimum Duration</label>
                         </div>
                         <div class="funkyradio-success">
-                            <input type="checkbox" name="checkbox" id="checkbox5c"/>
-                            <label for="checkbox5c" style="border: none">Collective2</label>
+                            <input type="checkbox" name="collective[]" id="checkbox5c"/>
+                            <label for="checkbox5c" style="border: none">A00311: Anjohibe Cave - 2 nights </label>
                         </div>
                         <div class="funkyradio-success">
-                            <input type="checkbox" name="checkbox" id="checkbox6c"/>
+                            <input type="checkbox" name="collective[]" id="checkbox6c"/>
                             <label for="checkbox6c" style="border: none">Collective3</label>
                         </div>
                     </div>
                 </div>
             </td>
-            </thead>
         </table>
         </div>
-            <input type="submit" class="form-submit" value="Next &rarr;">
+
         </form>
     </div>
-
 {% endblock prestation %}
