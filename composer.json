@@ -7,7 +7,8 @@
     "wauco/framework": "dev-master",
     "swiftmailer/swiftmailer": "~5.0",
     "twilio/sdk": "~4.3",
-    "symfony/dom-crawler": "~2.7"
+    "symfony/dom-crawler": "~2.7",
+    "illuminate/database": "^5.3"
   },
   "repositories": [
     {

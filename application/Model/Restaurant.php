@@ -1,12 +1,15 @@
 <?php
-namespace App\Model;
 /**
  * Created by PhpStorm.
  * User: ninah
- * Date: 07/11/16
- * Time: 10:31
+ * Date: 17/11/16
+ * Time: 14:46
  */
-class Room
+
+namespace App\Model;
+
+
+class Restaurant
 {
     private $conn;
 
@@ -14,9 +17,8 @@ class Room
         $db = Connexion::getInstance();
         $this->conn = $db->getPdo();
     }
-
-    public function selectRoom($id){
-        $sql="SELECT Id,Name,Category FROM Room WHERE IdHouse = :id";
+    public function selectRestauration($id){
+        $sql="SELECT Id,Menu,Meals FROM Restaurant WHERE IdHouse = :id";
 //        IdHouse=:id AND
         $query=$this->conn->prepare($sql);
         $query->bindParam(':id',$id,\PDO::PARAM_STR);
@@ -27,6 +29,4 @@ class Room
         };
         return $res;
     }
-//  public function updateData(){}
-
 }

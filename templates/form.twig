@@ -10,18 +10,15 @@
                         <div class="form-group">
                             <label class="col-md-2" for="name"><img id="hotel" src="/img/hotel.png"/></label>
                             <div class="col-md-8">
-                                <select id="select-hotel" class="selectpicker">
-                                    <option value="">select</option>
-                                    <option value="un">Jade</option>
-                                    <option value="deux">Sapphire</option>
-                                    <option value="trois">Rubis</option>
-                                    <option value="quatre">Diamond</option>
-                                    <option value="cinq">Gold</option>
+                                <select title="Nothing selected" name="idhouse" id="select-hotel" class="selectpicker">
+                                    {% for house in listhouse %}
+                                        <option value={{ house['Id'] }}> {{ house['Title'] }} </option>
+                                    {% endfor %}
                                 </select>
                             </div>
                             <div class="col-md-2">
-                               <span class="lign"><img  class="currency" src="/img/dollar-icon.png"> 3110</span>
-                                <span class="lign"><img class="currency" src="/img/euro-icon.png"> {{ currency }}</span>
+                               <span id="dollar" class="lign"><img  class="currency" src="/img/dollar-icon.png"> 3110</span>
+                                <span id="euro" class="lign"><img class="currency" src="/img/euro-icon.png"> 3440</span>
                             </div>
                         </div>
                     </div>
@@ -33,7 +30,7 @@
                     <div id="right" class="col-md-6 col-md-push-6">
                         <div class="form-group">
                             <label class="col-md-2" for="name"><img id="board" src="/img/board.png"></label>
-                            <div class="col-md-10">
+                            <div id="resto" class="col-md-10">
                                 <div class="row">
                                     <div class="col-md-5">
                                         <div class="checkbox">
@@ -43,13 +40,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5">
-                                        <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
-                                            <option value="">select</option>
-                                            <option value="un">Jade</option>
-                                            <option value="deux">Sapphire</option>
-                                            <option value="trois">Rubis</option>
-                                            <option value="quatre">Diamond</option>
-                                            <option value="cinq">Gold</option>
+                                        <select title="Nothing" id="bft"  class="selectpicker form-control show-tick" data-live-search="true">
+
                                         </select>
                                     </div>
                                 </div>
@@ -62,13 +54,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5">
-                                        <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
-                                            <option value="">select</option>
-                                            <option value="un">Jade</option>
-                                            <option value="deux">Sapphire</option>
-                                            <option value="trois">Rubis</option>
-                                            <option value="quatre">Diamond</option>
-                                            <option value="cinq">Gold</option>
+                                        <select title="Nothing" id="lch" class="selectpicker form-control show-tick" data-live-search="true">
+
                                         </select>
                                     </div>
                                 </div>
@@ -81,17 +68,19 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5" >
-                                        <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
-                                            <option value="">select</option>
-                                            <option value="un">Jade</option>
-                                            <option value="deux">Sapphire</option>
-                                            <option value="trois">Rubis</option>
-                                            <option value="quatre">Diamond</option>
-                                            <option value="cinq">Gold</option>
+                                        <select title="Nothing" id="dnr" class="selectpicker form-control show-tick" data-live-search="true">
+
                                         </select>
                                     </div>
                                 </div>
+                                <div id="menu" class="row">
 
+                                </div>
+                                <div id="hb" class="row">
+
+                                </div>
+                                <div id="fb" class="row">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -108,13 +97,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5">
-                                        <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
-                                            <option value="">select</option>
-                                            <option value="un">Jade</option>
-                                            <option value="deux">Sapphire</option>
-                                            <option value="trois">Rubis</option>
-                                            <option value="quatre">Diamond</option>
-                                            <option value="cinq">Gold</option>
+                                        <select title="Nothing" id="sgl" class="selectpicker form-control show-tick" data-live-search="true">
+
                                         </select>
 
                                     </div>
@@ -128,13 +112,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5">
-                                        <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
-                                            <option value="">select</option>
-                                            <option value="un">Jade</option>
-                                            <option value="deux">Sapphire</option>
-                                            <option value="trois">Rubis</option>
-                                            <option value="quatre">Diamond</option>
-                                            <option value="cinq">Gold</option>
+                                        <select title="Nothing" id="dbl" class="selectpicker form-control show-tick" data-live-search="true" multiple>
+
                                         </select>
 
                                     </div>
@@ -148,13 +127,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5">
-                                        <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
-                                            <option value="">select</option>
-                                            <option value="un">Jade</option>
-                                            <option value="deux">Sapphire</option>
-                                            <option value="trois">Rubis</option>
-                                            <option value="quatre">Diamond</option>
-                                            <option value="cinq">Gold</option>
+                                        <select title="Nothing" id="tpl" class="selectpicker form-control show-tick" data-live-search="true" multiple>
+
                                         </select>
                                     </div>
                                 </div>
@@ -167,13 +141,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5">
-                                        <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
-                                            <option value="">select</option>
-                                            <option value="un">Jade</option>
-                                            <option value="deux">Sapphire</option>
-                                            <option value="trois">Rubis</option>
-                                            <option value="quatre">Diamond</option>
-                                            <option value="cinq">Gold</option>
+                                        <select title="Nothing" id="fml" class="selectpicker form-control show-tick" data-live-search="true" multiple>
+
                                         </select>
 
                                     </div>
@@ -187,13 +156,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5">
-                                        <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
-                                            <option value="">select</option>
-                                            <option value="un">Jade</option>
-                                            <option value="deux">Sapphire</option>
-                                            <option value="trois">Rubis</option>
-                                            <option value="quatre">Diamond</option>
-                                            <option value="cinq">Gold</option>
+                                        <select title="Nothing" id="ext" class="selectpicker form-control show-tick" data-live-search="true">
+
                                         </select>
 
                                     </div>
@@ -221,13 +185,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5">
-                                        <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
-                                            <option value="">select</option>
-                                            <option value="un">Jade</option>
-                                            <option value="deux">Sapphire</option>
-                                            <option value="trois">Rubis</option>
-                                            <option value="quatre">Diamond</option>
-                                            <option value="cinq">Gold</option>
+                                        <select title="Nothing" id="chb" class="selectpicker form-control show-tick" data-live-search="true">
+
                                         </select>
                                     </div>
                                 </div>
@@ -240,13 +199,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5">
-                                        <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
-                                            <option value="">select</option>
-                                            <option value="un">Jade</option>
-                                            <option value="deux">Sapphire</option>
-                                            <option value="trois">Rubis</option>
-                                            <option value="quatre">Diamond</option>
-                                            <option value="cinq">Gold</option>
+                                        <select title="Nothing" id="chl" class="selectpicker form-control show-tick" data-live-search="true">
+
                                         </select>
                                     </div>
                                 </div>
@@ -259,17 +213,17 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5" >
-                                        <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
-                                            <option value=""></option>
-                                            <option value="un">Jade</option>
-                                            <option value="deux">Sapphire</option>
-                                            <option value="trois">Rubis</option>
-                                            <option value="quatre">Diamond</option>
-                                            <option value="cinq">Gold</option>
+                                        <select title="Nothing" id="chd" class="selectpicker form-control show-tick" data-live-search="true">
+
                                         </select>
                                     </div>
                                 </div>
-
+                                <div id="chmenu" class="row">
+                                </div>
+                                <div id="chhb" class="row">
+                                </div>
+                                <div id="chfb" class="row">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -286,13 +240,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5">
-                                        <select class="selectpicker form-control show-tick" data-live-search="true" multiple>
-                                            <option value="">select</option>
-                                            <option value="un">Jade</option>
-                                            <option value="deux">Sapphire</option>
-                                            <option value="trois">Rubis</option>
-                                            <option value="quatre">Diamond</option>
-                                            <option value="cinq">Gold</option>
+                                        <select  title="Nothing" id="exch" class="selectpicker form-control show-tick" data-live-search="true" multiple>
+
                                         </select>
                                     </div>
                                 </div>

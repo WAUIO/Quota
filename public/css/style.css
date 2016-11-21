@@ -43,10 +43,6 @@ footer {
 #reference{
     color: #6F6F6F;
 }
-.quota{
-    float:left;
-}
-
 /******* For quota view *******/
 .base_title{
     text-align: center;
@@ -77,7 +73,10 @@ td {
     padding-left: 10px;
 }
 input{
-    width:30px;
+    width:25px;
+}
+#savequota{
+    margin-bottom: 30px;
 }
 #Tbody > tr > td{
     font-weight: bold;
@@ -281,8 +280,8 @@ h2,h3{
 }
 
 #hotel{
-    width: 90px;
-    height:40px;
+    width: 80px;
+    height:60px;
 }
 #sgl{
     width:10px;
