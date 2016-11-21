@@ -78,6 +78,11 @@ $(document).ready(function () {
     somme("#table_single_room");
     //somme("#table_double_room");
 });
+function saveClient(){
+$("#roomclick").click(function(){
+   window.location.href='/house';
+});
+}
 
 function somme(table_id){
     length = $('.tr_'+table_id).length;
