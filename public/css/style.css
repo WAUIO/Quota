@@ -12,7 +12,7 @@ footer {
 #logo{
     width: 90px;
     position: relative;
-    top:0px;
+    top:-10px;
 }
 
 .title-logo, .navbar-nav{
@@ -24,6 +24,9 @@ footer {
 .well{
     min-width: 175px;
     padding-top: 5px;
+}
+.sidebar-outer {
+    position: relative;
 }
 .sidebar-nav-fixed {
     width:20%;
@@ -41,7 +44,11 @@ footer {
     font-size:300%;
 }
 #reference{
+    background: #f4f4f4;
     color: #6F6F6F;
+    padding: 10px;
+    font-size:120%;
+    font-weight: bold;
 }
 /******* For quota view *******/
 .base_title{
@@ -50,7 +57,7 @@ footer {
     color: #2B838E;
 }
 .calculation_quota{
-    /*height: 250px;*/
+    height: 250px;
     background: #f4f4f4;
 }
 .flat-table {
@@ -102,8 +109,6 @@ input{
     font-size: 110%;
     background-color: rgba(35, 130, 255, 0.63);
 }
-
-
 /******* For detail *******/
 .detail{
     background: #f4f4f4;
@@ -154,6 +159,45 @@ input{
     line-height: 25px;
 }
 .quota_lists:hover{
+/*=======*/
+/*!******* For no_quota *******!*/
+/*.no_quota, .no_base{*/
+    /*font-style: italic;*/
+    /*margin-left: 10px;*/
+    /*margin-bottom: 10px;*/
+    /*color: #FF0F22;*/
+/*}*/
+
+
+/*!******* For quota base *******!*/
+/*.quota_lists{*/
+    /*height: 25px;*/
+    /*line-height: 25px;*/
+/*}*/
+/*.quota_lists:hover{*/
+    /*cursor: pointer;*/
+    /*background: #CCCCCC;*/
+/*}*/
+/*.base_types a, .quota_lists a{*/
+    /*text-decoration: none;*/
+    /*color: #2B838E;*/
+    /*margin-left: 10px;*/
+/*}*/
+/*.base_types{*/
+    /*height: 30px;*/
+/*}*/
+
+/*.add_room_button{*/
+    /*font-size: 110%;*/
+    /*font-weight: bold;*/
+    /*width:100%;*/
+    /*height:40px;*/
+    /*color: white;*/
+    /*text-align: center;*/
+    /*line-height: 40px;*/
+    /*background: #2B838E;*/
+    /*border-radius: 2px;*/
+/*>>>>>>> 8979ddac908e79c73801778782c02304d73747d6*/
     cursor: pointer;
     background: #CCCCCC;
 }
@@ -494,3 +538,122 @@ li .lign{
     right: 0;
 
 }
+/*=======*/
+
+/*.navbar-nav li:hover > a{*/
+    /*color: #000000;*/
+    /*background: #D1D3D4;*/
+/*}*/
+
+/**html .navbar-nav li a:hover{ !* IE6 *!*/
+    /*color: #fafafa;*/
+/*}*/
+
+/*.navbar-nav li:hover > ul{*/
+    /*display: block;*/
+/*}*/
+
+/*!* Sous-menu *!*/
+
+/*.navbar-nav ul{*/
+    /*list-style: none;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+    /*display: none;*/
+    /*position: absolute;*/
+    /*top: 50px;*/
+    /*left: 0;*/
+    /*z-index: 99999;*/
+    /*background: #2B838E;*/
+    /*background: -moz-linear-gradient(#2B838E, #2B838E);*/
+    /*background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #2B838E),color-stop(1, #2B838E));*/
+    /*background: -webkit-linear-gradient(#2B838E, #2B838E);*/
+    /*background: -o-linear-gradient(#2B838E, #2B838E);*/
+    /*background: -ms-linear-gradient(#2B838E, #2B838E);*/
+    /*background: linear-gradient(#2B838E, #2B838E);*/
+    /*-moz-border-radius: 0;*/
+    /*border-radius: 0;*/
+/*}*/
+
+/*.navbar-nav ul li{*/
+    /*float: none;*/
+    /*margin: 0;*/
+    /*padding: 1px 0 0 0;*/
+    /*display: block;*/
+    /*-moz-box-shadow: 0 0 0 #2B838E, 0 1px 0 #fff;*/
+    /*-webkit-box-shadow: 0 0 0 #2B838E, 0 1px 0 #fff;*/
+    /*box-shadow: 0 0 0 #2B838E, 0 1px 0 #fff;*/
+/*}*/
+/*!*.navbar-nav ul li:first-child{*!*/
+    /*!*-moz-box-shadow: 0 -1px 0 #2B838E, 0 1px 0 #fff;*!*/
+    /*!*-webkit-box-shadow: 0 -1px 0 #2B838E, 0 1px 0 #fff;*!*/
+    /*!*box-shadow: 0 -1px 0 #2B838E, 0 1px 0 #fff;*!*/
+/*!*}*!*/
+/*.navbar-nav ul li:last-child{*/
+    /*-moz-box-shadow: none;*/
+    /*-webkit-box-shadow: none;*/
+    /*box-shadow: none;*/
+/*}*/
+
+/*.navbar-nav ul a{*/
+    /*padding: 10px;*/
+    /*height: auto;*/
+    /*line-height: 1;*/
+    /*display: block;*/
+    /*white-space: nowrap;*/
+    /*float: none;*/
+    /*text-transform: none;*/
+/*}*/
+
+/**:first-child+html .navbar-nav ul a{ !* IE7 *!*/
+    /*height: 10px;*/
+    /*width: 150px;*/
+/*}*/
+
+/*.navbar-nav ul a:hover{*/
+    /*background: #D1D3D4;*/
+    /*background: -moz-linear-gradient(#D1D3D4,  #D1D3D4);*/
+    /*background: -webkit-gradient(linear, left top, left bottom, from(#D1D3D4), to(#D1D3D4));*/
+    /*background: -webkit-linear-gradient(#D1D3D4,  #D1D3D4);*/
+    /*background: -o-linear-gradient(#D1D3D4,  #D1D3D4);*/
+    /*background: -ms-linear-gradient(#D1D3D4,  #D1D3D4);*/
+    /*background: linear-gradient(#D1D3D4,  #D1D3D4);*/
+/*}*/
+
+
+/*!*.navbar-nav ul li:first-child a:after{*!*/
+    /*!*content: '';*!*/
+    /*!*position: absolute;*!*/
+    /*!*left: 30px;*!*/
+    /*!*top: -8px;*!*/
+    /*!*width: 0;*!*/
+    /*!*height: 0;*!*/
+    /*!*border-left: 5px solid transparent;*!*/
+    /*!*border-right: 5px solid transparent;*!*/
+    /*!*border-bottom: 8px solid #2B838E;*!*/
+/*!*}*!*/
+
+/*.navbar-nav ul li:first-child a:hover:after{*/
+    /*!*border-bottom-color: #000;*!*/
+/*}*/
+
+/*.navbar-nav ul li:last-child a{*/
+    /*-moz-border-radius: 0;*/
+    /*-webkit-border-radius: 0;*/
+    /*border-radius: 0;*/
+/*}*/
+
+/*!* Rétablissement du flottement *!*/
+/*.navbar-nav:after{*/
+    /*visibility: hidden;*/
+    /*display: block;*/
+    /*font-size: 0;*/
+    /*content: " ";*/
+    /*clear: both;*/
+    /*height: 0;*/
+/*}*/
+
+/** html .navbar-nav             { zoom: 1; } !* IE6 *!*/
+/**:first-child+html .navbar-nav { zoom: 1; } !* IE7 *!*/
+
+/*>>>>>>> 8979ddac908e79c73801778782c02304d73747d6*/

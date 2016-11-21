@@ -1,5 +1,6 @@
 <?php
 
+
 $app->get('/form', 'App\Http\Controller\WelcomeController@index');
 $app->get('/money', 'App\Http\Controller\WelcomeController@currency');
 $app->get('/info', 'App\Http\Controller\WelcomeController@info');
@@ -10,8 +11,6 @@ $app->get('/total', 'App\Http\Controller\QuotaViewController@total_quota');
 $app->get('/house', 'App\Http\Controller\HouseController@select');
 $app->get('/path', 'App\Http\Controller\HouseController@dataRoom');
 $app->get('/rest', 'App\Http\Controller\HouseController@dataRestaurant');
-
-    //$app->group(['prefix' => '/', 'middleware' => ['App\Http\Middleware\AuthMiddleware'],
-    //    function() use (&$app) {
-    //
-//    }]);
+$app->get('/', 'App\Http\Controller\QuotaViewController@index');
+$app->get('/information', 'App\Http\Controller\infoController@info');
+$app->get('/prestation', 'App\Http\Controller\prestationController@prestation');
