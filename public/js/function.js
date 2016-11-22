@@ -26,7 +26,10 @@ $(document).ready(function () {
     calculateTotal();
     ancreLink();
 
+
+
 });
+
 
 function checkboxEvent() {
     /*******checkbox event*******/
