@@ -12,7 +12,7 @@ class MigrationController extends Controller
     var $incre;
     public function migrate()
     {
-        $this->incre = 0;
+        set_time_limit(0);
         $space_id = 4691756;
         $list_app = $this->getApps($space_id);
 
@@ -20,38 +20,36 @@ class MigrationController extends Controller
             $app_id = $app['app_id'];
             $app_name = $app['app_name'];
 
-            if( $app_id == 17063267 ) {
-                $this->getItems($app_id, $offset = 500);
+            if( $app_id != 17063425 ) {
+                $this->getItems($app_id, $offset = 0);
                 echo $app_id." ".$app_name."<br/>";
-
-            echo $this->incre."<br/>";
             }
         }
 
         return $this->app()->make('twig.view')->render('app.twig');
     }
 
-    public function getItem($app_id, $offset = 0)
-    {
-        $limit = 100;
-        $items = \PodioItem::filter($app_id, array('limit' => $limit, 'offset' => $offset, 'sort_by' => 'created_on'));
-
-        static $storage = [];
-
-        foreach ($items as $item) {
-            $this->incre++;
-            $storage [] = $item;
-        }
-
-        //increase for next heap
-        $offset += $limit;
-
-        if( $items->total > $offset ){
-            self::getItem( $app_id, $offset);
-        }
-
-        return $storage;
-    }
+//    public function getItem($app_id, $offset = 0)
+//    {
+//        $limit = 500;
+//        $items = \PodioItem::filter($app_id, array('limit' => $limit, 'offset' => $offset, 'sort_by' => 'created_on'));
+//
+//        static $storage = [];
+//
+//        foreach ($items as $item) {
+//            $this->incre++;
+//            $storage [] = $item;
+//        }
+//
+//        //increase for next heap
+//        $offset += $limit;
+//
+//        if( $items->total > $offset ){
+//            self::getItem( $app_id, $offset);
+//        }
+//
+//        return $storage;
+//    }
 
     //$list_item = array_merge($list_item,self::getItems( $app_id, $offset));
     public function getItems($app_id, $offset)
@@ -59,15 +57,14 @@ class MigrationController extends Controller
         $limit = 100;
         $items = \PodioItem::filter($app_id, array('limit' => $limit, 'offset' => $offset, 'sort_by' => 'created_on'));
 
-        //$this-> saveItem($app_id, $items);
-        $this->incre += sizeof($items);
-//        foreach ($items as $item) {
-//            echo $this->incre."<br/>";
-//        }
+        $this-> saveItem($app_id, $items);
 
         $offset += $limit;
+        var_dump($items->total);
+        var_dump($offset);
 
         if( $items->total > $offset ){
+            sleep(60);
             self::getItems( $app_id, $offset);
         }
     }
@@ -82,9 +79,7 @@ class MigrationController extends Controller
         $place          = 17063425;
 
         foreach ($items as $item) {
-            $table = "";
             $query = "";
-            $this->incre++;
             $dataItem = $this->getDataItem($item);
 
             switch ($app_id){
@@ -93,7 +88,9 @@ class MigrationController extends Controller
                         $dataItem = $this->array_insert_before(1, $dataItem, 'title', "");
                     }
                     $table = "house";
-                    $query = "INSERT IGNORE INTO ".$table." (item_id, house_title, others) VALUES (:itemid, :title, :others)";
+                    $query = "INSERT INTO ".$table." (item_id, house_title, others) VALUES (:itemid, :title, :others)
+                              ON DUPLICATE KEY UPDATE house_title = VALUES(house_title), others = VALUES(others)";
+
                     break;
                 case $rooms:
                     if(!array_key_exists('for-hotel',$dataItem)){
@@ -103,7 +100,8 @@ class MigrationController extends Controller
                         $dataItem = $this->array_insert_before(2, $dataItem, 'roomcategory', "");
                     }
                     $table = "room";
-                    $query = "INSERT IGNORE INTO ".$table." (item_id, house_id, category, others) VALUES (:itemid, :forhotel, :roomcategory, :others)";
+                    $query = "INSERT INTO ".$table." (item_id, house_id, category, others) VALUES (:itemid, :forhotel, :roomcategory, :others)
+                              ON DUPLICATE KEY UPDATE house_id = VALUES(house_id), others = VALUES(others)";
                     break;
                 case $restaurants:
                     if(!array_key_exists('house',$dataItem)){
@@ -116,25 +114,29 @@ class MigrationController extends Controller
                         $dataItem = $this->array_insert_before(3, $dataItem, 'meals', "");
                     }
                     $table = "restaurant";
-                    $query = "INSERT IGNORE INTO ".$table." (item_id, house_id, menu, meals, others) VALUES (:itemid, :house, :menu, :meals, :others)";
+                    $query = "INSERT INTO ".$table." (item_id, house_id, menu, meals, others) VALUES (:itemid, :house, :menu, :meals, :others)
+                              ON DUPLICATE KEY UPDATE house_id = VALUES(house_id), menu = VALUES(menu), meals = VALUES(meals), others = VALUES(others)";
                     break;
                 case $activities:
                     if(!array_key_exists('price-2',$dataItem)){
                         $dataItem = $this->array_insert_before(1, $dataItem, 'price2', "");
                     }
-                    $table = "activities";
-                    $query = "INSERT IGNORE INTO ".$table." (item_id, price, others) VALUES (:itemid, :price2, :others)";
+                    $table = "activity";
+                    $query = "INSERT INTO ".$table." (item_id, price, others) VALUES (:itemid, :price2, :others)
+                              ON DUPLICATE KEY UPDATE price = VALUES(price), others = VALUES(others)";
                     break;
                 case $transports:
                     if(!array_key_exists('price-2',$dataItem)){
                         $dataItem = $this->array_insert_before(1, $dataItem, 'price2', "");
                     }
                     $table = "transport";
-                    $query = "INSERT IGNORE INTO ".$table." (item_id, price, others) VALUES (:itemid, :price2, :others)";
+                    $query = "INSERT INTO ".$table." (item_id, price, others) VALUES (:itemid, :price2, :others)
+                              ON DUPLICATE KEY UPDATE price = VALUES(price), others = VALUES(others)";
                     break;
                 case $place:
                     $table = "place";
-                    $query = "INSERT IGNORE INTO ".$table." VALUES (:itemid, :others)";
+                    $query = "INSERT INTO ".$table." (item_id, others) VALUES (:itemid, :others)
+                              ON DUPLICATE KEY UPDATE others = VALUES(others)";
                     break;
             }
 
@@ -246,17 +248,20 @@ class MigrationController extends Controller
                 $external_id = $field[$i]->external_id;
 
                 $json['label'] = $label;
-                $json['value'] = $value;
+                $json['value'   ] = $value;
                 $others[$external_id] = $json;
             }
         }
 
         $dataItem = array();
+
         $dataItem['item_id'] = $item->item_id;
+
         foreach ($except as $key => $value){
             $dataItem[$key] = $value;
         }
-        $dataItem['others'] = json_encode($others);
+
+        $dataItem['others'] = json_encode($others, JSON_UNESCAPED_UNICODE);
 
         return $dataItem;
     }
