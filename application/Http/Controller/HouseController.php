@@ -35,12 +35,13 @@ class HouseController extends Controller
     //  $data=json_encode($id);
        //var_dump($id);exit;
         $room=$list->selectRoom($id);
-        return json_encode($room);
+       return json_encode($room);
+
     }
     public function dataRestaurant(){
         $board=new Restaurant();
         $id=$_GET['id'];
         $rest=$board->selectRestauration($id);
-        return json_encode($rest);
+  return json_encode($rest);
     }
 }

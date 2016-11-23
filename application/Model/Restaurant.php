@@ -18,7 +18,7 @@ class Restaurant
         $this->conn = $db->getPdo();
     }
     public function selectRestauration($id){
-        $sql="SELECT Id,Menu,Meals FROM Restaurant WHERE IdHouse = :id";
+        $sql="SELECT item_id,menu,meals FROM restaurant WHERE house_id = :id";
 //        IdHouse=:id AND
         $query=$this->conn->prepare($sql);
         $query->bindParam(':id',$id,\PDO::PARAM_STR);

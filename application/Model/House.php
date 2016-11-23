@@ -21,14 +21,15 @@ class House
         $this->con = $db->getPdo();
     }
     public function selectData(){
-        $sql="SELECT Id,Title FROM House";
+        $sql="SELECT item_id,house_title FROM house";
         $query=$this->con->prepare($sql);
         $query->execute();
         $final=array();
         while($result=$query->fetch(\PDO::FETCH_ASSOC)){
             $final[]=$result;
         };
-    return $final;
+ return $final;
+
 
     }
 

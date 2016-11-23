@@ -16,8 +16,19 @@ class Room
     }
 
     public function selectRoom($id){
-        $sql="SELECT Id,Name,Category FROM Room WHERE IdHouse = :id";
-//        IdHouse=:id AND
+        $sql="SELECT item_id,category,others FROM room WHERE house_id = :id";
+        $query=$this->conn->prepare($sql);
+        $query->bindParam(':id',$id,\PDO::PARAM_STR);
+        $query->execute();
+        $res=array();
+        while($row=$query->fetch(\PDO::FETCH_ASSOC)){
+            $res[]=$row;
+        };
+     return $res;
+
+    }
+    public function selectOthers($id){
+        $sql="SELECT others FROM room WHERE house_id=:id";
         $query=$this->conn->prepare($sql);
         $query->bindParam(':id',$id,\PDO::PARAM_STR);
         $query->execute();
@@ -26,7 +37,7 @@ class Room
             $res[]=$row;
         };
         return $res;
+
     }
-//  public function updateData(){}
 
 }

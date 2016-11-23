@@ -12,7 +12,7 @@
                             <div class="col-md-8">
                                 <select title="Nothing selected" name="idhouse" id="select-hotel" class="selectpicker">
                                     {% for house in listhouse %}
-                                        <option value={{ house['Id'] }}> {{ house['Title'] }} </option>
+                                        <option value={{ house['item_id'] }}> {{ house['house_title'] }} </option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -73,13 +73,14 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div id="menu" class="row">
-
+                                <div id="menu2" class="row">
+                                    <div class='col-md-5'> <div class='checkbox'> <label> <input id='amenu' type='checkbox'> Menu </label> </div> </div>
                                 </div>
                                 <div id="hb" class="row">
-
+                                    <div class='col-md-5'> <div class='checkbox'> <label> <input id='ahb' type='checkbox'> HB </label> </div> </div>
                                 </div>
                                 <div id="fb" class="row">
+                                    <div class='col-md-5'> <div class='checkbox'> <label> <input id='afb' type='checkbox'> FB </label> </div> </div>
                                 </div>
                             </div>
                         </div>
@@ -219,10 +220,13 @@
                                     </div>
                                 </div>
                                 <div id="chmenu" class="row">
+                                    <div class='col-md-5'> <div class='checkbox'> <label> <input id='menuc' type='checkbox'> Menu </label> </div> </div>
                                 </div>
                                 <div id="chhb" class="row">
+                                    <div class='col-md-5'> <div class='checkbox'> <label> <input id='hbc' type='checkbox'> HB </label> </div> </div>
                                 </div>
                                 <div id="chfb" class="row">
+                                    <div class='col-md-5'> <div class='checkbox'> <label> <input id='fbc' type='checkbox'> FB </label> </div> </div>
                                 </div>
                             </div>
                         </div>

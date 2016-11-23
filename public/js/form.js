@@ -5,6 +5,12 @@ $(document).ready(function () {
 
      $("select").attr("disabled","disabled");
     $("#select-hotel").removeAttr("disabled");
+    $('#menu2').css('display','none');
+    $('#hb').css('display','none');
+    $('#fb').css('display','none');
+    $('#chmenu').css('display','none');
+    $('#chhb').css('display','none');
+    $('#chfb').css('display','none');
 
    checkOption();
 
@@ -50,29 +56,36 @@ function inHouse(){
                 $('#dbl').empty();
                 $('#tpl').empty();
                 $('#fml').empty();
-                $('#ext').empty();
+                // $('#ext').empty();
                 $('#exch').empty();
-                for ($i = 0; $i < d.length; $i++) {
-                    if(d[$i].Category=="single"|| d[$i].Category=="extra-bed"){
-                        var opt = "<option value=" + d[$i].Id + ">" + d[$i].Name + "</option>";
+                $.each(d,function(i,r){
+                    // debugger;
+                // for ($i = 0; $i < d.length; $i++) {
+                    var str=r.others;
+                    var obj=JSON.parse(str);
+                    // alert(obj['name'].value+','+r.item_id+','+r.category);
+
+
+                    if(r.category=="Single"|| r.category=="Extra-bed"){
+                        var opt = "<option value=" +  r.item_id + ">" + obj['name'].value + "</option>";
 
                         $('#sgl').append(opt);
 
-                    }else if(d[$i].Category=="single" || d[$i].Category=="double"){
-                        var pto = "<option value=" + d[$i].Id + ">" + d[$i].Name + "</option>";
+                    }else if(r.category=="Single" || r.category=="Double"){
+                        var pto = "<option value=" + r.item_id + ">" + obj['name'].value+ "</option>";
                         $('#dbl').append(pto);
-                    }else if(d[$i].Category=="single" || d[$i].Category=="double" || d[$i].Category=="triple"){
-                        var lpt = "<option value=" + d[$i].Id + ">" + d[$i].Name + "</option>";
+                    }else if(r.category=="Single" || r.category=="Double" || r.category=="Triple"){
+                        var lpt = "<option value=" + r.item_id + ">" +  obj['name'].value+ "</option>";
                         $('#tpl').append(lpt);
-                    }else if(d[$i].Category=="single" || d[$i].Category=="double" || d[$i].Category=="triple"||d[$i].Category=="family"){
-                        var lmf = "<option value=" + d[$i].Id + ">" + d[$i].Name + "</option>";
+                    }else if(r.category=="Single" || r.category=="Double" || r.category=="Triple"||r.category=="Family"){
+                        var lmf = "<option value=" + r.item_id+ ">" +  obj['name'].value+ "</option>";
                         $('#fml').append(lmf);
                     }else {
-                        var txe = "<option value=" + d[$i].Id + ">" + d[$i].Name + "</option>";
+                        var txe = "<option value=" + r.item_id + ">" + obj['name'].value + "</option>";
                         $('#ext').append(txe);
                         $('#exch').append(txe);
                     }
-                }
+                });
                 $.ajax({
                     type:'GET',
                     url:'/rest',
@@ -86,59 +99,55 @@ function inHouse(){
                         $('#bft').empty();
                         $('#lch').empty();
                         $('#dnr').empty();
-                        for ($j = 0; $j < data.length; $j++) {
-                            if(data[$j].Meals=="breakfast" || data[$j].Meals.match(/breakfast/g)){
-                                if(data[$j].Meals.match(/CH/g) ||data[$j].Menu.match(/y.o/g)){
-                                    var bch="<option value=" + data[$j].Id + ">" + data[$j].Menu + "</option>";
+                        // for ($j = 0; $j < data.length; $j++) {
+                            $.each(data,function(e,o){
+                            if(o.meals=="Breakfast" || o.meals.match(/Breakfast/g)){
+                                if(o.meals.match(/CH/g) ||o.menu.match(/y.o/g)){
+                                    var bch="<option value=" + o.item_id + ">" + o.menu + "</option>";
                                     $("#chb").append(bch);
                                 }else{
-                                    var brk="<option value=" + data[$j].Id + ">" + data[$j].Menu + "</option>";
+                                    var brk="<option value=" + o.item_id + ">" + o.menu + "</option>";
                                     $("#bft").append(brk);
                                 }
-                            }else if(data[$j].Meals=="lunch" || data[$j].Meals.match(/lunch/g)){
-                                if(data[$j].Meals.match(/CH/g) ||data[$j].Menu.match(/y.o/g)){
-                                    var lch="<option value=" + data[$j].Id + ">" + data[$j].Menu + "</option>";
+                            }else if(o.meals=="Lunch" || o.meals.match(/Lunch/g)){
+                                if(o.meals.match(/CH/g) ||o.menu.match(/y.o/g)){
+                                    var lch="<option value=" + o.item_id + ">" + o.menu + "</option>";
                                     $("#chl").append(lch);
                                 }else{
-                                    var lun="<option value=" + data[$j].Id + ">" + data[$j].Menu + "</option>";
+                                    var lun="<option value=" + o.item_id+ ">" + o.menu + "</option>";
                                     $("#lch").append(lun);
                                 }
-                            }else if(data[$j].Meals=="dinner" || data[$j].Meals.match(/dinner/g)){
-                                if(data[$j].Meals.match(/CH/g) ||data[$j].Menu.match(/y.o/g)){
-                                    var dch="<option value=" + data[$j].Id + ">" + data[$j].Menu + "</option>";
+                            }else if(o.meals=="dinner" || o.meals.match(/Dinner/g)){
+                                if(o.meals.match(/CH/g) ||o.menu.match(/y.o/g)){
+                                    var dch="<option value=" + o.item_id + ">" + o.menu + "</option>";
                                     $("#chd").append(dch);
                                 }else{
-                                    var din="<option value=" + data[$j].Id + ">" + data[$j].Menu + "</option>";
+                                    var din="<option value=" + o.item_id + ">" + o.menu + "</option>";
                                     $("#dnr").append(din);
                                 }
 
-                            }else if(data[$j].Meals=="Menu" || data[$j].Meals.match(/Menu/g)){
-                                if(data[$j].Meals.match(/CH/g) ||data[$j].Menu.match(/y.o/g)){
-                                    var menuc="<div class='col-md-5'> <div class='checkbox'> <label> <input id='menu' type='checkbox'> Menu </label> </div> </div>";
-                                    $('#chmenu').html(menuc);
+                            }else if(o.meals=="menu" || o.meals.match(/Menu/g)){
+                                if(o.meals.match(/CH/g) ||o.menu.match(/y.o/g)){
+                                    $('#chmenu').css('display','block');
                                 }else{
-                                    var menu=" <div class='col-md-5'> <div class='checkbox'> <label> <input id='menu' type='checkbox'> Menu </label> </div> </div>";
-                                    $('#menu').html();
+
+                                    $('#menu').css('display','block');
                                 }
-                            }else if(data[$j].Meals=="HB" || data[$j].Meals.match(/HB/g)){
-                                if(data[$j].Meals.match(/CH/g) ||data[$j].Menu.match(/y.o/g)){
-                                    var hbc=" <div class='col-md-5'> <div class='checkbox'> <label> <input id='menu' type='checkbox'> HB </label> </div> </div>";
-                                    $('#chhb').html(hbc);
+                            }else if(o.meals=="HB" || o.meals.match(/HB/g)){
+                                if(o.meals.match(/CH/g) ||o.menu.match(/y.o/g)){
+                                    $('#chhb').css('display','block');
                                 }else{
-                                    var hb=" <div class='col-md-5'> <div class='checkbox'> <label> <input id='menu' type='checkbox'> HB </label> </div> </div>";
-                                    $('#hb').html(hb);
+                                    $('#hb').css('display','block');
                                 }
-                            }else if(data[$j].Meals=="FB" || data[$j].Meals.match(/FB/g)){
-                                if(data[$j].Meals.match(/CH/g) ||data[$j].Menu.match(/y.o/g)){
-                                    var fbc=" <div class='col-md-5'> <div class='checkbox'> <label> <input id='menu' type='checkbox'> Menu </label> </div> </div>";
-                                    $('#chfb').html(fbc);
+                            }else if(o.meals=="FB" || o.meals.match(/FB/g)){
+                                if(o.meals.match(/CH/g) ||o.menu.match(/y.o/g)){
+                                    $('#chfb').css('display','block');
                                 }else{
-                                    var fb="<div class='col-md-5'> <div class='checkbox'> <label> <input id='menu' type='checkbox'> FB </label> </div> </div>";
-                                    $('#fb').html(fb);
+                                    $('#hb').css('display','block');
                                 }
 
                             }
-                        }
+                        });
                     }
                 });
             },
