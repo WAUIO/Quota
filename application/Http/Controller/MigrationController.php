@@ -20,7 +20,7 @@ class MigrationController extends Controller
             $app_id = $app['app_id'];
             $app_name = $app['app_name'];
 
-            if( $app_id != 17063425 ) {
+            if( $app_id == 17063425 ) {
                 $this->getItems($app_id, $offset = 0);
                 echo $app_id." ".$app_name."<br/>";
             }
