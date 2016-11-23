@@ -1,6 +1,8 @@
 {% extends 'layout.twig' %}
 
-{% block room_quota %}
+
+
+{% block body %}
     <!--Content LEFT-->
     <h1 class="page-header" id="reference">
         Quota room : {{ reference_quota }}
@@ -75,11 +77,11 @@
         </div>
     {% endif %}
     <hr>
-{% endblock room_quota %}
+{% endblock body %}
 
 {% block menu_room %}
     <!-- Side Widget Well -->
-    <div class="well">
+    <div class="row well">
         <h4>Existing room for this quota</h4>
         {% if(existing_base|length > 0) %}
             {% for base in existing_base %}

@@ -20,6 +20,8 @@ $app = new \Wau\Application();
  */
 $app->configure('database');
 
+$app->configure('database');
+
 if (is_file(ROOT_PATH . '/application/routes.php')) {
     include_once ROOT_PATH . '/application/routes.php';
 }

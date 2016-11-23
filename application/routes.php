@@ -1,6 +1,7 @@
 <?php
 
 
+
 $app->get('/form', 'App\Http\Controller\WelcomeController@index');
 $app->get('/money', 'App\Http\Controller\WelcomeController@currency');
 $app->get('/info', 'App\Http\Controller\WelcomeController@info');
@@ -14,3 +15,10 @@ $app->get('/rest', 'App\Http\Controller\HouseController@dataRestaurant');
 $app->get('/', 'App\Http\Controller\QuotaViewController@index');
 $app->get('/information', 'App\Http\Controller\infoController@info');
 $app->get('/prestation', 'App\Http\Controller\prestationController@prestation');
+$app->get('/dumpTable', 'App\Http\Controller\MigrationController@dumpTable');
+
+$app->group(['prefix'=>'/', 'middleware' => ['Wau\Podio\PodioAuthMiddleware'],
+    function() use (&$app){
+        $app->get('/migrate','App\Http\Controller\MigrationController@migrate');
+    }
+]);

@@ -19,6 +19,7 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/bootstrap-select.css">
+    <link rel="stylesheet" href="/css/bootstrap-editable.css">
 
     <!--Stylesheet-->
     <link href="/css/style.css" rel="stylesheet">
@@ -42,6 +43,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand title-logo" href="{{ base_url() }}"><img class="center-block" id="logo" src="/images/logo_new.png"/></a>
+
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -49,7 +51,8 @@
             <ul  class="nav navbar-nav" id="menu">
                 <li><a href="/information">Home</a></li>
                 <li>
-                    <a href="#">Room</a>
+
+                    <a href="#">Quotation</a>
                     <ul>
                         <li><a href="#">Room</a></li>
                         <li><a href="">Prestation</a></li>
@@ -58,6 +61,9 @@
                 <li><a href="/prestation">Prestation</a></li>
                 <li><a href="#">Quotation</a></li>
             </ul>
+            {#<ul  class="nav navbar-nav navbar-right" id="menu_right">#}
+                {#<li><a href="#"><span id="menu_hamburger" class="glyphicon glyphicon-menu-hamburger"></span></a></li>#}
+            {#</ul>#}
         </div>
         <!-- /.navbar-collapse -->
     </div>
@@ -66,7 +72,6 @@
 <div class="container">
     <div class="row">
         <!--/left side-->
-
         <div class="col-xs-9">
             {% block edit_client %}
             {% endblock edit_client %}
@@ -87,16 +92,22 @@
             {% endblock content %}
 
         </div>
-        
+
         <!--/right side-->
-        <div class="col-xs-3">
+        <div id="right_side" class="col-xs-3">
             <div class="sidebar-nav-fixed pull-right affix">
-                <div class="well">
-                    <div>
-                        <h4>List of quotations<span id="search_glyphicon" class="glyphicon glyphicon-chevron-up"></span></h4>
+                <div id="well_search" class="row well">
+                    <div style="">
+                        <div id="search_menu_button">
+                            <span id="menu_hamburger" class="menu_glyphicon glyphicon glyphicon-menu-hamburger"></span>
+                        </div>
+                        <div id="search_menu_title">
+                            <h4>List of quotations</h4>
+                        </div>
+
                     </div>
 
-                    <div class="input-group">
+                    <div class="input-group" style="width:100%;">
                         <input type="text" class="form-control search_control">
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button">
@@ -111,6 +122,10 @@
                                 <a href="#">Quota n°{{ i }}</a>
                             </div>
                         {% endfor %}
+                    </div>
+
+                    <div id="expand">
+                        <span id="search_glyphicon" class="menu_glyphicon glyphicon glyphicon-chevron-up"></span>
                     </div>
                 </div>
 
@@ -196,12 +211,13 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="/js/jquery-2.2.4.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
-<script src="/js/dataTables.bootstrap.min.js"></script>
-<script src="/js/jquery.dataTables.min.js"></script>
-<script src="/js/bootstrap-select.min.js"></script>
+{#<script src="/js/dataTables.bootstrap.min.js"></script>#}
+{#<script src="/js/jquery.dataTables.min.js"></script>#}
+<script src="/js/bootstrap-editable.min.js"></script>
+{#<script src="/js/bootstrap-select.min.js"></script>#}
+{#<script src="/js/bootstrap-datepicker.js"></script>#}
 <script src="/js/perfect-scrollbar.jquery.min.js"></script>
-<script src="/js/perfect-scrollbar.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-checkbox/1.4.0/bootstrap-checkbox.min.js"></script>
+{#<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-checkbox/1.4.0/bootstrap-checkbox.min.js"></script>#}
 {% block scripts %}
     <script src="/js/function.js"></script>
     <script src="/js/form.js"></script>
