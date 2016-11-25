@@ -1,82 +1,29 @@
 <?php
-/**
- * Description :
- *
- *
- */
+namespace App\Utils;
 
-namespace App\Console\Podio;
-
-
-use League\Flysystem\Exception;
-use Wau\Console\Podio\PodioCommandAbstract;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 use App\DatabaseConnection\PDOConnection;
-use App\Utils\HtmlToText;
-use App\Utils\Migration;
+use League\Flysystem\Exception;
 
-class appGetItems extends PodioCommandAbstract
+class Migration
 {
-    protected function configure() {
-        $this->setName('appGetItems')
-            ->setDescription('Get ALL App items')
-            ->addArgument('app_id', InputArgument::REQUIRED, 'AppId');
-    }
+    var $instance;
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
-        $this->migrate();
-    }
-
-    public function migrate()
+    public function __construct()
     {
-        $migrate = new Migration();
-        $space_id = 4691756;
-
-        $list_app = $migrate->getApps($space_id);
-
-        foreach ($list_app as $app){
-            $app_id = $app['app_id'];
-            $app_name = $app['app_name'];
-
-            $migrate->getItems($app);
-            echo $app_id." ".$app_name."<br/>";
-        }
+        $this->instance = new  PDOConnection();
     }
-    //    public function getItem($app_id, $offset = 0)
-//    {
-//        $limit = 500;
-//        $items = \PodioItem::filter($app_id, array('limit' => $limit, 'offset' => $offset, 'sort_by' => 'created_on'));
-//
-//        static $storage = [];
-//
-//        foreach ($items as $item) {
-//            $this->incre++;
-//            $storage [] = $item;
-//        }
-//
-//        //increase for next heap
-//        $offset += $limit;
-//
-//        if( $items->total > $offset ){
-//            self::getItem( $app_id, $offset);
-//        }
-//
-//        return $storage;
-//    }
 
-    //$list_item = array_merge($list_item,self::getItems( $app_id, $offset));
-    public function getItems($app_id)
+    public function getItems($app)
     {
         $offset = 0;
         $limit = 100;
 
         try{
             do {
-                $items = \PodioItem::filter($app_id, array('limit' => $limit, 'offset' => $offset, 'sort_by' => 'created_on'));
+                dump_var($offset);
+                $items = \PodioItem::filter($app['app_id'], array('limit' => $limit, 'offset' => $offset, 'sort_by' => 'created_on'));
 
-                $this-> saveItem($app_id, $items);
+                $this-> saveItem($app, $items);
 
                 //increase for next heap
                 $offset += $limit;
@@ -85,24 +32,24 @@ class appGetItems extends PodioCommandAbstract
         }catch(Exception $e){
             dump_var($e->getMessage());
         }
-
     }
 
-    public function saveItem($app_id, $items){
+    //Insert or Update item
+    public function saveItem($app, $items){
         //app_id
-        $houses         = 17063114;
-        $rooms          = 17063267;
-        $restaurants    = 17063393;
-        $activities     = 17063389;
-        $transports     = 17063391;
-        $place          = 17063425;
+//        $houses         = 17063114;
+//        $rooms          = 17063267;
+//        $restaurants    = 17063393;
+//        $activities     = 17063389;
+//        $transports     = 17063391;
+//        $place          = 17063425;
 
         foreach ($items as $item) {
             $query = "";
             $dataItem = $this->getDataItem($item);
 
-            switch ($app_id){
-                case $houses:
+            switch (strtolower($app['app_name'])){
+                case 'houses':
                     if(!array_key_exists('title',$dataItem)){
                         $dataItem = $this->array_insert_before(1, $dataItem, 'title', "");
                     }
@@ -111,7 +58,7 @@ class appGetItems extends PodioCommandAbstract
                               ON DUPLICATE KEY UPDATE house_title = VALUES(house_title), others = VALUES(others)";
                     break;
 
-                case $rooms:
+                case 'rooms':
                     if(!array_key_exists('for-hotel',$dataItem)){
                         $dataItem = $this->array_insert_before(1, $dataItem, 'forhotel', "");
                     }
@@ -123,7 +70,7 @@ class appGetItems extends PodioCommandAbstract
                               ON DUPLICATE KEY UPDATE house_id = VALUES(house_id), others = VALUES(others)";
                     break;
 
-                case $restaurants:
+                case 'restaurants':
                     if(!array_key_exists('house',$dataItem)){
                         $dataItem = $this->array_insert_before(1, $dataItem, 'house', "");
                     }
@@ -138,7 +85,7 @@ class appGetItems extends PodioCommandAbstract
                               ON DUPLICATE KEY UPDATE house_id = VALUES(house_id), menu = VALUES(menu), meals = VALUES(meals), others = VALUES(others)";
                     break;
 
-                case $activities:
+                case 'activities':
                     if(!array_key_exists('price-2',$dataItem)){
                         $dataItem = $this->array_insert_before(1, $dataItem, 'price2', "");
                     }
@@ -147,7 +94,7 @@ class appGetItems extends PodioCommandAbstract
                               ON DUPLICATE KEY UPDATE price = VALUES(price), others = VALUES(others)";
                     break;
 
-                case $transports:
+                case 'transports':
                     if(!array_key_exists('price-2',$dataItem)){
                         $dataItem = $this->array_insert_before(1, $dataItem, 'price2', "");
                     }
@@ -156,20 +103,23 @@ class appGetItems extends PodioCommandAbstract
                               ON DUPLICATE KEY UPDATE price = VALUES(price), others = VALUES(others)";
                     break;
 
-                case $place:
+                case 'places':
                     $table = "place";
                     $query = "INSERT INTO ".$table." (item_id, others) VALUES (:itemid, :others)
                               ON DUPLICATE KEY UPDATE others = VALUES(others)";
                     break;
             }
-
-            $instance = new  PDOConnection();
-            $instance->insert($query, $dataItem);
+            $this->instance->insert($query, $dataItem);
         }
     }
 
+    //Extract values ​​from the fields
     public function getDataItem($item){
+        $dataItem = array();
         $exception = array();
+        $others = array();
+        $except = array();
+
         //House app (field_id)
         $house_title            = 133123764;
         array_push($exception, $house_title);
@@ -189,11 +139,7 @@ class appGetItems extends PodioCommandAbstract
         $transport_price        = 133126280;
         array_push($exception, $transport_price);
 
-        $exception = array($house_title, $category, $room_house_id, $menu, $meals, $restaurant_house_id, $activities_price, $transport_price);
-
-        $others = array();
-        $except = array();
-
+        //$exception = array($house_title, $category, $room_house_id, $menu, $meals, $restaurant_house_id, $activities_price, $transport_price);
         $field = $item->fields;
 
         for($i = 0; $i<sizeof($field); $i++){
@@ -278,8 +224,6 @@ class appGetItems extends PodioCommandAbstract
             }
         }
 
-        $dataItem = array();
-
         $dataItem['item_id'] = $item->item_id;
 
         foreach ($except as $key => $value){
@@ -291,6 +235,7 @@ class appGetItems extends PodioCommandAbstract
         return $dataItem;
     }
 
+    //get all apps in workspace
     public function getApps($space_id)
     {
         $apps = \PodioApp::get_for_space($space_id);
@@ -303,6 +248,17 @@ class appGetItems extends PodioCommandAbstract
         }
 
         return $list_app;
+    }
+
+    //dump table structure
+    public function dumpTable()
+    {
+        try {
+            $dump = new Mysqldump('mysql:host=localhost;dbname=wm-database', 'root', '');
+            $dump->start('C:\wamp2\www\Travel\dump.sql');
+        } catch (\Exception $e) {
+            echo 'mysqldump-php error: ' . $e->getMessage();
+        }
     }
 
     //insert in array
@@ -318,4 +274,5 @@ class appGetItems extends PodioCommandAbstract
         }
         return $new;
     }
+
 }

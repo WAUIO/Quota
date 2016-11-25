@@ -7,7 +7,7 @@ return [
     
     //Basic
     'debug'       => (Boolean)env('APP_DEBUG', false),
-    'error_level' => E_WARNING,
+    'error_level' => E_ALL,
     'connected'   => (Boolean)env('APP_CONNECTED', false),
     'logdir'      => ROOT_PATH . '/storages/logs',
     'templatedir' => ROOT_PATH . '/templates',
