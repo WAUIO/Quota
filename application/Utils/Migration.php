@@ -23,7 +23,7 @@ class Migration
                 dump_var($offset);
                 $items = \PodioItem::filter($app['app_id'], array('limit' => $limit, 'offset' => $offset, 'sort_by' => 'created_on'));
 
-                $this-> saveItem($app, $items);
+                $this-> saveItem($app['app_name'], $items);
 
                 //increase for next heap
                 $offset += $limit;
@@ -35,7 +35,7 @@ class Migration
     }
 
     //Insert or Update item
-    public function saveItem($app, $items){
+    public function saveItem($app_name, $items){
         //app_id
 //        $houses         = 17063114;
 //        $rooms          = 17063267;
@@ -48,7 +48,7 @@ class Migration
             $query = "";
             $dataItem = $this->getDataItem($item);
 
-            switch (strtolower($app['app_name'])){
+            switch (strtolower($app_name)){
                 case 'houses':
                     if(!array_key_exists('title',$dataItem)){
                         $dataItem = $this->array_insert_before(1, $dataItem, 'title', "");
