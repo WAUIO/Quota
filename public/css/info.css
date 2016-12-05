@@ -1,0 +1,21 @@
+
+.form-submit {
+    float: right;
+    background-color: #1BBC9B;
+    color: #ffffff;
+    margin-right: 10px;
+}
+.form-control {
+    float: right;
+    width: 550px;
+
+
+}
+.form-label {
+    float: left;
+
+
+}
+.field {
+    margin: 1px 10px 10px 10px;
+}

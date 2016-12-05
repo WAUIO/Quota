@@ -1,0 +1,42 @@
+{% extends 'layout.twig' %}
+
+{% block edit_client %}
+    <div class="col-xs-9 content">
+        <h1 class="page-header">
+            Customer information
+        </h1>
+        <div class="customer_info">
+            <table class="flat-table">
+                <tbody>
+
+                <form action="submit">
+                    <div class="field">
+                        </br>
+                        <label class="form-label">Customer ref : </label>
+                        <input type="text" class="form-control"  required="required"/></br> </br>
+                    </div>
+                    <div class="field">
+                        <label class="form-label">Name : </label>
+                        <input type="text" class="form-control"> </br> </br>
+                    </div>
+                    <div class="field">
+                        <label class="form-label">Number of adults : </label>
+                        <input type="number" class="form-control" > </br> </br>
+                    </div>
+                    <div class="field">
+                        <label class="form-label">Number of children : </label>
+                        <input type="number" class="form-control" > </br> </br>
+                    </div>
+                    <div class="field">
+                        <label class="form-label">Beginning of stay : </label>
+                        <input type="date" class="form-control" > </br> </br>
+                    </div>
+
+                    <input type="submit" class="form-submit" value="Next &rarr;">
+                </form>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock edit_client %}
