@@ -1,44 +1,49 @@
 {% extends 'layout.twig' %}
-{% block edit_client %}
-    <div class="col-xs-9 content">
+{% block body %}
         <h1 class="page-header">
             Customer information
         </h1>
-        <div class="customer_info">
-            <table class="flat-table">
-                <tbody>
-                <form>
-                    <div class="field">
-                        </br>
-                        <label class="form-label">Customer ref : </label>
-                        <input type="text" class="form-control"  required="required"/></br> </br>
-                    </div>
-                    <div class="field">
-                        <label class="form-label">Name : </label>
-                        <input type="text" class="form-control"> </br> </br>
-                    </div>
-                    <div class="field">
-                        <label class="form-label">Number of adults : </label>
-                        <input type="number" class="form-control" > </br> </br>
-                    </div>
-                    <div class="field">
-                        <label class="form-label">Number of children : </label>
-                        <input type="number" class="form-control" > </br> </br>
-                    </div>
-                    <div class="field">
-                        <label class="form-label">Beginning of stay : </label>
-                        <input type="date" class="form-control" > </br> </br>
-                    </div>
-                    <div id="clientsubmit" class="pull-right"><a  href="/house" id="roomclick" class="btn btn-default">Room</a>  <button id="prestationclick"class="btn btn-default">Prestation</button></div>
 
-                    {#<input type="submit" class="form-submit" value="Next &rarr;">#}
-                </form>
-                </tbody>
-            </table>
-        </div>
-    </div>
-{% endblock edit_client %}
-{% block scripts %}
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/function.js"></script>
-{% endblock scripts %}
+        <form class="form-horizontal">
+            <div class="form-group row">
+                <label for="label" class="col-xs-2 col-form-label">Customer ref</label>
+                <div class="col-xs-10">
+                    <input class="form-control" type="text" name="customerRef" id="customerRef" placeholder="toto1" required="required">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="label" class="col-xs-2 col-form-label">Name</label>
+                <div class="col-xs-10">
+                    <input class="form-control" type="text" name="name" id="name">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="label" class="col-xs-2 col-form-label">Number of adults</label>
+                <div class="col-xs-10">
+                    <input class="form-control" type="number" min="0"  max="5" name="nbAdults" id="nbAdults">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="label" class="col-xs-2 col-form-label">Number of children</label>
+                <div class="col-xs-10">
+                    <input class="form-control" type="number" name="nbChildren" min="0"  max="5" id="nbChildren">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="label" class="col-xs-2 col-form-label">Beginning of stay</label>
+                <div class="col-xs-10">
+                    <input class="form-control" name="stay" id="stay" placeholder="MM/DD/YYY" type="text"/>
+                </div>
+            </div>
+            <div id="banner" class="row"></div>
+
+            <div class="form-group row">
+                <div class="col-xs-offset-2 col-xs-10">
+                    <div class="add_client" id="btn-save">
+                        <span class="glyphicon glyphicon-next">Save</span>
+                    </div>
+                </div>
+            </div>
+            <div id="content"></div>
+        </form>
+{% endblock body %}

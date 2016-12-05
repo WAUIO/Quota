@@ -18,7 +18,6 @@ $app = new \Wau\Application();
  * $app->middleware('app.resource', 'Wau\Podio\PodioAuthMiddleware');
  *
  */
-$app->configure('database');
 
 $app->configure('database');
 

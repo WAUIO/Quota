@@ -29,4 +29,23 @@ class Restaurant
         };
         return $res;
     }
+    public function otherBoard($id){
+        $sql="SELECT others FROM restaurant WHERE item_id = :id";
+        $query=$this->conn->prepare($sql);
+        $query->bindParam(':id',$id,\PDO::PARAM_STR);
+        $query->execute();
+        $res=$query->fetch(\PDO::FETCH_ASSOC);
+
+        return $res;
+    }
+
+    public function typeBoard($menu){
+        $sql="SELECT others FROM restaurant WHERE menu = :menu";
+        $query=$this->conn->prepare($sql);
+        $query->bindParam(':menu',$menu,\PDO::PARAM_STR);
+        $query->execute();
+        $res=$query->fetch(\PDO::FETCH_ASSOC);
+
+        return $res;
+    }
 }

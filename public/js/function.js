@@ -1,8 +1,11 @@
 $(document).ready(function () {
 
-    $('#quota_list').perfectScrollbar();
-    $('.table-editable').perfectScrollbar();
     $('.based_on').removeAttr("href");
+    // $('#quota_list').perfectScrollbar();
+    // $('.table-editable').perfectScrollbar();
+
+
+    $(this).scrollTop(0);
 
     $('#search_glyphicon').click(function(e){
         e.preventDefault();
@@ -17,18 +20,68 @@ $(document).ready(function () {
     $("#select-hotel").removeAttr("disabled");
     $("#search_control").removeAttr("disabled");
 
+
+
+
+
     checkboxEvent();
     menuView();
     popupView();
     detailView();
     tableEvent();
-    editValuePopup();
+    //editValuePopup();
     calculateTotal();
     ancreLink();
+    client();
 
 
 
 });
+
+$( function() {
+    var options={
+        dateFormat: 'mm/dd/yy',
+        todayHighlight: true,
+        autoclose: true
+    };
+    $( "#stay" ).datepicker(options);
+} );
+
+function client(){
+    $("#btn-save").click(function(){
+         var ref_regex=new RegExp("[a-zA-Z0-9]{5}", "g");
+         var number_regex=new RegExp("[0-9]","g");
+         var date_regex=new RegExp("(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])\/[0-9]{4}","g");
+         var ref=$("#customerRef").val();
+         var name=$("#name").val();
+         var adult=$("#nbAdults").val();
+         var child=$("#nbChildren").val();
+         var date=$("#stay").val();
+         var info="ref_cli="+ref+"&name="+name+"&adult="+adult+"&child="+child+"&date="+date;
+            if(ref_regex.test(ref) && number_regex.test(adult) && date_regex.test(date)) {
+            $('#banner').empty();
+            $.ajax({
+                type:"GET",
+                url:"/client",
+                data: info,
+                dataType : "html",
+                cache : false,
+                success : function(data){
+                    console.log(data);
+
+                },
+              error:function(){
+                    console.log("you have an error");
+                }
+            });
+        }else{
+            var p="<p> <span class=' glyphicon glyphicon-hand-right'></span>  Format or values of your entries are not permissible,please retry!</p>";
+            $("#banner").append(p);
+        }
+
+        location.reload();
+    });
+}
 
 
 function checkboxEvent() {
@@ -118,6 +171,32 @@ function calculateTotal() {
 function editValuePopup() {
     $.fn.editable.defaults.mode = 'popup';
 
+    //for fees, guides flights, customers flights and others
+    $('.others').editable({
+        type: 'text',
+        inputclass:'lebar',
+        showbuttons:true,
+        title: 'Enter a value' ,
+        value:'',
+        placement:'top',
+        emptytext:'------',
+        validate: function(value) {
+            if ($.isNumeric(value) == '') {
+                return 'Numeric value required';
+            }else{
+                $(this).on('hidden.bs.modal', function () {
+                    table_id  = $(this).closest('table').attr('id');
+                    length = $('#'+table_id+' tbody tr:eq(1) td ').length;
+                    td = $(this).parent('td');
+                    for (i=0;i<length-3;i++) {
+                        td.siblings().eq(i+1).text(value);
+                    }
+                    somme(table_id);
+                });
+            }
+        }
+    });
+
     //for taxes and margins
     $('.taxes').editable({
         type: 'text',
@@ -184,32 +263,6 @@ $("#roomclick").click(function(){
 });
 }
 
-    //for fees, guides flights, customers flights and others
-    $('.others').editable({
-        type: 'text',
-        inputclass:'lebar',
-        showbuttons:true,
-        title: 'Enter a value' ,
-        value:'',
-        placement:'top',
-        emptytext:'------',
-        validate: function(value) {
-            if ($.isNumeric(value) == '') {
-                return 'Numeric value required';
-            }else{
-                $(this).on('hidden.bs.modal', function () {
-                    table_id  = $(this).closest('table').attr('id');
-                    length = $('#'+table_id+' tbody tr:eq(1) td ').length;
-                    td = $(this).parent('td');
-                    for (i=0;i<length-3;i++) {
-                        td.siblings().eq(i+1).text(value);
-                    }
-                    somme(table_id);
-                });
-
-            }
-        }
-    });
 
 //calculation for margins
 function calculateMargin($this, room_type, value, length){

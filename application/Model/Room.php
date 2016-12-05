@@ -28,16 +28,12 @@ class Room
 
     }
     public function selectOthers($id){
-        $sql="SELECT others FROM room WHERE house_id=:id";
+        $sql="SELECT others FROM room WHERE item_id=:id";
         $query=$this->conn->prepare($sql);
         $query->bindParam(':id',$id,\PDO::PARAM_STR);
         $query->execute();
-        $res=array();
-        while($row=$query->fetch(\PDO::FETCH_ASSOC)){
-            $res[]=$row;
-        };
+        $res=$query->fetch(\PDO::FETCH_ASSOC);
         return $res;
 
     }
-
 }

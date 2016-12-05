@@ -1,6 +1,8 @@
 
-<?php session_start();?>
-
+<?php
+    session_start();
+    {#$id=$_SESSION['id'];#}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,17 +17,19 @@
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="/css/bootstrap.min.css" >
+    {#<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">#}
+    {#<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>#}
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/bootstrap-select.css">
+    <link rel="stylesheet" href="/css/bootstrap-select.css.map">
     <link rel="stylesheet" href="/css/bootstrap-editable.css">
 
     <!--Stylesheet-->
-    <link href="/css/style.css" rel="stylesheet">
-    <link href="/css/info.css" rel="stylesheet">
-    <link href="/css/funky.css" rel="stylesheet">
     <link href="/css/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/funky.css" rel="stylesheet">
     <link rel="shortcut icon" href="/images/favicon.ico">
 </head>
 
@@ -52,7 +56,7 @@
                 <li><a href="/information">Home</a></li>
                 <li>
 
-                    <a href="#">Quotation</a>
+                    <a href="#">Room</a>
                     <ul>
                         <li><a href="#">Room</a></li>
                         <li><a href="">Prestation</a></li>
@@ -73,23 +77,9 @@
     <div class="row">
         <!--/left side-->
         <div class="col-xs-9">
-            {% block edit_client %}
-            {% endblock edit_client %}
-
-            {% block room_quota %}
-            {% endblock room_quota %}
 
             {% block body %}
             {% endblock body %}
-
-            {% block prestation_quota %}
-            {% endblock prestation_quota %}
-
-            {% block total_quota %}
-            {% endblock total_quota %}
-
-            {% block content %}
-            {% endblock content %}
 
         </div>
 
@@ -143,61 +133,6 @@
 
 {% block edit_room %}
 {% endblock edit_room %}
-{#=======#}
-{#<!-- Page Content -->#}
-{#<div class="container">#}
-    {#<div class="row">#}
-        {#{% block edit_client %}#}
-        {#{% endblock edit_client %}#}
-
-        {#{% block prestation %}#}
-        {#{% endblock prestation %}#}
-
-        {#{% block room_quota %}#}
-        {#{% endblock room_quota %}#}
-
-        {#{% block search_menu %}#}
-            {#<!--Content RIGHT-->#}
-            {#<div class="col-xs-3" >#}
-                {#<div class="fixed">#}
-                    {#<div class="well">#}
-                        {#<h4>Quota Search <span id="search_glyphicon" class="glyphicon glyphicon-chevron-up"></span></h4>#}
-                        {#<div class="input-group">#}
-                            {#<input type="text" class="form-control search_control" disabled="disabled">#}
-                            {#<span class="input-group-btn">#}
-                            {#<button class="btn btn-default" type="button">#}
-                                {#<span class="glyphicon glyphicon-search"></span>#}
-                            {#</button>#}
-                            {#</span>#}
-                        {#</div>#}
-                        {#<!-- /.input-group -->#}
-                        {#<div class="row" id="quota_list">#}
-                            {#<div class="col-lg-12">#}
-                                {#{% for i in 1..20 %}#}
-                                    {#<div class="quota_lists">#}
-                                        {#<a href="#">Quota n°{{ i }}</a>#}
-                                    {#</div>#}
-                                {#{% endfor %}#}
-                            {#</div>#}
-                            {#<!-- /.col-lg-6 -->#}
-                        {#</div>#}
-                    {#</div>#}
-
-                    {#{% block menu_room %}#}
-                    {#{% endblock menu_room %}#}
-
-                {#</div>#}
-            {#</div>#}
-        {#{% endblock search_menu %}#}
-
-        {#{% block edit_room %}#}
-        {#{% endblock edit_room %}#}
-
-    {#</div>#}
-    {#<!-- /.row -->#}
-{#</div>#}
-{#<!-- /.container -->#}
-{#>>>>>>> 8979ddac908e79c73801778782c02304d73747d6#}
 
 <footer class="footer">
     <div class="container" style="margin-top: auto">
@@ -214,9 +149,11 @@
 {#<script src="/js/dataTables.bootstrap.min.js"></script>#}
 {#<script src="/js/jquery.dataTables.min.js"></script>#}
 <script src="/js/bootstrap-editable.min.js"></script>
-{#<script src="/js/bootstrap-select.min.js"></script>#}
-{#<script src="/js/bootstrap-datepicker.js"></script>#}
+<script src="/js/bootstrap-select.min.js"></script>
 <script src="/js/perfect-scrollbar.jquery.min.js"></script>
+{#<script src="/js/bootstrap-datepicker.js"></script>#}
+
+{#<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>#}
 {#<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-checkbox/1.4.0/bootstrap-checkbox.min.js"></script>#}
 {% block scripts %}
     <script src="/js/function.js"></script>

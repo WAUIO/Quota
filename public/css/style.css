@@ -113,7 +113,7 @@ td {
     color: rgb(111, 111, 111);
     padding-left: 10px;
 }
-input{
+.check{
     width:25px;
 }
 #savequota{
@@ -157,23 +157,6 @@ table > thead > tr > th, .total_designation {
 .red, .others{
     color: #DD1144;
 }
-
-/*table::selection {*/
-    /*background-color:transparent;*/
-/*}*/
-/*table::-moz-selection {*/
-    /*background-color:transparent;*/
-/*}*/
-/*table {*/
-    /*-webkit-user-select: none;*/
-    /*-moz-user-select: -moz-none;*/
-    /*!*IE10*!*/
-    /*-ms-user-select: none;*/
-    /*user-select: none;*/
-
-    /*!*You just need this if you are only concerned with android and not desktop browsers.*!*/
-    /*-webkit-tap-highlight-color: rgba(0, 0, 0, 0);*/
-/*}*/
 
 .designation{
     font-weight: bold;
@@ -234,45 +217,6 @@ table > thead > tr > th, .total_designation {
     line-height: 25px;
 }
 .quota_lists:hover{
-/*=======*/
-/*!******* For no_quota *******!*/
-/*.no_quota, .no_base{*/
-    /*font-style: italic;*/
-    /*margin-left: 10px;*/
-    /*margin-bottom: 10px;*/
-    /*color: #FF0F22;*/
-/*}*/
-
-
-/*!******* For quota base *******!*/
-/*.quota_lists{*/
-    /*height: 25px;*/
-    /*line-height: 25px;*/
-/*}*/
-/*.quota_lists:hover{*/
-    /*cursor: pointer;*/
-    /*background: #CCCCCC;*/
-/*}*/
-/*.base_types a, .quota_lists a{*/
-    /*text-decoration: none;*/
-    /*color: #2B838E;*/
-    /*margin-left: 10px;*/
-/*}*/
-/*.base_types{*/
-    /*height: 30px;*/
-/*}*/
-
-/*.add_room_button{*/
-    /*font-size: 110%;*/
-    /*font-weight: bold;*/
-    /*width:100%;*/
-    /*height:40px;*/
-    /*color: white;*/
-    /*text-align: center;*/
-    /*line-height: 40px;*/
-    /*background: #2B838E;*/
-    /*border-radius: 2px;*/
-/*>>>>>>> 8979ddac908e79c73801778782c02304d73747d6*/
     cursor: pointer;
     background: #CCCCCC;
 }
@@ -430,6 +374,18 @@ h2,h3{
     display: block;
 }
 
+#banner{
+    margin-right: auto;
+    margin-left: auto;
+}
+#banner p{
+    font-size: 16px;
+    font-weight: bold;
+    color:red;
+}
+#customer{
+    display: none;
+}
 /* Sous-menu */
 
 .navbar-nav ul{
@@ -457,17 +413,6 @@ h2,h3{
     margin: 0;
     padding: 1px 0 0 0;
     display: block;
-/*<<<<<<< HEAD*/
-    /*-moz-box-shadow: 0 0 0 #2B838E, 0 1px 0 #fff;*/
-    /*-webkit-box-shadow: 0 0 0 #2B838E, 0 1px 0 #fff;*/
-    /*box-shadow: 0 0 0 #2B838E, 0 1px 0 #fff;*/
-/*}*/
-/*.navbar-nav ul li:last-child{*/
-    /*-moz-box-shadow: none;*/
-    /*-webkit-box-shadow: none;*/
-    /*box-shadow: none;*/
-/*}*/
-/*=======*/
     -moz-box-shadow: 0 0 0 #2B838E, 0 1px 0 #D1D3D4;
     -webkit-box-shadow: 0 0 0 #2B838E, 0 1px 0 #D1D3D4;
     box-shadow: 0 0 0 #2B838E, 0 1px 0 #D1D3D4;
@@ -477,11 +422,6 @@ h2,h3{
     -webkit-box-shadow: 0 -1px 0 #D1D3D4, 0 1px 0 #D1D3D4;
     box-shadow: 0 -1px 0 #D1D3D4, 0 1px 0 #D1D3D4;
 }
-/*.navbar-nav ul li:last-child{*/
-    /*-moz-box-shadow: none;*/
-    /*-webkit-box-shadow: none;*/
-    /*box-shadow: 0 0 0 #2B838E, 0 1px 0 #D1D3D4;*/
-/*}*/
 
 .navbar-nav ul a{
     padding: 10px;
@@ -558,6 +498,9 @@ h2,h3{
 .container{
     background-color: rgba(1,1,1,0.03);
 }
+#clientsubmit{
+    width:70px;
+}
 .row{
     margin-top: 10px;
 }
@@ -618,3 +561,24 @@ li .lign{
     cursor: pointer;
 
 }
+
+
+.col-form-label{
+    color: rgb(111, 111, 111);
+    white-space: nowrap;
+}.add_client{
+     float: right;
+     font-size: 110%;
+     font-weight: bold;
+     width: 120px;
+     height: 40px;
+     color: white;
+     text-align: center;
+     line-height: 40px;
+     background: #2B838E;
+     border-radius: 2px;
+     cursor: pointer;
+ }.add_client:hover{
+      background: #2aa198;
+  }
+

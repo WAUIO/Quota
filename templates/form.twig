@@ -1,7 +1,6 @@
 
 {% extends 'layout.twig' %}
 {% block body %}
-
     <div class="cont">
         <div class="col-md-10 col-md-offset-1">
             <form class="form-horizontal" role="form">
@@ -9,16 +8,17 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="col-md-2" for="name"><img id="hotel" src="/img/hotel.png"/></label>
-                            <div class="col-md-8">
-                                <select title="Nothing selected" name="idhouse" id="select-hotel" class="selectpicker">
+                            <div class="col-md-7">
+                                <select title="Nothing selected" name="idhouse" id="select-hotel" class="selectpicker" data-live-search="true">
                                     {% for house in listhouse %}
                                         <option value={{ house['item_id'] }}> {{ house['house_title'] }} </option>
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="col-md-2">
-                               <span id="dollar" class="lign"><img  class="currency" src="/img/dollar-icon.png"> 3110</span>
-                                <span id="euro" class="lign"><img class="currency" src="/img/euro-icon.png"> 3440</span>
+                            <div class="col-md-3">
+                                <span id="dollar" class="lign"><img  class="currency" src="/img/dollar-icon.png">{{ dollar}}</span>
+                                <span id="euro" class="lign"><img class="currency" src="/img/euro-icon.png">{{ euro }}</span>
+                                <span id="customer" class="lign">{{ refclient['MAX(id)'] }}</span>
                             </div>
                         </div>
                     </div>
@@ -75,12 +75,18 @@
                                 </div>
                                 <div id="menu2" class="row">
                                     <div class='col-md-5'> <div class='checkbox'> <label> <input id='amenu' type='checkbox'> Menu </label> </div> </div>
+                                    <div class="col-md-5"  id="menu-adult" style="display: none">
+                                    </div>
                                 </div>
                                 <div id="hb" class="row">
                                     <div class='col-md-5'> <div class='checkbox'> <label> <input id='ahb' type='checkbox'> HB </label> </div> </div>
+                                    <div class="col-md-5"  id="hb-adult" style="display: none">
+                                    </div>
                                 </div>
                                 <div id="fb" class="row">
                                     <div class='col-md-5'> <div class='checkbox'> <label> <input id='afb' type='checkbox'> FB </label> </div> </div>
+                                    <div class="col-md-5"  id="fb-adult" style="display: none">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -221,12 +227,18 @@
                                 </div>
                                 <div id="chmenu" class="row">
                                     <div class='col-md-5'> <div class='checkbox'> <label> <input id='menuc' type='checkbox'> Menu </label> </div> </div>
+                                    <div class="col-md-5"  id="menu-child" style="display: none">
+                                    </div>
                                 </div>
                                 <div id="chhb" class="row">
                                     <div class='col-md-5'> <div class='checkbox'> <label> <input id='hbc' type='checkbox'> HB </label> </div> </div>
+                                    <div class="col-md-5"  id="hb-child" style="display: none">
+                                    </div>
                                 </div>
                                 <div id="chfb" class="row">
                                     <div class='col-md-5'> <div class='checkbox'> <label> <input id='fbc' type='checkbox'> FB </label> </div> </div>
+                                    <div class="col-md-5"  id="fb-child" style="display: none">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -265,5 +277,7 @@
         </div>
     </div>
 
-
+    {% block scripts %}
+        <script src="/js/form.js"></script>
+    {% endblock scripts %}
 {% endblock body %}

@@ -11,29 +11,29 @@ namespace App\Http\Controller;
 
 use App\Model\House;
 use App\Model\Restaurant;
-use Wau\Http\Controller;
+use App\Utils\Exchange;
+use App\Model\Client;
 use App\Model\Room;
+use Wau\Http\Controller;
 
 class HouseController extends Controller
 
 {
 
      public function select(){
-
-//
          $house = new House();
          $result=$house->selectData();
-//        $sgl=$this->singleRoom($data);
-
-         return $this->app()->make('twig.view')->render('form.twig',['listhouse'=>$result]);
-    }
-
+         $euro=new Exchange(0);
+         $dollar=new Exchange(1);
+         $id=new Client();
+         $lastId=$id->getId();
+        return $this->app()->make('twig.view')->render('form.twig',['refclient'=>$lastId,'listhouse'=>$result,'euro'=>$euro->exchange[0],'dollar'=>$dollar->exchange[0]]);
+       // return $this->app()->make('twig.view')->render('form.twig',['listhouse'=>$result,'euro'=>$euro,'dollar'=>$dollar]);
+     }
     public function dataRoom()
     {
         $list=new Room();
         $id=$_GET['id'];
-    //  $data=json_encode($id);
-       //var_dump($id);exit;
         $room=$list->selectRoom($id);
        return json_encode($room);
 
@@ -42,6 +42,9 @@ class HouseController extends Controller
         $board=new Restaurant();
         $id=$_GET['id'];
         $rest=$board->selectRestauration($id);
-  return json_encode($rest);
+        return json_encode($rest);
     }
+
+
+
 }
