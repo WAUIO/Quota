@@ -1,11 +1,10 @@
 $(document).ready(function () {
 
-    $('.based_on').removeAttr("href");
-    // $('#quota_list').perfectScrollbar();
-    // $('.table-editable').perfectScrollbar();
-
 
     $(this).scrollTop(0);
+    $('#quota_list').perfectScrollbar();
+    $('.table-editable').perfectScrollbar();
+    $('.based_on').removeAttr("href");
 
     $('#search_glyphicon').click(function(e){
         e.preventDefault();
@@ -19,10 +18,6 @@ $(document).ready(function () {
     $(".selectpicker").attr("disabled","disabled");
     $("#select-hotel").removeAttr("disabled");
     $("#search_control").removeAttr("disabled");
-
-
-
-
 
     checkboxEvent();
     menuView();
@@ -80,6 +75,11 @@ function client(){
         location.reload();
     });
 }
+
+    editValuePopup();
+    calculateTotal();
+    ancreLink();
+
 
 
 function checkboxEvent() {
@@ -171,6 +171,7 @@ function editValuePopup() {
 
     //for fees, guides flights, customers flights and others
     $('.others').editable({
+
         type: 'text',
         inputclass:'lebar',
         showbuttons:true,
@@ -207,23 +208,41 @@ function editValuePopup() {
         validate: function (value) {
             if ($.isNumeric(value) == '') {
                 return 'Numeric value required';
+//             }
+//             else {
+//                 if (value < 0 || value > 100) {
+//                     return 'The value must be between 0 and 100';
+//                 } else {
+//                     $(this).on('hidden.bs.modal', function () {
+//                         table_id = $(this).closest('table').attr('id');
+//                         room_type = table_id.replace('table_', '');
+//                         length = $('#' + table_id + ' tbody tr:eq(1) td ').length;
+//
+//                         if ($(this).attr('id') == 'margin_prestation_' + room_type)
+//                             calculateMargin(this, room_type, value, length);
+//
+//                         else if ($(this).attr('id') == 'taxes_prestation_' + room_type)
+//                             calculateTaxes(this, room_type, value, length);
+//
+//                         else if ($(this).attr('id') == 'margin_room_' + room_type)
+// =======
             }
-            else {
-                if (value < 0 || value > 100) {
+            else{
+                if(value<0 || value>100){
                     return 'The value must be between 0 and 100';
-                } else {
+                }else{
                     $(this).on('hidden.bs.modal', function () {
-                        table_id = $(this).closest('table').attr('id');
-                        room_type = table_id.replace('table_', '');
-                        length = $('#' + table_id + ' tbody tr:eq(1) td ').length;
+                        table_id  = $(this).closest('table').attr('id');
+                        room_type = table_id.replace('table_','');
+                        length = $('#'+table_id+' tbody tr:eq(1) td ').length;
 
-                        if ($(this).attr('id') == 'margin_prestation_' + room_type)
+                        if($(this).attr('id') == 'margin_prestation_'+room_type)
                             calculateMargin(this, room_type, value, length);
 
-                        else if ($(this).attr('id') == 'taxes_prestation_' + room_type)
+                        else if($(this).attr('id') == 'taxes_prestation_'+room_type)
                             calculateTaxes(this, room_type, value, length);
-
-                        else if ($(this).attr('id') == 'margin_room_' + room_type)
+                        
+                        else if($(this).attr('id') == 'margin_room_'+room_type)
                             calculateMargin(this, room_type, value, length);
 
                         else //if($(this).attr('id') == 'taxes_room_'+room_type)
@@ -235,6 +254,7 @@ function editValuePopup() {
             }
         }
     });
+
     /**************/
     $(".selectpicker").attr("disabled", "disabled");
     // $(".form-control").attr("disabled","disabled");
@@ -261,6 +281,32 @@ $("#roomclick").click(function(){
 });
 }
 
+    //for fees, guides flights, customers flights and others
+    $('.others').editable({
+        type: 'text',
+        inputclass: 'lebar',
+        showbuttons: true,
+        title: 'Enter a value',
+        value: '',
+        placement: 'top',
+        emptytext: '------',
+        validate: function (value) {
+            if ($.isNumeric(value) == '') {
+                return 'Numeric value required';
+            } else {
+                $(this).on('hidden.bs.modal', function () {
+                    table_id = $(this).closest('table').attr('id');
+                    length = $('#' + table_id + ' tbody tr:eq(1) td ').length;
+                    td = $(this).parent('td');
+                    for (i = 0; i < length - 3; i++) {
+                        td.siblings().eq(i + 1).text(value);
+                    }
+                    somme(table_id);
+                });
+
+            }
+        }
+    });
 
 //calculation for margins
 function calculateMargin($this, room_type, value, length){
@@ -391,7 +437,9 @@ function tableEvent(){
             }
         });
         $TABLE.find('#'+table_id+' .tr_MGA').before($clone);
+
     });
+
 
     $('.table-remove').click(function () {
         table_id = $(this).closest('table').attr('id');

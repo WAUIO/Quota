@@ -1,6 +1,10 @@
 <?php
 
 return [
+<<<<<<< HEAD
+=======
+    
+>>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
     'swiftmailer' => [
         'host'     => 'smtp.mandrillapp.com',
         'port'     => 587,

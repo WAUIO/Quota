@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .zoom{
     width:50%;
     bottom:0;
@@ -8,6 +9,8 @@
     cursor:pointer;
     transition:all .3s ease;
 }
+=======
+>>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 
 .bootstrap-select {
     outline: none !important;
@@ -25,7 +28,11 @@ footer {
 #logo{
     width: 90px;
     position: relative;
+<<<<<<< HEAD
     top:-10px;
+=======
+    top:0px;
+>>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 }
 
 .title-logo, .navbar-nav{
@@ -39,9 +46,12 @@ footer {
     padding-top: 5px;
 
 }
+<<<<<<< HEAD
 .sidebar-outer {
     position: relative;
 }
+=======
+>>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 .sidebar-nav-fixed {
     width:20%;
 }
@@ -86,12 +96,19 @@ footer {
     font-size:300%;
 }
 #reference{
+<<<<<<< HEAD
     background: #f4f4f4;
     color: #6F6F6F;
     padding: 10px;
     font-size:120%;
     font-weight: bold;
 }
+=======
+    color: #6F6F6F;
+}
+
+
+>>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 /******* For quota view *******/
 .base_title{
     text-align: center;
@@ -124,6 +141,7 @@ td {
     color: rgb(111, 111, 111);
     padding-left: 10px;
 }
+<<<<<<< HEAD
 .check{
     width:25px;
 }
@@ -136,6 +154,9 @@ td {
 #Tfoot > tr > td{
     font-weight:bold;
 }
+=======
+
+>>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 .td_designation{
     width:100%;
     padding-left: 20px;
@@ -169,6 +190,26 @@ table > thead > tr > th, .total_designation {
     color: #DD1144;
 }
 
+<<<<<<< HEAD
+=======
+/*table::selection {*/
+    /*background-color:transparent;*/
+/*}*/
+/*table::-moz-selection {*/
+    /*background-color:transparent;*/
+/*}*/
+/*table {*/
+    /*-webkit-user-select: none;*/
+    /*-moz-user-select: -moz-none;*/
+    /*!*IE10*!*/
+    /*-ms-user-select: none;*/
+    /*user-select: none;*/
+
+    /*!*You just need this if you are only concerned with android and not desktop browsers.*!*/
+    /*-webkit-tap-highlight-color: rgba(0, 0, 0, 0);*/
+/*}*/
+
+>>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 .designation{
     font-weight: bold;
 }
@@ -178,6 +219,10 @@ table > thead > tr > th, .total_designation {
 .devise{
     font-weight: normal !important;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 /******* For detail *******/
 .detail{
     background: #f4f4f4;
@@ -333,7 +378,11 @@ table > thead > tr > th, .total_designation {
 .type_client{
     margin-left: 20px;
 }
+<<<<<<< HEAD
 h2,h3{
+=======
+h3{
+>>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
     color:#2B838E;
     font-weight: bolder;
 }
@@ -354,16 +403,32 @@ h2,h3{
 }
 
 #hotel{
+<<<<<<< HEAD
     width: 80px;
     height:60px;
 }
 #clientsubmit {
     margin-top: 30px;
+=======
+    width: 60px;
+    height:40px;
+>>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 }
 #sgl{
     width:10px;
     height:10px;
 }
+<<<<<<< HEAD
+=======
+
+
+
+
+
+/* Menu */
+
+
+>>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 .navbar-nav a{
     float: left;
     color: #fafafa;
@@ -385,6 +450,7 @@ h2,h3{
     display: block;
 }
 
+<<<<<<< HEAD
 #banner{
     margin-right: auto;
     margin-left: auto;
@@ -397,6 +463,8 @@ h2,h3{
 #customer{
     display: none;
 }
+=======
+>>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 /* Sous-menu */
 
 .navbar-nav ul{
@@ -433,6 +501,14 @@ h2,h3{
     -webkit-box-shadow: 0 -1px 0 #D1D3D4, 0 1px 0 #D1D3D4;
     box-shadow: 0 -1px 0 #D1D3D4, 0 1px 0 #D1D3D4;
 }
+<<<<<<< HEAD
+=======
+/*.navbar-nav ul li:last-child{*/
+    /*-moz-box-shadow: none;*/
+    /*-webkit-box-shadow: none;*/
+    /*box-shadow: 0 0 0 #2B838E, 0 1px 0 #D1D3D4;*/
+/*}*/
+>>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 
 .navbar-nav ul a{
     padding: 10px;
@@ -458,6 +534,23 @@ h2,h3{
     background: -ms-linear-gradient(#2B838E,  #2B838E);
     background: linear-gradient(#2B838E,  #2B838E);
 }
+<<<<<<< HEAD
+=======
+
+
+/*.navbar-nav ul li:first-child a:after{*/
+    /*content: '';*/
+    /*position: absolute;*/
+    /*left: 30px;*/
+    /*top: -8px;*/
+    /*width: 0;*/
+    /*height: 0;*/
+    /*border-left: 5px solid transparent;*/
+    /*border-right: 5px solid transparent;*/
+    /*border-bottom: 8px solid #2B838E;*/
+/*}*/
+
+>>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 .navbar-nav ul li:first-child a:hover:after{
     border-bottom-color: #D1D3D4;
 }
@@ -478,6 +571,7 @@ h2,h3{
     height: 0;
 }
 
+<<<<<<< HEAD
 .main{
     background-color:whitesmoke;
 }
@@ -547,6 +641,8 @@ li .lign{
 }
 
 
+=======
+>>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 * html .navbar-nav             { zoom: 1; } /* IE6 */
 *:first-child+html .navbar-nav { zoom: 1; } /* IE7 */
 
@@ -563,14 +659,18 @@ li .lign{
     cursor: pointer;
 
 }
+<<<<<<< HEAD
 .btn-danger{
     margin-right: 20px;
 }
+=======
+>>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 
 .table-add {
     color: #070;
     cursor: pointer;
 
+<<<<<<< HEAD
 }
 
 
@@ -593,3 +693,6 @@ li .lign{
       background: #2aa198;
   }
 
+=======
+}
+>>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66

@@ -1,6 +1,10 @@
 .funkyradio{
     margin:0;
+<<<<<<< HEAD
     padding-top: -20PX;
+=======
+    padding-top: -20px;
+>>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 }
 .funkyradio div {
     clear: both;
@@ -14,9 +18,12 @@
     font-weight: normal;
 }
 
+<<<<<<< HEAD
 .input_cheboxck {
     border:none;
 }
+=======
+>>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 .funkyradio input[type="radio"]:empty,
 .funkyradio input[type="checkbox"]:empty {
     display: none;
@@ -69,9 +76,14 @@
 .funkyradio input[type="checkbox"]:checked ~ label:before {
     content: '\2714';
     text-indent: .9em;
+<<<<<<< HEAD
 
     color: #fff;
     background-color: #5cb85c;
+=======
+    color: #333;
+    background-color: #ccc;
+>>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 }
 
 .funkyradio input[type="radio"]:focus ~ label:before,

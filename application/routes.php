@@ -1,7 +1,6 @@
 <?php
 
 
-
 $app->get('/form', 'App\Http\Controller\WelcomeController@index');
 $app->get('/money', 'App\Http\Controller\WelcomeController@currency');
 $app->get('/info', 'App\Http\Controller\WelcomeController@info');
@@ -39,4 +38,3 @@ $app->group(['prefix' => '/webhook',
         $app->WebhookController('/hookController', 'App\Http\Controller\hookController');
     }
 ]);
-

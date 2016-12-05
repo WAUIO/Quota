@@ -22,18 +22,11 @@ class PDOConnection
             $this->user       = $app->config('database.username');
             $this->password   = $app->config('database.password');
 
-
             return self::$instance = new \PDO('mysql:dbname='.$this->name_base.';host='.$this->host, $this->user , $this->password, array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
         }
         return self::$instance;
     }
 
-    public function delete($query)
-   {
-       $this->getInstance()->exec($query);
-    }
-    public function insert($query, $array)
-//=======
 //    public function delete($query)
 //    {
 //        $this->getInstance()->exec($query);
@@ -41,6 +34,8 @@ class PDOConnection
 //
 //    public function executeQuery($query, $array)
 //>>>>>>> dff2c864afa538c8010e03456663cdf925396d11
+    public function insert($query, $array)
+
     {
         $stmt = $this->getInstance()->prepare($query, array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
 

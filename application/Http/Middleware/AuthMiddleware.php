@@ -4,8 +4,8 @@
 use Wau\Http\Middleware\MiddlewareAbstract;
 
 class AuthMiddleware extends MiddlewareAbstract
-{
-    protected function controlMail($user)
+
+{   protected function controlMail($user)
 {
     $mail = $user->mail[0];
     $a = strpos($mail, "wau.solutions");
@@ -64,5 +64,4 @@ class AuthMiddleware extends MiddlewareAbstract
         return $this->controlMail($user);
 
     }*/
-
 }

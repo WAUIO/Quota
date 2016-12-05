@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 .form-control {
     float: right;
     max-width: 400px;
@@ -31,3 +32,25 @@
     max-width: 200px;
     border-radius: 5px;
 }
+=======
+.form-submit {
+    float: right;
+    background-color: #1BBC9B;
+    color: #ffffff;
+    margin-right: 10px;
+}
+.form-control {
+    float: right;
+    width: 550px;
+
+
+}
+.form-label {
+    float: left;
+
+
+}
+.field {
+    margin: 1px 10px 10px 10px;
+}
+>>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66

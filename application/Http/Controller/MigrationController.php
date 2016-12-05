@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controller;
 
 
+
 use App\Utils\Migration;
 use Wau\Http\Controller;
 use App\DatabaseConnection\PDOConnection;
@@ -11,12 +12,13 @@ use App\Utils\Mysqldump;
 class MigrationController extends Controller
 {
 
-    var $incre;
     public function migrate()
     {
         set_time_limit(0);
+        $migrate = new Migration();
         $space_id = 4691756;
-        $list_app = $this->getApps($space_id);
+
+        $list_app = $migrate->getApps($space_id);
 
         foreach ($list_app as $app){
             $app_id = $app['app_id'];
@@ -282,5 +284,13 @@ class MigrationController extends Controller
             $new[$k] = $value;
         }
         return $new;
+//=======
+//
+//            $migrate->getItems($app);
+//            echo $app_id." ".$app_name."<br/>";
+//        }
+//
+//        return $this->app()->make('twig.view')->render('app.twig');
+//>>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
     }
 }
