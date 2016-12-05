@@ -4,6 +4,7 @@
 use Wau\Http\Middleware\MiddlewareAbstract;
 
 class AuthMiddleware extends MiddlewareAbstract
+<<<<<<< HEAD
 {   protected function controlMail($user)
 {
     $mail = $user->mail[0];
@@ -34,4 +35,11 @@ class AuthMiddleware extends MiddlewareAbstract
         return $this->controlMail($user);
 
     }
+=======
+{
+    public function handle($args = null){
+        return true;
+    }
+
+>>>>>>> origin/feature-config-template
 }

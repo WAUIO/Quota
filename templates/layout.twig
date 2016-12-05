@@ -19,11 +19,13 @@
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/bootstrap-select.css">
     <link rel="stylesheet" href="/css/bootstrap-editable.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <!--Stylesheet-->
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/info.css" rel="stylesheet">
     <link href="/css/funky.css" rel="stylesheet">
+    <link href="/css/spinner.css" rel="stylesheet">
     <link href="/css/perfect-scrollbar.min.css" rel="stylesheet">
 
     <link rel="shortcut icon" href="/images/favicon.ico">
@@ -61,9 +63,6 @@
                 <li><a href="#">About</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
-            {#<ul  class="nav navbar-nav navbar-right" id="menu_right">#}
-                {#<li><a href="#"><span id="menu_hamburger" class="glyphicon glyphicon-menu-hamburger"></span></a></li>#}
-            {#</ul>#}
         </div>
         <!-- /.navbar-collapse -->
     </div>
@@ -141,18 +140,13 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Latest compiled and minified JavaScript -->
-<script src="/js/jquery-2.2.4.min.js"></script>
+<script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
-{#<script src="/js/dataTables.bootstrap.min.js"></script>#}
-{#<script src="/js/jquery.dataTables.min.js"></script>#}
 <script src="/js/bootstrap-editable.min.js"></script>
-{#<script src="/js/bootstrap-select.min.js"></script>#}
-{#<script src="/js/bootstrap-datepicker.js"></script>#}
 <script src="/js/perfect-scrollbar.jquery.min.js"></script>
-{#<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-checkbox/1.4.0/bootstrap-checkbox.min.js"></script>#}
 {% block scripts %}
     <script src="/js/function.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 {% endblock scripts %}
-
 </body>
 </html>

@@ -44,6 +44,12 @@ class PDOConnection
         $stmt->closeCursor();
     }
 
+    public function select($query)
+    {
+        $stm = $this->getInstance()->prepare($query);
+        $stm->execute();
+        return $stm->fetchAll();
+    }
     public function is_exist($table, $data){
         $result = $this->getInstance()->query("SELECT * FROM ".$table." WHERE item_id = '".$data[0]."'");
         if ($result->rowCount()>0)

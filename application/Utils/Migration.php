@@ -16,26 +16,29 @@ class Migration
     public function getItems($app)
     {
         $offset = 0;
-        $limit = 100;
+        $limit = 2;
 
-        try{
-            do {
-                dump_var($offset);
-                $items = \PodioItem::filter($app['app_id'], array('limit' => $limit, 'offset' => $offset, 'sort_by' => 'created_on'));
+        $items = \PodioItem::filter($app['app_id'], array('limit' => $limit, 'offset' => $offset, 'sort_by' => 'created_on'));
+        $this-> saveItem($app['app_name'], $items);
 
-                $this-> saveItem($app, $items);
-
-                //increase for next heap
-                $offset += $limit;
-
-            } while ($items->total > $offset);
-        }catch(Exception $e){
-            dump_var($e->getMessage());
-        }
+//        try{
+//            do {
+//                dump_var($offset);
+//                $items = \PodioItem::filter($app['app_id'], array('limit' => $limit, 'offset' => $offset, 'sort_by' => 'created_on'));
+//
+//                $this-> saveItem($app['app_name'], $items);
+//
+//                //increase for next heap
+//                $offset += $limit;
+//
+//            } while ($items->total > $offset);
+//        }catch(Exception $e){
+//            dump_var($e->getMessage());
+//        }
     }
 
     //Insert or Update item
-    public function saveItem($app, $items){
+    public function saveItem($app_name, $items){
         //app_id
 //        $houses         = 17063114;
 //        $rooms          = 17063267;
@@ -48,68 +51,68 @@ class Migration
             $query = "";
             $dataItem = $this->getDataItem($item);
 
-            switch (strtolower($app['app_name'])){
-                case 'houses':
-                    if(!array_key_exists('title',$dataItem)){
-                        $dataItem = $this->array_insert_before(1, $dataItem, 'title', "");
-                    }
-                    $table = "house";
-                    $query = "INSERT INTO ".$table." (item_id, house_title, others) VALUES (:itemid, :title, :others)
-                              ON DUPLICATE KEY UPDATE house_title = VALUES(house_title), others = VALUES(others)";
-                    break;
-
-                case 'rooms':
-                    if(!array_key_exists('for-hotel',$dataItem)){
-                        $dataItem = $this->array_insert_before(1, $dataItem, 'forhotel', "");
-                    }
-                    if(!array_key_exists('room-category',$dataItem)){
-                        $dataItem = $this->array_insert_before(2, $dataItem, 'roomcategory', "");
-                    }
-                    $table = "room";
-                    $query = "INSERT INTO ".$table." (item_id, house_id, category, others) VALUES (:itemid, :forhotel, :roomcategory, :others)
-                              ON DUPLICATE KEY UPDATE house_id = VALUES(house_id), others = VALUES(others)";
-                    break;
-
-                case 'restaurants':
-                    if(!array_key_exists('house',$dataItem)){
-                        $dataItem = $this->array_insert_before(1, $dataItem, 'house', "");
-                    }
-                    if(!array_key_exists('menu',$dataItem)){
-                        $dataItem = $this->array_insert_before(2, $dataItem, 'menu', "");
-                    }
-                    if(!array_key_exists('meals',$dataItem)){
-                        $dataItem = $this->array_insert_before(3, $dataItem, 'meals', "");
-                    }
-                    $table = "restaurant";
-                    $query = "INSERT INTO ".$table." (item_id, house_id, menu, meals, others) VALUES (:itemid, :house, :menu, :meals, :others)
-                              ON DUPLICATE KEY UPDATE house_id = VALUES(house_id), menu = VALUES(menu), meals = VALUES(meals), others = VALUES(others)";
-                    break;
-
-                case 'activities':
-                    if(!array_key_exists('price-2',$dataItem)){
-                        $dataItem = $this->array_insert_before(1, $dataItem, 'price2', "");
-                    }
-                    $table = "activity";
-                    $query = "INSERT INTO ".$table." (item_id, price, others) VALUES (:itemid, :price2, :others)
-                              ON DUPLICATE KEY UPDATE price = VALUES(price), others = VALUES(others)";
-                    break;
-
-                case 'transports':
-                    if(!array_key_exists('price-2',$dataItem)){
-                        $dataItem = $this->array_insert_before(1, $dataItem, 'price2', "");
-                    }
-                    $table = "transport";
-                    $query = "INSERT INTO ".$table." (item_id, price, others) VALUES (:itemid, :price2, :others)
-                              ON DUPLICATE KEY UPDATE price = VALUES(price), others = VALUES(others)";
-                    break;
-
-                case 'places':
-                    $table = "place";
-                    $query = "INSERT INTO ".$table." (item_id, others) VALUES (:itemid, :others)
-                              ON DUPLICATE KEY UPDATE others = VALUES(others)";
-                    break;
-            }
-            $this->instance->insert($query, $dataItem);
+//            switch (strtolower($app_name)){
+//                case 'houses':
+//                    if(!array_key_exists('title',$dataItem)){
+//                        $dataItem = $this->array_insert_before(1, $dataItem, 'title', "");
+//                    }
+//                    $table = "house";
+//                    $query = "INSERT INTO ".$table." (item_id, house_title, others) VALUES (:itemid, :title, :others)
+//                              ON DUPLICATE KEY UPDATE house_title = VALUES(house_title), others = VALUES(others)";
+//                    break;
+//
+//                case 'rooms':
+//                    if(!array_key_exists('for-hotel',$dataItem)){
+//                        $dataItem = $this->array_insert_before(1, $dataItem, 'forhotel', "");
+//                    }
+//                    if(!array_key_exists('room-category',$dataItem)){
+//                        $dataItem = $this->array_insert_before(2, $dataItem, 'roomcategory', "");
+//                    }
+//                    $table = "room";
+//                    $query = "INSERT INTO ".$table." (item_id, house_id, category, others) VALUES (:itemid, :forhotel, :roomcategory, :others)
+//                              ON DUPLICATE KEY UPDATE house_id = VALUES(house_id), others = VALUES(others)";
+//                    break;
+//
+//                case 'restaurants':
+//                    if(!array_key_exists('house',$dataItem)){
+//                        $dataItem = $this->array_insert_before(1, $dataItem, 'house', "");
+//                    }
+//                    if(!array_key_exists('menu',$dataItem)){
+//                        $dataItem = $this->array_insert_before(2, $dataItem, 'menu', "");
+//                    }
+//                    if(!array_key_exists('meals',$dataItem)){
+//                        $dataItem = $this->array_insert_before(3, $dataItem, 'meals', "");
+//                    }
+//                    $table = "restaurant";
+//                    $query = "INSERT INTO ".$table." (item_id, house_id, menu, meals, others) VALUES (:itemid, :house, :menu, :meals, :others)
+//                              ON DUPLICATE KEY UPDATE house_id = VALUES(house_id), menu = VALUES(menu), meals = VALUES(meals), others = VALUES(others)";
+//                    break;
+//
+//                case 'activities':
+//                    if(!array_key_exists('price-2',$dataItem)){
+//                        $dataItem = $this->array_insert_before(1, $dataItem, 'price2', "");
+//                    }
+//                    $table = "activity";
+//                    $query = "INSERT INTO ".$table." (item_id, price, others) VALUES (:itemid, :price2, :others)
+//                              ON DUPLICATE KEY UPDATE price = VALUES(price), others = VALUES(others)";
+//                    break;
+//
+//                case 'transports':
+//                    if(!array_key_exists('price-2',$dataItem)){
+//                        $dataItem = $this->array_insert_before(1, $dataItem, 'price2', "");
+//                    }
+//                    $table = "transport";
+//                    $query = "INSERT INTO ".$table." (item_id, price, others) VALUES (:itemid, :price2, :others)
+//                              ON DUPLICATE KEY UPDATE price = VALUES(price), others = VALUES(others)";
+//                    break;
+//
+//                case 'places':
+//                    $table = "place";
+//                    $query = "INSERT INTO ".$table." (item_id, others) VALUES (:itemid, :others)
+//                              ON DUPLICATE KEY UPDATE others = VALUES(others)";
+//                    break;
+//            }
+//            $this->instance->insert($query, $dataItem);
         }
     }
 
@@ -119,6 +122,7 @@ class Migration
         $exception = array();
         $others = array();
         $except = array();
+        $tax_vignette = array(133125195, 133125196);
 
         //House app (field_id)
         $house_title            = 133123764;
@@ -146,20 +150,20 @@ class Migration
             $json = array();
             $value = null;
 
+            $type =  $field[$i]->type;
+            $external_id = $field[$i]->external_id;
+
             if(in_array($field[$i]->field_id, $exception)){
-
-                $external_id = $field[$i]->external_id;
-
-                if(in_array($field[$i]->type, ['number','calculation','duration','progress','email'])){
+                if(in_array($type, ['number','calculation','duration','progress','email'])){
                     $except[$external_id] = $field[$i]->values;
                 }
 
-                if($field[$i]->type == 'text'){
+                if($type == 'text'){
                     $text = new HtmlToText();
                     $except[$external_id] = $text->html2text($field[$i]->values);
                 }
 
-                if( $field[$i]->type == 'category'){
+                if( $type == 'category'){
                     $size = sizeof($field[$i]->values);
                     $val = "";
                     for($j = 0; $j<$size; $j++){
@@ -169,23 +173,31 @@ class Migration
                     $except[$external_id] = $val;
                 }
 
-                if($field[$i]->type == 'app'){
+                if($type == 'app'){
                     // $except = app_item_id
                     $except[$external_id] = $field[$i]->values[0]->item_id;
                 }
 
-                if($field[$i]->type == 'embed'){
+                if($type == 'embed'){
                     // $except = embed_id
                     $except[$external_id] = $field[$i]->values[0]->embed_id;
                 }
 
-                if($field[$i]->type == 'date'){
+                if($type == 'date'){
                     $except[$external_id] = $field[$i]->values['start']->format('d-m-Y H:i:s');
                 }
 
             }else{
-                if(in_array($field[$i]->type, ['number','calculation','duration','progress','email','money'])){
+                $json['type'] = $type;
+                $json['label'] = $field[$i]->label;
+
+                if(in_array($type, ['number','calculation','duration','progress','email'])){
                     $value = $field[$i]->values;
+                }
+
+                if($type == 'money'){
+                    $value = $field[$i]->values['value'];
+                    $json['currency'] = $field[$i]->values['currency'];
                 }
 
                 if($field[$i]->type == 'text'){
@@ -193,7 +205,7 @@ class Migration
                     $value = $text->html2text($field[$i]->values);
                 }
 
-                if( $field[$i]->type == 'category'){
+                if( $type == 'category'){
                     $size = sizeof($field[$i]->values);
 
                     for($j = 0; $j<$size; $j++){
@@ -201,28 +213,48 @@ class Migration
                     }
                 }
 
-                if($field[$i]->type == 'app'){
+                if($type == 'app'){
                     // $value = app_id
                     $value = $field[$i]->values[0]->item_id;
                 }
 
-                if($field[$i]->type == 'embed'){
+                if($type == 'embed'){
                     // $value = embed_id
                     $value = $field[$i]->values[0]->embed_id;
                 }
 
-                if($field[$i]->type == 'date'){
+                if($type == 'date'){
                     $value = $field[$i]->values['start']->format('d-m-Y H:i:s');
                 }
 
-                $label = $field[$i]->label;
-                $external_id = $field[$i]->external_id;
-
-                $json['label'] = $label;
-                $json['value'   ] = $value;
+                $json['value'] = $value;
                 $others[$external_id] = $json;
             }
         }
+
+//        if(strtolower($app_name) == "rooms"){
+//            if(!array_key_exists('public-rate',$others)){
+//                $json['type'] = "money";
+//                $json['label'] = "Public rate";
+//                $json['currency'] = "MGA";
+//                $json['value'] = 0;
+//                $others = $this->array_insert_before(1, $others, 'public-rate', $json);
+//            }
+//            if(!array_key_exists('vignet-3',$others)){
+//                $json['type'] = "money";
+//                $json['label'] = "Vignet";
+//                $json['currency'] = "MGA";
+//                $json['value'] = 0;
+//                $others = $this->array_insert_before(1, $others, 'vignet-3', $json);
+//            }
+//            if(!array_key_exists('tax',$others)){
+//                $json['type'] = "money";
+//                $json['label'] = "Tax";
+//                $json['currency'] = "MGA";
+//                $json['value'] = 0;
+//                $others = $this->array_insert_before(1, $others, 'tax', $json);
+//            }
+//        }
 
         $dataItem['item_id'] = $item->item_id;
 
@@ -230,7 +262,9 @@ class Migration
             $dataItem[$key] = $value;
         }
 
-        $dataItem['others'] = json_encode($others, JSON_UNESCAPED_UNICODE);
+
+        echo$dataItem['others'] = json_encode($others, JSON_UNESCAPED_UNICODE)."<br/>";
+
 
         return $dataItem;
     }

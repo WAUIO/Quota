@@ -1,0 +1,79 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+    <h1 class="page-header">
+        Services offered
+    </h1>
+
+    <form action="submit_prestation" method="post">
+
+        <div id="accordion">
+            <div class="service">
+                <img class="prestation_image" src="/images/individual.png">
+                <span class="service_title">Individual services</span>
+                <input type="text" id="search_individual" class="form-control search_control search_prestation" placeholder="Search...">
+            </div>
+
+            <div class="row per_price" id="person">
+                <div class="col-xs-7 funkyradio list_service" style="height:300px;">
+                    <div class="search_message">No result for this search !</div>
+                    {% for prest in prestations[0] %}
+                        <div class="funkyradio-success line">
+                            <input type="checkbox" name="individual"  id="id_{{ prest.item_id }}" class="check" value="{{ prest.item_id }}"/>
+                            <label class="funky_label" for="id_{{ prest.item_id }}" style="border: none">{{ prest.title }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-xs-5 checked_lists">
+                    <div class="checked_list_title">List of checked items</div>
+                    <div class="checked_list_content">
+                        <div class="checked_list checked_prestation hide">
+                            <div class="prestation_label" style="float: left;"></div>
+                            <div class="delete_prestation glyphicon glyphicon-remove"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service">
+                <img class="prestation_image" src="/images/collective.png">
+                <span class="service_title">Collective services</span>
+                <input type="text" id="search_collective" class="form-control search_control search_prestation pull-right-" placeholder="Search...">
+            </div>
+
+            <div class="row per_price" id="booking">
+                <div class="col-xs-7 funkyradio list_service" style="height:300px;">
+                    <div class="search_message">No result for this search !</div>
+                    {% for prest in prestations[1] %}
+                        <div class="funkyradio-success line">
+                            <input type="checkbox" name="collective"  id="id_{{ prest.item_id }}" class="check" value="{{ prest.item_id }}"/>
+                            <label class="funky_label" for="id_{{ prest.item_id }}" style="border: none">{{ prest.title }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-xs-5 checked_lists">
+                    <div class="checked_list_title">List of checked items</div>
+                    <div class="checked_list_content">
+                        <div class="checked_list checked_prestation hide">
+                            <div class="prestation_label" style="float: left;"></div>
+                            <div class="delete_prestation glyphicon glyphicon-remove"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-xs-10">
+                <span class="no_service">No service checked !</span>
+            </div>
+            <div class="col-xs-2">
+                <div class="next_prestation" id="btn_next">
+                    <span style="white-space:pre">Next  </span>
+                    <span class="glyphicon glyphicon-arrow-right"></span>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script src="/js/prestation.js"></script>
+{% endblock body %}
