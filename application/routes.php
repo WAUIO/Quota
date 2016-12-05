@@ -20,6 +20,7 @@ $app->get('/rest', 'App\Http\Controller\HouseController@dataRestaurant');
 $app->get('/', 'App\Http\Controller\QuotaViewController@index');
 $app->get('/information', 'App\Http\Controller\infoController@info');
 $app->get('/prestation', 'App\Http\Controller\prestationController@prestation');
+
 $app->get('/dumpTable', 'App\Http\Controller\MigrationController@dumpTable');
 $app->get('/currency', 'App\Http\Controller\HouseController@currency');
 
@@ -30,3 +31,12 @@ $app->group(['prefix'=>'/', 'middleware' => ['Wau\Podio\PodioAuthMiddleware'],
         $app->get('/migrate','App\Http\Controller\MigrationController@migrate');
     }
 ]);
+
+
+$app->group(['prefix' => '/webhook',
+    function() use (&$app) {
+
+        $app->WebhookController('/hookController', 'App\Http\Controller\hookController');
+    }
+]);
+
