@@ -19,7 +19,7 @@ $app->get('/brd', 'App\Http\Controller\SaveController@priceBoard');
 $app->get('/rest', 'App\Http\Controller\HouseController@dataRestaurant');
 $app->get('/', 'App\Http\Controller\QuotaViewController@index');
 $app->get('/information', 'App\Http\Controller\infoController@info');
-git$app->get('/prestation', 'App\Http\Controller\prestationController@prestation');
+$app->get('/prestation', 'App\Http\Controller\prestationController@prestation');
 
 $app->get('/dumpTable', 'App\Http\Controller\MigrationController@dumpTable');
 $app->get('/currency', 'App\Http\Controller\HouseController@currency');
