@@ -34,7 +34,6 @@ $(document).ready(function () {
     ancreLink();
     client();
 
-
 });
 
 $( function() {
