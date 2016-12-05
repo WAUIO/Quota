@@ -36,6 +36,7 @@ $console->addCommands([
     new \Wau\Console\RouteCommand(),
     new \Wau\Console\ServeCommand(),
     new \Wau\Console\HookSimulateCommand(),
+    new \App\Console\Podio\appGetItems(),
 ]);
 
 $console->run();

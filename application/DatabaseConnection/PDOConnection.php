@@ -1,7 +1,7 @@
 <?php
 
 namespace App\DatabaseConnection;
-
+header( 'content-type: text/html; charset=utf-8' );
 use Wau\Application;
 
 class PDOConnection
@@ -22,7 +22,7 @@ class PDOConnection
             $this->user       = $app->config('database.username');
             $this->password   = $app->config('database.password');
 
-            return new \PDO('mysql:dbname='.$this->name_base.';host='.$this->host, $this->user , $this->password);
+            return self::$instance = new \PDO('mysql:dbname='.$this->name_base.';host='.$this->host, $this->user , $this->password, array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
         }
         return self::$instance;
     }
