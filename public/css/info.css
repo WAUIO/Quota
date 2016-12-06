@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 .form-control {
@@ -53,4 +54,41 @@
 .field {
     margin: 1px 10px 10px 10px;
 }
+<<<<<<< HEAD
 >>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
+=======
+=======
+.form-control {
+    float: right;
+    max-width: 400px;
+}
+.form-label {
+    float: left;
+}
+.field {
+    margin: 1px 10px 10px 10px;
+}
+.customer_info {
+    max-width: 1500px;
+    height: 350px;
+    float: center;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+}
+.form-submit {
+    float: right;
+    background-color :#2B838E;
+    color : #ffffff;
+    border : none;
+    margin-right: 35px;
+}
+.form-submit:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: #3BA8A5;
+}
+.col-xs-6 .content {
+    max-width: 200px;
+    border-radius: 5px;
+}
+>>>>>>> origin/feature-config-template
+>>>>>>> 83b5be6778f246b5954790615c398c85018e7e88

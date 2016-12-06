@@ -2,8 +2,27 @@ $(document).ready(function () {
 
 
     $(this).scrollTop(0);
+    $('#family_member').on('change keyup', function () {
+        calculateFamilyTotal($(this));
+    });
+
+    $('.delete_prestation').click(function(e){
+        e.preventDefault();
+        deletePrestation(this);
+    });
+
+    $( "#accordion" ).accordion();
+
+    $('input').keydown(function (e) {
+        e.stopPropagation();
+    });
+
+    $('.checked_list_content').perfectScrollbar();
+    $('.list_service').perfectScrollbar();
+
     $('#quota_list').perfectScrollbar();
     $('.table-editable').perfectScrollbar();
+
     $('.based_on').removeAttr("href");
 
     $('#search_glyphicon').click(function(e){
@@ -12,14 +31,13 @@ $(document).ready(function () {
         ShowHideQuotaList(quota_list_id, 0);
     });
 
-
     $('.taxes').css('border-bottom', 'none');
     $('.others').css('border-bottom', 'none');
     $(".selectpicker").attr("disabled","disabled");
     $("#select-hotel").removeAttr("disabled");
     $("#search_control").removeAttr("disabled");
 
-    checkboxEvent();
+    //checkboxEvent();
     menuView();
     popupView();
     detailView();
@@ -28,6 +46,11 @@ $(document).ready(function () {
     calculateTotal();
     ancreLink();
     client();
+    checkPrestation();
+    mouseEvent();
+    searchPrestation();
+
+    btnSave();
 
 });
 
@@ -80,6 +103,16 @@ function client(){
     calculateTotal();
     ancreLink();
 
+
+
+$( function() {
+    var options={
+        dateFormat: 'dd/mm/yy',
+        todayHighlight: true,
+        autoclose: true
+    };
+    $( "#stay" ).datepicker(options);
+} );
 
 
 function checkboxEvent() {
@@ -159,6 +192,7 @@ function ancreLink() {
         return false;
     });
 }
+
 
 function calculateTotal() {
     $('table').each(function(){
@@ -357,24 +391,25 @@ function isFloat(val) {
 function ShowHideQuotaList(quota_list_id, nbr){
     if(nbr == 0){
         if($(quota_list_id).is(":visible") === true){
-            $(quota_list_id).fadeOut();
+            $(quota_list_id).fadeOut(200);
             $('#search_glyphicon').toggleClass('glyphicon-chevron-up').toggleClass('glyphicon-chevron-down');
         }else{
-            $(quota_list_id).fadeIn();
+            $(quota_list_id).fadeIn(200);
             $('#search_glyphicon').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
         }
     }else if(nbr == 1){
         if($(quota_list_id).is(":visible") === true){
-            $(quota_list_id).fadeOut();
+            $(quota_list_id).fadeOut(200);
             $('#search_glyphicon').toggleClass('glyphicon-chevron-up').toggleClass('glyphicon-chevron-down');
         }
     }else{
         if($(quota_list_id).is(":visible") === false){
-            $(quota_list_id).fadeIn();
+            $(quota_list_id).fadeIn(200);
             $('#search_glyphicon').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
         }
     }
 }
+
 
 function somme(table_id){
     var room_type = table_id.replace('table_','');

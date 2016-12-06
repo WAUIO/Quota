@@ -27,13 +27,6 @@ class PDOConnection
         return self::$instance;
     }
 
-//    public function delete($query)
-//    {
-//        $this->getInstance()->exec($query);
-//    }
-//
-//    public function executeQuery($query, $array)
-//>>>>>>> dff2c864afa538c8010e03456663cdf925396d11
     public function insert($query, $array)
 
     {
@@ -51,6 +44,14 @@ class PDOConnection
         $stmt->execute($array);
         $stmt->closeCursor();
     }
+
+    public function select($query)
+    {
+        $stm = $this->getInstance()->prepare($query);
+        $stm->execute();
+        return $stm->fetchAll();
+    }
+
     public function is_exist($table, $data){
         $result = $this->getInstance()->query("SELECT * FROM ".$table." WHERE item_id = '".$data[0]."'");
         if ($result->rowCount()>0)

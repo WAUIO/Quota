@@ -1,3 +1,7 @@
+.funky_label{
+    padding: 0;
+    margin-top: -10px;
+}
 .funkyradio{
     margin:0;
 <<<<<<< HEAD
@@ -7,6 +11,7 @@
 >>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 }
 .funkyradio div {
+
     clear: both;
     overflow: hidden;
 }
@@ -19,17 +24,23 @@
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 .input_cheboxck {
     border:none;
 }
 =======
 >>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 .funkyradio input[type="radio"]:empty,
+=======
+.input_cheboxck {
+    border:none;
+}
+
+>>>>>>> 83b5be6778f246b5954790615c398c85018e7e88
 .funkyradio input[type="checkbox"]:empty {
     display: none;
 }
 
-.funkyradio input[type="radio"]:empty ~ label,
 .funkyradio input[type="checkbox"]:empty ~ label {
     position: relative;
     line-height: 2.5em;
@@ -42,7 +53,6 @@
     user-select: none;
 }
 
-.funkyradio input[type="radio"]:empty ~ label:before,
 .funkyradio input[type="checkbox"]:empty ~ label:before {
     position: absolute;
     display: block;
@@ -55,27 +65,24 @@
     border-radius: 3px 0 0 3px;
 }
 
-.funkyradio input[type="radio"]:hover:not(:checked) ~ label,
 .funkyradio input[type="checkbox"]:hover:not(:checked) ~ label {
     color: #888;
 }
 
-.funkyradio input[type="radio"]:hover:not(:checked) ~ label:before,
 .funkyradio input[type="checkbox"]:hover:not(:checked) ~ label:before {
     content: '\2714';
     text-indent: .9em;
     color: #C2C2C2;
 }
 
-.funkyradio input[type="radio"]:checked ~ label,
 .funkyradio input[type="checkbox"]:checked ~ label {
     color: #777;
 }
 
-.funkyradio input[type="radio"]:checked ~ label:before,
 .funkyradio input[type="checkbox"]:checked ~ label:before {
     content: '\2714';
     text-indent: .9em;
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     color: #fff;
@@ -84,14 +91,15 @@
     color: #333;
     background-color: #ccc;
 >>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
+=======
+    color: #fff;
+    background-color: #5cb85c;
+>>>>>>> 83b5be6778f246b5954790615c398c85018e7e88
 }
 
-.funkyradio input[type="radio"]:focus ~ label:before,
 .funkyradio input[type="checkbox"]:focus ~ label:before {
     box-shadow: 0 0 0 3px #999;
 }
-
-.funkyradio-default input[type="radio"]:checked ~ label:before,
 .funkyradio-default input[type="checkbox"]:checked ~ label:before {
     color: #333;
     background-color: #ccc;
