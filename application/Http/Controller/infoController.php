@@ -40,6 +40,7 @@ class infoController extends Controller
         array_set($data, 'customerRef', $customerRef);
         array_set($data, 'name',$name);
         array_set($data, 'nb', $nbAdults);
+        array_set($data, 'nb', $nbChildren);
         array_set($data, 'stay', $stay);
 
         return $this->app()->make('twig.view')->render('info.twig',$data);

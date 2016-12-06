@@ -3,7 +3,7 @@
 return [
     'driver'   => 'mysql',
     'host'     => env('DB_HOST', 'localhost'),
-    'name_base' => env('DB_NAME', 'wm-database'),
+    'database' => env('DB_NAME', 'wm-database'),
     'username' => env('DB_USER', 'root'),
     'password' => env('DB_PASSWORD', ''),
     'prefix'   => '',

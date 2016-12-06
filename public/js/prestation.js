@@ -28,29 +28,37 @@ function searchPrestation(){
         if(!exist){
             parent_block.find('.search_message').show();
         }else parent_block.find('.search_message').hide();
-        resize(parent_block, items);
         list_service.scrollTop(0);
         list_service.perfectScrollbar('update');
 
+        resize(parent_block, items);
     });
 }
 
 function resize(parent_block, items){
-    parent_block.find('.list_service').css('height',items*36.5);
-    var height_list = parent_block.find('.checked_lists').height();
+    var height_list;
+    var checked = parent_block.find('.checked_prestation').length;
     var height_service = (items*36.5);
+
+    parent_block.find('.list_service').css('height',items*36.5);
+
+    if(checked > 1){
+        height_list = 25*(checked-1) + 46;
+    }
+    else{
+        height_list = 20;
+    }
+
     if(parent_block.find('.search_message').css('display') == 'block'){
         height_service = 20;
         parent_block.find('.list_service').css('height',height_service);
     }
-    console.log("height_list : "+height_list, "height_service : "+height_service);
 
-    if(height_list+16 > height_service && height_list < 300){
+    if(height_list > height_service && height_list < 300){
         parent_block.css('height',height_list+16);
-    }else if(height_list+16 < height_service && height_service < 300){
+    }else if(height_list < height_service && height_service < 300){
         parent_block.css('height',height_service+16);
     }else parent_block.css('height',321);
-
 }
 
 //function checkif a vertical scroll appear
@@ -64,7 +72,6 @@ jQuery.fn.hasScrollBar = function(direction) {
         return this.get(0).scrollWidth > this.innerWidth();
     }
     return false;
-
 };
 
 //check scroll and change view
@@ -149,7 +156,7 @@ function checkPrestation(){
                 parent_div.find('.checked_list_title').slideUp(400);
             }
         }
+
         resetCheckedScroll(parent_div);
     });
 }
-
