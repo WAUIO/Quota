@@ -1,23 +1,17 @@
 $(document).ready(function () {
 
-    $('#family_member').on('change keyup', function () {
-        calculateFamilyTotal($(this));
-    });
-
-    $('.delete_prestation').click(function(e){
-        e.preventDefault();
-        deletePrestation(this);
-    });
-
-    $( "#accordion" ).accordion();
+    getClient();
 
     $('input').keydown(function (e) {
         e.stopPropagation();
     });
 
-    $('.checked_list_content').perfectScrollbar();
-    $('.list_service').perfectScrollbar();
     $('#quota_list').perfectScrollbar();
+    if($('#quota_list').hasScrollBar('vertical')) {
+        $('.quota_lists').css('margin-right', '15px');
+        $('.ps-scrollbar-y-rail').css('z-index', '1000');
+    }
+
     $('.table-editable').perfectScrollbar();
 
     $('.based_on').removeAttr("href");
@@ -38,28 +32,30 @@ $(document).ready(function () {
     menuView();
     popupView();
     detailView();
-    tableEvent();
     editValuePopup();
     calculateTotal();
     ancreLink();
-    checkPrestation();
     mouseEvent();
-    searchPrestation();
 
     btnSave();
 
 });
 
+function getClient() {
+    $.ajax({
+        url: "/getClient",
+        type: "GET",
+        dataType: "json",
+        cache: false,
+        success: function (data) {
+            var $length = data.length;
 
-$( function() {
-    var options={
-        dateFormat: 'dd/mm/yy',
-        todayHighlight: true,
-        autoclose: true
-    };
-    $( "#stay" ).datepicker(options);
-} );
-
+            for(i=0;i<$length;i++){
+                $('#quota_list').append('<div id="client_'+data[i].id+'" class="quota_lists"><a href="#">'+data[i].ref_client+' : '+data[i].name+'azertyuiopaqsdfghjklmwxcvbn123456789</a></div>');
+            }
+        }
+    });
+}
 
 function checkboxEvent() {
     /*******checkbox event*******/
@@ -111,26 +107,8 @@ function popupView() {
     });
 }
 
-function detailView() {
-    //detail hide
-    $('.detail_head').click(function(e){
-        e.preventDefault();
-        var detail_id = '#'+$(this).parents().attr("id");
-        if($(detail_id+' .detail_body').is(":visible") === false){
-            $(detail_id +' .detail_body').fadeIn();
-            $(detail_id +' .detail_body_content').animate({marginTop:"-=100px"},300);
-            $(this).find(".glyphicon").toggleClass("glyphicon-menu-down").toggleClass("glyphicon-menu-up");
-        }else{
-
-            $(detail_id +' .detail_body').hide();
-            $(detail_id +' .detail_body_content').hide();
-            $(this).find(".glyphicon").toggleClass("glyphicon-menu-up").toggleClass("glyphicon-menu-down");
-        }
-    });
-}
-
+//Ancre Onclick base type
 function ancreLink() {
-    //Ancre Onclick base type
     $('.base_type').on('click', function() {
         var page = $(this).attr('href');
         var speed = 500;
@@ -138,7 +116,6 @@ function ancreLink() {
         return false;
     });
 }
-
 
 //test if a string is a float
 function isFloat(val) {
@@ -175,6 +152,3 @@ function ShowHideQuotaList(quota_list_id, nbr){
         }
     }
 }
-
-
-

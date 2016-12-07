@@ -1,4 +1,7 @@
 function calculateTotal() {
+
+    tableEvent();
+
     $('table').each(function(){
         somme(this.id);
     });
@@ -31,13 +34,10 @@ function editValuePopup() {
 
                         if($(this).attr('id') == 'margin_prestation_'+room_type)
                             calculateMargin(this, room_type, value, length);
-
                         else if($(this).attr('id') == 'taxes_prestation_'+room_type)
                             calculateTaxes(this, room_type, value, length);
-
                         else if($(this).attr('id') == 'margin_room_'+room_type)
                             calculateMargin(this, room_type, value, length);
-
                         else //if($(this).attr('id') == 'taxes_room_'+room_type)
                             calculateTaxes(this, room_type, value, length);
 
@@ -77,31 +77,30 @@ function editValuePopup() {
 }
 
 //calculation for margins
-function calculateMargin($this, room_type, value, length){
-    span_taxes = $('#'+$($this).attr('id').replace('margin','taxes'));
-    td_margin = $($this).closest('td');
-    td_taxes = span_taxes.closest('td');
-    tr_id = $($this).closest('tr').prev().attr('id');
+function calculateMargin($this, room_type, tax, length){
+    var span_taxes = $('#'+$($this).attr('id').replace('margin','taxes'));
+    var td_margin = $($this).closest('td');
+    var td_taxes = span_taxes.closest('td');
+    var tr_id = $($this).closest('tr').prev().attr('id');
 
     for (i=0;i<length-3;i++) {
         val = $('tr#'+tr_id+' > td.td_'+room_type+':eq(' + i + ')').text();
         val_margin = val * value / 100;
         td_margin.siblings().eq(i+1).text( val_margin.toFixed(2));
 
-        tax = span_taxes.text();
         val_taxes  = val_margin * tax / 100;
         td_taxes.siblings().eq(i+1).text( val_taxes.toFixed(2));
     }
 }
 
 //calculation for taxes
-function calculateTaxes($this, room_type, value, length){
-    td_taxes = $($this).closest('td');
-    td_margin_id = $($this).closest('tr').prev().attr('id');
-    for (i=0;i<length-3;i++) {
-        tax = $($this).text();
-        val_margin = $('tr#'+td_margin_id+' > td.td_'+room_type+':eq(' + i + ')').text();
+function calculateTaxes($this, room_type, tax, length){
+    var td_taxes = $($this).closest('td');
+    var td_margin_id = $($this).closest('tr').prev().attr('id');
 
+    for (i=0;i<length-3;i++) {
+        val_margin = $('tr#'+td_margin_id+' > td.td_'+room_type+':eq(' + i + ')').text();
+        val_taxes  = val_margin * tax / 100;
         td_taxes.siblings().eq(i+1).text( val_taxes.toFixed(2));
     }
 }
@@ -165,7 +164,7 @@ function tableEvent(){
             }
         });
         $TABLE.find('#'+table_id+' .tr_MGA').before($clone);
-    })
+    });
 
     $('.table-remove').click(function () {
         table_id = $(this).closest('table').attr('id');
@@ -176,35 +175,4 @@ function tableEvent(){
         somme(table_id);
         $(this).parents('tr').detach();
     });
-
-// A few jQuery helpers for exporting only
-    /*jQuery.fn.pop = [].pop;
-     jQuery.fn.shift = [].shift;
-
-     $BTN.click(function () {
-     var $rows = $TABLE.find('tr:not(:hidden)');
-     var headers = [];
-     var data = [];
-
-     // Get the headers (add special header logic here)
-     $($rows.shift()).find('th:not(:empty)').each(function () {
-     headers.push($(this).text().toLowerCase());
-     });
-
-     // Turn all existing rows into a loopable array
-     $rows.each(function () {
-     var $td = $(this).find('td');
-     var h = {};
-
-     // Use the headers from earlier to name our hash keys
-     headers.forEach(function (header, i) {
-     h[header] = $td.eq(i).text();
-     });
-
-     data.push(h);
-     });
-
-     // Output the result
-     $EXPORT.text(JSON.stringify(data));
-     });*/
 }

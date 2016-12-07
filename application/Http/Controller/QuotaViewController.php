@@ -1,26 +1,46 @@
 <?php namespace App\Http\Controller;
 
 
+use App\Utils\Client;
 use Symfony\Component\HttpFoundation\Request;
 use Wau\Http\Controller;
 use App\Utils\PrestationQuota;
 use App\Utils\RoomQuota;
-use App\Utils\TotalQuota;
 use App\Utils\Exchange;
+use App\DatabaseConnection\PDOConnection;
 
 class QuotaViewController extends Controller
 {
 
+    var $instance;
+    public function listClient(){
+        $array = array();
+        $this->instance = new PDOConnection();
+        $query = "SELECT * FROM client";
+        $result = $this->instance->select($query);
+
+        foreach ($result as $res){
+            $client = new Client();
+            $client->setId($res['id']);
+            $client->setRefClient($res['ref_client']);
+            $client->setName($res['name']);
+            $client->setNumberChild($res['number_child']);
+            $client->setNumberAdult($res['number_adult']);
+            $client->setStartDate($res['start_date']);
+
+            $array[] = $client;
+        }
+        return $array;
+    }
     public function room_quota(Request $request)
     {
-        $reference_quota = "quota n°123";
+        $request->getSession()->set('ref_client', "quota n°123");
         $data = array();
         $details = array();
 
-        $base_rooms = $this->getRoom($reference_quota);
+        $base_rooms = $this->getRoom("n°123");
         $existing_base = RoomQuota::$room_type;
 
-        array_set($data, 'reference_quota', $reference_quota);
         array_set($data, 'details', $details);
         array_set($data, 'existing_base', $existing_base);
         array_set($data, 'base_rooms', $base_rooms);
@@ -62,7 +82,6 @@ class QuotaViewController extends Controller
     public function total_quota(Request $request)
     {
         $data = array();
-        $reference_quota = "quota n°123";
 
         $euro = new Exchange(0);
         $dollar = new Exchange(1);
@@ -73,12 +92,12 @@ class QuotaViewController extends Controller
 
         $exchange = array('euro'=>$euro->exchange[0], 'dollar'=>$dollar->exchange[0]);
 
-        $prestation = $this->getPrestation($reference_quota);
-        $base_rooms = $this->getRoom($reference_quota);
+        $base_rooms = $this->getRoom("n°123");
+        $prestation = $this->getPrestation("");
 
         $existing_base = RoomQuota::$room_type;
 
-        array_set($data, 'reference_quota', $reference_quota);
+        array_set($data, 'reference_quota', 'n° 123');
         array_set($data, 'prestation', $prestation);
         array_set($data, 'base_rooms', $base_rooms);
         array_set($data, 'existing_base', $existing_base);
