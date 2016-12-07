@@ -44,7 +44,7 @@ class infoController extends Controller
         array_set($data, 'stay', $stay);
 
         //return $this->app()->make('twig.view')->render('info.twig',$data);
-        return "fgggghh";
+
 
     }
 

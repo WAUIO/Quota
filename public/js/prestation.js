@@ -1,3 +1,24 @@
+
+$( function() {
+    $( "#accordion" ).accordion();
+
+    $('.checked_list_content').perfectScrollbar();
+
+    $('.list_service').perfectScrollbar();
+
+    $('#btn_next').click(function () {
+        showMessage();
+    });
+
+    $('.delete_prestation').click(function(e){
+        e.preventDefault();
+        deletePrestation(this);
+    });
+
+    searchPrestation();
+    checkPrestation();
+} );
+
 //service search filter
 function searchPrestation(){
     $('.search_prestation').keyup(function(){
@@ -115,7 +136,6 @@ function deletePrestation($this){
     checkScroll(parent_div);
 }
 
-
 function mouseEvent(){
     var checked_prestation = $('.checked_prestation');
 
@@ -151,5 +171,23 @@ function checkPrestation(){
         }
         resetCheckedScroll(parent_div);
     });
+}
+
+function showQuota(){
+    $('.check').click(function(){
+        if ($(this).is(":checked")){
+            var label_text = $(this).siblings('label').text();
+        }
+
+    });
+}
+
+
+function showMessage(){
+    if($('#accordion').find('.check:checked').length < 1){
+        $('.no_service').css('display', 'block').delay(3000).fadeOut();
+    }else{
+        $('#quotafade').css('display','block');
+    }
 }
 
