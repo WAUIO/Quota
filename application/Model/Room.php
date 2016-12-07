@@ -1,5 +1,7 @@
 <?php
 namespace App\Model;
+
+use App\DatabaseConnection\PDOConnection;
 /**
  * Created by PhpStorm.
  * User: ninah
@@ -8,32 +10,30 @@ namespace App\Model;
  */
 class Room
 {
-    private $conn;
+
 
     public function __construct(){
-        $db = Connexion::getInstance();
-        $this->conn = $db->getPdo();
+        $this->instance = new PDOConnection();
+//        $db = Connexion::getInstance();
+//        $this->conn = $db->getPdo();
     }
 
     public function selectRoom($id){
-        $sql="SELECT item_id,category,others FROM room WHERE house_id = :id";
-        $query=$this->conn->prepare($sql);
-        $query->bindParam(':id',$id,\PDO::PARAM_STR);
-        $query->execute();
-        $res=array();
-        while($row=$query->fetch(\PDO::FETCH_ASSOC)){
-            $res[]=$row;
-        };
-     return $res;
+        $sql="SELECT item_id,category,others FROM room WHERE house_id = $id";
+        return $this->instance->select($sql);
+//        $query->bindParam(':id',$id,\PDO::PARAM_STR);
+//        $query->execute();
+//        $res=array();
+//        while($row=$query->fetch(\PDO::FETCH_ASSOC)){
+//            $res[]=$row;
+//        };
 
     }
     public function selectOthers($id){
-        $sql="SELECT others FROM room WHERE item_id=:id";
-        $query=$this->conn->prepare($sql);
-        $query->bindParam(':id',$id,\PDO::PARAM_STR);
-        $query->execute();
-        $res=$query->fetch(\PDO::FETCH_ASSOC);
-        return $res;
-
+        $sql="SELECT others FROM room WHERE item_id=$id";
+        return $this->instance->select($sql);
+//        $query->bindParam(':id',$id,\PDO::PARAM_STR);
+//        $query->execute();
+//        $res=$query->fetch(\PDO::FETCH_ASSOC);
     }
 }

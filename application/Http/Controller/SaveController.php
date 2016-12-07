@@ -19,79 +19,81 @@ class SaveController extends Controller
 {
 
     public function saveRoom(){
-        $others=new Room();
-        $id=$_GET['id'];
-       $euro=new Exchange(0);
-        $dollar=new Exchange(1);
-        $e=$euro->exchange[0];
-        $d=$dollar->exchange[0];
-        $room=$others->selectOthers($id);
-        $rest=json_decode($room['others']);
-        $currency=$rest->{'public-rate'}->value->currency;
-        $rate=$rest->{'wau-rate'}->value;
-        if($currency=="EUR"){
-            $price=$rate * $e;
-        }else if($currency=="MGA"){
-            $price=$rate;
+        $others = new Room();
+        $id = $_GET['id'];
+        $euro = new Exchange(0);
+        $dollar = new Exchange(1);
+        $e = $euro->exchange[0];
+        $d = $dollar->exchange[0];
+        $room = $others->selectOthers($id);
+        $rest = json_decode($room['others']);
+        $currency = $rest->{'public-rate'}->value->currency;
+        $rate = $rest->{'wau-rate'}->value;
+        if($currency == "EUR"){
+            $price = $rate * $e;
+        }else if($currency == "MGA"){
+            $price = $rate;
         }else{
-            $price=$rate * $d;
+            $price = $rate * $d;
         }
         return $price;
 
     }
     public function priceBoard(){
-        $id=$_GET['id'];
-        $board=new Restaurant();
-        $euro=new Exchange(0);
-        $dollar=new Exchange(1);
-        $e=$euro->exchange[0];
-        $d=$dollar->exchange[0];
-        $rslt=$board->otherBoard($id);
-        $data=json_decode($rslt['others']);
-        $rate=$data->{'wau-rate'}->value;
-        $current=$data->{'price-menu'}->value->currency;
-        if($current=="EUR"){
-            $price=$rate * $e;
-        }else if($current=="MGA"){
-            $price=$rate;
+        $id =$_GET['id'];
+        $board = new Restaurant();
+        $euro = new Exchange(0);
+        $dollar = new Exchange(1);
+        $e = $euro->exchange[0];
+        $d = $dollar->exchange[0];
+        $rslt = $board->otherBoard($id);
+        $data = json_decode($rslt[0]['others']);
+        $rate = $data->{'wau-rate'}->value;
+        $current = $data->{'price-menu'}->value->currency;
+        if($current == "EUR"){
+            $price = $rate * $e;
+        }else if($current == "MGA"){
+            $price = $rate;
         }else{
-            $price=$rate * $d;
+            $price = $rate * $d;
         }
         return $price;
     }
 
     public function itBoard(){
-        $menu=$_GET['menu'];
-        $board=new Restaurant();
-        $euro=new Exchange(0);
-        $dollar=new Exchange(1);
-        $e=$euro->exchange[0];
-        $d=$dollar->exchange[0];
-        $rslt=$board->typeBoard($menu);
-        $data=json_decode($rslt['others']);
-        $rate=$data->{'wau-rate'}->value;
-        $current=$data->{'price-menu'}->value->currency;
-        if($current=="EUR"){
-            $price=$rate * $e;
-        }else if($current=="MGA"){
-            $price=$rate;
+        $menu = 'Half Board - Bung DBL - /pax - LS - 2017';//$_GET['menu'];
+        $board = new Restaurant();
+        $euro = new Exchange(0);
+        $dollar = new Exchange(1);
+        $e = $euro->exchange[0];
+        $d = $dollar->exchange[0];
+        $rslt = $board->typeBoard($menu);
+        $data = json_decode($rslt[0]['others']);
+
+        $rate = $data->{'wau-rate'}->value;
+        $current = $data->{'price-menu'}->value->currency;
+        if($current == "EUR"){
+            $price = $rate * $e;
+        }else if($current == "MGA"){
+            $price = $rate;
         }else{
-            $price=$rate * $d;
+            $price = $rate * $d;
         }
         return $price;
     }
 
     public function saveQuotaRoom(){
-        $quota=new QuotaRoom();
-        $base=$_GET['base'];
-        $board=$_GET['board'];
-        $id_cli=$_GET['id'];
-        $id_house=$_GET['idHouse'];
-        $rate=$_GET['price'];
-        $price_room=(float) $rate;
-        $others=$_GET['others'];
-        $true=$quota->insertToQuota($base,$board,$id_cli,$id_house,$price_room,$others);
-        return (string)$true;
+        $quota = new QuotaRoom();
+        $base = $_GET['base'];
+        $board = $_GET['board'];
+        $id_cli = $_GET['id'];
+        $id_house = $_GET['idHouse'];
+        $rate = $_GET['price'];
+        $price_room = (float) $rate;
+        $others = $_GET['others'];
+        $array  =  array($base, $board, $id_cli, $id_house, $id_house, $price_room, $others);
+
+        $quota->insertToQuota($array);
     }
 
 }

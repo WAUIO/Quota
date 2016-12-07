@@ -25,11 +25,13 @@ class HouseController extends Controller
          $result=$house->selectData();
          $euro=new Exchange(0);
          $dollar=new Exchange(1);
+
          $id=new Client();
          $lastId=$id->getId();
         return $this->app()->make('twig.view')->render('form.twig',['refclient'=>$lastId,'listhouse'=>$result,'euro'=>$euro->exchange[0],'dollar'=>$dollar->exchange[0]]);
        // return $this->app()->make('twig.view')->render('form.twig',['listhouse'=>$result,'euro'=>$euro,'dollar'=>$dollar]);
      }
+
     public function dataRoom()
     {
         $list=new Room();

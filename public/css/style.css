@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .zoom{
     width:50%;
     bottom:0;
@@ -9,8 +8,6 @@
     cursor:pointer;
     transition:all .3s ease;
 }
-=======
->>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 
 .bootstrap-select {
   outline: none !important;
@@ -27,19 +24,9 @@ footer {
 }
 
 #logo{
-<<<<<<< HEAD
     width: 90px;
     position: relative;
-<<<<<<< HEAD
     top:-10px;
-=======
-    top:0px;
->>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
-=======
-  width: 90px;
-  position: relative;
-  top: 0px;
->>>>>>> 83b5be6778f246b5954790615c398c85018e7e88
 }
 
 .title-logo, .navbar-nav{
@@ -54,12 +41,9 @@ footer {
   padding-top: 5px;
 
 }
-<<<<<<< HEAD
 .sidebar-outer {
     position: relative;
 }
-=======
->>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 .sidebar-nav-fixed {
   width: 20%;
 }
@@ -111,27 +95,14 @@ footer {
   font-size: 300%;
 }
 #reference{
-<<<<<<< HEAD
-<<<<<<< HEAD
     background: #f4f4f4;
     color: #6F6F6F;
     padding: 10px;
     font-size:120%;
     font-weight: bold;
 }
-=======
-    color: #6F6F6F;
-=======
-  background: #f4f4f4;
-  color: #6F6F6F;
-  padding: 10px;
-  font-size: 120%;
-  font-weight: bold;
->>>>>>> 83b5be6778f246b5954790615c398c85018e7e88
-}
 
 
->>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 /******* For quota view *******/
 .base_title{
   text-align: center;
@@ -164,7 +135,6 @@ td {
   color: rgb(111, 111, 111);
   padding-left: 10px;
 }
-<<<<<<< HEAD
 .check{
     width:25px;
 }
@@ -177,9 +147,7 @@ td {
 #Tfoot > tr > td{
     font-weight:bold;
 }
-=======
 
->>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 .td_designation{
   width: 100%;
   padding-left: 20px;
@@ -212,10 +180,6 @@ table > thead > tr > th, .total_designation {
 .red, .others{
   color: #DD1144;
 }
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 /*table::selection {*/
     /*background-color:transparent;*/
 /*}*/
@@ -233,9 +197,6 @@ table > thead > tr > th, .total_designation {
     /*-webkit-tap-highlight-color: rgba(0, 0, 0, 0);*/
 /*}*/
 
->>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
-=======
->>>>>>> 83b5be6778f246b5954790615c398c85018e7e88
 .designation{
   font-weight: bold;
 }
@@ -245,13 +206,6 @@ table > thead > tr > th, .total_designation {
 .devise{
   font-weight: normal !important;
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
-=======
->>>>>>> 83b5be6778f246b5954790615c398c85018e7e88
 /******* For detail *******/
 .detail{
   background: #f4f4f4;
@@ -423,18 +377,10 @@ table > thead > tr > th, .total_designation {
 .type_client{
   margin-left: 20px;
 }
-<<<<<<< HEAD
+
 h2,h3{
-=======
-h3{
-<<<<<<< HEAD
->>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
     color:#2B838E;
     font-weight: bolder;
-=======
-  color: #2B838E;
-  font-weight: bolder;
->>>>>>> 83b5be6778f246b5954790615c398c85018e7e88
 }
 
 .save_btn{
@@ -453,40 +399,23 @@ h3{
 }
 
 #hotel{
-<<<<<<< HEAD
-<<<<<<< HEAD
     width: 80px;
     height:60px;
 }
 #clientsubmit {
     margin-top: 30px;
-=======
     width: 60px;
     height:40px;
->>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
-=======
-  width: 60px;
-  height: 40px;
->>>>>>> 83b5be6778f246b5954790615c398c85018e7e88
 }
 #sgl{
   width: 10px;
   height: 10px;
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
-
 
 
 
 /* Menu */
 
-
->>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
-=======
->>>>>>> 83b5be6778f246b5954790615c398c85018e7e88
 .navbar-nav a{
   float: left;
   color: #fafafa;
@@ -508,7 +437,6 @@ h3{
   display: block;
 }
 
-<<<<<<< HEAD
 #banner{
     margin-right: auto;
     margin-left: auto;
@@ -521,8 +449,6 @@ h3{
 #customer{
     display: none;
 }
-=======
->>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 /* Sous-menu */
 
 
@@ -560,14 +486,6 @@ h3{
   -webkit-box-shadow: 0 -1px 0 #D1D3D4, 0 1px 0 #D1D3D4;
   box-shadow: 0 -1px 0 #D1D3D4, 0 1px 0 #D1D3D4;
 }
-<<<<<<< HEAD
-=======
-/*.navbar-nav ul li:last-child{*/
-/*-moz-box-shadow: none;*/
-/*-webkit-box-shadow: none;*/
-/*box-shadow: 0 0 0 #2B838E, 0 1px 0 #D1D3D4;*/
-/*}*/
->>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 
 .navbar-nav ul a{
   padding: 10px;
@@ -593,8 +511,7 @@ h3{
   background: -ms-linear-gradient(#2B838E, #2B838E);
   background: linear-gradient(#2B838E, #2B838E);
 }
-<<<<<<< HEAD
-=======
+
 
 
 /*.navbar-nav ul li:first-child a:after{*/
@@ -609,7 +526,6 @@ h3{
 /*border-bottom: 8px solid #2B838E;*/
 /*}*/
 
->>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 .navbar-nav ul li:first-child a:hover:after{
   border-bottom-color: #D1D3D4;
 }
@@ -629,9 +545,6 @@ h3{
   clear: both;
   height: 0;
 }
-
-<<<<<<< HEAD
-<<<<<<< HEAD
 .main{
     background-color:whitesmoke;
 }
@@ -701,12 +614,7 @@ li .lign{
 }
 
 
-=======
->>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 * html .navbar-nav             { zoom: 1; } /* IE6 */
-=======
-* html .navbar-nav       { zoom: 1; } /* IE6 */
->>>>>>> 83b5be6778f246b5954790615c398c85018e7e88
 *:first-child+html .navbar-nav { zoom: 1; } /* IE7 */
 
 /*****total_table*****/
@@ -721,12 +629,10 @@ li .lign{
   cursor: pointer;
 
 }
-<<<<<<< HEAD
+
 .btn-danger{
     margin-right: 20px;
 }
-=======
->>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
 
 .table-add {
   color: #070;
@@ -770,9 +676,6 @@ li .lign{
     border-radius: 3px;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-}
 
 
 .col-form-label{
@@ -794,10 +697,6 @@ li .lign{
       background: #2aa198;
   }
 
-=======
-}
->>>>>>> c2b93bfe3bc79d87fe043bba5487b45f82bb3c66
-=======
 .search_message{
     display: none;
     color: #FF0F22;
@@ -892,7 +791,6 @@ li .lign{
     border-radius: 2px;
     margin-top: 10px;
 }
-.next_prestation:hover{
-    background: #2aa198;
+.next_prestation:hover {
+  background: #2aa198;
 }
->>>>>>> 83b5be6778f246b5954790615c398c85018e7e88

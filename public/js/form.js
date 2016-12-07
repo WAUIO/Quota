@@ -56,6 +56,7 @@ function inHouse(){
                 // $('#exch').empty();
                 $.each(d,function(i,r){
                     var str=r.others;
+                    console.log(r.others);
                     var obj=JSON.parse(str);
                     if(r.category=="Single"|| r.category=="Extra-bed"){
                         var opt = "<option value=" +  r.item_id + ">" + obj['name'].value + "</option>";
@@ -85,6 +86,8 @@ function inHouse(){
                         id: id
                     },
                     success:function (d) {
+
+                    console.log(d);
                         var data=JSON.parse(d);
                         console.log(data);
                         $('#bft').empty();
@@ -251,7 +254,6 @@ function Quotaroom(){
             var vr = opselect.val();
             var family="base=Family&price=";
             var add=0;
-            alert(vr);
             $.ajax({
                 type: 'GET',
                 url: '/sgl',
@@ -260,9 +262,11 @@ function Quotaroom(){
                     id: vr
                 },
                 success: function (data) {
+                    alert (data);
                     add=(add + parseInt(data));
                 }
             });
+            family+=add;
             basefamily+=family;
             basefamily+="&idHouse="+houseId;
             basefamily+="&id="+idcli;

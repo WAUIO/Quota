@@ -7,30 +7,20 @@
  */
 
 namespace App\Model;
+use App\DatabaseConnection\PDOConnection;
 use Illuminate\Database\Eloquent\Model;
 
 
 class House
 {
-
-    private $con; //variable de connexion
-
+    var $instance;
     public function __construct()
     {
-        $db = Connexion::getInstance();
-        $this->con = $db->getPdo();
+        $this->instance = new PDOConnection();
     }
     public function selectData(){
-        $sql="SELECT item_id,house_title FROM house";
-        $query=$this->con->prepare($sql);
-        $query->execute();
-        $final=array();
-        while($result=$query->fetch(\PDO::FETCH_ASSOC)){
-            $final[]=$result;
-        };
- return $final;
-
-
+        $sql = "SELECT item_id,house_title FROM house";
+        return $this->instance->select($sql);
     }
 
 }

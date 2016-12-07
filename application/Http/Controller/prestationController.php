@@ -6,7 +6,6 @@ use App\DatabaseConnection\PDOConnection;
 use App\Utils\Prestation;
 use Symfony\Component\HttpFoundation\Request;
 use Wau\Http\Controller;
-use App\Utils\RoomBase;
 
 class prestationController extends Controller
 {

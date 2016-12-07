@@ -7,45 +7,30 @@
  */
 
 namespace App\Model;
-
+use App\DatabaseConnection\PDOConnection;
 
 class Restaurant
 {
-    private $conn;
+    var $instance;
 
     public function __construct(){
-        $db = Connexion::getInstance();
-        $this->conn = $db->getPdo();
+        $this->instance = new PDOConnection();
     }
     public function selectRestauration($id){
-        $sql="SELECT item_id,menu,meals FROM restaurant WHERE house_id = :id";
+        $sql="SELECT item_id,menu,meals FROM restaurant WHERE house_id = $id";
 //        IdHouse=:id AND
-        $query=$this->conn->prepare($sql);
-        $query->bindParam(':id',$id,\PDO::PARAM_STR);
-        $query->execute();
-        $res=array();
-        while($row=$query->fetch(\PDO::FETCH_ASSOC)){
-            $res[]=$row;
-        };
-        return $res;
+        return $this->instance->select($sql);
+//
+
     }
     public function otherBoard($id){
-        $sql="SELECT others FROM restaurant WHERE item_id = :id";
-        $query=$this->conn->prepare($sql);
-        $query->bindParam(':id',$id,\PDO::PARAM_STR);
-        $query->execute();
-        $res=$query->fetch(\PDO::FETCH_ASSOC);
+        $sql="SELECT others FROM restaurant WHERE item_id = $id ";
+        return $this->instance->select($sql);
 
-        return $res;
     }
 
     public function typeBoard($menu){
-        $sql="SELECT others FROM restaurant WHERE menu = :menu";
-        $query=$this->conn->prepare($sql);
-        $query->bindParam(':menu',$menu,\PDO::PARAM_STR);
-        $query->execute();
-        $res=$query->fetch(\PDO::FETCH_ASSOC);
-
-        return $res;
+        $sql="SELECT others FROM restaurant WHERE menu = '".$menu."'";
+        return $this->instance->select($sql);
     }
 }

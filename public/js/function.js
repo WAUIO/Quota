@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
 
+
     $(this).scrollTop(0);
     $('#family_member').on('change keyup', function () {
         calculateFamilyTotal($(this));
@@ -84,18 +85,18 @@ function client(){
                 cache : false,
                 success : function(data){
                     console.log(data);
-
                 },
               error:function(){
                     console.log("you have an error");
                 }
             });
+
+                location.reload();
         }else{
             var p="<p> <span class=' glyphicon glyphicon-hand-right'></span>  Format or values of your entries are not permissible,please retry!</p>";
             $("#banner").append(p);
         }
 
-        location.reload();
     });
 }
 
@@ -305,7 +306,7 @@ function editValuePopup() {
         }
     });
     $("#search_control").removeAttr("disabled");
-    total_dataTable();
+   // total_dataTable();
     somme("#table_single_room");
     //somme("#table_double_room");
 }
