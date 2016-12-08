@@ -4,7 +4,7 @@
 }
 .funkyradio{
     margin:0;
-    padding-top: -20px;
+    padding-top: -20PX;
 }
 .funkyradio div {
 
@@ -19,10 +19,10 @@
     font-weight: normal;
 }
 
+
 .input_cheboxck {
     border:none;
 }
-
 .funkyradio input[type="checkbox"]:empty {
     display: none;
 }

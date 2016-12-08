@@ -2,7 +2,6 @@
 namespace App\Model;
 
 use App\DatabaseConnection\PDOConnection;
-
 class Room
 {
 

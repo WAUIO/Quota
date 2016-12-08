@@ -16,6 +16,7 @@ class Migration
     public function getItems($app)
     {
         $offset = 0;
+
         $limit = 2;
 
         $items = \PodioItem::filter($app['app_id'], array('limit' => $limit, 'offset' => $offset, 'sort_by' => 'created_on'));
@@ -50,6 +51,7 @@ class Migration
             $query = "";
             $dataItem = $this->getDataItem($item);
 
+<<<<<<< HEAD
             switch (strtolower($app_name)){
                 case 'houses':
                     if(!array_key_exists('title',$dataItem)){
@@ -112,6 +114,71 @@ class Migration
                     break;
             }
             $this->instance->insert_migration($query, $dataItem);
+=======
+
+//            switch (strtolower($app_name)){
+//                case 'houses':
+//                    if(!array_key_exists('title',$dataItem)){
+//                        $dataItem = $this->array_insert_before(1, $dataItem, 'title', "");
+//                    }
+//                    $table = "house";
+//                    $query = "INSERT INTO ".$table." (item_id, house_title, others) VALUES (:itemid, :title, :others)
+//                              ON DUPLICATE KEY UPDATE house_title = VALUES(house_title), others = VALUES(others)";
+//                    break;
+//
+//                case 'rooms':
+//                    if(!array_key_exists('for-hotel',$dataItem)){
+//                        $dataItem = $this->array_insert_before(1, $dataItem, 'forhotel', "");
+//                    }
+//                    if(!array_key_exists('room-category',$dataItem)){
+//                        $dataItem = $this->array_insert_before(2, $dataItem, 'roomcategory', "");
+//                    }
+//                    $table = "room";
+//                    $query = "INSERT INTO ".$table." (item_id, house_id, category, others) VALUES (:itemid, :forhotel, :roomcategory, :others)
+//                              ON DUPLICATE KEY UPDATE house_id = VALUES(house_id), others = VALUES(others)";
+//                    break;
+//
+//                case 'restaurants':
+//                    if(!array_key_exists('house',$dataItem)){
+//                        $dataItem = $this->array_insert_before(1, $dataItem, 'house', "");
+//                    }
+//                    if(!array_key_exists('menu',$dataItem)){
+//                        $dataItem = $this->array_insert_before(2, $dataItem, 'menu', "");
+//                    }
+//                    if(!array_key_exists('meals',$dataItem)){
+//                        $dataItem = $this->array_insert_before(3, $dataItem, 'meals', "");
+//                    }
+//                    $table = "restaurant";
+//                    $query = "INSERT INTO ".$table." (item_id, house_id, menu, meals, others) VALUES (:itemid, :house, :menu, :meals, :others)
+//                              ON DUPLICATE KEY UPDATE house_id = VALUES(house_id), menu = VALUES(menu), meals = VALUES(meals), others = VALUES(others)";
+//                    break;
+//
+//                case 'activities':
+//                    if(!array_key_exists('price-2',$dataItem)){
+//                        $dataItem = $this->array_insert_before(1, $dataItem, 'price2', "");
+//                    }
+//                    $table = "activity";
+//                    $query = "INSERT INTO ".$table." (item_id, price, others) VALUES (:itemid, :price2, :others)
+//                              ON DUPLICATE KEY UPDATE price = VALUES(price), others = VALUES(others)";
+//                    break;
+//
+//                case 'transports':
+//                    if(!array_key_exists('price-2',$dataItem)){
+//                        $dataItem = $this->array_insert_before(1, $dataItem, 'price2', "");
+//                    }
+//                    $table = "transport";
+//                    $query = "INSERT INTO ".$table." (item_id, price, others) VALUES (:itemid, :price2, :others)
+//                              ON DUPLICATE KEY UPDATE price = VALUES(price), others = VALUES(others)";
+//                    break;
+//
+//                case 'places':
+//                    $table = "place";
+//                    $query = "INSERT INTO ".$table." (item_id, others) VALUES (:itemid, :others)
+//                              ON DUPLICATE KEY UPDATE others = VALUES(others)";
+//                    break;
+//            }
+//            $this->instance->insert($query, $dataItem);
+>>>>>>> 627761f1db75925567efa71a01f1dc764813efab
         }
     }
 

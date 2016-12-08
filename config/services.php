@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     'swiftmailer' => [
         'host' => 'smtp.mandrillapp.com',
         'port' => 587,

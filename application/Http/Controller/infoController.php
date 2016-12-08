@@ -10,6 +10,7 @@ class infoController extends Controller
     public function info()
     {
         return $this->app()->make('twig.view')->render('info.twig');
+
     }
 
     public function afficheInfo()
@@ -43,8 +44,8 @@ class infoController extends Controller
         array_set($data, 'nb', $nbChildren);
         array_set($data, 'stay', $stay);
 
-        return $this->app()->make('twig.view')->render('info.twig',$data);
-        var_dump($stay);die();
+        //return $this->app()->make('twig.view')->render('info.twig',$data);
+        return "fgggghh";
 
     }
 

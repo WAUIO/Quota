@@ -1,3 +1,13 @@
+.zoom{
+    width:50%;
+    bottom:0;
+    left:0;
+    font:700 1.2em/45px sans-serif;
+    color:#fff;
+    background:#333;
+    cursor:pointer;
+    transition:all .3s ease;
+}
 
 .bootstrap-select {
     outline: none !important;
@@ -16,7 +26,11 @@ footer {
 #logo{
     width: 90px;
     position: relative;
+<<<<<<< HEAD
     top: 0px;
+=======
+    top:-10px;
+>>>>>>> 627761f1db75925567efa71a01f1dc764813efab
 }
 
 .title-logo, .navbar-nav{
@@ -34,6 +48,9 @@ footer {
 .well{
     min-width: 200px;
     padding-top: 5px;
+}
+.sidebar-outer {
+    position: relative;
 }
 .sidebar-nav-fixed {
     width: 20%;
@@ -85,10 +102,18 @@ footer {
 .page-header{
     font-size: 300%;
 }
+<<<<<<< HEAD
 .title{
     font-size: 200%;
     color: #6F6F6F;
     padding: 10px;
+=======
+#reference{
+    background: #f4f4f4;
+    color: #6F6F6F;
+    padding: 10px;
+    font-size:120%;
+>>>>>>> 627761f1db75925567efa71a01f1dc764813efab
     font-weight: bold;
 }
 
@@ -124,6 +149,18 @@ td {
     color: rgb(111, 111, 111);
     padding-left: 10px;
 }
+.check{
+    width:25px;
+}
+#savequota{
+    margin-bottom: 30px;
+}
+#Tbody > tr > td{
+    font-weight: bold;
+}
+#Tfoot > tr > td{
+    font-weight:bold;
+}
 
 .td_designation{
     width: 100%;
@@ -157,6 +194,22 @@ table > thead > tr > th, .total_designation {
 .red, .others{
     color: #DD1144;
 }
+/*table::selection {*/
+    /*background-color:transparent;*/
+/*}*/
+/*table::-moz-selection {*/
+    /*background-color:transparent;*/
+/*}*/
+/*table {*/
+    /*-webkit-user-select: none;*/
+    /*-moz-user-select: -moz-none;*/
+    /*!*IE10*!*/
+    /*-ms-user-select: none;*/
+    /*user-select: none;*/
+
+    /*!*You just need this if you are only concerned with android and not desktop browsers.*!*/
+    /*-webkit-tap-highlight-color: rgba(0, 0, 0, 0);*/
+/*}*/
 
 .designation{
     font-weight: bold;
@@ -336,8 +389,14 @@ table > thead > tr > th, .total_designation {
 .type_client{
     margin-left: 20px;
 }
+<<<<<<< HEAD
 h3{
     color: #2B838E;
+=======
+
+h2,h3{
+    color:#2B838E;
+>>>>>>> 627761f1db75925567efa71a01f1dc764813efab
     font-weight: bolder;
 }
 
@@ -357,13 +416,28 @@ h3{
 }
 
 #hotel{
+<<<<<<< HEAD
     width: 60px;
     height: 40px;
+=======
+    width: 80px;
+    height:60px;
+}
+#clientsubmit {
+    margin-top: 30px;
+    width: 60px;
+    height:40px;
+>>>>>>> 627761f1db75925567efa71a01f1dc764813efab
 }
 #sgl{
     width: 10px;
     height: 10px;
 }
+
+
+
+/* Menu */
+
 .navbar-nav a{
     float: left;
     color: #fafafa;
@@ -385,6 +459,18 @@ h3{
     display: block;
 }
 
+#banner{
+    margin-right: auto;
+    margin-left: auto;
+}
+#banner p{
+    font-size: 16px;
+    font-weight: bold;
+    color:red;
+}
+#customer{
+    display: none;
+}
 /* Sous-menu */
 .navbar-nav ul{
     list-style: none;
@@ -420,6 +506,10 @@ h3{
     -webkit-box-shadow: 0 -1px 0 #D1D3D4, 0 1px 0 #D1D3D4;
     box-shadow: 0 -1px 0 #D1D3D4, 0 1px 0 #D1D3D4;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 627761f1db75925567efa71a01f1dc764813efab
 .navbar-nav ul a{
     padding: 10px;
     height: auto;
@@ -436,6 +526,7 @@ h3{
 }
 
 .navbar-nav ul a:hover{
+<<<<<<< HEAD
     background: #2B838E;
     background: -moz-linear-gradient(#2B838E, #2B838E);
     background: -webkit-gradient(linear, left top, left bottom, from(#2B838E), to(#2B838E));
@@ -444,6 +535,31 @@ h3{
     background: -ms-linear-gradient(#2B838E, #2B838E);
     background: linear-gradient(#2B838E, #2B838E);
 }
+=======
+  background: #2B838E;
+  background: -moz-linear-gradient(#2B838E, #2B838E);
+  background: -webkit-gradient(linear, left top, left bottom, from(#2B838E), to(#2B838E));
+  background: -webkit-linear-gradient(#2B838E, #2B838E);
+  background: -o-linear-gradient(#2B838E, #2B838E);
+  background: -ms-linear-gradient(#2B838E, #2B838E);
+  background: linear-gradient(#2B838E, #2B838E);
+}
+
+
+
+/*.navbar-nav ul li:first-child a:after{*/
+/*content: '';*/
+/*position: absolute;*/
+/*left: 30px;*/
+/*top: -8px;*/
+/*width: 0;*/
+/*height: 0;*/
+/*border-left: 5px solid transparent;*/
+/*border-right: 5px solid transparent;*/
+/*border-bottom: 8px solid #2B838E;*/
+/*}*/
+
+>>>>>>> 627761f1db75925567efa71a01f1dc764813efab
 .navbar-nav ul li:first-child a:hover:after{
     border-bottom-color: #D1D3D4;
 }
@@ -463,8 +579,76 @@ h3{
     clear: both;
     height: 0;
 }
+.main{
+    background-color:whitesmoke;
+}
+.form-horizontal{
+    padding-top:40px;
+    padding-bottom:40px;
+}
+#board{
+    width: 60px;
+    height: 40px;
+}
+#room {
+    width: 60px;
+    height: 40px;
+}
 
-* html .navbar-nav       { zoom: 1; } /* IE6 */
+.form-control{
+    margin: auto;
+
+}
+.icon{
+    width: 15px;
+    height: 15px;
+}
+#save{
+    width: 90px;
+    height: 50px;
+}
+.container{
+    background-color: rgba(1,1,1,0.03);
+}
+#clientsubmit{
+    width:70px;
+}
+.row{
+    margin-top: 10px;
+}
+.btn{
+    width:100px;
+}
+.img{
+    width:15%;
+    height:10%;
+}
+.selectpicker{
+    margin-top: 10px;
+}
+.currency{
+    width:30px;
+    height:30px;
+}
+ul{
+    list-style: none;
+}
+li .lign{
+ background-color: whitesmoke;
+    border-radius: 8px;
+}
+.lign{
+    margin-top: 3px;
+}
+.bootstrap-select > #select-hotel{
+    width:90%;
+}
+#Thead{
+    background-color:#2B838E ;
+}
+
+
+* html .navbar-nav             { zoom: 1; } /* IE6 */
 *:first-child+html .navbar-nav { zoom: 1; } /* IE7 */
 
 /*****total_table*****/
@@ -476,6 +660,10 @@ h3{
 .table-remove {
     color: #700;
     cursor: pointer;
+}
+
+.btn-danger{
+    margin-right: 20px;
 }
 
 .table-add {
@@ -519,6 +707,27 @@ h3{
     float: right;
     border-radius: 3px;
 }
+
+
+
+.col-form-label{
+    color: rgb(111, 111, 111);
+    white-space: nowrap;
+}.add_client{
+     float: right;
+     font-size: 110%;
+     font-weight: bold;
+     width: 120px;
+     height: 40px;
+     color: white;
+     text-align: center;
+     line-height: 40px;
+     background: #2B838E;
+     border-radius: 2px;
+     cursor: pointer;
+ }.add_client:hover{
+      background: #2aa198;
+  }
 
 .search_message{
     display: none;
@@ -617,6 +826,6 @@ h3{
     border-radius: 2px;
     margin-top: 10px;
 }
-.next_prestation:hover{
-    background: #2aa198;
+.next_prestation:hover {
+  background: #2aa198;
 }

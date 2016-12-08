@@ -1,0 +1,17 @@
+[
+  {
+  "service": "Guide",
+  "tarif":"CreateDoc",
+    "titre":"Pax"
+  },
+  {
+  "titre": "Entrée parc",
+  "action": "U.P",
+    "titre":"Pax"
+  },
+  {
+  "titre": "voiture 4*4",
+  "action": "Pax",
+    "titre":"Pax"
+  }
+]

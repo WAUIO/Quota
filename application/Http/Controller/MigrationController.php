@@ -1,7 +1,12 @@
 <?php namespace App\Http\Controller;
 
+
+
 use App\Utils\Migration;
 use Wau\Http\Controller;
+use App\DatabaseConnection\PDOConnection;
+use App\Utils\HtmlToText;
+use App\Utils\Mysqldump;
 
 
 class MigrationController extends Controller
@@ -19,9 +24,7 @@ class MigrationController extends Controller
             $app_id = $app['app_id'];
             $app_name = $app['app_name'];
 
-//            if($app_id == 17063267){
-//
-//            }
+
             $migrate->getItems($app);
             echo $app_id." ".$app_name."<br/>";
         }
