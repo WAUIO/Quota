@@ -21,7 +21,6 @@ class Client
        }catch (\Exception $e){
            echo $e->getMessage(),$e->getCode();
        }
-
     }
     public function getId(){
         $stmt="SELECT MAX(id) FROM client";

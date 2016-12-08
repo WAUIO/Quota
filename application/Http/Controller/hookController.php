@@ -7,7 +7,6 @@ use Wau\Http\Controller\WebhookController;
 use App\Utils\HtmlToText;
 
 
-
 class hookController extends WebhookController
 {
     protected $routes = [
@@ -33,17 +32,6 @@ class hookController extends WebhookController
         $this->deleteItem($app_id, $item_id);
 
     }
-
-    /*public function itemDelete(Request $request)
-    {
-        $item_id = intval($request->get('item_id'));
-
-        $item = \PodioItem::get_basic( $item_id);
-
-        $app_id = $item->app->app_id;
-        $this->deleteItem($app_id, $item);
-
-    }*/
 
     public function getDataItem($item){
         //House app (field_id)
