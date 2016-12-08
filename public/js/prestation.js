@@ -1,4 +1,3 @@
-
 $( function() {
     $( "#accordion" ).accordion();
 
@@ -6,17 +5,18 @@ $( function() {
 
     $('.list_service').perfectScrollbar();
 
+
     $('#btn_next').click(function () {
+        //
         showMessage();
     });
-
     $('.delete_prestation').click(function(e){
         e.preventDefault();
         deletePrestation(this);
     });
-
     searchPrestation();
     checkPrestation();
+    //
 } );
 
 //service search filter
@@ -49,29 +49,37 @@ function searchPrestation(){
         if(!exist){
             parent_block.find('.search_message').show();
         }else parent_block.find('.search_message').hide();
-        resize(parent_block, items);
         list_service.scrollTop(0);
         list_service.perfectScrollbar('update');
 
+        resize(parent_block, items);
     });
 }
 
 function resize(parent_block, items){
-    parent_block.find('.list_service').css('height',items*36.5);
-    var height_list = parent_block.find('.checked_lists').height();
+    var height_list;
+    var checked = parent_block.find('.checked_prestation').length;
     var height_service = (items*36.5);
+
+    parent_block.find('.list_service').css('height',items*36.5);
+
+    if(checked > 1){
+        height_list = 25*(checked-1) + 46;
+    }
+    else{
+        height_list = 20;
+    }
+
     if(parent_block.find('.search_message').css('display') == 'block'){
         height_service = 20;
         parent_block.find('.list_service').css('height',height_service);
     }
-    console.log("height_list : "+height_list, "height_service : "+height_service);
 
-    if(height_list+16 > height_service && height_list < 300){
+    if(height_list > height_service && height_list < 300){
         parent_block.css('height',height_list+16);
-    }else if(height_list+16 < height_service && height_service < 300){
+    }else if(height_list < height_service && height_service < 300){
         parent_block.css('height',height_service+16);
     }else parent_block.css('height',321);
-
 }
 
 //function checkif a vertical scroll appear
@@ -85,7 +93,6 @@ jQuery.fn.hasScrollBar = function(direction) {
         return this.get(0).scrollWidth > this.innerWidth();
     }
     return false;
-
 };
 
 //check scroll and change view
@@ -147,36 +154,49 @@ function mouseEvent(){
     });
 }
 
-function checkPrestation(){
-    $('.check').click(function() {
-        var parent_div = $('#'+$(this).closest('.per_price').attr('id'));
-        if ($(this).is(":checked")){
+function checkPrestation() {
+    $('.check_value').click(function () {
+        var parent_div = $('#' + $(this).closest('.per_price').attr('id'));
+        if ($(this).is(":checked")) {
             var label_text = $(this).siblings('label').text();
 
-            if(parent_div.find('.check:checked').length == 1){
-                parent_div.find('.checked_list_title').slideDown( 400);
+            if (parent_div.find('.check_value:checked').length == 1) {
+                parent_div.find('.checked_list_title').slideDown(400);
                 parent_div.find('.checked_lists').css('height', 61);
             }
             var $clone = parent_div.find('.checked_list').clone(true).removeClass('checked_list').removeClass('hide');
-            $clone.attr('id',$(this).val());
+            $clone.attr('id', $(this).val());
             $clone.find('.prestation_label').html(label_text).css('font-size', '80%');
             parent_div.find('.checked_list_content').append($clone);
-        }else{
+        } else {
             check_list_id = $(this).val();
-            $('#'+check_list_id).remove();
-            if(parent_div.find('.check:checked').length == 0){
+            $('#' + check_list_id).remove();
+            if (parent_div.find('.check_value:checked').length == 0) {
                 parent_div.find('.checked_lists').css('height', 36);
                 parent_div.find('.checked_list_title').slideUp(400);
             }
         }
+
         resetCheckedScroll(parent_div);
     });
 }
-
+// function showquotapresta(){
+//     $('#btn_next').click(function(){
+//         alert("it's clicked!");
+//         // $('#prestaform').css('display','none');
+//         // $('quotafade').css('display','block');
+//     });
+// }
 function showQuota(){
-    $('.check').click(function(){
-        if ($(this).is(":checked")){
+    $('.check_value').click(function(){
+        var checked=$(this).is(":checked");
+        if (checked){
             var label_text = $(this).siblings('label').text();
+           checked.each(function(){
+               alert('this,this');
+                var row='<tr> <td class="cod">1</td> <td ><span>'+label_text+'</span></td> <td title="min"> <input class="check" name="paxmin" type="text" ></td><td  title="max"><input class="check" name="paxmax" type="text" > </td> <td class="tarif">80000</td> <td title="number"><input class="check" type="text" name="nbsvc"/></td> <td class="type">Pax</td> <td class="total"> </td></tr>';
+               $("#Tbody").append(row);
+            });
         }
 
     });
@@ -184,10 +204,16 @@ function showQuota(){
 
 
 function showMessage(){
-    if($('#accordion').find('.check:checked').length < 1){
+    if($('#accordion').find('.check_value:checked').length < 1){
         $('.no_service').css('display', 'block').delay(3000).fadeOut();
-    }else{
-        $('#quotafade').css('display','block');
+    }
+    else{
+        showQuota();
+        $('#prestation_form').css('display','none');
+       // $('#quotafade').css('display','block');
+        $('#quotafade').slideToggle('slow');
+
     }
 }
+
 

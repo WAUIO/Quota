@@ -150,7 +150,7 @@ function inHouse(){
                 });
             },
             error: function () {
-                alert("you have an error!");
+                console.log("you have an error!");
             }
         });
     });
@@ -262,7 +262,6 @@ function Quotaroom(){
                     id: vr
                 },
                 success: function (data) {
-                    alert (data);
                     add=(add + parseInt(data));
                 }
             });
@@ -577,12 +576,6 @@ function Quotaroom(){
         basefamily+="&others="+others+"&board="+board;
         baseextra+="&others="+others+"&board="+board;
         baseextrac+="&others="+others+"&board="+childBoard;
-        alert(basesingle);
-        alert(basedouble);
-        alert(basetriple);
-        alert(basefamily);
-        alert(baseextra);
-        alert(baseextrac);
         if(basesingle.match(/Single/g)){
             $.ajax({
                 type:'GET',

@@ -22,6 +22,7 @@ class HouseController extends Controller
 
      public function select(){
          $house = new House();
+         //var_dump($house);
          $result=$house->selectData();
          $euro=new Exchange(0);
          $dollar=new Exchange(1);

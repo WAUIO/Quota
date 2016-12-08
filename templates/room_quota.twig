@@ -3,8 +3,8 @@
 
 {% block body %}
     <!--Content LEFT-->
-    <h1 class="page-header" id="reference">
-        Quota room : {{ reference_quota }}
+    <h1 class="title">
+        Room quotation {% if session.ref_client is defined %}azert{% else %}blabla{% endif %}
     </h1>
 
     {% if(base_rooms|length > 0) %}
@@ -113,7 +113,6 @@
         <div class="add_room_button" data-popup-open="popup-1">Add hotel / room</div>
     </div>
 
-    <script src="/js/room_quota.js"></script>
 {% endblock menu_room %}
 
 

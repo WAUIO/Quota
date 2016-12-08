@@ -4,7 +4,6 @@
 
 use App\DatabaseConnection\PDOConnection;
 use App\Utils\Prestation;
-use Symfony\Component\HttpFoundation\Request;
 use Wau\Http\Controller;
 
 class prestationController extends Controller

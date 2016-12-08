@@ -3,6 +3,7 @@
 
 use Symfony\Component\HttpFoundation\Request;
 use Wau\Http\Controller;
+use App\Model\Client;
 //use App\Utils\RoomBase;
 
 class infoController extends Controller
@@ -13,39 +14,22 @@ class infoController extends Controller
 
     }
 
-    public function afficheInfo()
-    {
-        $data = array();
-        $customerRef = $_POST['customerRef'];
-        $name = $_POST['name'];
-        $nbAdults = $_POST['nbAdults'];
-        $nbChildren = $_POST['nbChildren'];
-        $stay = $_POST['stay'];
+    public function clientInsert(){
+        session_start();
+        $client=new Client();
+        $ref = $_GET['customerRef'];
+        $name  = $_GET['name'];
+        $nb_adult = $_GET['nbAdults'];
+        $nb_child = $_GET['nbChildren'];
+        $parts = explode('/', $_GET['stay']);//
+        $date="$parts[2]-$parts[1]-$parts[0]";
+        $array = array('ref'=>$ref,'name'=>$name,'number_adult'=>$nb_adult,'number_child'=>$nb_child,'date'=>$date);
+        $client->insertClient($array);
 
-        array_set($data, 'customerRef', $customerRef);
-        array_set($data, 'name',$name);
-        array_set($data, 'nb', $nbAdults);
-        array_set($data, 'stay', $stay);
+        $_SESSION['id'] = $_GET['ref_cli'];
 
-        return $this->app()->make('twig.view')->render('info.twig',$data);
-    }
-
-    public function save(){
-        $data = array();
-        $customerRef = $_POST['customerRef'];
-        $name = $_POST['name'];
-        $nbAdults = $_POST['nbAdults'];
-        $nbChildren = $_POST['nbChildren'];
-        $stay = $_POST['stay'];
-
-        array_set($data, 'customerRef', $customerRef);
-        array_set($data, 'name',$name);
-        array_set($data, 'nb', $nbAdults);
-        array_set($data, 'stay', $stay);
-
-        //return $this->app()->make('twig.view')->render('info.twig',$data);
-
-
+        //return  $_SESSION['id'];
+        return($array);
     }
 
 }
