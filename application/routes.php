@@ -1,6 +1,7 @@
 <?php
 
 $app->get('/room', 'App\Http\Controller\QuotaViewController@room_quota');
+$app->get('/getClient', 'App\Http\Controller\QuotaViewController@listClient');
 $app->get('/prestation', 'App\Http\Controller\prestationController@prestation');
 $app->get('/total', 'App\Http\Controller\QuotaViewController@total_quota');
 $app->get('/dumpTable', 'App\Http\Controller\MigrationController@dumpTable');

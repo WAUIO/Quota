@@ -12,20 +12,18 @@ $( function() {
 function validateNumber(event) {
     var key = window.event ? event.keyCode : event.which;
 
-    if(event.keyCode != 9 && event.keyCode != 116){
-        if (event.keyCode === 8 || event.keyCode === 46 || event.keyCode === 37 || event.keyCode === 39) {
-            if(parseInt($(this).val()+String.fromCharCode(key)) > 100)
-                return false;
-            return true;
-        }
-        else if ( key < 48 || key > 57 ) {
+    if (event.keyCode === 8 || event.keyCode === 46 || event.keyCode === 37 || event.keyCode === 39) {
+        if(parseInt($(this).val()+String.fromCharCode(key)) > 100)
             return false;
-        }
-        else{
-            if(parseInt($(this).val()+String.fromCharCode(key)) > 100)
-                return false;
-            return true;
-        }
+        return true;
+    }
+    else if ( key < 48 || key > 57 ) {
+        return false;
+    }
+    else{
+        if(parseInt($(this).val()+String.fromCharCode(key)) > 100)
+            return false;
+        return true;
     }
 }
 

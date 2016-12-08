@@ -3,8 +3,8 @@
 
 {% block body %}
     <!--Content LEFT-->
-    <h1 class="page-header" id="reference">
-        Quota room : {{ reference_quota }}
+    <h1 class="title">
+        Room quotation {% if session.ref_client is defined %}azert{% else %}blabla{% endif %}
     </h1>
 
     {% if(base_rooms|length > 0) %}

@@ -76,7 +76,7 @@ class PDOConnection
 
 
 
-    public function select($query)
+    public function  select($query)
     {
         $stm = $this->getInstance()->prepare($query);
         $stm->execute();
