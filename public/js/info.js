@@ -94,10 +94,10 @@ function btnSave(){
     $('#btn-save').on('click',function(){
         var donnees = retrieveData();
         var url="";
-        //envoie les données au url(c.a.d au controlleur et au fonction definie de cette controller)
+//envoie les données au url(c.a.d au controlleur et au fonction definie de cette controller)
         $.post(url,donnees,function(data){
-            //data c'est la vue envoyer par le controller
-            //ici on change le contenue #content par la vue envoyer par le controller
+//data c'est la vue envoyer par le controller
+//ici on change le contenue #content par la vue envoyer par le controller
             $('#content').html(data);
         });
     });

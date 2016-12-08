@@ -35,8 +35,9 @@ $(document).ready(function () {
     editValuePopup();
     calculateTotal();
     ancreLink();
+    client();
+    checkPrestation();
     mouseEvent();
-
     btnSave();
 
 });
