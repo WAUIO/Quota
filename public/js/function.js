@@ -42,6 +42,7 @@ $(document).ready(function () {
     editValuePopup();
     calculateTotal();
     ancreLink();
+    client();
     checkPrestation();
     mouseEvent();
     searchPrestation();
@@ -59,6 +60,42 @@ $( function() {
     };
     $( "#stay" ).datepicker(options);
 } );
+
+function client(){
+    $("#btn-save").click(function(){
+        var ref_regex=new RegExp("[a-zA-Z0-9]{5}", "g");
+        var number_regex=new RegExp("[0-9]","g");
+        var date_regex=new RegExp("(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])\/[0-9]{4}","g");
+        var ref=$("#customerRef").val();
+        var name=$("#name").val();
+        var adult=$("#nbAdults").val();
+        var child=$("#nbChildren").val();
+        var date=$("#stay").val();
+        var info="ref_cli="+ref+"&name="+name+"&adult="+adult+"&child="+child+"&date="+date;
+        if(ref_regex.test(ref) && number_regex.test(adult) && date_regex.test(date)) {
+            $('#banner').empty();
+            $.ajax({
+                type:"GET",
+                url:"/client",
+                data: info,
+                dataType : "html",
+                cache : false,
+                success : function(data){
+                    console.log(data);
+                },
+                error:function(){
+                    console.log("you have an error");
+                }
+            });
+
+            location.reload();
+        }else{
+            var p="<p> <span class=' glyphicon glyphicon-hand-right'></span>  Format or values of your entries are not permissible,please retry!</p>";
+            $("#banner").append(p);
+        }
+
+    });
+}
 
 
 function checkboxEvent() {
