@@ -16,7 +16,7 @@ class PDOConnection
     {
         if(is_null(self::$instance))
         {
-            $app        = Application::getInstance();
+            $app              = Application::getInstance();
             $this->host       = $app->config('database.host');
             $this->name_base  = $app->config('database.database');
             $this->user       = $app->config('database.username');

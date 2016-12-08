@@ -7,12 +7,14 @@ use Wau\Http\Controller;
 
 class infoController extends Controller
 {
-    public function info()
+    public function info(Request $request)
     {
-        return $this->app()->make('twig.view')->render('info.twig');
+        $data = array();
+        array_set($data, 'session', $request->getSession());
+        return $this->app()->make('twig.view')->render('info.twig', $data);
     }
 
-    public function afficheInfo()
+    public function afficheInfo(Request $request)
     {
         $data = array();
         $customerRef = $_POST['customerRef'];
@@ -20,7 +22,9 @@ class infoController extends Controller
         $nbAdults = $_POST['nbAdults'];
         $nbChildren = $_POST['nbChildren'];
         $stay = $_POST['stay'];
+        var_dump($customerRef, $name, $nbAdults, $nbChildren, $stay);
 
+        array_set($data, 'session', $request->getSession());
         array_set($data, 'customerRef', $customerRef);
         array_set($data, 'name',$name);
         array_set($data, 'nb', $nbAdults);
@@ -29,23 +33,17 @@ class infoController extends Controller
         return $this->app()->make('twig.view')->render('info.twig',$data);
     }
 
-    public function save(){
+    public function saveClient(Request $request){
         $data = array();
-        $customerRef = $_POST['customerRef'];
-        $name = $_POST['name'];
-        $nbAdults = $_POST['nbAdults'];
-        $nbChildren = $_POST['nbChildren'];
-        $stay = $_POST['stay'];
 
-        array_set($data, 'customerRef', $customerRef);
-        array_set($data, 'name',$name);
-        array_set($data, 'nb', $nbAdults);
-        array_set($data, 'nb', $nbChildren);
-        array_set($data, 'stay', $stay);
+        array_set($data, 'customerRef', $_GET['customerRef']);
+        array_set($data, 'name',$_GET['name']);
+        array_set($data, 'nbAdult', $_GET['nbAdults']);
+        array_set($data, 'nbChildren', $_GET['nbChildren']);
+        array_set($data, 'stay', $_GET['stay']);
 
-        return $this->app()->make('twig.view')->render('info.twig',$data);
-        var_dump($stay);die();
-
+//        return $this->app()->make('twig.view')->render('info.twig',$data);
+return $data;
     }
 
 }

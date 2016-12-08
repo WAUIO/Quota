@@ -6,9 +6,7 @@ $( function() {
     $('.list_service').perfectScrollbar();
 
     $('#btn_next').click(function () {
-        if(showMessage()){
-            alert("met");
-        }
+        showMessage();
     });
 
     $('.delete_prestation').click(function(e){
@@ -183,7 +181,7 @@ function checkPrestation(){
 }
  function showMessage(){
      if($('#accordion').find('.check:checked').length < 1){
-         $('.no_service').css('display', 'block').delay(3000).fadeOut();
+         $('.no_service_message').css('display', 'block').delay(3000).fadeOut();
          return false;
      }
      return true;

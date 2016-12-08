@@ -3,11 +3,12 @@
 
 use App\DatabaseConnection\PDOConnection;
 use App\Utils\Prestation;
+use Symfony\Component\HttpFoundation\Request;
 use Wau\Http\Controller;
 
 class prestationController extends Controller
 {
-    public function prestation(){
+    public function prestation(Request $request){
 
         $array[] = $this->getPrestation("Per person");
         $array[] = $this->getPrestation("Per booking");

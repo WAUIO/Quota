@@ -51,7 +51,7 @@ function getClient() {
             var $length = data.length;
 
             for(i=0;i<$length;i++){
-                $('#quota_list').append('<div id="client_'+data[i].id+'" class="quota_lists"><a href="#">'+data[i].ref_client+' : '+data[i].name+'azertyuiopaqsdfghjklmwxcvbn123456789</a></div>');
+                $('#quota_list').append('<div id="client_'+data[i].id+'" class="quota_lists"><a href="#">'+data[i].ref_client+' : '+data[i].name+'</a></div>');
             }
         }
     });

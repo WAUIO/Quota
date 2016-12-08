@@ -16,7 +16,7 @@ footer {
 #logo{
     width: 90px;
     position: relative;
-    top: 0px;
+    top: 0;
 }
 
 .title-logo, .navbar-nav{
@@ -336,7 +336,7 @@ table > thead > tr > th, .total_designation {
 .type_client{
     margin-left: 20px;
 }
-h3{
+h2,h3{
     color: #2B838E;
     font-weight: bolder;
 }
@@ -347,9 +347,9 @@ h3{
     background: #CCCCCC;
     color: white;
     width: 100px;
-    height: 34px;
+    height: 40px;
     text-align: center;
-    line-height: 34px;
+    line-height: 40px;
     border-radius: 2px;
 }
 .save_btn:hover{
@@ -482,10 +482,7 @@ h3{
     color: #070;
     cursor: pointer;
 }
- /*information*/
-.form-horizontal{
-    padding: 0 10px;
-}
+
 .col-form-label{
     color: rgb(111, 111, 111);
     white-space: nowrap;
@@ -608,14 +605,16 @@ h3{
     float: right;
 }
 .no_service{
-    display: none;
     color: #FF0F22;
-    height: 34px;
+    height: 40px;
     text-align: right;
     font-style: italic;
-    line-height: 34px;
+    line-height: 40px;
     border-radius: 2px;
     margin-top: 10px;
+}
+.no_service_message{
+    display: none;
 }
 .next_prestation:hover{
     background: #2aa198;

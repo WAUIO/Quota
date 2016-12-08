@@ -26,9 +26,8 @@
         </div>
         <div class="form-group row">
             <label for="label" class="col-xs-2 col-form-label">Number of children</label>
-
             <div class="col-xs-10">
-                <input class="form-control" type="number" min="0" max="100" name="nbAdults" id="nbAdults"/>
+                <input class="form-control" type="number" min="0" max="100" name="nbChildren" id="nbChildren"/>
             </div>
         </div>
         <div class="form-group row">
@@ -38,12 +37,16 @@
             </div>
         </div>
         <div class="form-group row">
-            <div class="col-xs-offset-2 col-xs-10">
-                <div class="add_client" id="btn-save">
+            <div class="col-xs-10">
+                <span class="client_message"></span>
+            </div>
+            <div class="col-xs-2">
+                <div class="add_client" id="btn_save">
                     <span>Save</span>
                 </div>
             </div>
         </div>
-    </form>
 
+        <div id="client_saved" class="row"></div>
+    </form>
 {% endblock body %}

@@ -32,15 +32,17 @@ class QuotaViewController extends Controller
         }
         return $array;
     }
+
     public function room_quota(Request $request)
     {
-        $request->getSession()->set('ref_client', "quota n°123");
+        $request->getSession()->set('ref_client', "Quota n°123");
         $data = array();
         $details = array();
 
         $base_rooms = $this->getRoom("n°123");
         $existing_base = RoomQuota::$room_type;
 
+        array_set($data, 'session', $request->getSession());
         array_set($data, 'details', $details);
         array_set($data, 'existing_base', $existing_base);
         array_set($data, 'base_rooms', $base_rooms);
@@ -53,6 +55,10 @@ class QuotaViewController extends Controller
         //exchange[0] => achat
         //exchange[1] => vente
         //exchange[2] => mid
+
+        $this->instance = new PDOConnection();
+        $query = "SELECT * FROM client";
+        $result = $this->instance->select($query);
 
         $base_rooms = array();
         $euro = new Exchange(0);
@@ -97,6 +103,7 @@ class QuotaViewController extends Controller
 
         $existing_base = RoomQuota::$room_type;
 
+        array_set($data, 'session', $request->getSession());
         array_set($data, 'reference_quota', 'n° 123');
         array_set($data, 'prestation', $prestation);
         array_set($data, 'base_rooms', $base_rooms);
