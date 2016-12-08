@@ -5,11 +5,13 @@ $( function() {
 
     $('.list_service').perfectScrollbar();
 
-
     $('#btn_next').click(function () {
         //
         showMessage();
     });
+
+
+
     $('.delete_prestation').click(function(e){
         e.preventDefault();
         deletePrestation(this);
@@ -180,26 +182,25 @@ function checkPrestation() {
         resetCheckedScroll(parent_div);
     });
 }
-// function showquotapresta(){
-//     $('#btn_next').click(function(){
-//         alert("it's clicked!");
-//         // $('#prestaform').css('display','none');
-//         // $('quotafade').css('display','block');
-//     });
-// }
+
 function showQuota(){
     $('.check_value').click(function(){
         var checked=$(this).is(":checked");
-        if (checked){
-            var label_text = $(this).siblings('label').text();
-           checked.each(function(){
-               alert('this,this');
-                var row='<tr> <td class="cod">1</td> <td ><span>'+label_text+'</span></td> <td title="min"> <input class="check" name="paxmin" type="text" ></td><td  title="max"><input class="check" name="paxmax" type="text" > </td> <td class="tarif">80000</td> <td title="number"><input class="check" type="text" name="nbsvc"/></td> <td class="type">Pax</td> <td class="total"> </td></tr>';
-               $("#Tbody").append(row);
-            });
-        }
 
+        checked.each(function()
+        {
+            alert($(this).text());
+        });
     });
+
+//         if (checked){
+//             var label_text = checked.siblings('label').text();
+//            checked.each(function(){
+//                alert(label_text);
+//                //  var row='<tr> <td class="cod">1</td> <td ><span>'+label_text+'</span></td> <td title="min"> <input class="check" name="paxmin" type="text" ></td><td  title="max"><input class="check" name="paxmax" type="text" > </td> <td class="tarif">80000</td> <td title="number"><input class="check" type="text" name="nbsvc"/></td> <td class="type">Pax</td> <td class="total"> </td></tr>';
+//                // $("#Tbody").append(row);
+//             });
+//         }
 }
 
 
@@ -208,7 +209,6 @@ function showMessage(){
         $('.no_service').css('display', 'block').delay(3000).fadeOut();
     }
     else{
-        showQuota();
         $('#prestation_form').css('display','none');
        // $('#quotafade').css('display','block');
         $('#quotafade').slideToggle('slow');
