@@ -22,7 +22,7 @@ class QuotaViewController extends Controller
         foreach ($result as $res){
             $client = new Client();
             $client->setId($res['id']);
-            $client->setRefClient($res['ref_client']);
+            $client->setReference($res['ref_client']);
             $client->setName($res['name']);
             $client->setNumberChild($res['number_child']);
             $client->setNumberAdult($res['number_adult']);
@@ -35,14 +35,17 @@ class QuotaViewController extends Controller
 
     public function room_quota(Request $request)
     {
-        $request->getSession()->set('ref_client', "Quota n°123");
+        $client = new Client();
+        $client->setId(9);
+        $client->setReference("Quota n°123");
+        $_SESSION['client'] = $client;
         $data = array();
         $details = array();
 
         $base_rooms = $this->getRoom("n°123");
         $existing_base = RoomQuota::$room_type;
 
-        array_set($data, 'session', $request->getSession());
+//        array_set($data, 'session', $request->getSession());
         array_set($data, 'details', $details);
         array_set($data, 'existing_base', $existing_base);
         array_set($data, 'base_rooms', $base_rooms);
@@ -58,7 +61,7 @@ class QuotaViewController extends Controller
 
         $this->instance = new PDOConnection();
         $query = "SELECT * FROM client";
-        $result = $this->instance->select($query);
+        //$result = $this->instance->select($query);
 
         $base_rooms = array();
         $euro = new Exchange(0);
@@ -103,7 +106,6 @@ class QuotaViewController extends Controller
 
         $existing_base = RoomQuota::$room_type;
 
-        array_set($data, 'session', $request->getSession());
         array_set($data, 'reference_quota', 'n° 123');
         array_set($data, 'prestation', $prestation);
         array_set($data, 'base_rooms', $base_rooms);

@@ -1,29 +1,29 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ninah
- * Date: 30/11/16
- * Time: 12:59
- */
 
 namespace App\Http\Controller;
-use App\Model\Client;
-use Symfony\Component\HttpFoundation\Request;
+use App\Model\ClientModel;
 use Wau\Http\Controller;
 
 class ClientController extends Controller
 {
-    public function clientInsert(Request $request){
+    public function clientInsert(){
+        $clientModel=new ClientModel();
+        $client = new \App\Utils\Client();
 
-        $client=new Client();
-        $ref = $_GET['ref_cli'];
-        $name  = $_GET['name'];
-        $nb_adult = $_GET['adult'];
-        $nb_child = $_GET['child'];
-        $parts = explode('/','01/05/2016');//$_GET['date']
-        $date="$parts[2]-$parts[0]-$parts[1]";
-        $array = array('ref'=>$ref,'name'=>$name,'number_adult'=>$nb_adult,'number_child'=>$nb_child,'date'=>$date);
-        $client->insertClient($array);
-        return $request->getSession()->set('ref_client', $ref);
+        $parts = explode('/', $_GET['stay']);//
+        $date="$parts[2]-$parts[1]-$parts[0]";
+
+        $client->setReference( $_GET['customerRef']);
+        $client->setName( $_GET['name']);
+        $client->setNumberAdult( $_GET['nbAdults']);
+        $client->setNumberChild( $_GET['nbChildren']);
+        $client->setStartDate( $date);
+
+        $array = array('ref'=>$client->getReference(),'name'=>$client->getName(),'number_adult'=>$client->getNumberAdult(),'number_child'=>$client->getNumberChild(),'date'=>$client->getStartDate());
+        $clientModel->insertClient($array);
+
+        $_SESSION['client'] = $client;
+
+        return($array);
     }
 }

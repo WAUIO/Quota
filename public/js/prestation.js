@@ -56,12 +56,9 @@ function searchPrestation(){
 }
 
 function resize(parent_block, items){
-    var height_list;
     var checked = parent_block.find('.checked_prestation').length;
-    var height_service = (items*36.5);
 
-    parent_block.find('.list_service').css('height',items*36.5);
-
+    var height_list;
     if(checked > 1){
         height_list = 25*(checked-1) + 46;
     }
@@ -69,13 +66,17 @@ function resize(parent_block, items){
         height_list = 20;
     }
 
+    var height_service = (items*36.5);
+
+    parent_block.find('.list_service').css('height',height_service);
+
     if(parent_block.find('.search_message').css('display') == 'block'){
         height_service = 20;
         parent_block.find('.list_service').css('height',height_service);
     }
 
     if(height_list > height_service && height_list < 300){
-        parent_block.css('height',height_list+16);
+        parent_block.css('height',height_list+10);
     }else if(height_list < height_service && height_service < 300){
         parent_block.css('height',height_service+16);
     }else parent_block.css('height',321);
@@ -157,6 +158,7 @@ function checkPrestation(){
     $('.check').click(function() {
         var parent_div = $('#'+$(this).closest('.per_price').attr('id'));
         if ($(this).is(":checked")){
+            // alert(roundValue($(this).val()));
             var label_text = $(this).siblings('label').text();
 
             if(parent_div.find('.check:checked').length == 1){
@@ -164,11 +166,11 @@ function checkPrestation(){
                 parent_div.find('.checked_lists').css('height', 61);
             }
             var $clone = parent_div.find('.checked_list').clone(true).removeClass('checked_list').removeClass('hide');
-            $clone.attr('id',$(this).val());
+            $clone.attr('id',$(this).attr('id').replace('id_', ''));
             $clone.find('.prestation_label').html(label_text).css('font-size', '80%');
             parent_div.find('.checked_list_content').append($clone);
         }else{
-            check_list_id = $(this).val();
+            check_list_id = $(this).attr('id').replace('id_', '');
             $('#'+check_list_id).remove();
             if(parent_div.find('.check:checked').length == 0){
                 parent_div.find('.checked_lists').css('height', 36);
@@ -179,7 +181,8 @@ function checkPrestation(){
         resetCheckedScroll(parent_div);
     });
 }
- function showMessage(){
+
+function showMessage(){
      if($('#accordion').find('.check:checked').length < 1){
          $('.no_service_message').css('display', 'block').delay(3000).fadeOut();
          return false;

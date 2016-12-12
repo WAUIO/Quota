@@ -33,7 +33,7 @@ function saveClient(){
                 dataType : "html",
                 cache : false,
                 success : function(data){
-                    $('.client_message').css({'display':'block','color':'#5cb85c'}).text('Customer saved !');
+                    $('.client_message').css({'display':'block','color':'#5cb85c'}).text("data['reference'] added !");
 
                     var add_quotation = '<div class="row">' +
                                             '<h4>'+

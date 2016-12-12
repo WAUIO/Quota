@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controller;
 
 
+use App\Utils\Exchange;
+use FastRoute\RouteParser\Std;
 use Symfony\Component\HttpFoundation\Request;
 use Wau\Http\Controller;
 //use App\Utils\RoomBase;
@@ -9,9 +11,9 @@ class infoController extends Controller
 {
     public function info(Request $request)
     {
-        $data = array();
-        array_set($data, 'session', $request->getSession());
-        return $this->app()->make('twig.view')->render('info.twig', $data);
+        $exchange = (object)array('euro'=>new Exchange(0), 'dollar'=>new Exchange(1));
+        $_SESSION['exchange'] = $exchange;
+        return $this->app()->make('twig.view')->render('info.twig');
     }
 
     public function afficheInfo(Request $request)
@@ -36,14 +38,14 @@ class infoController extends Controller
     public function saveClient(Request $request){
         $data = array();
 
-        array_set($data, 'customerRef', $_GET['customerRef']);
+        array_set($data, 'reference', $_GET['reference']);
         array_set($data, 'name',$_GET['name']);
         array_set($data, 'nbAdult', $_GET['nbAdults']);
         array_set($data, 'nbChildren', $_GET['nbChildren']);
         array_set($data, 'stay', $_GET['stay']);
 
 //        return $this->app()->make('twig.view')->render('info.twig',$data);
-return $data;
+        return $data;
     }
 
 }

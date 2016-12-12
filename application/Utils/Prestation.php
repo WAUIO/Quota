@@ -12,18 +12,37 @@ namespace App\Utils;
 class Prestation
 {
     var $item_id;
-    var $title;
-    var $type;
+    var $price;
+    var $others;
+    var $table;
 
 
-    public function getType()
+    public function getTable()
     {
-        return $this->type;
+        return $this->table;
     }
 
-    public function setType($type)
+    public function setTable($table)
     {
-        $this->type = $type;
+        $this->table = $table;
+    }
+    public function getOthers()
+    {
+        return $this->others;
+    }
+
+    public function setOthers($others)
+    {
+        $this->others = $others;
+    }
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    public function setPrice($price)
+    {
+        $this->price = $price;
     }
 
     public function getItemId()
@@ -31,18 +50,8 @@ class Prestation
         return $this->item_id;
     }
 
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
     public function setItemId($item_id)
     {
         $this->item_id = $item_id;
-    }
-
-    public function setTitle($title)
-    {
-        $this->title = $title;
     }
 }

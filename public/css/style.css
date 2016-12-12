@@ -27,7 +27,9 @@ footer {
     line-height: 50px;
     color: #ffffff;
 }
-
+.ref_client:hover{
+    color: #000;
+}
 .content {
     top: 0;
  }
@@ -212,9 +214,12 @@ table > thead > tr > th, .total_designation {
     height: 25px;
     line-height: 25px;
     white-space: nowrap;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 .quota_lists:hover{
-    cursor: pointer;
+    cursor: default;
     background: #f9f9f9;
 }
 .base_types a, .quota_lists a{
@@ -574,7 +579,6 @@ h2,h3{
 .delete_prestation{
     display: none;
     float: right;
-    cursor: pointer;
     width: 25px;
     height: 25px;
     line-height: 25px;

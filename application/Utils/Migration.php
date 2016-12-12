@@ -16,15 +16,11 @@ class Migration
     public function getItems($app)
     {
         $offset = 0;
-        $limit = 2;
-
-        $items = \PodioItem::filter($app['app_id'], array('limit' => $limit, 'offset' => $offset, 'sort_by' => 'created_on'));
-        $this-> saveItem($app['app_name'], $items);
+        $limit = 100;
 
         try{
             do {
                 $items = \PodioItem::filter($app['app_id'], array('limit' => $limit, 'offset' => $offset, 'sort_by' => 'created_on'));
-
                 $this-> saveItem($app['app_name'], $items);
 
                 //increase for next heap
@@ -111,6 +107,7 @@ class Migration
                               ON DUPLICATE KEY UPDATE others = VALUES(others)";
                     break;
             }
+
             $this->instance->insert_migration($query, $dataItem);
         }
     }
@@ -231,39 +228,13 @@ class Migration
             }
         }
 
-//        if(strtolower($app_name) == "rooms"){
-//            if(!array_key_exists('public-rate',$others)){
-//                $json['type'] = "money";
-//                $json['label'] = "Public rate";
-//                $json['currency'] = "MGA";
-//                $json['value'] = 0;
-//                $others = $this->array_insert_before(1, $others, 'public-rate', $json);
-//            }
-//            if(!array_key_exists('vignet-3',$others)){
-//                $json['type'] = "money";
-//                $json['label'] = "Vignet";
-//                $json['currency'] = "MGA";
-//                $json['value'] = 0;
-//                $others = $this->array_insert_before(1, $others, 'vignet-3', $json);
-//            }
-//            if(!array_key_exists('tax',$others)){
-//                $json['type'] = "money";
-//                $json['label'] = "Tax";
-//                $json['currency'] = "MGA";
-//                $json['value'] = 0;
-//                $others = $this->array_insert_before(1, $others, 'tax', $json);
-//            }
-//        }
-
         $dataItem['item_id'] = $item->item_id;
 
         foreach ($except as $key => $value){
             $dataItem[$key] = $value;
         }
 
-
         echo$dataItem['others'] = json_encode($others, JSON_UNESCAPED_UNICODE)."<br/>";
-
 
         return $dataItem;
     }

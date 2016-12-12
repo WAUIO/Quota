@@ -62,11 +62,12 @@
                 <li><a href="#">Contact</a></li>
             </ul>
 
-            <div class="pull-right ref_client">{{ session.get('ref_client') }}</div>
+            <div class="pull-right ref_client" id="client_{{ client.id }}">{{ client.reference }}</div>
         </div>
         <!-- /.navbar-collapse -->
     </div>
     <!-- /.container -->
+    <div class="row" style="height: 1px; background: #fff; margin-bottom: -1px;"></div>
 </nav>
 
 
@@ -139,13 +140,13 @@
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/bootstrap-editable.min.js"></script>
 <script src="/js/perfect-scrollbar.jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 {% block scripts %}
     <script src="/js/function.js"></script>
     <script src="/js/info.js"></script>
     <script src="/js/prestation.js"></script>
     <script src="/js/room_quota.js"></script>
     <script src="/js/total_quota.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 {% endblock scripts %}
 </body>
 </html>

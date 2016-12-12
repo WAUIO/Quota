@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    var quota_list = $('#quota_list');
 
     getClient();
 
@@ -6,8 +7,8 @@ $(document).ready(function () {
         e.stopPropagation();
     });
 
-    $('#quota_list').perfectScrollbar();
-    if($('#quota_list').hasScrollBar('vertical')) {
+    quota_list.perfectScrollbar();
+    if(quota_list.hasScrollBar('vertical')) {
         $('.quota_lists').css('margin-right', '15px');
         $('.ps-scrollbar-y-rail').css('z-index', '1000');
     }
@@ -15,6 +16,8 @@ $(document).ready(function () {
     $('.table-editable').perfectScrollbar();
 
     $('.based_on').removeAttr("href");
+
+
 
     $('#search_glyphicon').click(function(e){
         e.preventDefault();
@@ -35,12 +38,25 @@ $(document).ready(function () {
     editValuePopup();
     calculateTotal();
     ancreLink();
-    client();
-    checkPrestation();
     mouseEvent();
     btnSave();
 
+    $('#client_1').click(function () {
+       alert("azertyu");
+    });
 });
+
+function roundValue(value){
+    value = parseFloat(value);
+    if(value % 1 != 0){
+        value = value.toFixed(2);
+    }else value = value.toFixed(0);
+    return value;
+}
+
+function chooseClient($this){
+    alert($($this).attr('id'));
+}
 
 function getClient() {
     $.ajax({
@@ -50,9 +66,8 @@ function getClient() {
         cache: false,
         success: function (data) {
             var $length = data.length;
-
             for(i=0;i<$length;i++){
-                $('#quota_list').append('<div id="client_'+data[i].id+'" class="quota_lists"><a href="#">'+data[i].ref_client+' : '+data[i].name+'</a></div>');
+                $('#quota_list').append($('<div id="client_'+data[i].id+'" class="quota_lists">'+data[i].reference+' : '+data[i].name+'</div>').click(function(){alert(data[i].id)}));
             }
         }
     });
