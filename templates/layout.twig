@@ -62,7 +62,7 @@
                 <li><a href="#">Contact</a></li>
             </ul>
 
-            <div class="pull-right ref_client" id="client_{{ client.id }}">{{ client.reference }}</div>
+            <div class="pull-right ref_client" id="client_id">{{ client.reference }}</div>
         </div>
         <!-- /.navbar-collapse -->
     </div>
@@ -84,7 +84,7 @@
         <div id="right_side" class="col-xs-3">
             <div class="sidebar-nav-fixed pull-right affix">
                 <div id="well_search" class="row well">
-                    <div style="">
+                    <div>
                         <div id="search_menu_button">
                             <span id="menu_hamburger" class="menu_glyphicon glyphicon glyphicon-menu-hamburger"></span>
                         </div>
@@ -95,15 +95,11 @@
                     </div>
 
                     <div class="input-group" style="width:100%;">
-                        <input type="text" class="form-control search_control">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                        </span>
+                        <input type="text" class="form-control search_control" id="search_client" placeholder="Search...">
                     </div>
                     <!-- /.input-group -->
                     <div class="row" id="quota_list">
+                        <div class="search_message">No result for this search !</div>
                     </div>
 
                     <div id="expand">
@@ -122,6 +118,14 @@
     <!--/row-->
 </div>
 <!--/.fluid-container-->
+<div id="about_client" title="About this customer" style="display: none;">
+    <p>Reference : {{ client.reference }}</p>
+    {% if(client.name) != '' %}<p>Name : {{ client.name }}</p>{% endif %}
+    {% if(client.numberAdult) != '' %}<p>Adult number : {{ client.number_adult }}</p>{% endif %}
+    {% if(client.numberChild) != '' %}<p>Child number : {{ client.number_child }}</p>{% endif %}
+    {% if(client.start_date) != '' %}<p>Date : {{ client.start_date }}</p>{% endif %}
+
+</div>
 
 {% block edit_room %}
 {% endblock edit_room %}

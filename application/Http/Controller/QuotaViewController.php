@@ -13,25 +13,6 @@ class QuotaViewController extends Controller
 {
 
     var $instance;
-    public function listClient(){
-        $array = array();
-        $this->instance = new PDOConnection();
-        $query = "SELECT * FROM client";
-        $result = $this->instance->select($query);
-
-        foreach ($result as $res){
-            $client = new Client();
-            $client->setId($res['id']);
-            $client->setReference($res['ref_client']);
-            $client->setName($res['name']);
-            $client->setNumberChild($res['number_child']);
-            $client->setNumberAdult($res['number_adult']);
-            $client->setStartDate($res['start_date']);
-
-            $array[] = $client;
-        }
-        return $array;
-    }
 
     public function room_quota(Request $request)
     {
@@ -45,7 +26,6 @@ class QuotaViewController extends Controller
         $base_rooms = $this->getRoom("n°123");
         $existing_base = RoomQuota::$room_type;
 
-//        array_set($data, 'session', $request->getSession());
         array_set($data, 'details', $details);
         array_set($data, 'existing_base', $existing_base);
         array_set($data, 'base_rooms', $base_rooms);

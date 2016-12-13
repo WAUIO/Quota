@@ -1,7 +1,13 @@
 $(document).ready(function () {
+
     var quota_list = $('#quota_list');
 
     getClient();
+    searchClient();
+
+    $(".ref_client").click(function () {
+        $("#about_client").dialog({modal: true, height: 205, width: 400 });
+    });
 
     $('input').keydown(function (e) {
         e.stopPropagation();
@@ -17,12 +23,9 @@ $(document).ready(function () {
 
     $('.based_on').removeAttr("href");
 
-
-
     $('#search_glyphicon').click(function(e){
         e.preventDefault();
-        var quota_list_id = '#quota_list';
-        ShowHideQuotaList(quota_list_id, 0);
+        ShowHideQuotaList($('#quota_list'), 0);
     });
 
     $('.taxes').css('border-bottom', 'none');
@@ -54,21 +57,67 @@ function roundValue(value){
     return value;
 }
 
-function chooseClient($this){
-    alert($($this).attr('id'));
+function searchClient(){
+    $('#search_client').keyup(function(){
+        var exist = false;
+        var quota_list = $('#quota_list');
+        var input_text = $(this).val().toLowerCase();
+
+        if(quota_list.is(":visible") === false){
+            quota_list.fadeIn(200);
+            $('#search_glyphicon').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
+        }
+
+        $('.quota_lists').each(function(){
+            var text = $(this).text().toLowerCase();
+            if(text.indexOf(input_text) != -1){
+                $(this).show();
+                exist = true;
+            }
+            else{
+                $(this).hide();
+            }
+        });
+
+        if(!exist){
+            quota_list.find('.search_message').show();
+        }else
+            quota_list.find('.search_message').hide();
+
+        quota_list.scrollTop(0);
+        quota_list.perfectScrollbar('update');
+
+    });
 }
 
 function getClient() {
+
     $.ajax({
         url: "/getClient",
         type: "GET",
         dataType: "json",
-        cache: false,
         success: function (data) {
             var $length = data.length;
-            for(i=0;i<$length;i++){
-                $('#quota_list').append($('<div id="client_'+data[i].id+'" class="quota_lists">'+data[i].reference+' : '+data[i].name+'</div>').click(function(){alert(data[i].id)}));
+            for(i=0;i<$length-1;i++){
+                $('#quota_list').append($('<div id="client_'+data[i].id+'" class="quota_lists">'+data[i].reference+' : '+data[i].name+'</div>')
+                    .click(function(){
+                        setClient(window.location, $(this).attr('id').replace('client_',''));
+                    })
+                );
             }
+
+            $('.ref_client').load(window.location + ' .ref_client');
+        }
+    });
+}
+
+function setClient(url, client_id){
+    $.ajax({
+        url: "/setClient",
+        type: "GET",
+        data: {client_id : client_id},
+        success: function () {
+            window.location.replace(url);
         }
     });
 }
@@ -91,14 +140,14 @@ function menuView() {
     //Show & hide menu(Search and room basis)
     $('#menu_hamburger').click(function(e){
         e.preventDefault();
-        var quota_list_id = '#quota_list';
+        var quota_list = '#quota_list';
         var bloc_well = $('.well');
         if(bloc_well.not('#well_search').css("display") == "block"){
             bloc_well.not('#well_search').fadeOut(100,function () {
-                ShowHideQuotaList(quota_list_id, 1);
+                ShowHideQuotaList(quota_list, 1);
             });
         }else{
-            ShowHideQuotaList(quota_list_id, 2);
+            ShowHideQuotaList(quota_list, 2);
             bloc_well.fadeIn();
         }
     });
@@ -147,23 +196,23 @@ function isFloat(val) {
     return true;
 }
 
-function ShowHideQuotaList(quota_list_id, nbr){
+function ShowHideQuotaList(quota_list, nbr){
     if(nbr == 0){
-        if($(quota_list_id).is(":visible") === true){
-            $(quota_list_id).fadeOut(200);
+        if(quota_list.is(":visible") === true){
+            quota_list.fadeOut(200);
             $('#search_glyphicon').toggleClass('glyphicon-chevron-up').toggleClass('glyphicon-chevron-down');
         }else{
-            $(quota_list_id).fadeIn(200);
+            quota_list.fadeIn(200);
             $('#search_glyphicon').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
         }
     }else if(nbr == 1){
-        if($(quota_list_id).is(":visible") === true){
-            $(quota_list_id).fadeOut(200);
+        if(quota_list.is(":visible") === true){
+            quota_list.fadeOut(200);
             $('#search_glyphicon').toggleClass('glyphicon-chevron-up').toggleClass('glyphicon-chevron-down');
         }
     }else{
-        if($(quota_list_id).is(":visible") === false){
-            $(quota_list_id).fadeIn(200);
+        if(quota_list.is(":visible") === false){
+            quota_list.fadeIn(200);
             $('#search_glyphicon').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
         }
     }
