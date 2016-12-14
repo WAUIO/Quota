@@ -1,7 +1,5 @@
 $(document).ready(function () {
-
-    var quota_list = $('#quota_list');
-
+    $(this).scrollTop(0); quota_list = $('#quota_list');
     getClient();
     searchClient();
     wait();
@@ -9,6 +7,7 @@ $(document).ready(function () {
     $(".ref_client").click(function () {
         $("#about_client").dialog({modal: true, height: 205, width: 400 });
     });
+
 
     $('input').keydown(function (e) {
         e.stopPropagation();
@@ -106,7 +105,7 @@ function getClient() {
             var $length = data.length;
             var client_id;
 
-            for(i=0; i<$length; i++){
+            for(i=0;i<$length-1;i++){
                 $('#quota_list').append($('<div id="client_'+data[i].id+'" class="quota_lists">'+data[i].reference+' : '+data[i].name+'</div>')
                     .click(function(){
                         client_id = $(this).attr('id').replace('client_','');

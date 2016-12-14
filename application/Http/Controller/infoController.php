@@ -1,12 +1,14 @@
 <?php namespace App\Http\Controller;
 
 
+
 use App\DatabaseConnection\PDOConnection;
 use App\Utils\Client;
 use App\Utils\Exchange;
 use FastRoute\RouteParser\Std;
 use Symfony\Component\HttpFoundation\Request;
 use Wau\Http\Controller;
+use App\Model\ClientModel;
 //use App\Utils\RoomBase;
 
 class infoController extends Controller
@@ -17,37 +19,28 @@ class infoController extends Controller
         $_SESSION['exchange'] = $exchange;
 
         return $this->app()->make('twig.view')->render('info.twig');
+
     }
 
-    public function afficheInfo(Request $request)
-    {
-        $data = array();
-        $customerRef = $_POST['customerRef'];
-        $name = $_POST['name'];
-        $nbAdults = $_POST['nbAdults'];
-        $nbChildren = $_POST['nbChildren'];
-        $stay = $_POST['stay'];
-        var_dump($customerRef, $name, $nbAdults, $nbChildren, $stay);
+    public function clientInsert(){
+        $clientModel=new ClientModel();
+        $client=new Client();
 
-        array_set($data, 'session', $request->getSession());
-        array_set($data, 'customerRef', $customerRef);
-        array_set($data, 'name',$name);
-        array_set($data, 'nb', $nbAdults);
-        array_set($data, 'stay', $stay);
+        $parts = explode('/', $_GET['stay']);//
+        $date="$parts[2]-$parts[1]-$parts[0]";
 
-        return $this->app()->make('twig.view')->render('info.twig',$data);
-    }
+        $client->setReference( $_GET['customerRef']);
+        $client->setName( $_GET['name']);
+        $client->setNumberAdult( $_GET['nbAdults']);
+        $client->setNumberChild( $_GET['nbChildren']);
+        $client->setStartDate( $date);
 
-    public function saveClient(){
-        $data = array();
+        $array = array('ref'=>$client->getReference(),'name'=>$client->getName(),'number_adult'=>$client->getNumberAdult(),'number_child'=>$client->getNumberChild(),'date'=>$client->getStartDate());
+        $clientModel->insertClient($array);
 
-        array_set($data, 'reference', $_GET['reference']);
-        array_set($data, 'name',$_GET['name']);
-        array_set($data, 'nbAdult', $_GET['nbAdults']);
-        array_set($data, 'nbChildren', $_GET['nbChildren']);
-        array_set($data, 'stay', $_GET['stay']);
+        $_SESSION['client'] = $client;
 
-        return $data;
+        return $array;
     }
 
 }

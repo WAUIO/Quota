@@ -1,6 +1,7 @@
 <?php
 
 return [
+    
     //Required
     'baseUrl'     => env('APP_BASEURL', 'http://quota.wau.travel'),
 
@@ -17,7 +18,6 @@ return [
     'lang'        => 'en',
     'charset'     => 'UTF-8',
     'defaultContentType' => 'text/html',
-
     // Envrironment
     'hostaname'   => shell_exec('hostname'),
 

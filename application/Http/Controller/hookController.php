@@ -33,6 +33,17 @@ class hookController extends WebhookController
 
     }
 
+    /*public function itemDelete(Request $request)
+    {
+        $item_id = intval($request->get('item_id'));
+
+        $item = \PodioItem::get_basic( $item_id);
+
+        $app_id = $item->app->app_id;
+        $this->deleteItem($app_id, $item);
+
+    }*/
+
     public function getDataItem($item){
         //House app (field_id)
         $house_title            = 133123764;

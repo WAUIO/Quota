@@ -1,65 +1,116 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-    <h1 class="title">
-        Benefit : service offered
-    </h1>
+    <div id="prestation_form">
+        <h1 class="title">
+            Benefit : service offered
+        </h1>
 
-    <form>
-        <div id="accordion">
-            {% for i in  0..prestations|length - 1 %}
+        <form action="submit_prestation" method="post">
 
-                {% if(i == 0) %}
-                    {% set image = "/images/individual.png" %}
-                    {% set service_title = "Individual services" %}
-                    {% set search_id = "search_individual" %}
-                    {% set per_price = "person" %}
-                {% else %}
-                    {% set image = "/images/collective.png" %}
-                    {% set service_title = "Collective services" %}
-                    {% set search_id = "search_collective" %}
-                    {% set per_price = "booking" %}
-                {% endif %}
+            <div id="accordion">
+                {% for i in 0..prestations|length - 1 %}
 
-                <div class="service">
-                    <img class="prestation_image" src="{{ image }}">
-                    <span class="service_title">{{ service_title }}</span>
-                    <input type="text" id="{{ search_id }}" class="form-control search_control search_prestation" placeholder="Search...">
-                </div>
+                    {% if(i == 0) %}
+                        {% set image = "/images/individual.png" %}
+                        {% set service_title = "Individual services" %}
+                        {% set search_id = "search_individual" %}
+                        {% set per_price = "person" %}
+                    {% else %}
+                        {% set image = "/images/collective.png" %}
+                        {% set service_title = "Collective services" %}
+                        {% set search_id = "search_collective" %}
+                        {% set per_price = "booking" %}
+                    {% endif %}
 
-                <div class="row per_price" id="{{ per_price }}">
-                    <div class="col-xs-7 funkyradio list_service" style="height:300px;">
-                        <div class="search_message">No result for this search !</div>
-                        {% for prest in prestations[i] %}
-                            <div class="funkyradio-success line">
-                                <input type="checkbox" name="individual"  id="id_{{ prest.item_id }}" class="check" value="{% if(prest.table == activity) %} {{ attribute(prest.others, 'wau-rate').value }}{% else %}{{ attribute(prest.others, 'wau-rate-transport').value }}{% endif %}"/>
-                                <label class="funky_label" for="id_{{ prest.item_id }}">{{ prest.others.title.value }}</label>
-                                {#<span class="{{ prest.price|replace({' ' : '_'})|lower }}" style="display: none;"></span>#}
-                            </div>
-                        {% endfor %}
+                    <div class="service">
+                        <img class="prestation_image" src="{{ image }}">
+                        <span class="service_title">{{ service_title }}</span>
+                        <input type="text" id="{{ search_id }}" class="form-control search_control search_prestation" placeholder="Search...">
                     </div>
-                    <div class="col-xs-5 checked_lists">
-                        <div class="checked_list_title">List of checked items</div>
-                        <div class="checked_list_content">
-                            <div class="checked_list checked_prestation hide">
-                                <div class="prestation_label" style="float: left;"></div>
-                                <div class="delete_prestation glyphicon glyphicon-remove"></div>
+
+                    <div class="row per_price" id="{{ per_price }}">
+                        <div class="col-xs-7 funkyradio list_service" style="height:300px;">
+                            <div class="search_message">No result for this search !</div>
+                            {% for prest in prestations[i] %}
+                                <div class="funkyradio-success line">
+                                    <input type="checkbox" name="individual" id="id_{{ prest.item_id }}" class="check_value" value="{{ prest.item_id }}"/>
+                                    <label class="funky_label" for="id_{{ prest.item_id }}" style="border: none">{{ prest.others.title.value }}</label>
+                                    <span class="{{ prest.price }}" style="display: none;"></span>
+                                    <div class="wau-rate" style="display: none;">{{ attribute(prest.others, 'wau-rate').value }}</div>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                        <div class="col-xs-5 checked_lists">
+                            <div class="checked_list_title">List of checked items</div>
+                            <div class="checked_list_content">
+                                <div class="checked_list checked_prestation hide">
+                                    <div class="prestation_label" style="float: left;"></div>
+                                    <div class="delete_prestation glyphicon glyphicon-remove"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
-        <div class="form-group row">
-            <div class="col-xs-10 no_service">
-                <span class="no_service_message">No checked service !</span>
+                {% endfor %}
             </div>
-            <div class="col-xs-2">
-                <div class="next_prestation" id="btn_next">
-                    <span style="white-space:pre">Next  </span>
-                    <span class="glyphicon glyphicon-arrow-right"></span>
+            <div class="form-group row">
+                <div class="col-xs-10">
+                    <span class="no_service">No service checked!</span>
+                </div>
+                <div class="col-xs-2">
+                    <div class="next_prestation" id="btn_next">
+                        <span style="white-space:pre">Next  </span>
+                        <span class="glyphicon glyphicon-arrow-right"></span>
+                    </div>
                 </div>
             </div>
+        </form>
+    </div>
+
+
+        <div  id="quotafade">
+            <div class="table-responsive">
+                <table class="table" id="prestation_table">
+
+                    <thead>
+                        <tr id="Thead">
+                            <th rowspan="2"></th>
+                            <th rowspan="2" style="padding-left: 20px">Services</th>
+                            <th rowspan="2">Pax min</th>
+                            <th rowspan="2">Pax max</th>
+                            <th >Rate/day</th>
+                            <th >Number</th>
+                            <th >Person</th>
+                            <th rowspan="2">Total price</th>
+                        </tr>
+                        <tr>
+                            <th>Rate/litre</th>
+                            <th >Number/litre</th>
+                            <th>Pax</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="Tbody" class="table-bordered">
+
+                    </tbody>
+                    <tfoot>
+                        <tr id="Tfoot">
+                            <td colspan="8">
+                                <h2><button class="btn btn-danger" id="click">Quotation</button>Total</h2>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="form-group row">
+                <div class="col-xs-offset-2 col-xs-10">
+                    <div class="add_client" id="savequota">
+                        <span>Save</span>
+                    </div>
+                </div>
+            </div>
+            <div id="idcli_prestation" style="display:none">{{ id['MAX(id)']}}</div>
+
         </div>
-    </form>
 {% endblock body %}

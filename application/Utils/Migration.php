@@ -16,7 +16,12 @@ class Migration
     public function getItems($app)
     {
         $offset = 0;
+
         $limit = 100;
+
+        $items = \PodioItem::filter($app['app_id'], array('limit' => $limit, 'offset' => $offset, 'sort_by' => 'created_on'));
+        $this-> saveItem($app['app_name'], $items);
+
 
         try{
             do {

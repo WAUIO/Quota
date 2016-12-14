@@ -1,17 +1,27 @@
 <?php namespace App\Http\Controller;
 
 
+
 use App\DatabaseConnection\PDOConnection;
 use App\Utils\Prestation;
 use Symfony\Component\HttpFoundation\Request;
 use Wau\Http\Controller;
+use App\Model\ClientModel;
 
 class prestationController extends Controller
 {
     public function prestation(){
         $table = array("transport", "activity");
 
-        return $this->app()->make('twig.view')->render('prestation.twig',['prestations' => $this->getService($table)]);
+
+        $array[] = $this->getPrestation("Per person");
+        $array[] = $this->getPrestation("Per booking");
+
+        $id=new ClientModel();
+        $lastId=$id->getId();
+        $id = $lastId[0];
+
+        return $this->app()->make('twig.view')->render('prestation.twig',['prestations' => $array,'id'=>$id]);
     }
 
 

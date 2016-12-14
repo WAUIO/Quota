@@ -16,13 +16,16 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/bootstrap-select.css">
+
+    <link rel="stylesheet" href="/css/bootstrap-select.css.map">
     <link rel="stylesheet" href="/css/bootstrap-editable.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <!--Stylesheet-->
     <link href="/css/style.css" rel="stylesheet">
-    <link href="/css/info.css" rel="stylesheet">
     <link href="/css/funky.css" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <link href="/css/info.css" rel="stylesheet">
     <link href="/css/spinner.css" rel="stylesheet">
     <link href="/css/perfect-scrollbar.min.css" rel="stylesheet">
 
@@ -49,35 +52,38 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
             <ul  class="nav navbar-nav" id="menu">
-                <li><a href="\">Home</a></li>
+                <li><a href="/information">Home</a></li>
+                <li>
+                    <a href="/house">Room</a>
+                </li>
+                <li><a href="/prestation">Prestation</a></li>
                 <li>
                     <a href="#">Quotation</a>
                     <ul>
-                        <li><a href="\room">Room</a></li>
-                        <li><a href="\prestation">Prestation</a></li>
-                        <li><a href="\total">Total</a></li>
+                        <li><a href="/room">Room</a></li>
+                        <li><a href="/quotaprestation">Prestation</a></li>
+                        <li><a href="/total">Total</a></li>
                     </ul>
                 </li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
             </ul>
 
             <div class="pull-right ref_client" id="client_id">{{ client.reference }}</div>
         </div>
         <!-- /.navbar-collapse -->
     </div>
+
     <!-- /.container -->
     <div class="row" style="height: 1px; background: #fff; margin-bottom: -1px;"></div>
 </nav>
 
-
 <div class="container">
     <div class="row">
         <!--/left side-->
+        <div class="col-xs-9">
 
-        <div id="left_side" class="col-xs-9">
             {% block body %}
             {% endblock body %}
+
         </div>
 
         <!--/right side-->
@@ -147,14 +153,20 @@
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/bootstrap-editable.min.js"></script>
+<script src="/js/bootstrap-select.min.js"></script>
 <script src="/js/perfect-scrollbar.jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 {% block scripts %}
     <script src="/js/function.js"></script>
+    <script src="/js/form.js"></script>
     <script src="/js/info.js"></script>
     <script src="/js/prestation.js"></script>
     <script src="/js/room_quota.js"></script>
     <script src="/js/total_quota.js"></script>
+    <script src="/js/quotaprestation.js"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 {% endblock scripts %}
 </body>
 </html>
