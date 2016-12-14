@@ -10,7 +10,7 @@ namespace App\Model;
 
 use App\DatabaseConnection\PDOConnection;
 
-class Client
+class ClientModel
 {
     var $instance;
 

@@ -10,14 +10,13 @@ $( function() {
         showMessage();
     });
 
-
-
     $('.delete_prestation').click(function(e){
         e.preventDefault();
         deletePrestation(this);
     });
     searchPrestation();
     checkPrestation();
+    savePrestation();
     //
 } );
 
@@ -59,29 +58,33 @@ function searchPrestation(){
 }
 
 function resize(parent_block, items){
-    var height_list;
-    var checked = parent_block.find('.checked_prestation').length;
-    var height_service = (items*36.5);
+    {
+        var checked = parent_block.find('.checked_prestation').length;
 
-    parent_block.find('.list_service').css('height',items*36.5);
+        var height_list;
+        if(checked > 1){
+            height_list = 25*(checked-1) + 46;
+        }
+        else{
+            height_list = 20;
+        }
 
-    if(checked > 1){
-        height_list = 25*(checked-1) + 46;
-    }
-    else{
-        height_list = 20;
-    }
+        var height_service = (items*36.5);
 
-    if(parent_block.find('.search_message').css('display') == 'block'){
-        height_service = 20;
         parent_block.find('.list_service').css('height',height_service);
+
+        if(parent_block.find('.search_message').css('display') == 'block'){
+            height_service = 20;
+            parent_block.find('.list_service').css('height',height_service);
+        }
+
+        if(height_list > height_service && height_list < 300){
+            parent_block.css('height',height_list+10);
+        }else if(height_list < height_service && height_service < 300){
+            parent_block.css('height',height_service+16);
+        }else parent_block.css('height',321);
     }
 
-    if(height_list > height_service && height_list < 300){
-        parent_block.css('height',height_list+16);
-    }else if(height_list < height_service && height_service < 300){
-        parent_block.css('height',height_service+16);
-    }else parent_block.css('height',321);
 }
 
 //function checkif a vertical scroll appear
@@ -166,10 +169,14 @@ function checkPrestation() {
                 parent_div.find('.checked_list_title').slideDown(400);
                 parent_div.find('.checked_lists').css('height', 61);
             }
+
             var $clone = parent_div.find('.checked_list').clone(true).removeClass('checked_list').removeClass('hide');
             $clone.attr('id', $(this).val());
             $clone.find('.prestation_label').html(label_text).css('font-size', '80%');
             parent_div.find('.checked_list_content').append($clone);
+
+            addInTab( this);
+
         } else {
             check_list_id = $(this).val();
             $('#' + check_list_id).remove();
@@ -177,32 +184,25 @@ function checkPrestation() {
                 parent_div.find('.checked_lists').css('height', 36);
                 parent_div.find('.checked_list_title').slideUp(400);
             }
+            ifUnchecked($(this).attr('id'));
         }
 
         resetCheckedScroll(parent_div);
     });
 }
 
-function showQuota(){
-    $('.check_value').click(function(){
-        var checked=$(this).is(":checked");
-
-        checked.each(function()
-        {
-            alert($(this).text());
-        });
-    });
-
-//         if (checked){
-//             var label_text = checked.siblings('label').text();
-//            checked.each(function(){
-//                alert(label_text);
-//                //  var row='<tr> <td class="cod">1</td> <td ><span>'+label_text+'</span></td> <td title="min"> <input class="check" name="paxmin" type="text" ></td><td  title="max"><input class="check" name="paxmax" type="text" > </td> <td class="tarif">80000</td> <td title="number"><input class="check" type="text" name="nbsvc"/></td> <td class="type">Pax</td> <td class="total"> </td></tr>';
-//                // $("#Tbody").append(row);
-//             });
-//         }
+function addInTab($this) {
+    var label_text = $($this).siblings('label').text();
+    var input_id = $($this).attr('id');
+    var rate = $($this).siblings('.wau-rate').text();
+    var type = $($this).siblings('span').attr('class');
+    var tr = $('#Tbody > tr');
+    var row = '<tr id="tr_' + input_id + '"> <td class="cod"></td> <td class="label_text"><span>' + label_text + '</span><input type="text" class="n_pax" name="n_pax"></td> <td title="min"> <input class="check" name="paxmin" type="text" ></td><td  title="max"><input class="check" name="paxmax" type="text" > </td> <td class="tarif">' + roundValue(rate) + '</td> <td title="number"><input class="check" type="text" name="nbsvc"/></td> <td class="type">' + type + '</td> <td class="total"> </td></tr>';
+    $("#Tbody").append(row);
 }
-
+function ifUnchecked(id){
+    $('#tr_'+id).remove();
+}
 
 function showMessage(){
     if($('#accordion').find('.check_value:checked').length < 1){
@@ -210,10 +210,52 @@ function showMessage(){
     }
     else{
         $('#prestation_form').css('display','none');
-       // $('#quotafade').css('display','block');
+
         $('#quotafade').slideToggle('slow');
 
     }
+}
+
+function savePrestation(){
+    $('#savequota').click(function(){
+        var id=$('#idcli_prestation').html();
+        var allTR = $('#Tbody').children('tr');
+        allTR.each(function() {
+            var values = {
+                "service": $(this).find('.label_text span').html(),
+                "pax": $(this).find('input[name="n_pax"]').val(),
+                "pax_min": $(this).find('input[name="paxmin"]').val(),
+                "pax_max": $(this).find('input[name="paxmax"]').val(),
+                "rate_service": $(this).find('.tarif').html(),
+                "number_service": $(this).find('input[name="nbsvc"]').val(),
+                "type_service": $(this).find('.type').html()
+            };
+            var other={};
+            other.pax_min=values.pax_min;
+            other.pax_max=values.pax_max;
+            other.rate_service=values.rate_service;
+            other.number_service=values.number_service;
+            other.type_service=values.type_service;
+
+            var others = JSON.stringify(other);
+
+            var info = "service=" + values.service +" "+values.pax+ "&id="+id+"&others="+others;
+
+            $.ajax({
+                type: "GET",
+                url: "/saveprestation",
+                data: info,
+                dataType: "html",
+                success: function () {
+                    console.log('save!');
+                },
+                error: function(){
+                    console.log('error!');
+                }
+            });
+
+        });
+    });
 }
 
 

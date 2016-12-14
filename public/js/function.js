@@ -43,7 +43,13 @@ $(document).ready(function () {
 
 });
 
-
+function roundValue(value){
+    value = parseFloat(value);
+    if(value % 1 != 0){
+        value = value.toFixed(2);
+    }else value = value.toFixed(0);
+    return value;
+}
 
 $( function() {
     var options ={

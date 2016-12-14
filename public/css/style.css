@@ -780,5 +780,30 @@ li .lign{
 #quotafade{
     display: none;
 }
+.n_pax{
+    width: 50px;
+    margin-left: 10px;
+}
+.loader{
+    width: 10px;
+    height:10px;
+}
+#dollar{
+    margin-left: 20px;
+    font-weight: bold;
+    font-size: 20px;
+    color:#2B838E;
+}
+#euro{
+    margin-top: 10px;
+    margin-left: 22px;
+    font-weight: bold;
+    font-size: 20px;
+    color:#2B838E;
+}
+#loader_gif{
+    width: 10px;
+    height:10px;
+}
 
 

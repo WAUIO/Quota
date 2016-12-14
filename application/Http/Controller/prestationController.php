@@ -5,6 +5,7 @@
 use App\DatabaseConnection\PDOConnection;
 use App\Utils\Prestation;
 use Wau\Http\Controller;
+use App\Model\ClientModel;
 
 class prestationController extends Controller
 {
@@ -13,7 +14,11 @@ class prestationController extends Controller
         $array[] = $this->getPrestation("Per person");
         $array[] = $this->getPrestation("Per booking");
 
-        return $this->app()->make('twig.view')->render('prestation.twig',['prestations' => $array]);
+        $id=new ClientModel();
+        $lastId=$id->getId();
+        $id = $lastId[0];
+
+        return $this->app()->make('twig.view')->render('prestation.twig',['prestations' => $array,'id'=>$id]);
     }
 
 
@@ -25,8 +30,11 @@ class prestationController extends Controller
         $activities = $instance->select("SELECT * FROM activity WHERE price = '".$type."' UNION SELECT * FROM transport WHERE price = '".$type."'" );
         foreach ($activities as $activity){
             $prestation = new Prestation();
+
             $prestation->setItemId($activity['item_id']);
-            $prestation->setTitle(json_decode($activity['others'])->title->value);
+            $prestation->setOthers(json_decode($activity['others']));
+            $prestation->setPrice($type);
+
             $array[] = $prestation;
         }
         return $array;

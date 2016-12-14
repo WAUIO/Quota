@@ -37,6 +37,7 @@ class PDOConnection
         $stmt = $this->getInstance()->prepare($query, array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
         $stmt->execute($array);
         $stmt->closeCursor();
+        return true;
     }
 
     public function insert_migration($query, $array)

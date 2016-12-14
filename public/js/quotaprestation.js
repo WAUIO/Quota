@@ -2,16 +2,16 @@ $(document).ready(function () {
     $("#click").click(function(){
         $(".quota").remove();
     addColumn();
-});
+    });
 
 });
 function addColumn() {
-    var minvalues= [];
-    var maxvalues= [];
+    var minvalues = [];
+    var maxvalues = [];
     var tr=$("#Tbody > tr");
         tr.each(function(){
-            var min=$(this).find("td > [name='paxmin']").val();
-            var max=$(this).find("td > [name='paxmax']").val();
+            var min = $(this).find("td > [name = 'paxmin']").val();
+            var max = $(this).find("td > [name = 'paxmax']").val();
            if(min!=="" && max !==""){
                minvalues.push(parseInt(min));
                maxvalues.push(parseInt(max));
@@ -19,13 +19,13 @@ function addColumn() {
         });
 
 
-    var minimum=Math.min.apply(Math,minvalues);
-    var maximum=Math.max.apply(Math,maxvalues);
+    var minimum = Math.min.apply(Math,minvalues);
+    var maximum = Math.max.apply(Math,maxvalues);
 
 
     if(minimum<=maximum){
-        for (var i=minimum;i<=maximum;i++){
-            var colhead=$("<th>");
+        for (var i = minimum;i<=maximum;i++){
+            var colhead = $("<th>");
 
             colhead.attr("rowspan","2");
             colhead.attr("class","quota");
@@ -34,24 +34,24 @@ function addColumn() {
 
         }
 
-        for (var i=minimum;i<=maximum;i++){
-            var bigtotal=0;
-            var colfoot=$("<td>");
+        for (var i = minimum;i<=maximum;i++){
+            var bigtotal = 0;
+            var colfoot = $("<td>");
             colfoot.attr("class","quota");
              tr.each(function(){
-                 var min=$(this).find("td > [name='paxmin']").val();
-                 var max=$(this).find("td > [name='paxmax']").val();
-                 var type=$(this).find(".type").html();
-                 var svc_unit=parseInt($(this).find("td > [name='nbsvc']").val());
-                 var amount=parseInt($(this).find(".tarif").html());
-                 var total=svc_unit*amount;
+                 var min = $(this).find("td > [name='paxmin']").val();
+                 var max = $(this).find("td > [name='paxmax']").val();
+                 var type = $(this).find(".type").html();
+                 var svc_unit = parseInt($(this).find("td > [name='nbsvc']").val());
+                 var amount = parseInt($(this).find(".tarif").html());
+                 var total = svc_unit*amount;
 
 
                      $(this).find('td').eq(7).html(total);
 
-                     var colbody=$("<td>");
+                     var colbody = $("<td>");
                     colbody.attr("class","quota");
-                    if(type==="Pax"){
+                    if(type === "Per booking"){
                         var subtotal =(total/i);
                     }else {
                         var subtotal =total;
@@ -62,7 +62,7 @@ function addColumn() {
 
                      }else{
                          colbody.html(subtotal.toFixed(2));
-                         bigtotal=bigtotal+subtotal;
+                         bigtotal = bigtotal+subtotal;
                      }
 
                      $(this).append(colbody);
@@ -92,29 +92,29 @@ function loadJson() {
             $.each(data,function (index,quota) {
 
                 for(var i=1;i<data.length;i++){
-                    var row=$('<tr>');
-                    var service=$('<td>');
-                    var code=$('<td>');
-                    var minnumber=$('<td>');
-                    var maxnumber=$('<td>');
-                    var rate=$('<td>');
-                    var nbrservice=$('<td>');
-                    var totalprice=$('<td>');
-                    var title=$('td');
+                    var row = $('<tr>');
+                    var service = $('<td>');
+                    var code = $('<td>');
+                    var minnumber = $('<td>');
+                    var maxnumber = $('<td>');
+                    var rate = $('<td>');
+                    var nbrservice = $('<td>');
+                    var totalprice = $('<td>');
+                    var title = $('td');
 
-                    var inputsvc=('<input>');
+                    var inputsvc = ('<input>');
                     inputsvc.attr({type:text,name:limitsvc});
-                    var mininput=('<input>');
+                    var mininput = ('<input>');
                     mininput.attr({type:text,name:limitmin});
-                    var maxinput=('<input>');
+                    var maxinput = ('<input>');
                     maxinput.attr({type:text,name:limitmax});
-                    var inputnbrsvc=$('<input>');
+                    var inputnbrsvc = $('<input>');
                     inputnbrsvc.attr({type:text,name:nbrsvc});
-                    var nbservice=0;
+                    var nbservice = 0;
                     $('[name="nbrsvc"]').change(function(){
                         nbservice+=parseInt(inputnbrsvc.val());
                     });
-                    var price=nbrservice*quota.tarif;
+                    var price = nbrservice*quota.tarif;
 
                     code.append(i);
                     service.append(quota.service);

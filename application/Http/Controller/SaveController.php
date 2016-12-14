@@ -9,6 +9,7 @@
 namespace App\Http\Controller;
 
 use App\Model\QuotaRoom;
+use App\Model\QuotaPrestation;
 use App\Model\Restaurant;
 use App\Model\Room;
 use App\Utils\Exchange;
@@ -26,9 +27,10 @@ class SaveController extends Controller
         $e = $euro->exchange[0];
         $d = $dollar->exchange[0];
         $room = $others->selectOthers($id);
-        $rest = json_decode($room['others']);
-        $currency = $rest->{'public-rate'}->value->currency;
-        $rate = $rest->{'wau-rate'}->value;
+        $rest = $room[0];
+        $response=json_decode($rest['others']);
+        $currency = $response->{'public-rate'}->value->currency;
+        $rate = $response->{'wau-rate'}->value;
         if($currency == "EUR"){
             $price = $rate * $e;
         }else if($currency == "MGA"){
@@ -61,7 +63,7 @@ class SaveController extends Controller
     }
 
     public function itBoard(){
-        $menu = 'Half Board - Bung DBL - /pax - LS - 2017';//$_GET['menu'];
+        $menu = $_GET['menu'];
         $board = new Restaurant();
         $euro = new Exchange(0);
         $dollar = new Exchange(1);
@@ -85,15 +87,24 @@ class SaveController extends Controller
     public function saveQuotaRoom(){
         $quota = new QuotaRoom();
         $base = $_GET['base'];
-        $board = $_GET['board'];
         $id_cli = $_GET['id'];
         $id_house = $_GET['idHouse'];
         $rate = $_GET['price'];
         $price_room = (float) $rate;
         $others = $_GET['others'];
-        $array  =  array($base, $board, $id_cli, $id_house, $id_house, $price_room, $others);
+        $array  =  array('base'=>$base, 'id_cli'=>$id_cli, 'id_house'=>$id_house,'price_room'=>$price_room,'others'=>$others);
 
-        $quota->insertToQuota($array);
+        $quota->insertToQuotaroom($array);
+    }
+
+    public function saveQuotaPrestation(){
+        $quota = new QuotaPrestation();
+        $service = $_GET['service'];
+        $id_cli = $_GET['id'];
+        $others = $_GET['others'];
+        $array  =  array('service'=>$service, 'id_client'=>$id_cli,'others'=>$others);
+
+        $quota->insertToQuotaprestation($array);
     }
 
 }

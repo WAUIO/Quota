@@ -12,7 +12,7 @@ namespace App\Utils;
 class Client
 {
     var $id;
-    var $ref_client;
+    var $reference;
     var $name;
     var $number_child;
     var $number_adult;
@@ -29,14 +29,14 @@ class Client
         return $this;
     }
 
-    public function getRefClient()
+    public function getReference()
     {
-        return $this->ref_client;
+        return $this->reference;
     }
 
-    public function setRefClient($ref_client)
+    public function setReference($reference)
     {
-        $this->ref_client = $ref_client;
+        $this->reference = $reference;
         return $this;
     }
 

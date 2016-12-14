@@ -1,9 +1,10 @@
 <?php namespace App\Http\Controller;
 
 
+use App\Utils\Client;
 use Symfony\Component\HttpFoundation\Request;
 use Wau\Http\Controller;
-use App\Model\Client;
+use App\Model\ClientModel;
 //use App\Utils\RoomBase;
 
 class infoController extends Controller
@@ -15,20 +16,23 @@ class infoController extends Controller
     }
 
     public function clientInsert(){
-        session_start();
+        $clientModel=new ClientModel();
         $client=new Client();
-        $ref = $_GET['customerRef'];
-        $name  = $_GET['name'];
-        $nb_adult = $_GET['nbAdults'];
-        $nb_child = $_GET['nbChildren'];
+
         $parts = explode('/', $_GET['stay']);//
         $date="$parts[2]-$parts[1]-$parts[0]";
-        $array = array('ref'=>$ref,'name'=>$name,'number_adult'=>$nb_adult,'number_child'=>$nb_child,'date'=>$date);
-        $client->insertClient($array);
 
-        $_SESSION['id'] = $_GET['ref_cli'];
+        $client->setReference( $_GET['customerRef']);
+        $client->setName( $_GET['name']);
+        $client->setNumberAdult( $_GET['nbAdults']);
+        $client->setNumberChild( $_GET['nbChildren']);
+        $client->setStartDate( $date);
 
-        //return  $_SESSION['id'];
+        $array = array('ref'=>$client->getReference(),'name'=>$client->getName(),'number_adult'=>$client->getNumberAdult(),'number_child'=>$client->getNumberChild(),'date'=>$client->getStartDate());
+        $clientModel->insertClient($array);
+
+        $_SESSION['client'] = $client;
+
         return($array);
     }
 

@@ -13,17 +13,27 @@ class Prestation
 {
     var $item_id;
     var $title;
-    var $type;
+    var $price;
+    var $others;
 
 
-    public function getType()
+    public function getOthers()
     {
-        return $this->type;
+        return $this->others;
     }
 
-    public function setType($type)
+    public function setOthers($others)
     {
-        $this->type = $type;
+        $this->others = $others;
+    }
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    public function setPrice($price)
+    {
+        $this->price = $price;
     }
 
     public function getItemId()

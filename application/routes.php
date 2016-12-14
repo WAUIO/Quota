@@ -13,6 +13,7 @@ $app->get('/total', 'App\Http\Controller\QuotaViewController@total_quota');
 $app->get('/house', 'App\Http\Controller\HouseController@select');
 $app->get('/sgl', 'App\Http\Controller\SaveController@saveRoom');
 $app->get('/quota', 'App\Http\Controller\SaveController@saveQuotaRoom');
+$app->get('/saveprestation', 'App\Http\Controller\SaveController@saveQuotaPrestation');
 $app->get('/resto', 'App\Http\Controller\SaveController@itBoard');
 $app->get('/path', 'App\Http\Controller\HouseController@dataRoom');
 $app->get('/brd', 'App\Http\Controller\SaveController@priceBoard');
