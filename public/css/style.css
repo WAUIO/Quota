@@ -218,12 +218,14 @@ table > thead > tr > th, .total_designation {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    color: #2B838E;
+    padding-left: 5px;
 }
 .quota_lists:hover{
-    cursor: default;
+    cursor: pointer;
     background: #f9f9f9;
 }
-.base_types a, .quota_lists a{
+.base_types a{
     text-decoration: none;
     color: #2B838E;
     margin-left: 5px;
@@ -623,4 +625,14 @@ h2,h3{
 }
 .next_prestation:hover{
     background: #2aa198;
+}
+
+#loading {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('../images/loading.gif') 50% 50% no-repeat rgb(249,249,249);
 }

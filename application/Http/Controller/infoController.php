@@ -38,7 +38,7 @@ class infoController extends Controller
         return $this->app()->make('twig.view')->render('info.twig',$data);
     }
 
-    public function saveClient(Request $request){
+    public function saveClient(){
         $data = array();
 
         array_set($data, 'reference', $_GET['reference']);
@@ -47,7 +47,6 @@ class infoController extends Controller
         array_set($data, 'nbChildren', $_GET['nbChildren']);
         array_set($data, 'stay', $_GET['stay']);
 
-//        return $this->app()->make('twig.view')->render('info.twig',$data);
         return $data;
     }
 

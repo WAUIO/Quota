@@ -40,7 +40,7 @@
                             </tr>
                             <tr id="tr_margin_prestation" class="tr_{{ room.type|replace({' ' : '_'}) }}">
                                 <td class="designation">Margin</td>
-                                <td class="red"><span id="margin_prestation_{{ room.type|replace({' ' : '_'}) }}" class="taxes">{{ prestation.margin }}</span><span>%</span></td>
+                                <td class="red"><span id="margin_prestation_{{ room.type|replace({' ' : '_'}) }}" class="taxes" data-loading-text="azertyuiti.....">{{ prestation.margin }}</span><span>%</span></td>
                                 {% for i in prestation.min..prestation.max %}
                                     <td class="td_value td_{{ room.type|replace({' ' : '_'}) }}">{{ prestation.value[i-prestation.min] *  prestation.margin /100 }}</td>
                                 {% endfor %}

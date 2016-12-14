@@ -1,10 +1,14 @@
 .funky_label{
-    padding: 0;
+    /*padding: 0;*/
     margin-top: -10px;
     border: none !important;
-    /*white-space: nowrap;*/
+    white-space: nowrap;
 }
-
+.funky_label:hover{
+    white-space: normal;
+    padding-left: 40px !important;
+    text-indent: 0 !important;
+}
 .funkyradio{
     margin:0;
     padding-top: -20px;
@@ -50,7 +54,7 @@
     bottom: 0;
     left: 0;
     content: '';
-    width: 2.5em;
+    width: 30px;
     background: #D1D3D4;
     border-radius: 3px 0 0 3px;
 }

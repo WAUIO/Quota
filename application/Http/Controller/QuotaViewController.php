@@ -16,46 +16,49 @@ class QuotaViewController extends Controller
 
     public function room_quota(Request $request)
     {
-        $client = new Client();
-        $client->setId(9);
-        $client->setReference("Quota n°123");
-        $_SESSION['client'] = $client;
         $data = array();
         $details = array();
 
-        $base_rooms = $this->getRoom("n°123");
-        $existing_base = RoomQuota::$room_type;
+        $base_rooms = $this->getRoom($_SESSION['client']->getId());
 
-        array_set($data, 'details', $details);
-        array_set($data, 'existing_base', $existing_base);
-        array_set($data, 'base_rooms', $base_rooms);
-        array_set($data, 'request', $request);
+        if($base_rooms != null){
+            $existing_base = RoomQuota::$room_type;
 
-        return $this->app()->make('twig.view')->render('room_quota.twig',$data);
+            array_set($data, 'details', $details);
+            array_set($data, 'existing_base', $existing_base);
+            array_set($data, 'base_rooms', $base_rooms);
+
+            return $this->app()->make('twig.view')->render('room_quota.twig',$data);
+        }else
+            return "bol ts mis";
     }
 
-    public function getRoom($reference_quota){
+    public function getRoom($client_id){
         //exchange[0] => achat
         //exchange[1] => vente
         //exchange[2] => mid
+        $client_id = 51;
+        $query = "SELECT * FROM quotaroom WHERE id_client = ".$client_id;
+        $instance = new PDOConnection();
+        $result = $instance->select($query);
 
-        $this->instance = new PDOConnection();
-        $query = "SELECT * FROM client";
-        //$result = $this->instance->select($query);
+        foreach ($result as $res){
+            var_dump(json_decode($res['others']));
+        }
 
         $base_rooms = array();
-        $euro = new Exchange(0);
-        $dollar = new Exchange(1);
-
-        $exchange = array('euro'=>$euro->exchange[0], 'dollar'=>$dollar->exchange[0]);
-
-        $margin = 10;
-        $vat = 20;
-        $single_room  = new RoomQuota(array("single room", 1000, 20, 100, 50, 150, 200, $exchange, $margin, $vat));
-        $double_room  = new RoomQuota(array("double room", 2000, 30, 100, 50, 150, 200, $exchange, $margin, $vat));
-        $family_room  = new RoomQuota(array("family room", 15000, 50, 200, 10, 1500, 3000, $exchange, $margin, $vat));
-
-        array_push($base_rooms, $single_room, $double_room, $family_room);
+//        $euro = new Exchange(0);
+//        $dollar = new Exchange(1);
+//
+//        $exchange = array('euro'=>$euro->exchange[0], 'dollar'=>$dollar->exchange[0]);
+//
+//        $margin = 10;
+//        $vat = 20;
+//        $single_room  = new RoomQuota(array("single room", 1000, 20, 100, 50, 150, 200, $exchange, $margin, $vat));
+//        $double_room  = new RoomQuota(array("double room", 2000, 30, 100, 50, 150, 200, $exchange, $margin, $vat));
+//        $family_room  = new RoomQuota(array("family room", 15000, 50, 200, 10, 1500, 3000, $exchange, $margin, $vat));
+//
+//        array_push($base_rooms, $single_room, $double_room, $family_room);
 
         return $base_rooms;
     }

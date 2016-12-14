@@ -22,12 +22,12 @@ class ClientController extends Controller
         $client->setNumberChild( $_GET['nbChildren']);
         $client->setStartDate( $date);
 
-        $array = array('ref'=>$client->getReference(),'name'=>$client->getName(),'number_adult'=>$client->getNumberAdult(),'number_child'=>$client->getNumberChild(),'date'=>$client->getStartDate());
+        $array = array('reference'=>"azerty",'name'=>$client->getName(),'number_adult'=>$client->getNumberAdult(),'number_child'=>$client->getNumberChild(),'date'=>$client->getStartDate());
         $clientModel->insertClient($array);
 
         $_SESSION['client'] = $client;
 
-        return($array);
+        return($client);
     }
 
     public function setClient(Request $request){

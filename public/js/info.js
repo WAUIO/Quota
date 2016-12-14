@@ -26,41 +26,41 @@ function saveClient(){
 
         //if(ref_regex.test($('#customerRef').val()) && date_regex.test($('#stay').val())) {
 
-            $.ajax({
-                type:"GET",
-                url:"/saveClient",
-                data: $('form').serialize(),
-                dataType : "html",
-                cache : false,
-                success : function(data){
-                    $('.client_message').css({'display':'block','color':'#5cb85c'}).text("data['reference'] added !");
 
-                    var add_quotation = '<div class="row">' +
-                                            '<h4>'+
-                                                'Add quotation for this customer'+
-                                            '</h4>' +
+        $.ajax({
+            type:"GET",
+            url:"/saveClient",
+            data: $('form').serialize(),
+            dataType : "html",
+            success : function(data){
+                $('.client_message').css({'display':'block','color':'#5cb85c'}).text("Customer "+data.reference+" added !");
+
+                var add_quotation = '<div class="row">' +
+                                        '<h4>'+
+                                            'Add quotation for this customer'+
+                                        '</h4>' +
+                                    '</div>' +
+                                    '<div class="row">'+
+                                        '<div class="col-xs-6">' +
+                                            '<div class="col-md-12 add_quotation" onclick="location.href =\'/room\'">'+
+                                                'Room quotation' +
+                                            '</div>' +
                                         '</div>' +
-                                        '<div class="row">'+
-                                            '<div class="col-xs-6">' +
-                                                '<div class="col-md-12 add_quotation" onclick="location.href =\'/room\'">'+
-                                                    'Room quotation' +
-                                                '</div>' +
+                                        '<div class="col-xs-6">' +
+                                            '<div class="col-md-12 add_quotation" onclick="location.href =\'/prestation\'">'+
+                                                'Benefit quotation' +
                                             '</div>' +
-                                            '<div class="col-xs-6">' +
-                                                '<div class="col-md-12 add_quotation" onclick="location.href =\'/prestation\'">'+
-                                                    'Benefit quotation' +
-                                                '</div>' +
-                                            '</div>' +
-                                        '</div>';
-                    var block_client_saved = $('#client_saved');
-                    block_client_saved.html("");
-                    block_client_saved.append(add_quotation);
-                },
-                error:function(){
-                    $('.client_message').css({'display':'block','color':'#FF0F22'}).text('Error, customer no saved !');
-                }
-            });
-            // location.reload();
+                                        '</div>' +
+                                    '</div>';
+                var block_client_saved = $('#client_saved');
+                block_client_saved.html("");
+                block_client_saved.append(add_quotation);
+            },
+            error:function(){
+                $('.client_message').css({'display':'block','color':'#FF0F22'}).text('Error, customer no saved !');
+            }
+        });
+        // location.reload();
         // }else{
         //     alert("zezee");
         //     // var p="<p> <span class=' glyphicon glyphicon-hand-right'></span>  Format or values of your entries are not permissible,please retry!</p>";
@@ -88,31 +88,6 @@ function validateNumber(event) {
             return true;
         }
     }
-}
-
-function btnSave(){
-    $('#btn-save').on('click',function(){
-        var donnees = retrieveData();
-        var url="";
-//envoie les données au url(c.a.d au controlleur et au fonction definie de cette controller)
-        $.post(url,donnees,function(data){
-//data c'est la vue envoyer par le controller
-//ici on change le contenue #content par la vue envoyer par le controller
-            $('#content').html(data);
-        });
-    });
-
-//Autre exemple de recuperation données
-    $('#-----').on('click',function(){
-        var customerRef = $('#customerRef').val();
-        var name = $('#name').val();
-        var nbAdults = $('#nbAdults').val();
-        var nbChildren = $('#nbChildren').val();
-        var stay = $('#stay').val();
-        $.post(url,{'name': name},function(data){
-            $('#content').html(data);
-        });
-    });
 }
 
 function retrieveData(){

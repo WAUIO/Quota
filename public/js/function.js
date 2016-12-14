@@ -4,6 +4,7 @@ $(document).ready(function () {
 
     getClient();
     searchClient();
+    wait();
 
     $(".ref_client").click(function () {
         $("#about_client").dialog({modal: true, height: 205, width: 400 });
@@ -42,11 +43,7 @@ $(document).ready(function () {
     calculateTotal();
     ancreLink();
     mouseEvent();
-    btnSave();
 
-    $('#client_1').click(function () {
-       alert("azertyu");
-    });
 });
 
 function roundValue(value){
@@ -55,6 +52,15 @@ function roundValue(value){
         value = value.toFixed(2);
     }else value = value.toFixed(0);
     return value;
+}
+
+function wait(){
+    $(document).ajaxStart(function () {
+        $("#loading").css("display", "block");
+    });
+    $(document).ajaxComplete(function () {
+        $("#loading").css("display", "none");
+    });
 }
 
 function searchClient(){
@@ -98,10 +104,13 @@ function getClient() {
         dataType: "json",
         success: function (data) {
             var $length = data.length;
-            for(i=0;i<$length-1;i++){
+            var client_id;
+
+            for(i=0; i<$length; i++){
                 $('#quota_list').append($('<div id="client_'+data[i].id+'" class="quota_lists">'+data[i].reference+' : '+data[i].name+'</div>')
                     .click(function(){
-                        setClient(window.location, $(this).attr('id').replace('client_',''));
+                        client_id = $(this).attr('id').replace('client_','');
+                        setClient(window.location, client_id);
                     })
                 );
             }

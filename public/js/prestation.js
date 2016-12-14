@@ -1,9 +1,16 @@
 $( function() {
+
     $( "#accordion" ).accordion();
 
     $('.checked_list_content').perfectScrollbar();
 
     $('.list_service').perfectScrollbar();
+
+    // $('.funky_label').css('text-overflow', 'ellipsis !important');
+    // $('.funky_label').hover(function() {
+    //     alert($(this).text());
+    //     $(this).css("overflow","visible !important")
+    // });
 
     $('#btn_next').click(function () {
         showMessage();
