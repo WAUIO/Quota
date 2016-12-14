@@ -1,8 +1,6 @@
 $(document).ready(function () {
     getClient();
 
-
-
     $(this).scrollTop(0);
     $('#family_member').on('change keyup', function () {
         calculateFamilyTotal($(this));
@@ -18,12 +16,12 @@ $(document).ready(function () {
     $('input').keydown(function (e) {
         e.stopPropagation();
     });
-
     $('.checked_list_content').perfectScrollbar();
     $('.list_service').perfectScrollbar();
 
     $('#quota_list').perfectScrollbar();
     if($('#quota_list').hasScrollBar('vertical')) {
+
         $('.quota_lists').css('margin-right', '15px');
         $('.ps-scrollbar-y-rail').css('z-index', '1000');
     }
@@ -34,8 +32,7 @@ $(document).ready(function () {
 
     $('#search_glyphicon').click(function(e){
         e.preventDefault();
-        var quota_list_id = '#quota_list';
-        ShowHideQuotaList(quota_list_id, 0);
+        ShowHideQuotaList($('#quota_list'), 0);
     });
 
     $('.taxes').css('border-bottom', 'none');
@@ -52,30 +49,32 @@ $(document).ready(function () {
     editValuePopup();
     tableEvent();
     //editValuePopup();
+
     calculateTotal();
     ancreLink();
-    client();
-    checkPrestation();
     mouseEvent();
     btnSave();
 
+    $('#client_1').click(function () {
+       alert("azertyu");
+    });
 });
 
-function getClient() {
-    $.ajax({
-        url: "/getClient",
-        type: "GET",
-        dataType: "json",
-        cache: false,
-        success: function (data) {
-            var $length = data.length;
-
-            for(i=0;i<$length;i++){
-                $('#quota_list').append('<div id="client_'+data[i].id+'" class="quota_lists"><a href="#">'+data[i].ref_client+' : '+data[i].name+'azertyuiopaqsdfghjklmwxcvbn123456789</a></div>');
-            }
-        }
-    });
-}
+// function getClient() {
+//     $.ajax({
+//         url: "/getClient",
+//         type: "GET",
+//         dataType: "json",
+//         cache: false,
+//         success: function (data) {
+//             var $length = data.length;
+//
+//             for(i=0;i<$length;i++){
+//                 $('#quota_list').append('<div id="client_'+data[i].id+'" class="quota_lists"><a href="#">'+data[i].ref_client+' : '+data[i].name+'azertyuiopaqsdfghjklmwxcvbn123456789</a></div>');
+//             }
+//         }
+//     });
+// }
 
 $( function() {
     var options={
@@ -113,30 +112,90 @@ function client(){
                 }
             });
 
-                location.reload();
-        }else{
-            var p="<p> <span class=' glyphicon glyphicon-hand-right'></span>  Format or values of your entries are not permissible,please retry!</p>";
-            $("#banner").append(p);
+function roundValue(value){
+    value = parseFloat(value);
+    if(value % 1 != 0){
+        value = value.toFixed(2);
+    }else value = value.toFixed(0);
+    return value;
+}
+
+// <<<<<<< HEAD
+// $( function() {
+//     var options ={
+//         dateFormat: 'dd/mm/yy',
+//         todayHighlight: true,
+//         autoclose: true
+//     };
+//     $( "#stay" ).datepicker(options);
+// } );
+//
+// =======
+function searchClient(){
+    $('#search_client').keyup(function(){
+        var exist = false;
+        var quota_list = $('#quota_list');
+        var input_text = $(this).val().toLowerCase();
+
+        if(quota_list.is(":visible") === false){
+            quota_list.fadeIn(200);
+            $('#search_glyphicon').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
         }
+
+        $('.quota_lists').each(function(){
+            var text = $(this).text().toLowerCase();
+            if(text.indexOf(input_text) != -1){
+                $(this).show();
+                exist = true;
+            }
+            else{
+                $(this).hide();
+            }
+        });
+
+        if(!exist){
+            quota_list.find('.search_message').show();
+        }else
+            quota_list.find('.search_message').hide();
+
+        quota_list.scrollTop(0);
+        quota_list.perfectScrollbar('update');
 
     });
 }
 
-    editValuePopup();
-    calculateTotal();
-    ancreLink();
+function getClient() {
 
+    $.ajax({
+        url: "/getClient",
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            var $length = data.length;
 
+            for(i=0;i<$length-1;i++){
+                $('#quota_list').append($('<div id="client_'+data[i].id+'" class="quota_lists">'+data[i].reference+' : '+data[i].name+'</div>')
+                    .click(function(){
+                        setClient(window.location, $(this).attr('id').replace('client_',''));
+                    })
+                );
+            }
 
-$( function() {
-    var options={
-        dateFormat: 'dd/mm/yy',
-        todayHighlight: true,
-        autoclose: true
-    };
-    $( "#stay" ).datepicker(options);
-} );
+            $('.ref_client').load(window.location + ' .ref_client');
+        }
+    });
+}
 
+function setClient(url, client_id){
+    $.ajax({
+        url: "/setClient",
+        type: "GET",
+        data: {client_id : client_id},
+        success: function () {
+            window.location.replace(url);
+        }
+    });
+}
 function checkboxEvent() {
     /*******checkbox event*******/
     $("input[type=checkbox]").click(function () {
@@ -155,14 +214,14 @@ function menuView() {
     //Show & hide menu(Search and room basis)
     $('#menu_hamburger').click(function(e){
         e.preventDefault();
-        var quota_list_id = '#quota_list';
+        var quota_list = '#quota_list';
         var bloc_well = $('.well');
         if(bloc_well.not('#well_search').css("display") == "block"){
             bloc_well.not('#well_search').fadeOut(100,function () {
-                ShowHideQuotaList(quota_list_id, 1);
+                ShowHideQuotaList(quota_list, 1);
             });
         }else{
-            ShowHideQuotaList(quota_list_id, 2);
+            ShowHideQuotaList(quota_list, 2);
             bloc_well.fadeIn();
         }
     });
@@ -196,7 +255,6 @@ function ancreLink() {
         return false;
     });
 }
-
 
 function calculateTotal() {
     $('table').each(function(){
@@ -391,23 +449,23 @@ function isFloat(val) {
     return true;
 }
 
-function ShowHideQuotaList(quota_list_id, nbr){
+function ShowHideQuotaList(quota_list, nbr){
     if(nbr == 0){
-        if($(quota_list_id).is(":visible") === true){
-            $(quota_list_id).fadeOut(200);
+        if(quota_list.is(":visible") === true){
+            quota_list.fadeOut(200);
             $('#search_glyphicon').toggleClass('glyphicon-chevron-up').toggleClass('glyphicon-chevron-down');
         }else{
-            $(quota_list_id).fadeIn(200);
+            quota_list.fadeIn(200);
             $('#search_glyphicon').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
         }
     }else if(nbr == 1){
-        if($(quota_list_id).is(":visible") === true){
-            $(quota_list_id).fadeOut(200);
+        if(quota_list.is(":visible") === true){
+            quota_list.fadeOut(200);
             $('#search_glyphicon').toggleClass('glyphicon-chevron-up').toggleClass('glyphicon-chevron-down');
         }
     }else{
-        if($(quota_list_id).is(":visible") === false){
-            $(quota_list_id).fadeIn(200);
+        if(quota_list.is(":visible") === false){
+            quota_list.fadeIn(200);
             $('#search_glyphicon').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
         }
     }

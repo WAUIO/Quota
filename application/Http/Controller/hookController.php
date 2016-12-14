@@ -7,7 +7,6 @@ use Wau\Http\Controller\WebhookController;
 use App\Utils\HtmlToText;
 
 
-
 class hookController extends WebhookController
 {
     protected $routes = [

@@ -2,9 +2,8 @@
 {% block body %}
 <div class="content">
    <div class="col-md-12 col-md-offset-1">
-       <div class="col-md-2 col-md-push-10"></div>
        <div class="col-md-11 col-md-pull-1 table-responsive">
-           <div class="row">
+           {#<div class="row">#}
                <table class="table">
                    <thead>
                        <tr id="Thead">
@@ -32,7 +31,7 @@
                             <th>Pax</th>
                         </tr>
                    </thead>
-                   <tbody id="Tbody" class="table-bordered">
+                   <tbody id="Tbod" class="table-bordered">
                         <tr>
                             <td class="cod">1</td>
                             <td ><span>Guide</span></td>
@@ -75,10 +74,17 @@
                     </tr>
                    </tfoot>
                </table>
-           </div>
-           <div class="row">
-               <div class="pull-right">
-                   <button id="savequota" class="btn btn-default">SAVE</button>
+           {#</div>#}
+           {#<div class="row">#}
+               {#<div class="pull-right">#}
+                   {#<button id="savequota" class="btn btn-default">SAVE</button>#}
+               {#</div>#}
+           {#</div>#}
+           <div class="form-group row">
+               <div class="col-xs-offset-2 col-xs-10">
+                   <div class="add_client" id="savequ">
+                       <span>Save</span>
+                   </div>
                </div>
            </div>
        </div>

@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 
 .form-control {
     float: right;
@@ -33,34 +31,21 @@
     max-width: 200px;
     border-radius: 5px;
 }
->>>>>>> 627761f1db75925567efa71a01f1dc764813efab
+.form-horizontal{
+    padding: 0 10px;
+}
 .form-submit {
     float: right;
     background-color: #1BBC9B;
     color: #ffffff;
     margin-right: 10px;
 }
+
 .form-control {
     float: right;
     width: 550px;
-<<<<<<< HEAD
-=======
-
-
 }
-.form-label {
-    float: left;
 
-
-}
-.field {
-    margin: 1px 10px 10px 10px;
-}
-.form-control {
-    float: right;
-    max-width: 400px;
->>>>>>> 627761f1db75925567efa71a01f1dc764813efab
-}
 .form-label {
     float: left;
 }
@@ -87,8 +72,28 @@
 .col-xs-6 .content {
     max-width: 200px;
     border-radius: 5px;
-<<<<<<< HEAD
 }
-=======
+.client_message{
+    display: none;
+    color: #FF0F22;
+    height: 40px;
+    float: right;
+    font-style: italic;
+    line-height: 40px;
+    border-radius: 2px;
 }
->>>>>>> 627761f1db75925567efa71a01f1dc764813efab
+#client_saved{
+    padding: 0 15px;
+}
+.add_quotation{
+    height: 30px;
+    color: #fff;
+    background: #6F6F6F;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+.add_quotation:hover{
+    background: #6F6F6F;
+    opacity: .8;
+}

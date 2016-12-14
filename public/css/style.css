@@ -26,11 +26,8 @@ footer {
 #logo{
     width: 90px;
     position: relative;
-<<<<<<< HEAD
-    top: 0px;
-=======
-    top:-10px;
->>>>>>> 627761f1db75925567efa71a01f1dc764813efab
+
+    top: 0;
 }
 
 .title-logo, .navbar-nav{
@@ -40,8 +37,11 @@ footer {
     height: 50px;
     line-height: 50px;
     color: #ffffff;
+    cursor: default;
 }
-
+.ref_client:hover{
+    color: #000;
+}
 .content {
     top: 0;
  }
@@ -102,18 +102,17 @@ footer {
 .page-header{
     font-size: 300%;
 }
-<<<<<<< HEAD
 .title{
     font-size: 200%;
     color: #6F6F6F;
     padding: 10px;
-=======
+}
+
 #reference{
     background: #f4f4f4;
     color: #6F6F6F;
     padding: 10px;
     font-size:120%;
->>>>>>> 627761f1db75925567efa71a01f1dc764813efab
     font-weight: bold;
 }
 
@@ -265,9 +264,12 @@ table > thead > tr > th, .total_designation {
     height: 25px;
     line-height: 25px;
     white-space: nowrap;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 .quota_lists:hover{
-    cursor: pointer;
+    cursor: default;
     background: #f9f9f9;
 }
 .base_types a, .quota_lists a{
@@ -389,14 +391,9 @@ table > thead > tr > th, .total_designation {
 .type_client{
     margin-left: 20px;
 }
-<<<<<<< HEAD
-h3{
-    color: #2B838E;
-=======
 
 h2,h3{
     color:#2B838E;
->>>>>>> 627761f1db75925567efa71a01f1dc764813efab
     font-weight: bolder;
 }
 
@@ -406,9 +403,9 @@ h2,h3{
     background: #CCCCCC;
     color: white;
     width: 100px;
-    height: 34px;
+    height: 40px;
     text-align: center;
-    line-height: 34px;
+    line-height: 40px;
     border-radius: 2px;
 }
 .save_btn:hover{
@@ -416,10 +413,6 @@ h2,h3{
 }
 
 #hotel{
-<<<<<<< HEAD
-    width: 60px;
-    height: 40px;
-=======
     width: 80px;
     height:60px;
 }
@@ -427,7 +420,6 @@ h2,h3{
     margin-top: 30px;
     width: 60px;
     height:40px;
->>>>>>> 627761f1db75925567efa71a01f1dc764813efab
 }
 #sgl{
     width: 10px;
@@ -506,10 +498,6 @@ h2,h3{
     -webkit-box-shadow: 0 -1px 0 #D1D3D4, 0 1px 0 #D1D3D4;
     box-shadow: 0 -1px 0 #D1D3D4, 0 1px 0 #D1D3D4;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 627761f1db75925567efa71a01f1dc764813efab
 .navbar-nav ul a{
     padding: 10px;
     height: auto;
@@ -526,7 +514,6 @@ h2,h3{
 }
 
 .navbar-nav ul a:hover{
-<<<<<<< HEAD
     background: #2B838E;
     background: -moz-linear-gradient(#2B838E, #2B838E);
     background: -webkit-gradient(linear, left top, left bottom, from(#2B838E), to(#2B838E));
@@ -535,31 +522,6 @@ h2,h3{
     background: -ms-linear-gradient(#2B838E, #2B838E);
     background: linear-gradient(#2B838E, #2B838E);
 }
-=======
-  background: #2B838E;
-  background: -moz-linear-gradient(#2B838E, #2B838E);
-  background: -webkit-gradient(linear, left top, left bottom, from(#2B838E), to(#2B838E));
-  background: -webkit-linear-gradient(#2B838E, #2B838E);
-  background: -o-linear-gradient(#2B838E, #2B838E);
-  background: -ms-linear-gradient(#2B838E, #2B838E);
-  background: linear-gradient(#2B838E, #2B838E);
-}
-
-
-
-/*.navbar-nav ul li:first-child a:after{*/
-/*content: '';*/
-/*position: absolute;*/
-/*left: 30px;*/
-/*top: -8px;*/
-/*width: 0;*/
-/*height: 0;*/
-/*border-left: 5px solid transparent;*/
-/*border-right: 5px solid transparent;*/
-/*border-bottom: 8px solid #2B838E;*/
-/*}*/
-
->>>>>>> 627761f1db75925567efa71a01f1dc764813efab
 .navbar-nav ul li:first-child a:hover:after{
     border-bottom-color: #D1D3D4;
 }
@@ -670,10 +632,7 @@ li .lign{
     color: #070;
     cursor: pointer;
 }
- /*information*/
-.form-horizontal{
-    padding: 0 10px;
-}
+
 .col-form-label{
     color: rgb(111, 111, 111);
     white-space: nowrap;
@@ -786,7 +745,6 @@ li .lign{
 .delete_prestation{
     display: none;
     float: right;
-    cursor: pointer;
     width: 25px;
     height: 25px;
     line-height: 25px;
@@ -817,15 +775,49 @@ li .lign{
     float: right;
 }
 .no_service{
-    display: none;
     color: #FF0F22;
-    height: 34px;
+    height: 40px;
     text-align: right;
     font-style: italic;
-    line-height: 34px;
+    line-height: 40px;
     border-radius: 2px;
     margin-top: 10px;
 }
 .next_prestation:hover {
   background: #2aa198;
 }
+#quotafade{
+    display: none;
+}
+.n_pax{
+    width: 50px;
+    margin-left: 10px;
+}
+.loader{
+    width: 10px;
+    height:10px;
+}
+#dollar{
+    margin-left: 20px;
+    font-weight: bold;
+    font-size: 20px;
+    color:#2B838E;
+}
+#euro{
+    margin-top: 10px;
+    margin-left: 22px;
+    font-weight: bold;
+    font-size: 20px;
+    color:#2B838E;
+}
+#loader_gif{
+    width: 10px;
+    height:10px;
+}
+.no_service_message{
+    display: none;
+}
+.next_prestation:hover{
+    background: #2aa198;
+}
+

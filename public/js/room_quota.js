@@ -18,13 +18,10 @@ function calculateFamilyTotal($this){
         $.each([1,5,6], function( index, value ) {
             var price = tr.siblings().eq(value).find('td').eq(1).find('.hide').text();
             var new_price = price / number;
-            if(new_price % 1 != 0){
-                new_price = new_price.toFixed(2);
-            }
 
-            tr.siblings().eq(value).find('td').eq(1).find('.mga_value').text(new_price);
-            tr.siblings().eq(value).find('td').eq(2).text((new_price/euro).toFixed(2));
-            tr.siblings().eq(value).find('td').eq(3).text((new_price/dollar).toFixed(2));
+            tr.siblings().eq(value).find('td').eq(1).find('.mga_value').text(roundValue(new_price));
+            tr.siblings().eq(value).find('td').eq(2).text(roundValue((new_price/euro).toFixed(2)));
+            tr.siblings().eq(value).find('td').eq(3).text(roundValue((new_price/dollar).toFixed(2)));
         });
         $.each([1,2,3,4,5,6], function( index, value ) {
             total += parseFloat(tr.siblings().eq(value).find('td').eq(1).find('.mga_value').text());

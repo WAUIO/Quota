@@ -2,30 +2,29 @@
 /**
  * Created by PhpStorm.
  * User: ninah
- * Date: 01/12/16
- * Time: 08:13
+ * Date: 13/12/16
+ * Time: 15:49
  */
 
 namespace App\Model;
+
 use App\DatabaseConnection\PDOConnection;
 
-class QuotaRoom
+class QuotaPrestation
 {
     var $instance;
     public function __construct()
     {
         $this->instance = new PDOConnection();
-
     }
-    public function insertToQuotaroom($array){
+    public function insertToQuotaprestation($array){
         try{
 
-            $sqlQuery = "INSERT INTO quotaroom (base, id_cli, id_house, price_room, others) VALUES(:base,:id_cli,:id_house,:price_room,:others)";
+            $sqlQuery = "INSERT INTO quotaprestation (service, id_client, others) VALUES(:service,:id_client,:others)";
 
             $this->instance->insert($sqlQuery,$array);
         }catch (\Exception $e){
             echo $e->getCode(),$e->getMessage(),$e->getLine();
-
         }
     }
 }

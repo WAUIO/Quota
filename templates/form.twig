@@ -14,10 +14,13 @@
                                         <option value={{ house['item_id'] }}> {{ house['house_title'] }} </option>
                                     {% endfor %}
                                 </select>
+                                <img class="loader" src="/img/preview.gif" style="display:none">
                             </div>
                             <div class="col-md-3">
-                                <span id="dollar" class="lign"><img  class="currency" src="/img/dollar-icon.png">{{ dollar}}</span>
-                                <span id="euro" class="lign"><img class="currency" src="/img/euro-icon.png">{{ euro }}</span>
+                                {#<span id="dollar" class="lign"><img  class="currency" src="/img/dollar-icon.png">{{ dollar}}</span>#}
+                                {#<span id="euro" class="lign"><img class="currency" src="/img/euro-icon.png">{{ euro }}</span>#}
+                                <span id="dollar" class="glyphicon glyphicon-usd">{{ dollar}}</span>
+                                <span id="euro" class="glyphicon glyphicon-euro">{{ euro }}</span>
                                 <span id="customer" class="lign">{{ refclient['MAX(id)'] }}</span>
                             </div>
                         </div>
@@ -107,7 +110,6 @@
                                         <select title="Nothing" id="sgl" class="selectpicker form-control show-tick" data-live-search="true">
 
                                         </select>
-
                                     </div>
                                 </div>
                                 <div id="doublebed" class="row">
@@ -122,7 +124,6 @@
                                         <select title="Nothing" id="dbl" class="selectpicker form-control show-tick" data-live-search="true" multiple>
 
                                         </select>
-
                                     </div>
                                 </div>
                                 <div id="triplebed" class="row">
@@ -151,7 +152,6 @@
                                         <select title="Nothing" id="fml" class="selectpicker form-control show-tick" data-live-search="true" multiple>
 
                                         </select>
-
                                     </div>
                                 </div>
                                 <div id="extrabed" class="row">
@@ -166,7 +166,6 @@
                                         <select title="Nothing" id="ext" class="selectpicker form-control show-tick" data-live-search="true">
 
                                         </select>
-
                                     </div>
                                 </div>
 
@@ -195,6 +194,7 @@
                                         <select title="Nothing" id="chb" class="selectpicker form-control show-tick" data-live-search="true">
 
                                         </select>
+                                        <img class="loader" src="/img/preview.gif" style="display:none">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -209,6 +209,7 @@
                                         <select title="Nothing" id="chl" class="selectpicker form-control show-tick" data-live-search="true">
 
                                         </select>
+                                        <img class="loader" src="/img/preview.gif" style="display:none">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -223,6 +224,7 @@
                                         <select title="Nothing" id="chd" class="selectpicker form-control show-tick" data-live-search="true">
 
                                         </select>
+                                        <img class="loader" src="/img/preview.gif" style="display:none">
                                     </div>
                                 </div>
                                 <div id="chmenu" class="row">
@@ -259,6 +261,7 @@
                                         <select  title="Nothing" id="exch" class="selectpicker form-control show-tick" data-live-search="true" multiple>
 
                                         </select>
+                                        <img class="loader" src="/img/preview.gif" style="display:none">
                                     </div>
                                 </div>
 
@@ -269,7 +272,7 @@
                 </div>
                 <div class="row">
                     <div class="pull-right">
-                        <img class="btn" id="save" src="/img/save.png">
+                        <img class="btn" id="save" src="/img/save.png"><img id="loader_gif" src="/img/preview.gif" style="display:none">
                     </div>
                 </div>
 
