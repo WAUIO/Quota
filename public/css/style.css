@@ -36,8 +36,11 @@ footer {
     height: 50px;
     line-height: 50px;
     color: #ffffff;
+    cursor: default;
 }
-
+.ref_client:hover{
+    color: #000;
+}
 .content {
     top: 0;
  }
@@ -253,9 +256,12 @@ table > thead > tr > th, .total_designation {
     height: 25px;
     line-height: 25px;
     white-space: nowrap;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 .quota_lists:hover{
-    cursor: pointer;
+    cursor: default;
     background: #f9f9f9;
 }
 .base_types a, .quota_lists a{
@@ -379,7 +385,6 @@ table > thead > tr > th, .total_designation {
 }
 h2,h3{
     color:#2B838E;
-
     font-weight: bolder;
 }
 
@@ -389,9 +394,9 @@ h2,h3{
     background: #CCCCCC;
     color: white;
     width: 100px;
-    height: 34px;
+    height: 40px;
     text-align: center;
-    line-height: 34px;
+    line-height: 40px;
     border-radius: 2px;
 }
 .save_btn:hover{
@@ -618,10 +623,7 @@ li .lign{
     color: #070;
     cursor: pointer;
 }
- /*information*/
-.form-horizontal{
-    padding: 0 10px;
-}
+
 .col-form-label{
     color: rgb(111, 111, 111);
     white-space: nowrap;
@@ -734,7 +736,6 @@ li .lign{
 .delete_prestation{
     display: none;
     float: right;
-    cursor: pointer;
     width: 25px;
     height: 25px;
     line-height: 25px;
@@ -765,12 +766,11 @@ li .lign{
     float: right;
 }
 .no_service{
-    display: none;
     color: #FF0F22;
-    height: 34px;
+    height: 40px;
     text-align: right;
     font-style: italic;
-    line-height: 34px;
+    line-height: 40px;
     border-radius: 2px;
     margin-top: 10px;
 }
@@ -805,5 +805,10 @@ li .lign{
     width: 10px;
     height:10px;
 }
-
+.no_service_message{
+    display: none;
+}
+.next_prestation:hover{
+    background: #2aa198;
+}
 

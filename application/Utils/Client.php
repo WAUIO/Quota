@@ -16,7 +16,7 @@ class Client
     var $name;
     var $number_child;
     var $number_adult;
-
+    var $start_date;
 
     public function getId()
     {
@@ -56,50 +56,34 @@ class Client
         return $this->number_child;
     }
 
-    /**
-     * @param mixed $number_child
-     * @return Client
-     */
     public function setNumberChild($number_child)
     {
         $this->number_child = $number_child;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
+
     public function getNumberAdult()
     {
         return $this->number_adult;
     }
 
-    /**
-     * @param mixed $number_adult
-     * @return Client
-     */
+
     public function setNumberAdult($number_adult)
     {
         $this->number_adult = $number_adult;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
+
     public function getStartDate()
     {
         return $this->start_date;
     }
 
-    /**
-     * @param mixed $start_date
-     * @return Client
-     */
     public function setStartDate($start_date)
     {
         $this->start_date = $start_date;
         return $this;
     }
-    var $start_date;
 }

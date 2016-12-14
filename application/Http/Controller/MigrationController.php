@@ -25,10 +25,12 @@ class MigrationController extends Controller
             $app_name = $app['app_name'];
 
 
-            $migrate->getItems($app);
-            echo $app_id." ".$app_name."<br/>";
+            if($app_id == 17063391){
+                $migrate->getItems($app);
+            }
+            //$migrate->getItems($app);
         }
 
-        return $this->app()->make('twig.view')->render('app.twig');
+        return "";
     }
 }

@@ -70,44 +70,39 @@
 
 
         <div  id="quotafade">
-            {#<div class="col-md-10 col-md-offset-1">#}
-                <div class="table-responsive">
-                    {#<div class="row">#}
+            <div class="table-responsive">
+                <table class="table" id="prestation_table">
 
-                        <table class="table" id="prestation_table">
+                    <thead>
+                        <tr id="Thead">
+                            <th rowspan="2"></th>
+                            <th rowspan="2" style="padding-left: 20px">Services</th>
+                            <th rowspan="2">Pax min</th>
+                            <th rowspan="2">Pax max</th>
+                            <th >Rate/day</th>
+                            <th >Number</th>
+                            <th >Person</th>
+                            <th rowspan="2">Total price</th>
+                        </tr>
+                        <tr>
+                            <th>Rate/litre</th>
+                            <th >Number/litre</th>
+                            <th>Pax</th>
+                        </tr>
+                    </thead>
 
-                            <thead>
-                                <tr id="Thead">
-                                    <th rowspan="2"></th>
-                                    <th rowspan="2" style="padding-left: 20px">Services</th>
-                                    <th rowspan="2">Pax min</th>
-                                    <th rowspan="2">Pax max</th>
-                                    <th >Rate/day</th>
-                                    <th >Number</th>
-                                    <th >Person</th>
-                                    <th rowspan="2">Total price</th>
-                                </tr>
-                                <tr>
-                                    <th>Rate/litre</th>
-                                    <th >Number/litre</th>
-                                    <th>Pax</th>
-                                </tr>
-                            </thead>
+                    <tbody id="Tbody" class="table-bordered">
 
-                            <tbody id="Tbody" class="table-bordered">
-
-                            </tbody>
-                            <tfoot>
-                                <tr id="Tfoot">
-                                    <td colspan="8">
-                                        <h2><button class="btn btn-danger" id="click">Quotation</button>Total</h2>
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    {#</div>#}
-
-                </div>
+                    </tbody>
+                    <tfoot>
+                        <tr id="Tfoot">
+                            <td colspan="8">
+                                <h2><button class="btn btn-danger" id="click">Quotation</button>Total</h2>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
             <div class="form-group row">
                 <div class="col-xs-offset-2 col-xs-10">
                     <div class="add_client" id="savequota">
@@ -116,7 +111,6 @@
                 </div>
             </div>
             <div id="idcli_prestation" style="display:none">{{ id['MAX(id)']}}</div>
-            {#</div>#}
-        </div>
 
+        </div>
 {% endblock body %}

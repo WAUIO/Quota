@@ -6,7 +6,6 @@ $( function() {
     $('.list_service').perfectScrollbar();
 
     $('#btn_next').click(function () {
-        //
         showMessage();
     });
 
@@ -58,19 +57,22 @@ function searchPrestation(){
 }
 
 function resize(parent_block, items){
-    {
-        var checked = parent_block.find('.checked_prestation').length;
+    var checked = parent_block.find('.checked_prestation').length;
 
-        var height_list;
-        if(checked > 1){
-            height_list = 25*(checked-1) + 46;
-        }
-        else{
-            height_list = 20;
-        }
+    var height_list;
+    if(checked > 1){
+        height_list = 25*(checked-1) + 46;
+    }
+    else{
+        height_list = 20;
+    }
 
-        var height_service = (items*36.5);
+    var height_service = (items*36.5);
 
+    parent_block.find('.list_service').css('height',height_service);
+
+    if(parent_block.find('.search_message').css('display') == 'block'){
+        height_service = 20;
         parent_block.find('.list_service').css('height',height_service);
 
         if(parent_block.find('.search_message').css('display') == 'block'){
@@ -85,6 +87,12 @@ function resize(parent_block, items){
         }else parent_block.css('height',321);
     }
 
+
+    if(height_list > height_service && height_list < 300){
+        parent_block.css('height',height_list+10);
+    }else if(height_list < height_service && height_service < 300){
+        parent_block.css('height',height_service+16);
+    }else parent_block.css('height',321);
 }
 
 //function checkif a vertical scroll appear
@@ -159,6 +167,7 @@ function mouseEvent(){
     });
 }
 
+
 function checkPrestation() {
     $('.check_value').click(function () {
         var parent_div = $('#' + $(this).closest('.per_price').attr('id'));
@@ -171,6 +180,7 @@ function checkPrestation() {
             }
 
             var $clone = parent_div.find('.checked_list').clone(true).removeClass('checked_list').removeClass('hide');
+
             $clone.attr('id', $(this).val());
             $clone.find('.prestation_label').html(label_text).css('font-size', '80%');
             parent_div.find('.checked_list_content').append($clone);
@@ -190,6 +200,7 @@ function checkPrestation() {
         resetCheckedScroll(parent_div);
     });
 }
+
 
 function addInTab($this) {
     var label_text = $($this).siblings('label').text();
@@ -257,5 +268,3 @@ function savePrestation(){
         });
     });
 }
-
-

@@ -7,7 +7,6 @@ use Wau\Http\Controller\WebhookController;
 use App\Utils\HtmlToText;
 
 
-
 class hookController extends WebhookController
 {
     protected $routes = [
@@ -15,7 +14,6 @@ class hookController extends WebhookController
         "item.update" => 'itemCreate',
         "item.delete" => 'itemDelete'
     ];
-
 
     public function itemCreate(Request $request)
     {

@@ -1,7 +1,11 @@
 <?php namespace App\Http\Controller;
 
 
+
+use App\DatabaseConnection\PDOConnection;
 use App\Utils\Client;
+use App\Utils\Exchange;
+use FastRoute\RouteParser\Std;
 use Symfony\Component\HttpFoundation\Request;
 use Wau\Http\Controller;
 use App\Model\ClientModel;
@@ -9,8 +13,11 @@ use App\Model\ClientModel;
 
 class infoController extends Controller
 {
-    public function info()
+    public function info(Request $request)
     {
+        $exchange = (object)array('euro'=>new Exchange(0), 'dollar'=>new Exchange(1));
+        $_SESSION['exchange'] = $exchange;
+
         return $this->app()->make('twig.view')->render('info.twig');
 
     }
