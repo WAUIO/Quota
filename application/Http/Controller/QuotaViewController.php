@@ -19,7 +19,7 @@ class QuotaViewController extends Controller
         $data = array();
         $details = array();
 
-        $base_rooms = $this->getRoom($_SESSION['client']->getId());
+        $base_rooms = $this->getRoom($_SESSION['client']->id);
 
         if($base_rooms != null){
             $existing_base = RoomQuota::$room_type;
@@ -85,7 +85,7 @@ class QuotaViewController extends Controller
         $exchange = array('euro'=>$euro->exchange[0], 'dollar'=>$dollar->exchange[0]);
 
         $base_rooms = $this->getRoom("n°123");
-        $prestation = $this->getPrestation("");
+        $prestation = $this->getPrestation($_SESSION['client']->id);
 
         $existing_base = RoomQuota::$room_type;
 
