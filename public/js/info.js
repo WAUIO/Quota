@@ -15,9 +15,10 @@ $( function() {
 function saveClient(){
     $("#btn_save").click(function(){
         var ref_regex = new RegExp("[a-zA-Z0-9]{5}", "g");
-        var date_regex = new RegExp("(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/[0-9]{4}","g");
+        var date_regex = new RegExp("(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])\/[0-9]{4}","g");
         var date = $("#stay").val();
-         if( ref_regex.test(ref) && date_regex.test(date)){
+        var ref = $("#reference").val();
+         if( ref_regex.test(ref) && date_regex.test(date)){ //
             $('#banner').empty();
 
             $.ajax({
@@ -26,7 +27,8 @@ function saveClient(){
                 data: $('form').serialize(),
                 dataType : "html",
                 cache : false,
-                success : function(data){
+                success : function(){
+                    console.log('client save!');
                 },
                 error:function(){
                     console.log("you have an error");
@@ -38,6 +40,10 @@ function saveClient(){
             var p="<p> <span class=' glyphicon glyphicon-hand-right'></span>  Format or values of your entries are not permissible,please retry!</p>";
             $("#banner").append(p);
         }
+
+        $('.form-control').keydown(function () {
+            location.reload();
+        });
 // =======
 //                     $('.client_message').css({'display':'block','color':'#5cb85c'}).text("data['reference'] added !");
 //

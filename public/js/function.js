@@ -43,9 +43,6 @@ $(document).ready(function () {
     mouseEvent();
     btnSave();
 
-    $('#client_1').click(function () {
-       alert("azertyu");
-    });
 });
 
 function roundValue(value){
@@ -56,17 +53,6 @@ function roundValue(value){
     return value;
 }
 
-// <<<<<<< HEAD
-// $( function() {
-//     var options ={
-//         dateFormat: 'dd/mm/yy',
-//         todayHighlight: true,
-//         autoclose: true
-//     };
-//     $( "#stay" ).datepicker(options);
-// } );
-//
-// =======
 function searchClient(){
     $('#search_client').keyup(function(){
         var exist = false;
@@ -109,7 +95,7 @@ function getClient() {
         success: function (data) {
             var $length = data.length;
 
-            for(i=0;i<$length-1;i++){
+            for(i=0;i<$length;i++){
                 $('#quota_list').append($('<div id="client_'+data[i].id+'" class="quota_lists">'+data[i].reference+' : '+data[i].name+'</div>')
                     .click(function(){
                         setClient(window.location, $(this).attr('id').replace('client_',''));

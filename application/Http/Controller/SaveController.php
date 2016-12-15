@@ -12,6 +12,7 @@ use App\Model\QuotaRoom;
 use App\Model\QuotaPrestation;
 use App\Model\Restaurant;
 use App\Model\Room;
+use App\Utils\Client;
 use App\Utils\Exchange;
 use Symfony\Component\HttpFoundation\Request;
 use Wau\Http\Controller;
@@ -100,7 +101,8 @@ class SaveController extends Controller
     public function saveQuotaPrestation(){
         $quota = new QuotaPrestation();
         $service = $_GET['service'];
-        $id_cli = $_GET['id'];
+        $client = (Object)$_SESSION['client'];
+        $id_cli = $client->id;
         $others = $_GET['others'];
         $array  =  array('service'=>$service, 'id_client'=>$id_cli,'others'=>$others);
 

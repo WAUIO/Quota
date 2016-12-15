@@ -29,7 +29,6 @@ $app->get('/currency', 'App\Http\Controller\HouseController@currency');
 
 $app->get('/saveClient', 'App\Http\Controller\infoController@clientInsert');
 $app->get('/index', 'App\Http\Controller\MigrationController@index');
-$app->get('/saveClient', 'App\Http\Controller\infoController@saveClient');
 
 $app->group(['prefix' => '/webhook',
     function() use (&$app) {

@@ -372,7 +372,7 @@ function Quotaroom(){
                 },
                 success:function(dat){
                     if(lunch_value!=""){
-                        lunch+= dat+"',";
+                        lunch+= dat;
                     }
                 }
 
@@ -440,7 +440,7 @@ function Quotaroom(){
                 },
                 success:function(dat){
                     if(h!=""){
-                        hb+= dat+"',";
+                        hb+= dat;
                     }
                 }
 
@@ -462,7 +462,7 @@ function Quotaroom(){
                 },
                 success:function(dat){
                     if(b!=""){
-                        fb+= dat+"',";
+                        fb+= dat;
                     }
                 }
 
@@ -639,6 +639,7 @@ function Quotaroom(){
         baseextra+="&others="+stringOthers;
         //information for extra-childroom
         baseextrac+="&others="+stringDetail;
+
 
         //post information of singlebase into database
         if(basesingle.match(/Single/g)){

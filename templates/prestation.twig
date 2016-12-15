@@ -34,10 +34,13 @@
                             <div class="search_message">No result for this search !</div>
                             {% for prest in prestations[i] %}
                                 <div class="funkyradio-success line">
-                                    <input type="checkbox" name="individual" id="id_{{ prest.item_id }}" class="check_value" value="{{ prest.item_id }}"/>
+                                    <input type="checkbox" name="individual" id="id_{{ prest.item_id }}" class="check_value"/>
                                     <label class="funky_label" for="id_{{ prest.item_id }}" style="border: none">{{ prest.others.title.value }}</label>
-                                    <span class="{{ prest.price }}" style="display: none;"></span>
-                                    <div class="wau-rate" style="display: none;">{{ attribute(prest.others, 'wau-rate').value }}</div>
+                                    <span class="others_currency span_hide">{{  attribute(prest.others, 'currency-used').value }}</span>
+                                    <span class="others_rate span_hide">{% if(prest.table == 'activity') %}{{ attribute(prest.others, 'wau-rate').value }}{% else %}{{ attribute(prest.others, 'wau-rate-transport').value }}{% endif %}</span>
+                                    <span class="others_type span_hide" >{{ prest.price }}</span>
+                                    <span class="others_euro span_hide" >{{ exchange['euro'] }}</span>
+                                    <span class="others_dollar span_hide" >{{ exchange['dollar'] }}</span>
                                 </div>
                             {% endfor %}
 

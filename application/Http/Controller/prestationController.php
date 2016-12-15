@@ -12,16 +12,8 @@ class prestationController extends Controller
 {
     public function prestation(){
         $table = array("transport", "activity");
-
-
-        $array[] = $this->getPrestation("Per person");
-        $array[] = $this->getPrestation("Per booking");
-
-        $id=new ClientModel();
-        $lastId=$id->getId();
-        $id = $lastId[0];
-
-        return $this->app()->make('twig.view')->render('prestation.twig',['prestations' => $array,'id'=>$id]);
+        $array = $this->getService($table);
+        return $this->app()->make('twig.view')->render('prestation.twig',['prestations' => $array]);
     }
 
 
@@ -49,8 +41,8 @@ class prestationController extends Controller
                 }
             }
         }
-
         array_push($array, $person, $group);
         return $array;
+
     }
 }

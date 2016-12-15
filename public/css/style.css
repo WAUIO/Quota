@@ -647,7 +647,8 @@ li .lign{
     margin-bottom: auto;
     padding: 0 5px;
     cursor: pointer;
-    background: #2B838E;
+    background: #2B838E !important;
+    border: none !important;
 }
 .search_prestation{
     margin-top: 3px;
@@ -657,8 +658,6 @@ li .lign{
     float: right;
     border-radius: 3px;
 }
-
-
 
 .col-form-label{
     color: rgb(111, 111, 111);
@@ -743,6 +742,9 @@ li .lign{
     position: absolute;
     top:0;
     right:0;
+}
+.span_hide{
+    display:none;
 }
 .delete_prestation:hover{
     background: #D1D3D4;
