@@ -15,11 +15,7 @@ class infoController extends Controller
 {
     public function info(Request $request)
     {
-        $exchange = (object)array('euro'=>new Exchange(0), 'dollar'=>new Exchange(1));
-        $_SESSION['exchange'] = $exchange;
-
         return $this->app()->make('twig.view')->render('info.twig');
-
     }
 
     public function clientInsert(){

@@ -145,7 +145,18 @@
     {% else %}
         <div class="no_quota">
             No quota for this customer !<br/><br/>
-            <div class="add_room_button" data-popup-open="popup-1">Add quota</div>
+            <div id="client_saved" class="row">
+                <div class="col-xs-6">
+                    <div class="col-md-12 add_quotation" onclick="location.href ='/room'">
+                        Room quotation
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="col-md-12 add_quotation" onclick="location.href ='/prestation'">
+                        Benefit quotation
+                    </div>
+                </div>
+            </div>
         </div>
     {% endif %}
     <hr>

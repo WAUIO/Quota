@@ -4,6 +4,7 @@ namespace App\Http\Controller;
 use App\DatabaseConnection\PDOConnection;
 use App\Model\ClientModel;
 use App\Utils\Client;
+use App\Utils\Exchange;
 use Symfony\Component\HttpFoundation\Request;
 use Wau\Http\Controller;
 
@@ -54,6 +55,10 @@ class ClientController extends Controller
 
     public function getClient(){
         $array = array();
+
+        $exchange = (object)array('euro'=>new Exchange(0), 'dollar'=>new Exchange(1));
+        $_SESSION['exchange'] = $exchange;
+
         $client_session = new Client();
         $query = "SELECT * FROM client";
         $instance = new PDOConnection();

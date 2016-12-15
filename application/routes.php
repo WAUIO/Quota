@@ -9,7 +9,6 @@ $app->get('/info', 'App\Http\Controller\WelcomeController@info');
 $app->get('/quotaprestation', 'App\Http\Controller\WelcomeController@prestationView');
 $app->get('/room', 'App\Http\Controller\QuotaViewController@room_quota');
 
-$app->get('/getClient', 'App\Http\Controller\QuotaViewController@listClient');;
 $app->get('/getClient', 'App\Http\Controller\ClientController@getClient');
 $app->get('/setClient', 'App\Http\Controller\ClientController@setClient');
 $app->get('/total', 'App\Http\Controller\QuotaViewController@total_quota');
@@ -30,7 +29,6 @@ $app->get('/currency', 'App\Http\Controller\HouseController@currency');
 
 $app->get('/saveClient', 'App\Http\Controller\infoController@clientInsert');
 $app->get('/index', 'App\Http\Controller\MigrationController@index');
-$app->get('/saveClient', 'App\Http\Controller\infoController@saveClient');
 $app->get('/client', 'App\Http\Controller\ClientController@clientInsert');
 
 $app->group(['prefix' => '/webhook',
@@ -42,12 +40,5 @@ $app->group(['prefix' => '/webhook',
 $app->group(['prefix'=>'/', 'middleware' => ['Wau\Podio\PodioAuthMiddleware'],
     function() use (&$app){
         $app->get('/migrate','App\Http\Controller\MigrationController@migrate');
-    }
-]);
-
-$app->group(['prefix' => '/webhook',
-    function() use (&$app) {
-
-        $app->WebhookController('/hookController', 'App\Http\Controller\hookController');
     }
 ]);

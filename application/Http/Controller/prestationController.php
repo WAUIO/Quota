@@ -12,16 +12,9 @@ class prestationController extends Controller
 {
     public function prestation(){
         $table = array("transport", "activity");
+        $array = $this->getService($table);
 
-
-        $array[] = $this->getPrestation("Per person");
-        $array[] = $this->getPrestation("Per booking");
-
-        $id=new ClientModel();
-        $lastId=$id->getId();
-        $id = $lastId[0];
-
-        return $this->app()->make('twig.view')->render('prestation.twig',['prestations' => $array,'id'=>$id]);
+        return $this->app()->make('twig.view')->render('prestation.twig',['prestations' => $array]);
     }
 
 
@@ -33,7 +26,7 @@ class prestationController extends Controller
 
         foreach($table as $tab){
             $instance = new PDOConnection();
-            $services = $instance->select("SELECT item_id, price, others FROM ".$tab." WHERE price NOT LIKE ''" );
+            $services = $instance->select("SELECT * FROM ".$tab." WHERE price NOT LIKE ''" );
 
             foreach ($services as $service){
                 $prestation = new Prestation();

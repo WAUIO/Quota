@@ -36,7 +36,7 @@
 
 <!-- Navigation -->
 <nav class="navbar  navbar-fixed-top" role="navigation">
-    <div class="container">
+    <div class="container" style="padding: 0 !important;">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -66,24 +66,26 @@
                     </ul>
                 </li>
             </ul>
-
-            <div class="pull-right ref_client" id="client_id">{{ client.reference }}</div>
+            <div class="pull-right user">{{ client.reference }}</div>
         </div>
         <!-- /.navbar-collapse -->
     </div>
 
     <!-- /.container -->
-    <div class="row" style="height: 1px; background: #fff; margin-bottom: -1px;"></div>
+    <div class="row" style="background: #ffffff;margin: 0 !important;padding: 0 !important;">
+        <div class="container ref_client" >
+            <span id="client_reference" style="float: right;">Client reference : {{ client.reference }}</span>
+
+        </div>
+    </div>
 </nav>
 
 <div class="container">
     <div class="row">
         <!--/left side-->
         <div class="col-xs-9">
-
             {% block body %}
             {% endblock body %}
-
         </div>
 
         <!--/right side-->
@@ -95,7 +97,7 @@
                             <span id="menu_hamburger" class="menu_glyphicon glyphicon glyphicon-menu-hamburger"></span>
                         </div>
                         <div id="search_menu_title">
-                            <h4>All quotation</h4>
+                            <h4>All customer</h4>
                         </div>
 
                     </div>
@@ -115,7 +117,7 @@
 
                 {% block menu_room %}
                 {% endblock menu_room %}
-            <!--/.well -->
+                <!--/.well -->
             </div>
             <!--/sidebar-nav-fixed -->
         </div>

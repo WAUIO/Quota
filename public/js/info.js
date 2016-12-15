@@ -27,27 +27,7 @@ function saveClient(){
                 dataType : "html",
                 success : function(data){
                     $('.client_message').css({'display':'block','color':'#5cb85c'}).text("Customer "+data.reference+" added !");
-
-                    var add_quotation = '<div class="row">' +
-                                            '<h4>'+
-                                                'Add quotation for this customer'+
-                                            '</h4>' +
-                                        '</div>' +
-                                        '<div class="row">'+
-                                            '<div class="col-xs-6">' +
-                                                '<div class="col-md-12 add_quotation" onclick="location.href =\'/room\'">'+
-                                                    'Room quotation' +
-                                                '</div>' +
-                                            '</div>' +
-                                            '<div class="col-xs-6">' +
-                                                '<div class="col-md-12 add_quotation" onclick="location.href =\'/prestation\'">'+
-                                                    'Benefit quotation' +
-                                                '</div>' +
-                                            '</div>' +
-                                        '</div>';
-                    var block_client_saved = $('#client_saved');
-                    block_client_saved.html("");
-                    block_client_saved.append(add_quotation);
+                    $('#client_saved').show();
                 },
                 error:function(){
                     $('.client_message').css({'display':'block','color':'#FF0F22'}).text('Error, customer no saved !');

@@ -1,19 +1,8 @@
-.zoom{
-    width:50%;
-    bottom:0;
-    left:0;
-    font:700 1.2em/45px sans-serif;
-    color:#fff;
-    background:#333;
-    cursor:pointer;
-    transition:all .3s ease;
-}
-
 .bootstrap-select {
     outline: none !important;
 }
 body {
-    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    padding-top: 80px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
 footer {
@@ -21,6 +10,7 @@ footer {
 }
 .navbar-fixed-top{
     background: #2B838E;
+    border: none;
 }
 
 #logo{
@@ -32,14 +22,24 @@ footer {
 .title-logo, .navbar-nav{
     color: white;
 }
+.user{
+    height: 50px;
+    background: #2B838E;
+    line-height: 50px;
+    color: white;
+}
 .ref_client{
     height: 50px;
+    background: #ffffff;
     line-height: 50px;
-    color: #ffffff;
+}
+#client_reference{
+    color: rgb(111, 111, 111);
     cursor: default;
 }
-.ref_client:hover{
+#client_reference:hover{
     color: #000;
+    cursor: pointer;
 }
 .content {
     top: 0;
@@ -47,9 +47,6 @@ footer {
 .well{
     min-width: 200px;
     padding-top: 5px;
-}
-.sidebar-outer {
-    position: relative;
 }
 .sidebar-nav-fixed {
     width: 20%;
@@ -77,7 +74,6 @@ footer {
     height: 40px;
     line-height: 40px;
 }
-
 .sidebar-outer {
     position: relative;
 }
@@ -140,7 +136,7 @@ td {
     color: rgb(111, 111, 111);
     padding-left: 10px;
 }
-.check{
+.check_value{
     width:25px;
 }
 #savequota{
@@ -185,23 +181,6 @@ table > thead > tr > th, .total_designation {
 .red, .others{
     color: #DD1144;
 }
-/*table::selection {*/
-    /*background-color:transparent;*/
-/*}*/
-/*table::-moz-selection {*/
-    /*background-color:transparent;*/
-/*}*/
-/*table {*/
-    /*-webkit-user-select: none;*/
-    /*-moz-user-select: -moz-none;*/
-    /*!*IE10*!*/
-    /*-ms-user-select: none;*/
-    /*user-select: none;*/
-
-    /*!*You just need this if you are only concerned with android and not desktop browsers.*!*/
-    /*-webkit-tap-highlight-color: rgba(0, 0, 0, 0);*/
-/*}*/
-
 .designation{
     font-weight: bold;
 }
@@ -233,7 +212,7 @@ table > thead > tr > th, .total_designation {
 .detail_hr{
     height: 1px;
     background: white;
-    margin: 0px 10px 0px 10px;
+    margin: 0 10px 0 10px;
 }
 .detail_body{
     display: none;
@@ -310,17 +289,6 @@ table > thead > tr > th, .total_designation {
 }
 .glyphicon-menu-down, .glyphicon-menu-up, .glyphicon-chevron-up, .glyphicon-chevron-down{
     float: right;
-}
-
-/* For edit quota pop up */
-.popup {
-    width: 100%;
-    height: 100%;
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: rgba(0,0,0,0.75);
 }
 
 /* Inner */
@@ -534,9 +502,6 @@ h2,h3{
     clear: both;
     height: 0;
 }
-.main{
-    background-color:whitesmoke;
-}
 .form-horizontal{
     padding-top:40px;
     padding-bottom:40px;
@@ -561,9 +526,6 @@ h2,h3{
 #save{
     width: 90px;
     height: 50px;
-}
-.container{
-    background-color: rgba(1,1,1,0.03);
 }
 #clientsubmit{
     width:70px;
@@ -601,11 +563,6 @@ li .lign{
 #Thead{
     background-color:#2B838E ;
 }
-
-
-* html .navbar-nav             { zoom: 1; } /* IE6 */
-*:first-child+html .navbar-nav { zoom: 1; } /* IE7 */
-
 /*****total_table*****/
 .table-editable {
     overflow-x: auto;
@@ -649,7 +606,8 @@ li .lign{
     margin-bottom: auto;
     padding: 0 5px;
     cursor: pointer;
-    background: #2B838E;
+    background: #2B838E !important;
+    border: none !important;
 }
 .search_prestation{
     margin-top: 3px;
@@ -659,13 +617,7 @@ li .lign{
     float: right;
     border-radius: 3px;
 }
-
-
-
-.col-form-label{
-    color: rgb(111, 111, 111);
-    white-space: nowrap;
-}.add_client{
+.add_client{
      float: right;
      font-size: 110%;
      font-weight: bold;
@@ -815,6 +767,7 @@ li .lign{
 }
 
 #loading {
+    display:none;
     position: fixed;
     left: 0;
     top: 0;

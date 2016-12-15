@@ -6,12 +6,6 @@ $( function() {
 
     $('.list_service').perfectScrollbar();
 
-    // $('.funky_label').css('text-overflow', 'ellipsis !important');
-    // $('.funky_label').hover(function() {
-    //     alert($(this).text());
-    //     $(this).css("overflow","visible !important")
-    // });
-
     $('#btn_next').click(function () {
         showMessage();
     });
@@ -23,7 +17,6 @@ $( function() {
     searchPrestation();
     checkPrestation();
     savePrestation();
-    //
 } );
 
 //service search filter
@@ -102,7 +95,7 @@ function resize(parent_block, items){
     }else parent_block.css('height',321);
 }
 
-//function checkif a vertical scroll appear
+//function check if a vertical scroll appear
 jQuery.fn.hasScrollBar = function(direction) {
     if (direction == 'vertical')
     {
@@ -151,11 +144,14 @@ function resetCheckedScroll(parent_div){
 function deletePrestation($this){
     var parent_div = $($this).closest('.per_price');
     var $checked_prestation = $($this).closest('.checked_prestation');
+    var cheked_id = $('#id_'+$checked_prestation.attr('id').replace('check_value_', ''));
 
     $checked_prestation.remove();
-    $('#id_'+$checked_prestation.attr('id')).prop('checked', false);
 
-    if(parent_div.find('.check:checked').length == 0){
+    cheked_id.prop('checked', false);
+    ifUnchecked($checked_prestation.attr('id'));
+
+    if(parent_div.find('.check_value:checked').length == 0){
         parent_div.find('.checked_lists').css('height', 36);
         parent_div.find('.checked_list_title').slideUp(400);
     }
@@ -201,6 +197,7 @@ function checkPrestation() {
                 parent_div.find('.checked_lists').css('height', 36);
                 parent_div.find('.checked_list_title').slideUp(400);
             }
+
             ifUnchecked($(this).attr('id'));
         }
 
@@ -212,7 +209,7 @@ function checkPrestation() {
 function addInTab($this) {
     var label_text = $($this).siblings('label').text();
     var input_id = $($this).attr('id');
-    var rate = $($this).siblings('.wau-rate').text();
+    var rate = $($this).val();
     var type = $($this).siblings('span').attr('class');
     var tr = $('#Tbody > tr');
     var row = '<tr id="tr_' + input_id + '"> <td class="cod"></td> <td class="label_text"><span>' + label_text + '</span><input type="text" class="n_pax" name="n_pax"></td> <td title="min"> <input class="check" name="paxmin" type="text" ></td><td  title="max"><input class="check" name="paxmax" type="text" > </td> <td class="tarif">' + roundValue(rate) + '</td> <td title="number"><input class="check" type="text" name="nbsvc"/></td> <td class="type">' + type + '</td> <td class="total"> </td></tr>';
@@ -228,9 +225,7 @@ function showMessage(){
     }
     else{
         $('#prestation_form').css('display','none');
-
         $('#quotafade').slideToggle('slow');
-
     }
 }
 

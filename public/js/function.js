@@ -2,7 +2,6 @@ $(document).ready(function () {
     $(this).scrollTop(0); quota_list = $('#quota_list');
     getClient();
     searchClient();
-    wait();
 
     $(".ref_client").click(function () {
         $("#about_client").dialog({modal: true, height: 205, width: 400 });
@@ -53,14 +52,14 @@ function roundValue(value){
     return value;
 }
 
-function wait(){
-    $(document).ajaxStart(function () {
-        $("#loading").css("display", "block");
-    });
-    $(document).ajaxComplete(function () {
-        $("#loading").css("display", "none");
-    });
-}
+// function wait(){
+//     $(document).ajaxStart(function () {
+//         $("#loading").css("display", "block");
+//     });
+//     $(document).ajaxComplete(function () {
+//         $("#loading").css("display", "none");
+//     });
+// }
 
 function searchClient(){
     $('#search_client').keyup(function(){
