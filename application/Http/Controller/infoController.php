@@ -35,15 +35,14 @@ class infoController extends Controller
         $client->setNumberChild( $_GET['nbChildren']);
         $client->setStartDate( $date);
 
-        $array = array('ref'=>$client->getReference(),'name'=>$client->getName(),'number_adult'=>$client->getNumberAdult(),'number_child'=>$client->getNumberChild(),'date'=>$client->getStartDate());
+        $array = array('reference'=>$client->getReference(),'name'=>$client->getName(),'number_adult'=>$client->getNumberAdult(),'number_child'=>$client->getNumberChild(),'date'=>$client->getStartDate());
         $clientModel->insertClient($array);
 
-        $clientModel = new  ClientModel();
         $client_id = $clientModel->getId();
         $client->setId($client_id);
         $_SESSION['client'] = $client;
 
-        return($array);
+        return $array;
     }
 
 }

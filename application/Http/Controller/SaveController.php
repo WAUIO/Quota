@@ -20,7 +20,7 @@ use Wau\Http\Controller;
 class SaveController extends Controller
 {
 
-    public function saveRoom(){
+    public function priceRoom(){
         $others = new Room();
         $id = $_GET['id'];
         $euro = new Exchange(0);
@@ -31,7 +31,13 @@ class SaveController extends Controller
         $rest = $room[0];
         $response=json_decode($rest['others']);
         $currency = $response->{'public-rate'}->value->currency;
+        $currency_vignet = $response->{'vignet-3'}->value->currency;
+        $currency_tax = $response->tax->currency;
+        $tax = $response->tax->value;
+        $vignet = $response->{'vignet-3'}->value->value;
         $rate = $response->{'wau-rate'}->value;
+        $array= array();
+
         if($currency == "EUR"){
             $price = $rate * $e;
         }else if($currency == "MGA"){
@@ -39,7 +45,34 @@ class SaveController extends Controller
         }else{
             $price = $rate * $d;
         }
-        return $price;
+
+        if(array_key_exists('tax',$response)){
+            if($currency_tax == "EUR"){
+                $tax_value = $tax * $e;
+            }else if($currency_tax == "MGA"){
+                $tax_value = $tax;
+            }else{
+                $tax_value = $tax * $d;
+            }
+        }else{
+            $tax_value = 0;
+        }
+
+        if(array_key_exists('vignet-3',$response)){
+            if($currency_vignet == "EUR"){
+                $vignet_value= $vignet * $e;
+            }else if($currency_vignet == "MGA"){
+                $vignet_value = $vignet;
+            }else{
+                $vignet_value = $vignet * $d;
+            }
+
+        }else{
+            $vignet_value = 0;
+        }
+
+        array_push($array, $price, $vignet_value,$tax_value);
+        return $array;
 
     }
     public function priceBoard(){
@@ -88,7 +121,8 @@ class SaveController extends Controller
     public function saveQuotaRoom(){
         $quota = new QuotaRoom();
         $base = $_GET['base'];
-        $id_cli = $_GET['id'];
+        $client = (Object)$_SESSION['client'];
+        $id_cli = $client->id;
         $id_house = $_GET['idHouse'];
         $rate = $_GET['price'];
         $price_room = (float) $rate;
@@ -101,11 +135,11 @@ class SaveController extends Controller
     public function saveQuotaPrestation(){
         $quota = new QuotaPrestation();
         $service = $_GET['service'];
+        $others = $_GET['others'];
         $client = (Object)$_SESSION['client'];
         $id_cli = $client->id;
-        $others = $_GET['others'];
-        $array  =  array('service'=>$service, 'id_client'=>$id_cli,'others'=>$others);
 
+        $array = array('service'=>$service, 'id_client'=>$id_cli,'others'=>json_encode($others));
         $quota->insertToQuotaprestation($array);
     }
 

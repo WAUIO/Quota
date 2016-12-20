@@ -1,8 +1,5 @@
 $(document).ready(function () {
-    $("#click").click(function(){
-        $(".quota").remove();
-    addColumn();
-    });
+     addColumn();
 
 });
 function addColumn() {
@@ -77,7 +74,7 @@ function addColumn() {
         }
 
     }else{
-        alert('WARNING: Pax min> Pax max');
+        $('.pax_msg').css({'display':'block','color':'red'})
     }
 }
 
