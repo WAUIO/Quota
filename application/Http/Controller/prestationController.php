@@ -13,7 +13,6 @@ class prestationController extends Controller
     public function prestation(){
         $table = array("transport", "activity");
         $array = $this->getService($table);
-
         return $this->app()->make('twig.view')->render('prestation.twig',['prestations' => $array]);
     }
 
@@ -42,8 +41,12 @@ class prestationController extends Controller
                 }
             }
         }
-
         array_push($array, $person, $group);
         return $array;
+
+    }
+
+    public function prestationView(){
+        return $this->app()->make('twig.view')->render('quotaprest.twig');
     }
 }

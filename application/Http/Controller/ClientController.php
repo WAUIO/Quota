@@ -27,6 +27,8 @@ class ClientController extends Controller
         $clientModel->insertClient($array);
 
         $_SESSION['client'] = $client;
+        $id = $clientModel->getId();
+        $client->setId($id);
 
         return($client);
     }
@@ -56,7 +58,10 @@ class ClientController extends Controller
     public function getClient(){
         $array = array();
 
-        $exchange = (object)array('euro'=>new Exchange(0), 'dollar'=>new Exchange(1));
+        $euro   = new Exchange(0);
+        $dollar = new Exchange(1);
+
+        $exchange = array('euro' => $euro->exchange[0], 'dollar' => $dollar->exchange[0]);
         $_SESSION['exchange'] = $exchange;
 
         $client_session = new Client();

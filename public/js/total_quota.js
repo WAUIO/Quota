@@ -82,8 +82,7 @@ function calculateMargin($this, room_type, margin, length){
     var td_margin = $($this).closest('td');
     var td_taxes = span_taxes.closest('td');
     var tr_id = $($this).closest('tr').prev().attr('id');
-    var tax = span_taxes.text();
-    alert(tax);
+    var tax = isFloat(span_taxes.text()) ? span_taxes.text() : 0;
 
     for (i=0;i<length-3;i++) {
         val = $('tr#'+tr_id+' > td.td_'+room_type+':eq(' + i + ')').text();

@@ -188,7 +188,7 @@ function checkPrestation() {
             $clone.find('.prestation_label').html(label_text).css('font-size', '80%');
             parent_div.find('.checked_list_content').append($clone);
 
-            addInTab( this);
+            addInTab(this);
 
         } else {
             check_list_id = $(this).val();
@@ -209,10 +209,23 @@ function checkPrestation() {
 function addInTab($this) {
     var label_text = $($this).siblings('label').text();
     var input_id = $($this).attr('id');
-    var rate = $($this).val();
-    var type = $($this).siblings('span').attr('class');
+    var rate = $($this).siblings('.others_rate').text();
+    var currency = $($this).siblings('.others_currency').text();
+    var euro = $($this).siblings('.others_euro').text();
+    var dollar = $($this).siblings('.others_dollar').text();
+    var type = $($this).siblings('.others_type').text();
     var tr = $('#Tbody > tr');
-    var row = '<tr id="tr_' + input_id + '"> <td class="cod"></td> <td class="label_text"><span>' + label_text + '</span><input type="text" class="n_pax" name="n_pax"></td> <td title="min"> <input class="check" name="paxmin" type="text" ></td><td  title="max"><input class="check" name="paxmax" type="text" > </td> <td class="tarif">' + roundValue(rate) + '</td> <td title="number"><input class="check" type="text" name="nbsvc"/></td> <td class="type">' + type + '</td> <td class="total"> </td></tr>';
+    var price;
+
+    if(currency == "EUR"){
+         price = euro * rate;
+    }else  if(currency == "MGA"){
+         price = rate;
+    }else{
+         price = rate * dollar ;
+    }
+
+    var row = '<tr id="tr_' + input_id + '"> <td class="cod"></td> <td class="label_text"><span>' + label_text + '</span><input type="text" class="n_pax" name="n_pax"></td> <td title="min"> <input class="check" name="paxmin" type="text" ></td><td  title="max"><input class="check" name="paxmax" type="text" > </td> <td class="tarif">' + roundValue(price) + '</td> <td title="number"><input class="check" type="text" name="nbsvc"/></td> <td class="type">' + type + '</td> <td class="total"> </td></tr>';
     $("#Tbody").append(row);
 }
 function ifUnchecked(id){
@@ -221,7 +234,7 @@ function ifUnchecked(id){
 
 function showMessage(){
     if($('#accordion').find('.check_value:checked').length < 1){
-        $('.no_service').css('display', 'block').delay(3000).fadeOut();
+        $('.no_service_message').css('display', 'block').delay(5000).fadeOut();
     }
     else{
         $('#prestation_form').css('display','none');
@@ -231,7 +244,6 @@ function showMessage(){
 
 function savePrestation(){
     $('#savequota').click(function(){
-        var id=$('#idcli_prestation').html();
         var allTR = $('#Tbody').children('tr');
         allTR.each(function() {
             var values = {
@@ -243,28 +255,22 @@ function savePrestation(){
                 "number_service": $(this).find('input[name="nbsvc"]').val(),
                 "type_service": $(this).find('.type').html()
             };
-            var other={};
-            other.pax_min=values.pax_min;
-            other.pax_max=values.pax_max;
-            other.rate_service=values.rate_service;
-            other.number_service=values.number_service;
-            other.type_service=values.type_service;
+            var other = {};
+            other.pax_min = values.pax_min;
+            other.pax_max = values.pax_max;
+            other.rate_service = values.rate_service;
+            other.number_service = values.number_service;
+            other.type_service = values.type_service;
 
             var others = JSON.stringify(other);
 
-            var info = "service=" + values.service +" "+values.pax+ "&id="+id+"&others="+others;
+            var info = "service=" + values.service +" "+values.pax+"&others="+others;
 
             $.ajax({
                 type: "GET",
                 url: "/saveprestation",
                 data: info,
-                dataType: "html",
-                success: function () {
-                    console.log('save!');
-                },
-                error: function(){
-                    console.log('error!');
-                }
+                dataType: "html"
             });
 
         });

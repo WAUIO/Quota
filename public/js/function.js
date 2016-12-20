@@ -1,12 +1,12 @@
-$(document).ready(function () {
-    $(this).scrollTop(0); quota_list = $('#quota_list');
-    getClient();
+$( function() {
+    var quota_list = $('#quota_list');
+    //$(this).scrollTop(0);
+
     searchClient();
 
-    $(".ref_client").click(function () {
-        $("#about_client").dialog({modal: true, height: 205, width: 400 });
+    $('#client_reference').click(function () {
+        $('#about_client').dialog({modal: true, height: 205, width: 400 });
     });
-
 
     $('input').keydown(function (e) {
         e.stopPropagation();
@@ -27,15 +27,20 @@ $(document).ready(function () {
         ShowHideQuotaList($('#quota_list'), 0);
     });
 
+    $('#refresh_client').click(function () {
+        getClient();
+    });
+
     $('.taxes').css('border-bottom', 'none');
     $('.others').css('border-bottom', 'none');
-    $(".selectpicker").attr("disabled","disabled");
-    $("#select-hotel").removeAttr("disabled");
-    $("#search_control").removeAttr("disabled");
+    $('.selectpicker').attr("disabled","disabled");
+    $('#select-hotel').removeAttr("disabled");
+    $('#search_control').removeAttr("disabled");
 
     //checkboxEvent();
-    menuView();
-    popupView();
+    //menuView();
+    //popupView();
+    getClient();
     detailView();
     editValuePopup();
     calculateTotal();
@@ -44,6 +49,7 @@ $(document).ready(function () {
 
 });
 
+//round float value (fixed 2)
 function roundValue(value){
     value = parseFloat(value);
     if(value % 1 != 0){
@@ -52,15 +58,7 @@ function roundValue(value){
     return value;
 }
 
-// function wait(){
-//     $(document).ajaxStart(function () {
-//         $("#loading").css("display", "block");
-//     });
-//     $(document).ajaxComplete(function () {
-//         $("#loading").css("display", "none");
-//     });
-// }
-
+//search customer (search input)
 function searchClient(){
     $('#search_client').keyup(function(){
         var exist = false;
@@ -94,7 +92,12 @@ function searchClient(){
     });
 }
 
+//list of all customers
 function getClient() {
+    var quota_list = $('#quota_list');
+    var $icon = $('#refresh_client').find('.glyphicon.glyphicon-refresh'),
+        animateClass = "glyphicon-refresh-animate";
+    $icon.addClass( animateClass );
 
     $.ajax({
         url: "/getClient",
@@ -103,21 +106,22 @@ function getClient() {
         success: function (data) {
             var $length = data.length;
             var client_id;
-
-            for(i=0;i<$length-1;i++){
-                $('#quota_list').append($('<div id="client_'+data[i].id+'" class="quota_lists">'+data[i].reference+' : '+data[i].name+'</div>')
+            quota_list.html('');
+            for(i=0;i<$length;i++){
+                quota_list.append($('<div id="client_'+data[i].id+'" class="quota_lists">'+data[i].reference+' : '+data[i].name+'</div>')
                     .click(function(){
                         client_id = $(this).attr('id').replace('client_','');
                         setClient(window.location, client_id);
                     })
                 );
             }
-
-            $('.ref_client').load(window.location + ' .ref_client');
+            $icon.removeClass( animateClass );
+            //$('.ref_client').load(window.location + ' .client_reference');
         }
     });
 }
 
+//set customer in session
 function setClient(url, client_id){
     $.ajax({
         url: "/setClient",
@@ -129,62 +133,12 @@ function setClient(url, client_id){
     });
 }
 
-function checkboxEvent() {
-    /*******checkbox event*******/
-    $("input[type=checkbox]").click(function () {
-        var checkbox_id = $('#'+$(this).closest(this).attr("id"));
-        var parent = checkbox_id.parents().eq(2);
-        var select_picker = parent.closest('select');
-        if($(this).is(':checked')){
-            $(select_picker).attr('disabled', !this.checked).selectpicker('refresh');
-        }else{
-            $(select_picker).attr('disabled', !this.checked).selectpicker('refresh');
-        }
-    });
-}
-
-function menuView() {
-    //Show & hide menu(Search and room basis)
-    $('#menu_hamburger').click(function(e){
-        e.preventDefault();
-        var quota_list = '#quota_list';
-        var bloc_well = $('.well');
-        if(bloc_well.not('#well_search').css("display") == "block"){
-            bloc_well.not('#well_search').fadeOut(100,function () {
-                ShowHideQuotaList(quota_list, 1);
-            });
-        }else{
-            ShowHideQuotaList(quota_list, 2);
-            bloc_well.fadeIn();
-        }
-    });
-}
-
-function popupView() {
-    //show
-    $('[data-popup-open]').on('click', function(e)  {
-        var targeted_popup_class = jQuery(this).attr('data-popup-open');
-        $('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);
-
-        $('.select_data').perfectScrollbar();
-        e.preventDefault();
-    });
-
-    //close
-    $('[data-popup-close]').on('click', function(e)  {
-        var targeted_popup_class = jQuery(this).attr('data-popup-close');
-        $('[data-popup="' + targeted_popup_class + '"]').fadeOut(350);
-
-        e.preventDefault();
-    });
-}
-
 //Ancre Onclick base type
 function ancreLink() {
     $('.base_type').on('click', function() {
         var page = $(this).attr('href');
         var speed = 500;
-        $('html, body').animate( { scrollTop: $(page).offset().top-60 }, speed );
+        $('html, body').animate( { scrollTop: $(page).offset().top-100 }, speed );
         return false;
     });
 }
@@ -224,3 +178,52 @@ function ShowHideQuotaList(quota_list, nbr){
         }
     }
 }
+
+// function checkboxEvent() {
+//     /*******checkbox event*******/
+//     $("input[type=checkbox]").click(function () {
+//         var checkbox_id = $('#'+$(this).closest(this).attr("id"));
+//         var parent = checkbox_id.parents().eq(2);
+//         var select_picker = parent.closest('select');
+//         if($(this).is(':checked')){
+//             $(select_picker).attr('disabled', !this.checked).selectpicker('refresh');
+//         }else{
+//             $(select_picker).attr('disabled', !this.checked).selectpicker('refresh');
+//         }
+//     });
+// }
+
+// function menuView() {
+//     //Show & hide menu(Search and room basis)
+//     $('#menu_hamburger').click(function(e){
+//         e.preventDefault();
+//         var quota_list = '#quota_list';
+//         var bloc_well = $('.well');
+//         if(bloc_well.not('#well_search').css("display") == "block"){
+//             bloc_well.not('#well_search').fadeOut(100,function () {
+//                 ShowHideQuotaList(quota_list, 1);
+//             });
+//         }else{
+//             ShowHideQuotaList(quota_list, 2);
+//             bloc_well.fadeIn();
+//         }
+//     });
+// }
+// function popupView() {
+//     //show
+//     $('[data-popup-open]').on('click', function(e)  {
+//         var targeted_popup_class = jQuery(this).attr('data-popup-open');
+//         $('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);
+//
+//         $('.select_data').perfectScrollbar();
+//         e.preventDefault();
+//     });
+//
+//     //close
+//     $('[data-popup-close]').on('click', function(e)  {
+//         var targeted_popup_class = jQuery(this).attr('data-popup-close');
+//         $('[data-popup="' + targeted_popup_class + '"]').fadeOut(350);
+//
+//         e.preventDefault();
+//     });
+// }

@@ -18,11 +18,11 @@ class PDOConnection
         {
             $app              = Application::getInstance();
             $this->host       = $app->config('database.host');
-            $this->name_base  = $app->config('database.database');
+            $this->database  = $app->config('database.database');
             $this->user       = $app->config('database.username');
             $this->password   = $app->config('database.password');
 
-            return self::$instance = new \PDO('mysql:dbname='.$this->name_base.';host='.$this->host, $this->user, $this->password, array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+            return self::$instance = new \PDO('mysql:dbname='.$this->database.';host='.$this->host, $this->user, $this->password, array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
         }
         return self::$instance;
 
@@ -53,14 +53,6 @@ class PDOConnection
 
 
     public function insert($query, $array)
-    {
-        $stmt = $this->getInstance()->prepare($query, array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
-        $stmt->execute($array);
-        $stmt->closeCursor();
-        return true;
-    }
-
-    public function insert_migration($query, $array)
     {
         $stmt = $this->getInstance()->prepare($query, array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
         $stmt->execute($array);

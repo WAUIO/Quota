@@ -18,6 +18,6 @@ class TwigExtension extends \Twig_Extension
     }
 
     public function getGlobals(){
-        return ['client' => $_SESSION['client']];
+        return ['client' => $_SESSION['client'], 'exchange' => $_SESSION['exchange'], 'user' => $_SESSION['user']];
     }
 }

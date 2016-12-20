@@ -34,7 +34,8 @@ footer {
     line-height: 50px;
 }
 #client_reference{
-    color: rgb(111, 111, 111);
+    font-size: 120%;
+    color: #2B838E;
     cursor: default;
 }
 #client_reference:hover{
@@ -65,9 +66,31 @@ footer {
     float: left;
 }
 #search_menu_title{
-    float: left;
+    width:100%;
     height: 40px;
     line-height: 40px;
+    vertical-align: middle;
+}
+#refresh_client{
+    cursor: pointer;
+}
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spinWebkit .7s infinite linear;
+    -moz-animation: spinMoz .7s infinite linear;
+}
+@-webkit-keyframes spinWebkit {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+@keyframes spinMoz {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
 }
 #search_menu_button{
     float: right;
@@ -137,6 +160,9 @@ td {
     padding-left: 10px;
 }
 .check_value{
+    width:25px;
+}
+.check{
     width:25px;
 }
 #savequota{
@@ -209,17 +235,16 @@ table > thead > tr > th, .total_designation {
     -ms-user-select: none;    /* Internet Explorer/Edge */
     user-select: none;      /* Non-prefixed version, currently not supported by any browser */
 }
-.detail_hr{
-    height: 1px;
-    background: white;
-    margin: 0 10px 0 10px;
-}
 .detail_body{
     display: none;
-    height: 200px;
+    max-height: 300px;
+    padding: 10px 40px 0 40px;
+    overflow-y: auto;
+    position: relative;
 }
-.detail_body_elements{
-    padding: 20px;
+.detail_foot{
+    display: none;
+    height: 10px;
 }
 /******* For no_quota *******/
 .no_quota, .no_base{
@@ -514,11 +539,6 @@ h2,h3{
     width: 60px;
     height: 40px;
 }
-
-.form-control{
-    margin: auto;
-
-}
 .icon{
     width: 15px;
     height: 15px;
@@ -530,17 +550,15 @@ h2,h3{
 #clientsubmit{
     width:70px;
 }
-.row{
-    margin-top: 10px;
-}
-.btn{
-    width:100px;
-}
+
 .img{
     width:15%;
     height:10%;
 }
 .selectpicker{
+    margin-top: 10px;
+}
+.row{
     margin-top: 10px;
 }
 .currency{
@@ -563,6 +581,7 @@ li .lign{
 #Thead{
     background-color:#2B838E ;
 }
+
 /*****total_table*****/
 .table-editable {
     overflow-x: auto;
@@ -698,6 +717,9 @@ li .lign{
     top:0;
     right:0;
 }
+.span_hide{
+    display:none;
+}
 .delete_prestation:hover{
     background: #D1D3D4;
 }
@@ -775,4 +797,7 @@ li .lign{
     height: 100%;
     z-index: 9999;
     background: url('../images/loading.gif') 50% 50% no-repeat rgb(249,249,249);
+}
+#client_saved{
+    display: none;
 }

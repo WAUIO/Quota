@@ -5,10 +5,9 @@
 $app->get('/form', 'App\Http\Controller\WelcomeController@index');
 $app->get('/money', 'App\Http\Controller\WelcomeController@currency');
 $app->get('/info', 'App\Http\Controller\WelcomeController@info');
-//$app->get('/', 'App\Http\Controller\QuotaViewController@index');
-$app->get('/quotaprestation', 'App\Http\Controller\WelcomeController@prestationView');
+$app->get('/', 'App\Http\Controller\infoController@info');
+$app->get('/quotaprestation', 'App\Http\Controller\prestationController@prestationView');
 $app->get('/room', 'App\Http\Controller\QuotaViewController@room_quota');
-
 $app->get('/getClient', 'App\Http\Controller\ClientController@getClient');
 $app->get('/setClient', 'App\Http\Controller\ClientController@setClient');
 $app->get('/total', 'App\Http\Controller\QuotaViewController@total_quota');
@@ -29,7 +28,6 @@ $app->get('/currency', 'App\Http\Controller\HouseController@currency');
 
 $app->get('/saveClient', 'App\Http\Controller\infoController@clientInsert');
 $app->get('/index', 'App\Http\Controller\MigrationController@index');
-$app->get('/client', 'App\Http\Controller\ClientController@clientInsert');
 
 $app->group(['prefix' => '/webhook',
     function() use (&$app) {

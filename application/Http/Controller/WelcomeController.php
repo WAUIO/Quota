@@ -7,16 +7,9 @@ class WelcomeController extends Controller
 {
 
     public function index(){
-        return $this->app()->make('twig.view')->render('form.twig');
+        if($_SESSION['user'] == null)
+            return $this->app()->make('twig.view')->render('login.twig');
+        else
+            return $this->app()->make('twig.view')->render('info.twig');
     }
-
-    public function info(){
-        return $this->app()->make('twig.view')->render('info.twig');
-    }
-    public function prestationView(){
-        return $this->app()->make('twig.view')->render('quotaprest.twig');
-    }
-
-
-
 }

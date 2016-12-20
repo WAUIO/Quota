@@ -1,6 +1,7 @@
 $( function() {
+
     var options={
-        dateFormat: 'mm/dd/yy',
+        dateFormat: 'dd/mm/yy',
         todayHighlight: true,
         autoclose: true
     };
@@ -17,26 +18,27 @@ function saveClient(){
         var ref_regex = new RegExp("[a-zA-Z0-9]{5}", "g");
         var date_regex = new RegExp("(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/[0-9]{4}","g");
         var date = $("#stay").val();
-        if( ref_regex.test(ref) && date_regex.test(date)){
-            $('#banner').empty();
+        var ref = $("#reference").val();
 
+       if( ref_regex.test(ref) && date_regex.test(date)){
             $.ajax({
                 type:"GET",
                 url:"/saveClient",
                 data: $('form').serialize(),
-                dataType : "html",
+                dataType : "json",
+                cache : false,
                 success : function(data){
-                    $('.client_message').css({'display':'block','color':'#5cb85c'}).text("Customer "+data.reference+" added !");
+                    $('.client_message').css({'display':'block','color':'#5cb85c'}).text("Customer "+data['reference']+" added !");
                     $('#client_saved').show();
+                    $('form')[0].reset();
                 },
                 error:function(){
-                    $('.client_message').css({'display':'block','color':'#FF0F22'}).text('Error, customer no saved !');
+                    $('.client_message').css({'display':'block','color':'#FF0F22'}).text('Error, customer no saved !').delay(10000).fadeOut();
                 }
             });
-            location.reload();
         }else{
-            var p="<p> <span class=' glyphicon glyphicon-hand-right'></span>  Format or values of your entries are not permissible,please retry!</p>";
-            $("#banner").append(p);
+            var error_message = "Format or values of your entries are not permissible, please retry!";
+            $('.client_message').css({'display':'block','color':'#FF0F22'}).text(error_message).delay(10000).fadeOut();
         }
     });
 }

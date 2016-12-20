@@ -9,7 +9,7 @@
         <span id="euro_exchange">{{ exchange['euro'] }}</span>
         <span id="dollar_exchange">{{ exchange['dollar'] }}</span>
     </div>
-    {% if(base_rooms|length > 0) %}
+    {% if base_rooms|length > 0 %}
         {% for room in base_rooms %}
             <p class="base_title" id="{{ room.type|replace({' ' : '_'}) }}">Based on {{ room.type }}</p>
             <div class="calculation_quota">
@@ -28,8 +28,8 @@
                             </tr>
                         </thead>
 
-                        <!--Prestation-->
                         <tbody>
+                            <!--Prestation-->
                             <tr id="tr_prestation_{{ room.type|replace({' ' : '_'}) }}" class="tr_{{ room.type|replace({' ' : '_'}) }}">
                                 <td class="designation">Prestation</td>
                                 <td></td>
@@ -161,22 +161,19 @@
     {% endif %}
     <hr>
 {% endblock body %}
-{% block menu_room %}
-    <!-- Side Widget Well -->
-    <div class="row well">
-        <h4>Existing room for this quota</h4>
-        {% if(existing_base|length > 0) %}
-            {% for base in existing_base %}
+
+{% if(base_rooms|length > 0) %}
+    {% block menu_room %}
+        <!-- Side Widget Well -->
+        <div class="row well">
+            <h4>Existing room for this quota</h4>
+            {% for room in base_rooms %}
                 <div class="base_types">
-                    <a class="base_type" href="#{{ (base|lower)|replace({' ' : '_'}) }}" >{{ base }}</a>
+                    <a class="base_type" href="#{{ (room.content[0][0]|lower)|replace({' ' : '_'}) }}" >{{ room.content[0][0] }}</a>
                 </div>
             {% endfor %}
-        {% else %}
-            <div class="no_base">
-                No base for this quota !
-            </div>
-        {% endif %}
-        <div class="add_room_button" data-popup-open="popup-1">Add hotel / room</div>
-    </div>
+            <div class="add_room_button" data-popup-open="popup-1">Add room</div>
+        </div>
 
-{% endblock menu_room %}
+    {% endblock menu_room %}
+{% endif %}

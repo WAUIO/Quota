@@ -74,7 +74,13 @@
     <!-- /.container -->
     <div class="row" style="background: #ffffff;margin: 0 !important;padding: 0 !important;">
         <div class="container ref_client" >
-            <span id="client_reference" style="float: right;">Client reference : {{ client.reference }}</span>
+            <div class="col-xs-12">
+                <!--/left side-->
+                <div class="col-xs-9"></div>
+                <div class="col-xs-3">
+                    <span style="float: left;">Current customer : </span><span id="client_reference">{{ client.reference }}</span>
+                </div>
+            </div>
 
         </div>
     </div>
@@ -92,15 +98,14 @@
         <div id="right_side" class="col-xs-3">
             <div class="sidebar-nav-fixed pull-right affix">
                 <div id="well_search" class="row well">
-                    <div>
-                        <div id="search_menu_button">
-                            <span id="menu_hamburger" class="menu_glyphicon glyphicon glyphicon-menu-hamburger"></span>
-                        </div>
-                        <div id="search_menu_title">
-                            <h4>All customer</h4>
-                        </div>
 
-                    </div>
+                        {#<div id="search_menu_button">#}
+                            {#<span id="menu_hamburger" class="menu_glyphicon glyphicon glyphicon-menu-hamburger"></span>#}
+                        {#</div>#}
+                        <div id="search_menu_title">
+                            <div style="float: left"><h4>All customer</h4></div>
+                            <div id="refresh_client" style="float: right"><span class="glyphicon glyphicon-refresh"></span></div>
+                        </div>
 
                     <div class="input-group" style="width:100%;">
                         <input type="text" class="form-control search_control" id="search_client" placeholder="Search...">
@@ -161,8 +166,8 @@
 
 {% block scripts %}
     <script src="/js/function.js"></script>
-    <script src="/js/form.js"></script>
     <script src="/js/info.js"></script>
+    <script src="/js/form.js"></script>
     <script src="/js/prestation.js"></script>
     <script src="/js/room_quota.js"></script>
     <script src="/js/total_quota.js"></script>
