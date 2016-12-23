@@ -19,19 +19,12 @@ use Wau\Http\Controller;
 class HouseController extends Controller
 
 {
-
      public function select(){
          $house = new House();
-
          $result = $house->selectData();
-         $euro = new Exchange(0);
-         $dollar = new Exchange(1);
+         array_set($data, 'listhouse', $result);
 
-         $id = new ClientModel();
-         $Id = $id->getId();
-         $lastId = $Id[0];
-        return $this->app()->make('twig.view')->render('form.twig',['refclient'=>$lastId,'listhouse'=>$result,'euro'=>$euro->exchange[0],'dollar'=>$dollar->exchange[0]]);
-       // return $this->app()->make('twig.view')->render('form.twig',['listhouse'=>$result,'euro'=>$euro,'dollar'=>$dollar]);
+         return $this->app()->make('twig.view')->render('form.twig', $data);
      }
 
     public function dataRoom()

@@ -48,7 +48,7 @@ function saveClient(){
                                 'color': '#5cb85c'
                             }).delay(5000).fadeOut();
 
-                            //location.reload();
+                            location.reload();
                         }
                         else {
                             $("#client_message").text('Date is empty or invalid format!').css('display', 'block').delay(5000).fadeOut();
@@ -68,6 +68,7 @@ function saveClient(){
         else{
              $("#client_message").text('Customer Reference is empty or too short!').css('display','block').delay(5000).fadeOut();
         }
+
     });
 }
 

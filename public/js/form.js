@@ -39,7 +39,7 @@ function inHouse(){
         var id = optionSelected.val();
         $.ajax({
             type: 'GET',
-            url: '/path',
+            url: '/listroom',
             dataType: 'html',
             data: {
                 id: id
@@ -80,7 +80,7 @@ function inHouse(){
                 });
                 $.ajax({
                     type:'GET',
-                    url:'/rest',
+                    url:'/listboard',
                     dataType:'html',
                     data: {
                         id: id
@@ -403,7 +403,7 @@ function Quotaroom(){
             var breakfast="";
             $.ajax({
                 type: 'GET',
-                url: '/brd',
+                url: '/priceboard',
                 async: false,
                 data: {
                     id: result
@@ -427,7 +427,7 @@ function Quotaroom(){
             var lunch="";
             $.ajax({
                 type:'GET',
-                url:'/brd',
+                url:'/priceboard',
                 async: false,
                 data:{
                     id: lunch_value
@@ -451,7 +451,7 @@ function Quotaroom(){
             var dinner="";
             $.ajax({
                 type:'GET',
-                url:'/brd',
+                url:'/priceboard',
                 async: false,
                 data:{
                     id: dinner_value
@@ -473,7 +473,7 @@ function Quotaroom(){
             var things="";
             $.ajax({
                 type:'GET',
-                url:'/resto',
+                url:'/otherboard',
                 async: false,
                 data:{
                     menu: c
@@ -495,7 +495,7 @@ function Quotaroom(){
             var hb="";
             $.ajax({
                 type:'GET',
-                url:'/resto',
+                url:'/otherboard',
                 async: false,
                 data:{
                     menu: h
@@ -517,7 +517,7 @@ function Quotaroom(){
             var fb="";
             $.ajax({
                 type:'GET',
-                url:'/resto',
+                url:'/otherboard',
                 async: false,
                 data:{
                     menu: b
@@ -541,7 +541,7 @@ function Quotaroom(){
             var childbreakfast="";
             $.ajax({
                 type: 'GET',
-                url: '/brd',
+                url: '/priceboard',
                 async: false,
                 data: {
                     id: rslt
@@ -587,7 +587,7 @@ function Quotaroom(){
             var childdinner="";
             $.ajax({
                 type:'GET',
-                url:'/brd',
+                url:'/priceboard',
                 async: false,
                 data:{
                     id: r
@@ -608,7 +608,7 @@ function Quotaroom(){
             var menuc="";
             $.ajax({
                 type:'GET',
-                url:'/resto',
+                url:'/otherboard',
                 async: false,
                 data:{
                     menu: it
@@ -630,7 +630,7 @@ function Quotaroom(){
             var chb="";
             $.ajax({
                 type:'GET',
-                url:'/resto',
+                url:'/otherboard',
                 async: false,
                 data:{
                     menu: hbc
@@ -652,7 +652,7 @@ function Quotaroom(){
             var cfb="";
             $.ajax({
                 type:'GET',
-                url:'/resto',
+                url:'/otherboard',
                 async: false,
                 data:{
                     menu: cb
@@ -724,7 +724,7 @@ function Quotaroom(){
             if(val.match(/Single/g) || val.match(/Double/g) || val.match(/Triple/g) || val.match(/Family/g) || val.match(/Extra-bed/g)){
                 $.ajax({
                     type:'GET',
-                    url:'/quota',
+                    url:'/savequotaroom',
                     data: val,
                     dataType : "html",
                     success:function(){
