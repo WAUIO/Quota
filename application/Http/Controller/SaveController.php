@@ -29,7 +29,7 @@ class SaveController extends Controller
         $d = $dollar->exchange[0];
         $room = $others->selectOthers($id);
         $rest = $room[0];
-        $response=json_decode($rest['others']);
+        $response = json_decode($rest['others']);
         $currency = $response->{'public-rate'}->value->currency;
         $currency_vignet = $response->{'vignet-3'}->value->currency;
         $currency_tax = $response->tax->currency;
@@ -75,6 +75,7 @@ class SaveController extends Controller
         return $array;
 
     }
+
     public function priceBoard(){
         $id =$_GET['id'];
         $board = new Restaurant();

@@ -86,7 +86,7 @@ class prestationController extends Controller
 
         foreach($table as $tab){
             $instance = new PDOConnection();
-            $services = $instance->select("SELECT item_id, price, others FROM ".$tab." WHERE price NOT LIKE ''" );
+            $services = $instance->select("SELECT * FROM ".$tab." WHERE price NOT LIKE ''" );
 
             foreach ($services as $service){
                 $prestation = new Prestation();
@@ -112,5 +112,9 @@ class prestationController extends Controller
         $id_cli = $client->id;
         $client_prestation->selectQuotaprestation($id_cli);
         return $id_cli;
+    }
+
+    public function prestationView(){
+        return $this->app()->make('twig.view')->render('quotaprest.twig');
     }
 }

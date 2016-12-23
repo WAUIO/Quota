@@ -277,7 +277,6 @@ function Quotaroom(){
                             som=(som + parseInt(data[0]))/3;
                             tpl_vignet+= data[1];
                             tpl_tax+= data[2];
-
                         }
                     });
                 }

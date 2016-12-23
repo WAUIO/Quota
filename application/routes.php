@@ -4,7 +4,6 @@ $app->get('/money', 'App\Http\Controller\WelcomeController@currency');
 
 $app->get('/quotaprestation', 'App\Http\Controller\prestationController@prestationView');
 $app->get('/room', 'App\Http\Controller\QuotaViewController@room_quota');
-
 $app->get('/getClient', 'App\Http\Controller\ClientController@getClient');
 $app->get('/setClient', 'App\Http\Controller\ClientController@setClient');
 $app->get('/total', 'App\Http\Controller\QuotaViewController@total_quota');

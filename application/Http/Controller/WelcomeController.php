@@ -6,7 +6,4 @@ use Wau\Http\Controller;
 class WelcomeController extends Controller
 {
 
-
-
-
 }

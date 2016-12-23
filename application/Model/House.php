@@ -22,5 +22,9 @@ class House
         $sql = "SELECT item_id,house_title FROM house";
         return $this->instance->select($sql);
     }
+    public function getHouse($id_house){
+        $sql = "SELECT house_title FROM house WHERE item_id = ".$id_house;
+        return $this->instance->select($sql);
+    }
 
 }

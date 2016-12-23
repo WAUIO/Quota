@@ -77,15 +77,16 @@ function editValuePopup() {
 }
 
 //calculation for margins
-function calculateMargin($this, room_type, tax, length){
+function calculateMargin($this, room_type, margin, length){
     var span_taxes = $('#'+$($this).attr('id').replace('margin','taxes'));
     var td_margin = $($this).closest('td');
     var td_taxes = span_taxes.closest('td');
     var tr_id = $($this).closest('tr').prev().attr('id');
+    var tax = isFloat(span_taxes.text()) ? span_taxes.text() : 0;
 
     for (i=0;i<length-3;i++) {
         val = $('tr#'+tr_id+' > td.td_'+room_type+':eq(' + i + ')').text();
-        val_margin = val * value / 100;
+        val_margin = val * margin / 100;
         td_margin.siblings().eq(i+1).text( val_margin.toFixed(2));
 
         val_taxes  = val_margin * tax / 100;
