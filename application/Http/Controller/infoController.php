@@ -9,7 +9,6 @@ use FastRoute\RouteParser\Std;
 use Symfony\Component\HttpFoundation\Request;
 use Wau\Http\Controller;
 use App\Model\ClientModel;
-//use App\Utils\RoomBase;
 
 class infoController extends Controller
 {

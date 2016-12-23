@@ -324,6 +324,7 @@ function showMessage(){
     }
 }
 
+//save Prestation into database
 function savePrestation(){
     $('#savequota').click(function(){
         var allTR = $('#Tbody').children('tr');
@@ -346,18 +347,17 @@ function savePrestation(){
 
             var service = values.service +" "+values.pax;
 
-            //var infos = JSON.stringify(info);
             $.ajax({
                 type: "GET",
                 url: "/saveprestation",
                 data: {service:service, others:other},
                 dataType: "html",
                 success: function () {
-                   $('#saved_msg').css('display','block');
+                   $('#saved_msg').css({'display':'block','color':'#5cb85c'});
                     location.reload();
                 },
                 error: function(){
-                    $('#saved_msg').css('display','block');
+                    $('#saved_msg').css({'display':'block','color':'#5cb85c'});
                     console.log('error!');
                 }
             });

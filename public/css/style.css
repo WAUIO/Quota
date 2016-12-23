@@ -146,6 +146,9 @@ td {
 #savequota{
     margin-bottom: 30px;
 }
+#Tbod > tr > td{
+    font-weight: bold;
+}
 #Tbody > tr > td{
     font-weight: bold;
 }

@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $(this).scrollTop(0);
-    $('[type="checkbox"]').prop('checked', false);
+    $('[type = "checkbox"]').prop('checked', false);
      $("select").attr("disabled","disabled");
     $("#select-hotel").removeAttr("disabled");
     $('#menu2').css('display','none');
@@ -16,7 +16,7 @@ $(document).ready(function () {
 
 });
 function checkOption(){
-    $("[type='checkbox']").click(function () {
+    $("[type = 'checkbox']").click(function () {
         var checkbox_id = $('#'+$(this).closest(this).attr("id"));
         var parent = checkbox_id.parents().eq(3);
         var select_picker = parent.find('select');
@@ -33,13 +33,13 @@ function inHouse(){
 
     $('#select-hotel').on('change', function () {
         $('.loader').show();
-        $('[type="checkbox"]').prop('checked', false);
+        $('[type = "checkbox"]').prop('checked', false);
 
         var optionSelected = $("option:selected", this);
         var id = optionSelected.val();
         $.ajax({
             type: 'GET',
-            url: '/path',
+            url: '/listroom',
             dataType: 'html',
             data: {
                 id: id
@@ -55,21 +55,21 @@ function inHouse(){
                 // $('#ext').empty();
                 // $('#exch').empty();
                 $.each(d,function(i,r){
-                    var str=r.others;
+                    var str = r.others;
                     console.log(r.others);
-                    var obj=JSON.parse(str);
-                    if(r.category=="Single"|| r.category=="Extra-bed"){
+                    var obj = JSON.parse(str);
+                    if(r.category == "Single"|| r.category == "Extra-bed"){
                         var opt = "<option value=" +  r.item_id + ">" + obj['name'].value + "</option>";
 
                         $('#sgl').append(opt);
 
-                    }else if(r.category=="Single" || r.category=="Double"){
+                    }else if(r.category == "Single" || r.category == "Double"){
                         var pto = "<option value=" + r.item_id + ">" + obj['name'].value+ "</option>";
                         $('#dbl').append(pto);
-                    }else if(r.category=="Single" || r.category=="Double" || r.category=="Triple"){
+                    }else if(r.category == "Single" || r.category == "Double" || r.category == "Triple"){
                         var lpt = "<option value=" + r.item_id + ">" +  obj['name'].value+ "</option>";
                         $('#tpl').append(lpt);
-                    }else if(r.category=="Single" || r.category=="Double" || r.category=="Triple"||r.category=="Family"){
+                    }else if(r.category == "Single" || r.category == "Double" || r.category == "Triple"||r.category == "Family"){
                         var lmf = "<option value=" + r.item_id+ ">" +  obj['name'].value+ "</option>";
                         $('#fml').append(lmf);
                     }else {
@@ -80,7 +80,7 @@ function inHouse(){
                 });
                 $.ajax({
                     type:'GET',
-                    url:'/rest',
+                    url:'/listboard',
                     dataType:'html',
                     data: {
                         id: id
@@ -88,38 +88,38 @@ function inHouse(){
                     success:function (d) {
 
                     console.log(d);
-                        var data=JSON.parse(d);
+                        var data = JSON.parse(d);
                         console.log(data);
                         $('#bft').empty();
                         $('#lch').empty();
                         $('#dnr').empty();
                             $.each(data,function(e,o){
-                            if(o.meals=="Breakfast" || o.meals.match(/Breakfast/g)){
+                            if(o.meals == "Breakfast" || o.meals.match(/Breakfast/g)){
                                 if(o.meals.match(/CH/g) ||o.menu.match(/y.o/g)){
-                                    var bch="<option value=" + o.item_id + ">" + o.menu + "</option>";
+                                    var bch = "<option value=" + o.item_id + ">" + o.menu + "</option>";
                                     $("#chb").append(bch)
                                 }else{
-                                    var brk="<option value=" + o.item_id + ">" + o.menu + "</option>";
+                                    var brk = "<option value=" + o.item_id + ">" + o.menu + "</option>";
                                     $("#bft").append(brk);
                                 }
-                            }else if(o.meals=="Lunch" || o.meals.match(/Lunch/g)){
+                            }else if(o.meals == "Lunch" || o.meals.match(/Lunch/g)){
                                 if(o.meals.match(/CH/g) ||o.menu.match(/y.o/g)){
-                                    var lch="<option value=" + o.item_id + ">" + o.menu + "</option>";
+                                    var lch = "<option value=" + o.item_id + ">" + o.menu + "</option>";
                                     $("#lch").append(lch);
                                 }else{
-                                    var lun="<option value=" + o.item_id+ ">" + o.menu + "</option>";
+                                    var lun = "<option value=" + o.item_id+ ">" + o.menu + "</option>";
                                     $("#lch").append(lun);
                                 }
-                            }else if(o.meals=="dinner" || o.meals.match(/Dinner/g)){
+                            }else if(o.meals == "dinner" || o.meals.match(/Dinner/g)){
                                 if(o.meals.match(/CH/g) ||o.menu.match(/y.o/g)){
-                                    var dch="<option value=" + o.item_id + ">" + o.menu + "</option>";
+                                    var dch = "<option value=" + o.item_id + ">" + o.menu + "</option>";
                                     $("#chd").append(dch);
                                 }else{
-                                    var din="<option value=" + o.item_id + ">" + o.menu + "</option>";
+                                    var din = "<option value=" + o.item_id + ">" + o.menu + "</option>";
                                     $("#dnr").append(din);
                                 }
 
-                            }else if(o.meals=="menu" || o.meals.match(/Menu/g)){
+                            }else if(o.meals == "menu" || o.meals.match(/Menu/g)){
                                 if(o.meals.match(/CH/g) ||o.menu.match(/y.o/g)){
                                     $('#chmenu').css('display','block');
                                     $("#menu-child").html(o.menu);
@@ -127,7 +127,7 @@ function inHouse(){
                                     $('#menu2').css('display','block');
                                     $("#menu-adult").html(o.menu);
                                 }
-                            }else if(o.meals=="FB" || o.meals.match(/FB/g)){
+                            }else if(o.meals == "FB" || o.meals.match(/FB/g)){
                                 if(o.meals.match(/CH/g) ||o.menu.match(/y.o/g)){
                                     $('#chfb').css('display','block');
                                     $("#fb-child").html(o.menu);
@@ -135,7 +135,7 @@ function inHouse(){
                                     $('#fb').css('display','block');
                                     $("#fb-adult").html(o.menu);
                                 }
-                            }else if(o.meals=="HB" || o.meals.match(/HB/g)){
+                            }else if(o.meals == "HB" || o.meals.match(/HB/g)){
                                 if(o.meals.match(/CH/g) ||o.menu.match(/y.o/g)){
                                     $('#chhb').css('display','block');
                                     $("#hb-child").html(o.menu);
@@ -158,16 +158,16 @@ function inHouse(){
 function Quotaroom(){
     $("#save").click(function() {
         $('#loader_gif').show();
-        var houseId=$("#select-hotel option:selected").val();
-        var idcli=$('#customer').text();
+        var houseId = $("#select-hotel option:selected").val();
+        var idcli = $('#customer').text();
 
         var euro = $("#euro").text();
         var dollar = $("#dollar").text();
-        var basesingle="";
-        var basedouble="";
-        var basetriple="";
-        var basefamily="";
-        var baseextra="";
+        var basesingle = "";
+        var basedouble = "";
+        var basetriple = "";
+        var basefamily = "";
+        var baseextra = "";
         var baseextrac="";
         var singleOthers ={};
         var doubleOthers ={};
@@ -183,8 +183,8 @@ function Quotaroom(){
             var parent = $("#single").parents().eq(3);
             var opt = parent.find('select option:selected');
             var value = opt.val();
-            var sgl_title=opt.text();
-            var single="";
+            var sgl_title = opt.text();
+            var single = "";
             var sgl_vignet = "";
             var sgl_tax = "";
             if(value!==""){
@@ -214,16 +214,16 @@ function Quotaroom(){
         }
 
         if ($("#double").is(':checked')) {
-            var par= $("#double").parents().eq(3);
+            var par = $("#double").parents().eq(3);
             var options = par.find('select option:selected');
             var dbl_vignet = "";
             var dbl_tax = "";
-            var double="base=Double&price=";
-            var sum=0;
+            var double = "base=Double&price=";
+            var sum = 0;
             var title_dbl="";
             $.each(options,function () {
-             var i= $(this).val();
-             var title= $(this).text();
+             var i = $(this).val();
+             var title = $(this).text();
                 if(i!==""){
                     $.ajax({
                         type: 'GET',
@@ -235,7 +235,7 @@ function Quotaroom(){
                         success: function (data) {
                             console.log(data);
 
-                            sum=(sum + parseInt(data[0]))/2;
+                            sum = (sum + parseInt(data[0]))/2;
                             dbl_vignet = data[1];
                             dbl_tax += data[2];
 
@@ -250,19 +250,19 @@ function Quotaroom(){
             basedouble+="&id="+idcli;
             doubleOthers.vignet = dbl_vignet;
             doubleOthers.tax = dbl_tax;
-            doubleOthers.room_title =title_dbl;
+            doubleOthers.room_title = title_dbl;
         }
 
         if ($("#triple").is(':checked')) {
-            var dad= $("#triple").parents().eq(3);
+            var dad = $("#triple").parents().eq(3);
             var optselect = dad.find('select option:selected');
             var tpl_vignet = "";
             var tpl_tax = "";
-            var triple="base=Triple&price=";
-            var som=0;
-            var title_triple="";
+            var triple = "base=Triple&price=";
+            var som = 0;
+            var title_triple = "";
             $.each(optselect,function () {
-                var j= $(this).val();
+                var j = $(this).val();
                 var title= $(this).text();
                 if(j!==""){
                     $.ajax({
@@ -299,8 +299,8 @@ function Quotaroom(){
             var fml_tax ="";
             var title_family =opselect.text();
             var vr = opselect.val();
-            var family="base=Family&price=";
-            var add=0;
+            var family = "base=Family&price=";
+            var add = 0;
             if(vr!==""){
                 $.ajax({
                     type: 'GET',
@@ -311,7 +311,7 @@ function Quotaroom(){
                     },
                     success: function (data) {
                         console.log(data);
-                        add=(add + parseInt(data[0]));
+                        add = (add + parseInt(data[0]));
                         fml_vignet+= data[1];
                         fml_tax+= data[2];
 
@@ -400,10 +400,10 @@ function Quotaroom(){
             var ancestor = $('#adult-breakfast').parents().eq(3);
             var siblings = ancestor.find('select option:selected');
             var result = siblings.val();
-            var breakfast="";
+            var breakfast = "";
             $.ajax({
                 type: 'GET',
-                url: '/brd',
+                url: '/priceboard',
                 async: false,
                 data: {
                     id: result
@@ -415,19 +415,19 @@ function Quotaroom(){
                  }
                 }
             });
-                board.Breakfast=breakfast;
+                board.Breakfast = breakfast;
 
         }
 
         //get lunch for adult value
         if($('#adult-lunch').is(':checked')){
-            var parent_lunch=$('#adult-lunch').parents().eq(3);
-            var sibling_lunch=parent_lunch.find('select option:selected');
-            var lunch_value=sibling_lunch.val();
-            var lunch="";
+            var parent_lunch = $('#adult-lunch').parents().eq(3);
+            var sibling_lunch = parent_lunch.find('select option:selected');
+            var lunch_value = sibling_lunch.val();
+            var lunch = "";
             $.ajax({
                 type:'GET',
-                url:'/brd',
+                url:'/priceboard',
                 async: false,
                 data:{
                     id: lunch_value
@@ -445,13 +445,13 @@ function Quotaroom(){
 
         //get dinner for adult value
         if($('#adult-dinner').is(':checked')){
-            var parent_dinner=$('#adult-dinner').parents().eq(3);
-            var sibling_dinner=parent_dinner.find('select option:selected');
-            var dinner_value=sibling_dinner.val();
-            var dinner="";
+            var parent_dinner = $('#adult-dinner').parents().eq(3);
+            var sibling_dinner = parent_dinner.find('select option:selected');
+            var dinner_value = sibling_dinner.val();
+            var dinner = "";
             $.ajax({
                 type:'GET',
-                url:'/brd',
+                url:'/priceboard',
                 async: false,
                 data:{
                     id: dinner_value
@@ -469,8 +469,8 @@ function Quotaroom(){
 
         //get menu for adult value
         if($('#amenu').is(':checked')){
-            var c=$("#menu-adult").text();
-            var things="";
+            var c = $("#menu-adult").text();
+            var things = "";
             $.ajax({
                 type:'GET',
                 url:'/resto',
@@ -486,13 +486,13 @@ function Quotaroom(){
 
             });
 
-            board.Menu=things;
+            board.Menu = things;
         }
 
         //get board type hb for adult value
         if($('#ahb').is(':checked')){
-            var h=$("#hb-adult").text();
-            var hb="";
+            var h = $("#hb-adult").text();
+            var hb = "";
             $.ajax({
                 type:'GET',
                 url:'/resto',
@@ -508,13 +508,13 @@ function Quotaroom(){
 
             });
 
-            board.HB=hb;
+            board.HB = hb;
         }
 
         //get board type for adult value
         if($('#afb').is(':checked')){
-            var b=$("#fb-adult").text();
-            var fb="";
+            var b = $("#fb-adult").text();
+            var fb = "";
             $.ajax({
                 type:'GET',
                 url:'/resto',
@@ -538,10 +538,10 @@ function Quotaroom(){
             var gp = $('#child-breakfast').parents().eq(3);
             var sibl = gp.find('select option:selected');
             var rslt = sibl.val();
-            var childbreakfast="";
+            var childbreakfast = "";
             $.ajax({
                 type: 'GET',
-                url: '/brd',
+                url: '/priceboard',
                 async: false,
                 data: {
                     id: rslt
@@ -552,7 +552,7 @@ function Quotaroom(){
                     }
                 }
             });
-            childBoard.Breakfast=childbreakfast;
+            childBoard.Breakfast = childbreakfast;
 
         }
 
@@ -561,10 +561,10 @@ function Quotaroom(){
             var origin = $('#child-lunch').parents().eq(3);
             var effect = origin.find('select option:selected');
             var output = effect.val();
-            var childlunch="";
+            var childlunch = "";
             $.ajax({
                 type: 'GET',
-                url: '/brd',
+                url: '/priceboard',
                 async: false,
                 data: {
                     id: output
@@ -581,13 +581,13 @@ function Quotaroom(){
 
         //get dinner for child value
         if($('#child-dinner').is(':checked')){
-            var mother=$('#child-dinner').parents().eq(3);
-            var child=mother.find('select option:selected');
-            var r=child.val();
-            var childdinner="";
+            var mother = $('#child-dinner').parents().eq(3);
+            var child = mother.find('select option:selected');
+            var r = child.val();
+            var childdinner = "";
             $.ajax({
                 type:'GET',
-                url:'/brd',
+                url:'/priceboard',
                 async: false,
                 data:{
                     id: r
@@ -599,13 +599,13 @@ function Quotaroom(){
                 }
             });
 
-            childBoard.Dinner=childdinner;
+            childBoard.Dinner = childdinner;
         }
 
         //get board type menu for child value
         if($('#menuc').is(':checked')){
-            var it=$("#menu-child").text();
-            var menuc="";
+            var it = ("#menu-child").text();
+            var menuc = "";
             $.ajax({
                 type:'GET',
                 url:'/resto',
@@ -621,13 +621,13 @@ function Quotaroom(){
 
             });
 
-            childBoard.Menu=menuc;
+            childBoard.Menu = menuc;
         }
 
        //get board type half-board for child value
         if($('#hbc').is(':checked')){
-            var hbc=$("#hb-child").text();
-            var chb="";
+            var hbc = $("#hb-child").text();
+            var chb = "";
             $.ajax({
                 type:'GET',
                 url:'/resto',
@@ -643,13 +643,13 @@ function Quotaroom(){
 
             });
 
-            childBoard.HB=chb;
+            childBoard.HB = chb;
         }
 
         //get board type full-board for child value
         if($('#fbc').is(':checked')){
             var cb=$("#fb-child").text();
-            var cfb="";
+            var cfb = "";
             $.ajax({
                 type:'GET',
                 url:'/resto',
@@ -722,11 +722,13 @@ function Quotaroom(){
 
         $.each(data,function(i,val){
             if(val.match(/Single/g) || val.match(/Double/g) || val.match(/Triple/g) || val.match(/Family/g) || val.match(/Extra-bed/g)){
+
                 $.ajax({
                     type:'GET',
-                    url:'/quota',
+                    url:'/savequotaroom',
                     data: val,
                     dataType : "html",
+                    async: false,
                     success:function(){
                         console.log('successfull');
                     },

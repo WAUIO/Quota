@@ -58,7 +58,7 @@
                                             {% if others[i].type_service|lower == "per person" %}
                                                 {{ others[i].rate_service * others[i].number_service}}
                                             {% else %}
-                                                {{ (others[i].rate_service * others[i].number_service)/(others[i].pax_max - others[i].pax_min + 1)}}
+                                                {{ ((others[i].rate_service * others[i].number_service)/j)|number_format(2, '.', ',')}}
                                             {% endif %}
                                         {% endif %}
                                     </td>
@@ -73,7 +73,7 @@
                             </td>
                             {% for j in prestation.min..prestation.max %}
                                    <td style="font-weight:bold;color:#2B838E">
-                                       {{ prestation.value[j-1] }}
+                                       {{ (prestation.value[j-1])|number_format(2) }}
                                    </td>
                             {% endfor %}
                         </tr>

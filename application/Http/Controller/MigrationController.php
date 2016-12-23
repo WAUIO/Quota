@@ -28,7 +28,6 @@ class MigrationController extends Controller
             if($app_id == 17063391){
                 $migrate->getItems($app);
             }
-            //$migrate->getItems($app);
         }
 
         return "";

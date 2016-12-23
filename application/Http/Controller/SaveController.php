@@ -60,7 +60,7 @@ class SaveController extends Controller
 
         if(array_key_exists('vignet-3',$response)){
             if($currency_vignet == "EUR"){
-                $vignet_value= $vignet * $e;
+                $vignet_value = $vignet * $e;
             }else if($currency_vignet == "MGA"){
                 $vignet_value = $vignet;
             }else{

@@ -8,8 +8,6 @@ class Room
 
     public function __construct(){
         $this->instance = new PDOConnection();
-//        $db = Connexion::getInstance();
-//        $this->conn = $db->getPdo();
     }
 
     public function selectRoom($id){

@@ -31,7 +31,6 @@ class HouseController extends Controller
          $Id = $id->getId();
          $lastId = $Id[0];
         return $this->app()->make('twig.view')->render('form.twig',['refclient'=>$lastId,'listhouse'=>$result,'euro'=>$euro->exchange[0],'dollar'=>$dollar->exchange[0]]);
-       // return $this->app()->make('twig.view')->render('form.twig',['listhouse'=>$result,'euro'=>$euro,'dollar'=>$dollar]);
      }
 
     public function dataRoom()
