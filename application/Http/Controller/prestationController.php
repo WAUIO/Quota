@@ -12,24 +12,27 @@ use App\Model\ClientModel;
 
 class prestationController extends Controller
 {
-    public function prestation(){
+    public function prestation()
+    {
         $table = array("transport", "activity");
         $array = $this->getService($table);
-        return $this->app()->make('twig.view')->render('prestation.twig',['prestations' => $array]);
+        return $this->app()->make('twig.view')->render('prestation.twig', ['prestations' => $array]);
     }
 
-    public function prestationView(){
+    public function prestationView()
+    {
         $data = array();
         $prestation = $this->getPrestation();
 
         array_set($data, 'prestation', $prestation);
 
-        return $this->app()->make('twig.view')->render('quotaprest.twig',$data);
+        return $this->app()->make('twig.view')->render('quotaprest.twig', $data);
     }
 
-    public function getPrestation(){
+    public function getPrestation()
+    {
         $client_id = $_SESSION['client']->id;
-        $query = "SELECT * FROM quotaprestation WHERE id_client = ".$client_id;
+        $query = "SELECT * FROM quotaprestation WHERE id_client = " . $client_id;
         $instance = new PDOConnection();
         $result = $instance->select($query);
 
@@ -39,7 +42,7 @@ class prestationController extends Controller
         $smaller = 100;
         $bigger = 0;
 
-        foreach ($result as $res){
+        foreach ($result as $res) {
             $others = json_decode($res['others']);
 
             $service[] = $res['service'];
@@ -49,29 +52,29 @@ class prestationController extends Controller
             $max = $others->pax_max;
             $rate_service = $others->rate_service;
 
-            $i = $min-1;
-            if(strtolower($others->type_service) == "per person"){
-                while($i < $max){
+            $i = $min - 1;
+            if (strtolower($others->type_service) == "per person") {
+                while ($i < $max) {
                     $prestation[$i] += $rate_service;
                     $i++;
                 }
-            }else{
+            } else {
                 $number = $max - $min + 1;
-                while($i < $max){
+                while ($i < $max) {
                     $prestation[$i] += $rate_service / $number;
                     $i++;
                 }
             }
 
             //get the min and max pax
-            if($smaller > $min){
+            if ($smaller > $min) {
                 $smaller = $min;
             }
-            if($bigger < $max){
+            if ($bigger < $max) {
                 $bigger = $max;
             }
         }
-        $all_prestation = ['service'=>$service, 'other'=>$other];
+        $all_prestation = ['service' => $service, 'other' => $other];
 
         $margin = 20;
         $vat = 20;
@@ -84,20 +87,20 @@ class prestationController extends Controller
         $person = array();
         $group = array();
 
-        foreach($table as $tab){
+        foreach ($table as $tab) {
             $instance = new PDOConnection();
-            $services = $instance->select("SELECT * FROM ".$tab." WHERE price NOT LIKE ''" );
+            $services = $instance->select("SELECT * FROM " . $tab . " WHERE price NOT LIKE ''");
 
-            foreach ($services as $service){
+            foreach ($services as $service) {
                 $prestation = new Prestation();
                 $prestation->setItemId($service['item_id']);
                 $prestation->setTable($tab);
                 $prestation->setPrice($service['price']);
                 $prestation->setOthers(json_decode($service['others']));
 
-                if(strtolower($service['price']) == 'per person'){
+                if (strtolower($service['price']) == 'per person') {
                     $person[] = $prestation;
-                }else{
+                } else {
                     $group[] = $prestation;
                 }
             }
@@ -106,7 +109,8 @@ class prestationController extends Controller
         return $array;
     }
 
-    public function showQuotaPrestation(){
+    public function showQuotaPrestation()
+    {
         $client_prestation = new QuotaPrestation();
         $client = (Object)$_SESSION['client'];
         $id_cli = $client->id;
@@ -114,7 +118,4 @@ class prestationController extends Controller
         return $id_cli;
     }
 
-    public function prestationView(){
-        return $this->app()->make('twig.view')->render('quotaprest.twig');
-    }
 }
