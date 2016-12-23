@@ -9,7 +9,7 @@
         <span id="euro_exchange">{{ exchange['euro'] }}</span>
         <span id="dollar_exchange">{{ exchange['dollar'] }}</span>
     </div>
-    {% if(base_rooms|length > 0) %}
+    {% if base_rooms|length > 0 %}
         {% for room in base_rooms %}
             <p class="base_title" id="{{ room.type|replace({' ' : '_'}) }}">Based on {{ room.type }}</p>
             <div class="calculation_quota">
@@ -28,8 +28,8 @@
                             </tr>
                         </thead>
 
-                        <!--Prestation-->
                         <tbody>
+                            <!--Prestation-->
                             <tr id="tr_prestation_{{ room.type|replace({' ' : '_'}) }}" class="tr_{{ room.type|replace({' ' : '_'}) }}">
                                 <td class="designation">Prestation</td>
                                 <td></td>
@@ -40,7 +40,7 @@
                             </tr>
                             <tr id="tr_margin_prestation" class="tr_{{ room.type|replace({' ' : '_'}) }}">
                                 <td class="designation">Margin</td>
-                                <td class="red"><span id="margin_prestation_{{ room.type|replace({' ' : '_'}) }}" class="taxes">{{ prestation.margin }}</span><span>%</span></td>
+                                <td class="red"><span id="margin_prestation_{{ room.type|replace({' ' : '_'}) }}" class="taxes" data-loading-text="azertyuiti.....">{{ prestation.margin }}</span><span>%</span></td>
                                 {% for i in prestation.min..prestation.max %}
                                     <td class="td_value td_{{ room.type|replace({' ' : '_'}) }}">{{ prestation.value[i-prestation.min] *  prestation.margin /100 }}</td>
                                 {% endfor %}
@@ -145,27 +145,35 @@
     {% else %}
         <div class="no_quota">
             No quota for this customer !<br/><br/>
-            <div class="add_room_button" data-popup-open="popup-1">Add quota</div>
+            <div id="client_saved" class="row">
+                <div class="col-xs-6">
+                    <div class="col-md-12 add_quotation" onclick="location.href ='/room'">
+                        Room quotation
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="col-md-12 add_quotation" onclick="location.href ='/prestation'">
+                        Benefit quotation
+                    </div>
+                </div>
+            </div>
         </div>
     {% endif %}
     <hr>
 {% endblock body %}
-{% block menu_room %}
-    <!-- Side Widget Well -->
-    <div class="row well">
-        <h4>Existing room for this quota</h4>
-        {% if(existing_base|length > 0) %}
-            {% for base in existing_base %}
+
+{% if(base_rooms|length > 0) %}
+    {% block menu_room %}
+        <!-- Side Widget Well -->
+        <div class="row well">
+            <h4>Existing room for this quota</h4>
+            {% for room in base_rooms %}
                 <div class="base_types">
-                    <a class="base_type" href="#{{ (base|lower)|replace({' ' : '_'}) }}" >{{ base }}</a>
+                    <a class="base_type" href="#{{ (room.content[0][0]|lower)|replace({' ' : '_'}) }}" >{{ room.content[0][0] }}</a>
                 </div>
             {% endfor %}
-        {% else %}
-            <div class="no_base">
-                No base for this quota !
-            </div>
-        {% endif %}
-        <div class="add_room_button" data-popup-open="popup-1">Add hotel / room</div>
-    </div>
+            <div class="add_room_button" data-popup-open="popup-1">Add room</div>
+        </div>
 
-{% endblock menu_room %}
+    {% endblock menu_room %}
+{% endif %}

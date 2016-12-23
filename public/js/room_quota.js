@@ -1,4 +1,5 @@
 $( function() {
+    $('.detail_body').perfectScrollbar();
     $('#family_member').on('change keyup', function () {
         calculateFamilyTotal($(this));
     });
@@ -42,11 +43,11 @@ function detailView() {
         var detail_id = '#'+$(this).parents().attr("id");
         if($(detail_id+' .detail_body').is(":visible") === false){
             $(detail_id +' .detail_body').fadeIn();
-            $(detail_id +' .detail_body_content').animate({marginTop:"-=100px"},300);
+            $(detail_id +' .detail_foot').fadeIn();
             $(this).find(".glyphicon").toggleClass("glyphicon-menu-down").toggleClass("glyphicon-menu-up");
         }else{
+            $(detail_id +' .detail_foot').hide();
             $(detail_id +' .detail_body').hide();
-            $(detail_id +' .detail_body_content').hide();
             $(this).find(".glyphicon").toggleClass("glyphicon-menu-up").toggleClass("glyphicon-menu-down");
         }
     });

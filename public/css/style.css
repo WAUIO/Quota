@@ -1,19 +1,8 @@
-.zoom{
-    width:50%;
-    bottom:0;
-    left:0;
-    font:700 1.2em/45px sans-serif;
-    color:#fff;
-    background:#333;
-    cursor:pointer;
-    transition:all .3s ease;
-}
-
 .bootstrap-select {
     outline: none !important;
 }
 body {
-    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    padding-top: 80px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
 footer {
@@ -21,6 +10,7 @@ footer {
 }
 .navbar-fixed-top{
     background: #2B838E;
+    border: none;
 }
 
 #logo{
@@ -33,14 +23,25 @@ footer {
 .title-logo, .navbar-nav{
     color: white;
 }
+.user{
+    height: 50px;
+    background: #2B838E;
+    line-height: 50px;
+    color: white;
+}
 .ref_client{
     height: 50px;
+    background: #ffffff;
     line-height: 50px;
-    color: #ffffff;
+}
+#client_reference{
+    font-size: 120%;
+    color: #2B838E;
     cursor: default;
 }
-.ref_client:hover{
+#client_reference:hover{
     color: #000;
+    cursor: pointer;
 }
 .content {
     top: 0;
@@ -48,9 +49,6 @@ footer {
 .well{
     min-width: 200px;
     padding-top: 5px;
-}
-.sidebar-outer {
-    position: relative;
 }
 .sidebar-nav-fixed {
     width: 20%;
@@ -69,16 +67,37 @@ footer {
     float: left;
 }
 #search_menu_title{
-    float: left;
+    width:100%;
     height: 40px;
     line-height: 40px;
+    vertical-align: middle;
+}
+#refresh_client{
+    cursor: pointer;
+}
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spinWebkit .7s infinite linear;
+    -moz-animation: spinMoz .7s infinite linear;
+}
+@-webkit-keyframes spinWebkit {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+@keyframes spinMoz {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
 }
 #search_menu_button{
     float: right;
     height: 40px;
     line-height: 40px;
 }
-
 .sidebar-outer {
     position: relative;
 }
@@ -148,6 +167,9 @@ td {
     color: rgb(111, 111, 111);
     padding-left: 10px;
 }
+.check_value{
+    width:25px;
+}
 .check{
     width:25px;
 }
@@ -196,23 +218,6 @@ table > thead > tr > th, .total_designation {
 .red, .others{
     color: #DD1144;
 }
-/*table::selection {*/
-    /*background-color:transparent;*/
-/*}*/
-/*table::-moz-selection {*/
-    /*background-color:transparent;*/
-/*}*/
-/*table {*/
-    /*-webkit-user-select: none;*/
-    /*-moz-user-select: -moz-none;*/
-    /*!*IE10*!*/
-    /*-ms-user-select: none;*/
-    /*user-select: none;*/
-
-    /*!*You just need this if you are only concerned with android and not desktop browsers.*!*/
-    /*-webkit-tap-highlight-color: rgba(0, 0, 0, 0);*/
-/*}*/
-
 .designation{
     font-weight: bold;
 }
@@ -241,17 +246,16 @@ table > thead > tr > th, .total_designation {
     -ms-user-select: none;    /* Internet Explorer/Edge */
     user-select: none;      /* Non-prefixed version, currently not supported by any browser */
 }
-.detail_hr{
-    height: 1px;
-    background: white;
-    margin: 0px 10px 0px 10px;
-}
 .detail_body{
     display: none;
-    height: 200px;
+    max-height: 300px;
+    padding: 10px 40px 0 40px;
+    overflow-y: auto;
+    position: relative;
 }
-.detail_body_elements{
-    padding: 20px;
+.detail_foot{
+    display: none;
+    height: 10px;
 }
 /******* For no_quota *******/
 .no_quota, .no_base{
@@ -273,12 +277,14 @@ table > thead > tr > th, .total_designation {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    color: #2B838E;
+    padding-left: 5px;
 }
 .quota_lists:hover{
-    cursor: default;
+    cursor: pointer;
     background: #f9f9f9;
 }
-.base_types a, .quota_lists a{
+.base_types a{
     text-decoration: none;
     color: #2B838E;
     margin-left: 5px;
@@ -322,17 +328,6 @@ table > thead > tr > th, .total_designation {
 }
 .glyphicon-menu-down, .glyphicon-menu-up, .glyphicon-chevron-up, .glyphicon-chevron-down{
     float: right;
-}
-
-/* For edit quota pop up */
-.popup {
-    width: 100%;
-    height: 100%;
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: rgba(0,0,0,0.75);
 }
 
 /* Inner */
@@ -543,9 +538,6 @@ h2,h3{
     clear: both;
     height: 0;
 }
-.main{
-    background-color:whitesmoke;
-}
 .form-horizontal{
     padding-top:40px;
     padding-bottom:40px;
@@ -558,11 +550,6 @@ h2,h3{
     width: 60px;
     height: 40px;
 }
-
-.form-control{
-    margin: auto;
-
-}
 .icon{
     width: 15px;
     height: 15px;
@@ -571,20 +558,22 @@ h2,h3{
     width: 90px;
     height: 40px;
 }
-.container{
-    background-color: rgba(1,1,1,0.03);
-}
 #clientsubmit{
     width:70px;
 }
+
 .row{
     margin-top: 10px;
 }
+
 .img{
     width:15%;
     height:10%;
 }
 .selectpicker{
+    margin-top: 10px;
+}
+.row{
     margin-top: 10px;
 }
 .currency{
@@ -607,10 +596,6 @@ li .lign{
 #Thead{
     background-color:#2B838E ;
 }
-
-
-* html .navbar-nav             { zoom: 1; } /* IE6 */
-*:first-child+html .navbar-nav { zoom: 1; } /* IE7 */
 
 /*****total_table*****/
 .table-editable {
@@ -666,7 +651,6 @@ li .lign{
     float: right;
     border-radius: 3px;
 }
-
 .add_client{
      float: right;
      font-size: 110%;
@@ -831,6 +815,16 @@ li .lign{
     background: #2aa198;
 }
 
+#loading {
+    display:none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('../images/loading.gif') 50% 50% no-repeat rgb(249,249,249);
+}
 #client_saved{
     display: none;
 }

@@ -18,9 +18,8 @@ class Restaurant
     }
     public function selectRestauration($id){
         $sql="SELECT item_id,menu,meals FROM restaurant WHERE house_id = $id";
-//        IdHouse=:id AND
+
         return $this->instance->select($sql);
-//
 
     }
     public function otherBoard($id){

@@ -73,7 +73,7 @@
                             </td>
                             {% for j in prestation.min..prestation.max %}
                                    <td style="font-weight:bold;color:#2B838E">
-                                       {{ (prestation.value[j-1])|number_format(2, '.', ',') }}
+                                       {{ (prestation.value[j-1])|number_format(2) }}
                                    </td>
                             {% endfor %}
                         </tr>

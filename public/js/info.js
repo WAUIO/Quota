@@ -1,4 +1,5 @@
 $( function() {
+
     var options={
         dateFormat: 'mm/dd/yy',
         todayHighlight: true,

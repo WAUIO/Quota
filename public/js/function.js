@@ -35,6 +35,10 @@ $(document).ready(function () {
         ShowHideQuotaList($('#quota_list'), 0);
     });
 
+    $('#refresh_client').click(function () {
+        getClient();
+    });
+
     $('.taxes').css('border-bottom', 'none');
     $('.others').css('border-bottom', 'none');
     $(".selectpicker").attr("disabled","disabled");
@@ -56,7 +60,6 @@ $(document).ready(function () {
     btnSave();
 
 });
-
 
 $( function() {
     var options={
@@ -96,6 +99,8 @@ function client(){
             }
     });
 }
+//round float value (fixed 2)
+
 function roundValue(value){
     value = parseFloat(value);
     if(value % 1 != 0){
@@ -104,6 +109,7 @@ function roundValue(value){
     return value;
 }
 
+//search customer (search input)
 function searchClient(){
     $('#search_client').keyup(function(){
         var exist = false;
@@ -159,6 +165,7 @@ function getClient() {
     });
 }
 
+//set customer in session
 function setClient(url, client_id){
     $.ajax({
         url: "/setClient",

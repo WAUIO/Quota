@@ -1,4 +1,5 @@
 $( function() {
+
     $( "#accordion" ).accordion();
 
     $('.checked_list_content').perfectScrollbar();
@@ -22,7 +23,6 @@ $( function() {
     searchPrestation();
     checkPrestation();
     savePrestation();
-    //
 } );
 
 function addColumn() {
@@ -179,7 +179,7 @@ function resize(parent_block, items){
     }else parent_block.css('height',321);
 }
 
-//function checkif a vertical scroll appear
+//function check if a vertical scroll appear
 jQuery.fn.hasScrollBar = function(direction) {
     if (direction == 'vertical')
     {
@@ -228,11 +228,15 @@ function resetCheckedScroll(parent_div){
 function deletePrestation($this){
     var parent_div = $($this).closest('.per_price');
     var $checked_prestation = $($this).closest('.checked_prestation');
+    var cheked_id = $('#id_'+$checked_prestation.attr('id').replace('check_value_', ''));
 
     $checked_prestation.remove();
     $('#id_'+$checked_prestation.attr('id')).prop('checked', false);
 
-    if(parent_div.find('.check:checked').length == 0){
+    cheked_id.prop('checked', false);
+    ifUnchecked($checked_prestation.attr('id'));
+
+    if(parent_div.find('.check_value:checked').length == 0){
         parent_div.find('.checked_lists').css('height', 36);
         parent_div.find('.checked_list_title').slideUp(400);
     }
@@ -278,6 +282,7 @@ function checkPrestation() {
                 parent_div.find('.checked_lists').css('height', 36);
                 parent_div.find('.checked_list_title').slideUp(400);
             }
+
             ifUnchecked($(this).attr('id'));
         }
 
@@ -314,16 +319,15 @@ function ifUnchecked(id){
 
 function showMessage(){
     if($('#accordion').find('.check_value:checked').length < 1){
-        $('.no_service').css('display', 'block').delay(3000).fadeOut();
+        $('.no_service_message').css('display', 'block').delay(5000).fadeOut();
     }
     else{
         $('#prestation_form').css('display','none');
-
         $('#quotafade').slideToggle('slow');
-
     }
 }
 
+//save Prestation into database
 function savePrestation(){
     $('#savequota').click(function(){
         var allTR = $('#Tbody').children('tr');
@@ -353,11 +357,11 @@ function savePrestation(){
                 data: {service:service, others:other},
                 dataType: "html",
                 success: function () {
-                   $('#saved_msg').css('display','block');
+                   $('#saved_msg').css({'display':'block','color':'#5cb85c'});
                     location.reload();
                 },
                 error: function(){
-                    $('#saved_msg').css('display','block');
+                    $('#saved_msg').css({'display':'block','color':'#5cb85c'});
                     console.log('error!');
                 }
             });

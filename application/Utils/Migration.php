@@ -113,8 +113,6 @@ class Migration
                     break;
             }
             $this->instance->insert_migration($query, $dataItem);
-
-
         }
     }
 

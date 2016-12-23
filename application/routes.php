@@ -1,11 +1,7 @@
 <?php
 
-
-
-$app->get('/form', 'App\Http\Controller\WelcomeController@index');
 $app->get('/money', 'App\Http\Controller\WelcomeController@currency');
-$app->get('/info', 'App\Http\Controller\WelcomeController@info');
-//$app->get('/', 'App\Http\Controller\QuotaViewController@index');
+
 $app->get('/quotaprestation', 'App\Http\Controller\prestationController@prestationView');
 $app->get('/room', 'App\Http\Controller\QuotaViewController@room_quota');
 
@@ -17,6 +13,7 @@ $app->get('/setClient', 'App\Http\Controller\ClientController@setClient');
 $app->get('/total', 'App\Http\Controller\QuotaViewController@total_quota');
 $app->get('/house', 'App\Http\Controller\HouseController@select');
 $app->get('/priceroom', 'App\Http\Controller\SaveController@priceRoom');
+
 $app->get('/savequotaroom', 'App\Http\Controller\SaveController@saveQuotaRoom');
 $app->get('/saveprestation', 'App\Http\Controller\SaveController@saveQuotaPrestation');
 $app->get('/showprestation', 'App\Http\Controller\prestationController@showQuotaPrestation');
