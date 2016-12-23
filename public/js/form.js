@@ -44,8 +44,6 @@ function inHouse(){
             data: {
                 id: id
             },
-
-
             success: function (data) {
                 $('.loader').hide();
                 var d = JSON.parse(data);
@@ -171,27 +169,38 @@ function Quotaroom(){
         var basefamily="";
         var baseextra="";
         var baseextrac="";
-        var vignet=0;
-        var tax=0;
+        var singleOthers ={};
+        var doubleOthers ={};
+        var tripleOthers ={};
+        var familyOthers ={};
+        var extraOthers ={};
+        var extracOthers ={};
         var board ={};
         var childBoard={};
+        var data = [];
 
         if ($("#single").is(':checked')) {
             var parent = $("#single").parents().eq(3);
             var opt = parent.find('select option:selected');
             var value = opt.val();
+            var sgl_title=opt.text();
             var single="";
+            var sgl_vignet = "";
+            var sgl_tax = "";
             if(value!==""){
                 $.ajax({
                     type: 'GET',
-                    url: '/sgl',
+                    url: '/priceroom',
                     async: false,
                     data: {
                         id: value
                     },
                     success: function (data) {
+                        console.log(data);
                         single+="base=Single&price=";
-                        single+= data;
+                        single+= data[0];
+                        sgl_vignet+= data[1];
+                        sgl_tax+= data[2];
 
                     }
                 });
@@ -199,81 +208,113 @@ function Quotaroom(){
             basesingle+=single;
             basesingle+="&idHouse="+houseId;
             basesingle+="&id="+idcli;
+            singleOthers.vignet = sgl_vignet;
+            singleOthers.tax = sgl_tax;
+            singleOthers.room_title = sgl_title;
         }
 
         if ($("#double").is(':checked')) {
             var par= $("#double").parents().eq(3);
             var options = par.find('select option:selected');
+            var dbl_vignet = "";
+            var dbl_tax = "";
             var double="base=Double&price=";
             var sum=0;
+            var title_dbl="";
             $.each(options,function () {
              var i= $(this).val();
+             var title= $(this).text();
                 if(i!==""){
                     $.ajax({
                         type: 'GET',
-                        url: '/sgl',
+                        url: '/priceroom',
                         async: false,
                         data: {
                             id: i
                         },
                         success: function (data) {
+                            console.log(data);
 
-                            sum=(sum + parseInt(data))/2;
+                            sum=(sum + parseInt(data[0]))/2;
+                            dbl_vignet = data[1];
+                            dbl_tax += data[2];
 
                         }
                     });
                 }
+                title_dbl+=title;
             });
             double+=sum;
             basedouble+=double;
             basedouble+="&idHouse="+houseId;
             basedouble+="&id="+idcli;
+            doubleOthers.vignet = dbl_vignet;
+            doubleOthers.tax = dbl_tax;
+            doubleOthers.room_title =title_dbl;
         }
 
         if ($("#triple").is(':checked')) {
             var dad= $("#triple").parents().eq(3);
             var optselect = dad.find('select option:selected');
+            var tpl_vignet = "";
+            var tpl_tax = "";
             var triple="base=Triple&price=";
             var som=0;
+            var title_triple="";
             $.each(optselect,function () {
                 var j= $(this).val();
+                var title= $(this).text();
                 if(j!==""){
                     $.ajax({
                         type: 'GET',
-                        url: '/sgl',
+                        url: '/priceroom',
                         async: false,
                         data: {
                             id: j
                         },
                         success: function (data) {
-                            som=(som + parseInt(data))/3;
+                            console.log(data);
+                            som=(som + parseInt(data[0]))/3;
+                            tpl_vignet+= data[1];
+                            tpl_tax+= data[2];
 
                         }
                     });
                 }
+                title_triple+=title;
             });
             triple+=som;
             basetriple+=triple;
             basetriple+="&idHouse="+houseId;
             basetriple+="&id="+idcli;
+            tripleOthers.vignet =tpl_vignet;
+            tripleOthers.tax =tpl_tax;
+            tripleOthers.room_title =title_triple;
         }
 
         if ($("#family").is(':checked')) {
             var mom = $("#family").parents().eq(3);
             var opselect = mom.find('select option:selected');
+            var fml_vignet = "";
+            var fml_tax ="";
+            var title_family =opselect.text();
             var vr = opselect.val();
             var family="base=Family&price=";
             var add=0;
             if(vr!==""){
                 $.ajax({
                     type: 'GET',
-                    url: '/sgl',
+                    url: '/priceroom',
                     async: false,
                     data: {
                         id: vr
                     },
                     success: function (data) {
-                        add=(add + parseInt(data));
+                        console.log(data);
+                        add=(add + parseInt(data[0]));
+                        fml_vignet+= data[1];
+                        fml_tax+= data[2];
+
                     }
                 });
             }
@@ -281,24 +322,33 @@ function Quotaroom(){
             basefamily+=family;
             basefamily+="&idHouse="+houseId;
             basefamily+="&id="+idcli;
+            familyOthers.vignet = fml_vignet;
+            familyOthers.tax = fml_tax;
+            familyOthers.room_title = title_family;
         }
 
         if ($("#extra-adult").is(':checked')) {
             var hisparent = $("#extra-adult").parents().eq(3);
             var hisopt = hisparent.find('select option:selected');
             var hisvalue = hisopt.val();
+            var extra_title = hisopt.text();
+            var ext_vignet ="";
+            var ext_tax ="";
             var extra="";
            if(hisvalue!==""){
                $.ajax({
                    type: 'GET',
-                   url: '/sgl',
+                   url: '/priceroom',
                    async: false,
                    data: {
                        id: hisvalue
                    },
                    success: function (data) {
+                       console.log(data);
                        extra+="base=Extra-bed&price=";
-                       extra+= data;
+                       extra+= data[0];
+                       ext_vignet += data[1];
+                       ext_tax += data[2];
 
                    }
                });
@@ -306,24 +356,33 @@ function Quotaroom(){
             baseextra+=extra;
             baseextra+="&idHouse="+houseId;
             baseextra+="&id="+idcli;
+            extraOthers.vignet = ext_vignet;
+            extraOthers.tax = ext_tax;
+            extraOthers.room_title = extra_title;
         }
 
         if ($("#extra-child").is(':checked')) {
             var hisparents = $("#extra-child").parents().eq(3);
             var hisopts = hisparents.find('select option:selected');
             var hisvalues = hisopts.val();
+            var extc_title = hisopts.text();
+            var extc_vignet = "";
+            var extc_tax = "";
             var extrac="";
             if(hisvalues!==""){
                 $.ajax({
                     type: 'GET',
-                    url: '/sgl',
+                    url: '/priceroom',
                     async: false,
                     data: {
                         id: hisvalues
                     },
                     success: function (data) {
+                        console.log(data);
                         extrac+="base=Extra-bed&price=";
-                        extrac+= data;
+                        extrac+= data[0];
+                        extc_vignet+= data[1];
+                        extc_tax+= data[2];
 
                     }
                 });
@@ -331,6 +390,9 @@ function Quotaroom(){
             baseextrac+=extrac;
             baseextrac+="&idHouse="+houseId;
             baseextrac+="&id="+idcli;
+            extracOthers.vignet = extc_vignet;
+            extracOthers.tax = extc_tax;
+            extracOthers.room_title = extc_title;
         }
 
         //get breakfast for adult value
@@ -372,7 +434,7 @@ function Quotaroom(){
                 },
                 success:function(dat){
                     if(lunch_value!=""){
-                        lunch+= dat+"',";
+                        lunch+= dat;
                     }
                 }
 
@@ -440,7 +502,7 @@ function Quotaroom(){
                 },
                 success:function(dat){
                     if(h!=""){
-                        hb+= dat+"',";
+                        hb+= dat;
                     }
                 }
 
@@ -462,7 +524,7 @@ function Quotaroom(){
                 },
                 success:function(dat){
                     if(b!=""){
-                        fb+= dat+"',";
+                        fb+= dat;
                     }
                 }
 
@@ -606,142 +668,74 @@ function Quotaroom(){
             childBoard.FB=cfb;
         }
 
-        var stringBoard=JSON.stringify(board);
-        var stringChildboard = JSON.stringify(childBoard);
-        var others= {};
-        var detail = {};
+        singleOthers.euro = euro;
+        singleOthers.dollar = dollar;
+        singleOthers.board = board;
 
-        others.euro = euro;
-        others.dollar = dollar;
-        others.vignet =  vignet;
-        others.tax = tax;
-        others.board = stringBoard;
+        doubleOthers.euro = euro;
+        doubleOthers.dollar = dollar;
+        doubleOthers.board = board;
 
-        detail.euro = euro;
-        detail.dollar = dollar;
-        detail.vignet =  vignet;
-        detail.tax = tax;
-        detail.board = stringChildboard;
+        tripleOthers.euro = euro;
+        tripleOthers.dollar = dollar;
 
-        var stringOthers=JSON.stringify(others);
-        var stringDetail = JSON.stringify(detail);
+        familyOthers.euro = euro;
+        familyOthers.dollar = dollar;
+        familyOthers.board = board;
+
+        extraOthers.euro = euro;
+        extraOthers.dollar = dollar;
+        extraOthers.board = board;
+
+        extraOthers.euro = euro;
+        extraOthers.dollar = dollar;
+        extracOthers.board = childBoard;
+
+
+        var stringsingle=JSON.stringify(singleOthers);
+        var stringdouble = JSON.stringify(doubleOthers);
+        var stringtriple = JSON.stringify(tripleOthers);
+        var stringfamily = JSON.stringify(familyOthers);
+        var stringextra = JSON.stringify(extraOthers);
+        var stringextrac = JSON.stringify(extracOthers);
 
 
         //information for singleroom
-        basesingle+="&others="+stringOthers;
+        basesingle+="&others="+stringsingle;
         //information for doubleroom
-        basedouble+="&others="+stringOthers;
+        basedouble+="&others="+stringdouble;
         //information for tripleroom
-        basetriple+="&others="+stringOthers;
+        basetriple+="&others="+stringtriple;
         //information for familyroom
-        basefamily+="&others="+stringOthers;
+        basefamily+="&others="+stringfamily;
         //information for extra-adultroom
-        baseextra+="&others="+stringOthers;
+        baseextra+="&others="+stringextra;
         //information for extra-childroom
-        baseextrac+="&others="+stringDetail;
+        baseextrac+="&others="+stringextrac;
 
-        //post information of singlebase into database
-        if(basesingle.match(/Single/g)){
-            $.ajax({
-                type:'GET',
-                url:'/quota',
-                data:basesingle,
-                dataType : "html",
-                success:function(){
-                    $('#loader_gif').hide();
-                    console.log('successfull1');
-                },
-                error:function(){
-                    console.log('error1');
-                }
-            });
-        }
+        data.push(basesingle);
+        data.push(basedouble);
+        data.push(basetriple);
+        data.push(basefamily);
+        data.push(baseextra);
+        data.push(baseextrac);
 
-        //post information of doublebase into database
-        if(basedouble.match(/Double/g)){
-            $.ajax({
-                type:'GET',
-                url:'/quota',
-                data:basedouble,
-                dataType : "html",
-                success:function(){
-                    $('#loader_gif').hide();
-                    console.log('successfull2');
-                },
-                error:function(){
-                    console.log('error2');
-                }
-            });
-        }
-
-        //post information of triplebase into database
-        if(basetriple.match(/Triple/g)){
-            $.ajax({
-                type:'GET',
-                url:'/quota',
-                data:basetriple,
-                dataType : "html",
-                success:function(){
-                    $('#loader_gif').hide();
-                    console.log('successfull3');
-                },
-                error:function(){
-                    console.log('error3');
-                }
-            });
-        }
-
-        //post information of familybase into database
-        if(basefamily.match(/Family/g)){
-            $.ajax({
-                type:'GET',
-                url:'/quota',
-                data:basefamily,
-                dataType : "html",
-                success:function(){
-                    $('#loader_gif').hide();
-                    console.log('successfull4');
-                },
-                error:function(){
-                    console.log('error4');
-                }
-            });
-        }
-
-
-        //post information of extrabase into database
-        if(baseextra.match(/Extra-bed/g)){
-            $.ajax({
-                type:'GET',
-                url:'/quota',
-                data:baseextra,
-                dataType : "html",
-                success:function(){
-                    console.log('successfull5');
-                    $('#loader_gif').hide();
-                },
-                error:function(){
-                    console.log('error5');
-                }
-            });
-        }
-
-        //post information of extrachildbase into database
-        if(baseextrac.match(/Extra-bed/g)){
-            $.ajax({
-                type:'GET',
-                url:'/quota',
-                data:baseextrac,
-                dataType : "html",
-                success:function(){
-                    $('#loader_gif').hide();
-                    console.log('successfull6');
-                },
-                error:function(){
-                    console.log('error6');
-                }
-            });
-        }
+        $.each(data,function(i,val){
+            if(val.match(/Single/g) || val.match(/Double/g) || val.match(/Triple/g) || val.match(/Family/g) || val.match(/Extra-bed/g)){
+                $.ajax({
+                    type:'GET',
+                    url:'/quota',
+                    data: val,
+                    dataType : "html",
+                    success:function(){
+                        console.log('successfull');
+                    },
+                    error:function(){
+                        console.log('error');
+                    }
+                });
+            }
+        });
 
          location.reload();
     });

@@ -15,65 +15,59 @@ $( function() {
 function saveClient(){
     $("#btn_save").click(function(){
         var ref_regex = new RegExp("[a-zA-Z0-9]{5}", "g");
-        var date_regex = new RegExp("(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/[0-9]{4}","g");
+        var date_regex = new RegExp("(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])\/[0-9]{4}","g");
+        var name_regex = new RegExp("[a-zA-Z]{2}", "g");
+        var name = $("#name").val();
         var date = $("#stay").val();
-         if( ref_regex.test(ref) && date_regex.test(date)){
-            $('#banner').empty();
+        var ref = $("#reference").val();
+        if( ref_regex.test(ref)){
+            if(name != '' && name_regex.test(name)){
+                if ($("#nbAdults").val() != '') {
+                    if ($("#nbChildren").val() != '') {
+                        if (date_regex.test(date)) {
+                            $.ajax({
+                                type: "GET",
+                                url: "/saveClient",
+                                data: $('form').serialize(),
+                                dataType: "json",
+                                cache: false,
+                                success: function (data) {
+                                    $('.client_message').css({'display':'block','color':'#5cb85c'}).text("Customer "+data['reference']+" added !");
+                                    $('#client_saved').show();
+                                    $('form')[0].reset();
+                                },
+                                error: function (data) {
 
-            $.ajax({
-                type:"GET",
-                url:"/saveClient",
-                data: $('form').serialize(),
-                dataType : "html",
-                cache : false,
-                success : function(data){
-                },
-                error:function(){
-                    console.log("you have an error");
+                                    console.log("misy erreur");
+                                    console.log(data);
+                                    $("#client_message").text('Something wrong !').css('display', 'block').delay(5000).fadeOut();
+                                }
+                            });
+                            $("#client_message").text('Client saved!').css({
+                                'display': 'block',
+                                'color': '#5cb85c'
+                            }).delay(5000).fadeOut();
+
+                            //location.reload();
+                        }
+                        else {
+                            $("#client_message").text('Date is empty or invalid format!').css('display', 'block').delay(5000).fadeOut();
+                        }
+                    }
+                    else {
+                        $("#client_message").text('Children\'s number empty!').css('display', 'block').delay(5000).fadeOut();
+                    }
                 }
-            });
-
-            location.reload();
-        }else{
-            var p="<p> <span class=' glyphicon glyphicon-hand-right'></span>  Format or values of your entries are not permissible,please retry!</p>";
-            $("#banner").append(p);
+                else {
+                    $("#client_message").text('Adult\'s number empty!').css('display', 'block').delay(5000).fadeOut();
+                }
+            }else{
+                $("#client_message").text('Name is empty or invalid format!!').css('display', 'block').delay(5000).fadeOut();
+            }
         }
-// =======
-//                     $('.client_message').css({'display':'block','color':'#5cb85c'}).text("data['reference'] added !");
-//
-//                     var add_quotation = '<div class="row">' +
-//                                             '<h4>'+
-//                                                 'Add quotation for this customer'+
-//                                             '</h4>' +
-//                                         '</div>' +
-//                                         '<div class="row">'+
-//                                             '<div class="col-xs-6">' +
-//                                                 '<div class="col-md-12 add_quotation" onclick="location.href =\'/room\'">'+
-//                                                     'Room quotation' +
-//                                                 '</div>' +
-//                                             '</div>' +
-//                                             '<div class="col-xs-6">' +
-//                                                 '<div class="col-md-12 add_quotation" onclick="location.href =\'/prestation\'">'+
-//                                                     'Benefit quotation' +
-//                                                 '</div>' +
-//                                             '</div>' +
-//                                         '</div>';
-//                     var block_client_saved = $('#client_saved');
-//                     block_client_saved.html("");
-//                     block_client_saved.append(add_quotation);
-//                 },
-//                 error:function(){
-//                     $('.client_message').css({'display':'block','color':'#FF0F22'}).text('Error, customer no saved !');
-//                 }
-//             });
-//             // location.reload();
-//         // }else{
-//         //     alert("zezee");
-//         //     // var p="<p> <span class=' glyphicon glyphicon-hand-right'></span>  Format or values of your entries are not permissible,please retry!</p>";
-//         //     // $("#banner").append(p);
-//         // }
-//
-// >>>>>>> ec2ba6eb053611deff765f596ee7cbb19d26cb61
+        else{
+             $("#client_message").text('Customer Reference is empty or too short!').css('display','block').delay(5000).fadeOut();
+        }
     });
 }
 

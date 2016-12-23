@@ -126,6 +126,7 @@
 <!--/.fluid-container-->
 <div id="about_client" title="About this customer" style="display: none;">
     <p>Reference : {{ client.reference }}</p>
+    {% if(client.name) != '' %}<p>Name : {{ client.id }}</p>{% endif %}
     {% if(client.name) != '' %}<p>Name : {{ client.name }}</p>{% endif %}
     {% if(client.numberAdult) != '' %}<p>Adult number : {{ client.number_adult }}</p>{% endif %}
     {% if(client.numberChild) != '' %}<p>Child number : {{ client.number_child }}</p>{% endif %}

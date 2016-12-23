@@ -154,6 +154,9 @@ td {
 #savequota{
     margin-bottom: 30px;
 }
+#Tbod > tr > td{
+    font-weight: bold;
+}
 #Tbody > tr > td{
     font-weight: bold;
 }
@@ -258,6 +261,9 @@ table > thead > tr > th, .total_designation {
     color: #FF0F22;
 }
 
+#saved_msg{
+    display:none;
+}
 /******* For quota base *******/
 .quota_lists{
     width:100%;
@@ -450,12 +456,7 @@ h2,h3{
 .navbar-nav li:hover > ul{
     display: block;
 }
-
-#banner{
-    margin-right: auto;
-    margin-left: auto;
-}
-#banner p{
+.client_message p{
     font-size: 16px;
     font-weight: bold;
     color:red;
@@ -656,7 +657,8 @@ li .lign{
     margin-bottom: auto;
     padding: 0 5px;
     cursor: pointer;
-    background: #2B838E;
+    background: #2B838E !important;
+    border: none !important;
 }
 .search_prestation{
     margin-top: 3px;
@@ -667,12 +669,7 @@ li .lign{
     border-radius: 3px;
 }
 
-
-
-.col-form-label{
-    color: rgb(111, 111, 111);
-    white-space: nowrap;
-}.add_client{
+.add_client{
      float: right;
      font-size: 110%;
      font-weight: bold;
@@ -684,7 +681,9 @@ li .lign{
      background: #2B838E;
      border-radius: 2px;
      cursor: pointer;
- }.add_client:hover{
+ }
+
+.add_client:hover{
       background: #2aa198;
   }
 
@@ -753,6 +752,9 @@ li .lign{
     top:0;
     right:0;
 }
+.span_hide{
+    display:none;
+}
 .delete_prestation:hover{
     background: #D1D3D4;
 }
@@ -803,12 +805,22 @@ li .lign{
     font-size: 20px;
     color:#2B838E;
 }
+.banner{
+    background-color:rgba(255,255,255,0.9);
+    margin-top: 30px;
+}
+#no_quotation{
+    margin-bottom: 30px;
+}
 #euro{
     margin-top: 10px;
     margin-left: 22px;
     font-weight: bold;
     font-size: 20px;
     color:#2B838E;
+}
+.pax_msg{
+    display: none;
 }
 #loader_gif{
     width: 10px;
@@ -821,3 +833,6 @@ li .lign{
     background: #2aa198;
 }
 
+#client_saved{
+    display: none;
+}

@@ -6,17 +6,20 @@ $app->get('/form', 'App\Http\Controller\WelcomeController@index');
 $app->get('/money', 'App\Http\Controller\WelcomeController@currency');
 $app->get('/info', 'App\Http\Controller\WelcomeController@info');
 //$app->get('/', 'App\Http\Controller\QuotaViewController@index');
-$app->get('/quotaprestation', 'App\Http\Controller\WelcomeController@prestationView');
+$app->get('/quotaprestation', 'App\Http\Controller\prestationController@prestationView');
 $app->get('/room', 'App\Http\Controller\QuotaViewController@room_quota');
 
+
 $app->get('/prestation', 'App\Http\Controller\prestationController@prestation');
+
 $app->get('/getClient', 'App\Http\Controller\ClientController@getClient');
 $app->get('/setClient', 'App\Http\Controller\ClientController@setClient');
 $app->get('/total', 'App\Http\Controller\QuotaViewController@total_quota');
 $app->get('/house', 'App\Http\Controller\HouseController@select');
-$app->get('/sgl', 'App\Http\Controller\SaveController@saveRoom');
+$app->get('/priceroom', 'App\Http\Controller\SaveController@priceRoom');
 $app->get('/quota', 'App\Http\Controller\SaveController@saveQuotaRoom');
 $app->get('/saveprestation', 'App\Http\Controller\SaveController@saveQuotaPrestation');
+$app->get('/showprestation', 'App\Http\Controller\prestationController@showQuotaPrestation');
 $app->get('/resto', 'App\Http\Controller\SaveController@itBoard');
 $app->get('/path', 'App\Http\Controller\HouseController@dataRoom');
 $app->get('/brd', 'App\Http\Controller\SaveController@priceBoard');
@@ -41,4 +44,3 @@ $app->group(['prefix'=>'/', 'middleware' => ['Wau\Podio\PodioAuthMiddleware'],
         $app->get('/migrate','App\Http\Controller\MigrationController@migrate');
     }
 ]);
-

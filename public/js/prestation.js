@@ -13,11 +13,95 @@ $( function() {
         e.preventDefault();
         deletePrestation(this);
     });
+
+    $("#click").click(function(){
+        $(".quota").remove();
+        addColumn();
+    });
+
     searchPrestation();
     checkPrestation();
     savePrestation();
     //
 } );
+
+function addColumn() {
+    var minvalues = [];
+    var maxvalues = [];
+    var tr=$("#Tbody > tr");
+    tr.each(function(){
+        var min = $(this).find("td > [name = 'paxmin']").val();
+        var max = $(this).find("td > [name = 'paxmax']").val();
+        if(min!=="" && max !==""){
+            minvalues.push(parseInt(min));
+            maxvalues.push(parseInt(max));
+        }
+    });
+
+
+    var minimum = Math.min.apply(Math,minvalues);
+    var maximum = Math.max.apply(Math,maxvalues);
+
+
+    if(minimum<=maximum){
+        for (var i = minimum;i<=maximum;i++){
+            var colhead = $("<th>");
+
+            colhead.attr("rowspan","2");
+            colhead.attr("class","quota");
+            colhead.text(i);
+            $("#Thead").append(colhead);
+
+        }
+
+        for (var i = minimum;i<=maximum;i++){
+            var bigtotal = 0;
+            var colfoot = $("<td>");
+            colfoot.attr("class","quota");
+            tr.each(function(){
+                var min = $(this).find("td > [name='paxmin']").val();
+                var max = $(this).find("td > [name='paxmax']").val();
+                var type = $(this).find(".type").html();
+                var svc_unit = parseInt($(this).find("td > [name='nbsvc']").val());
+                var amount = parseInt($(this).find(".tarif").html());
+                var total = svc_unit*amount;
+
+
+                $(this).find('td').eq(7).html(total);
+
+                var colbody = $("<td>");
+                colbody.attr("class","quota");
+                if(type === "Per Person"){
+                    var subtotal =total;
+                }else {
+                    var subtotal =(total/i);
+                }
+
+                if(i<min || i>max){
+                    colbody.text("0");
+
+                }else{
+                    colbody.html(subtotal.toFixed(2));
+                    bigtotal = bigtotal+subtotal;
+                }
+
+                $(this).append(colbody);
+
+
+                $(".table").append($(this));
+            });
+            colfoot.html(bigtotal.toFixed(2));
+            colfoot.css({"font-weight":"bold","color":"#2B838E"});
+            $("#Tfoot").append(colfoot);
+
+        }
+
+    }else{
+        $('.pax_msg').css({'display':'block','color':'red'})
+    }
+}
+
+
 
 //service search filter
 function searchPrestation(){
@@ -185,7 +269,7 @@ function checkPrestation() {
             $clone.find('.prestation_label').html(label_text).css('font-size', '80%');
             parent_div.find('.checked_list_content').append($clone);
 
-            addInTab( this);
+            addInTab(this);
 
         } else {
             check_list_id = $(this).val();
@@ -205,10 +289,23 @@ function checkPrestation() {
 function addInTab($this) {
     var label_text = $($this).siblings('label').text();
     var input_id = $($this).attr('id');
-    var rate = $($this).siblings('.wau-rate').text();
-    var type = $($this).siblings('span').attr('class');
+    var rate = $($this).siblings('.others_rate').text();
+    var currency = $($this).siblings('.others_currency').text();
+    var euro = $($this).siblings('.others_euro').text();
+    var dollar = $($this).siblings('.others_dollar').text();
+    var type = $($this).siblings('.others_type').text();
     var tr = $('#Tbody > tr');
-    var row = '<tr id="tr_' + input_id + '"> <td class="cod"></td> <td class="label_text"><span>' + label_text + '</span><input type="text" class="n_pax" name="n_pax"></td> <td title="min"> <input class="check" name="paxmin" type="text" ></td><td  title="max"><input class="check" name="paxmax" type="text" > </td> <td class="tarif">' + roundValue(rate) + '</td> <td title="number"><input class="check" type="text" name="nbsvc"/></td> <td class="type">' + type + '</td> <td class="total"> </td></tr>';
+    var price;
+
+    if(currency == "EUR"){
+         price = euro * rate;
+    }else  if(currency == "MGA"){
+         price = rate;
+    }else{
+         price = rate * dollar ;
+    }
+
+    var row = '<tr id="tr_' + input_id + '"> <td class="cod"></td> <td class="label_text"><span>' + label_text + '</span><input type="text" class="n_pax" name="n_pax"></td> <td title="min"> <input class="check" name="paxmin" type="text" ></td><td  title="max"><input class="check" name="paxmax" type="text" > </td> <td class="tarif">' + roundValue(price) + '</td> <td title="number"><input class="check" type="text" name="nbsvc"/></td> <td class="type">' + type + '</td> <td class="total"> </td></tr>';
     $("#Tbody").append(row);
 }
 function ifUnchecked(id){
@@ -229,7 +326,6 @@ function showMessage(){
 
 function savePrestation(){
     $('#savequota').click(function(){
-        var id=$('#idcli_prestation').html();
         var allTR = $('#Tbody').children('tr');
         allTR.each(function() {
             var values = {
@@ -241,26 +337,27 @@ function savePrestation(){
                 "number_service": $(this).find('input[name="nbsvc"]').val(),
                 "type_service": $(this).find('.type').html()
             };
-            var other={};
-            other.pax_min=values.pax_min;
-            other.pax_max=values.pax_max;
-            other.rate_service=values.rate_service;
-            other.number_service=values.number_service;
-            other.type_service=values.type_service;
+            var other = {};
+            other.pax_min = values.pax_min;
+            other.pax_max = values.pax_max;
+            other.rate_service = values.rate_service;
+            other.number_service = values.number_service;
+            other.type_service = values.type_service;
 
-            var others = JSON.stringify(other);
+            var service = values.service +" "+values.pax;
 
-            var info = "service=" + values.service +" "+values.pax+ "&id="+id+"&others="+others;
-
+            //var infos = JSON.stringify(info);
             $.ajax({
                 type: "GET",
                 url: "/saveprestation",
-                data: info,
+                data: {service:service, others:other},
                 dataType: "html",
                 success: function () {
-                    console.log('save!');
+                   $('#saved_msg').css('display','block');
+                    location.reload();
                 },
                 error: function(){
+                    $('#saved_msg').css('display','block');
                     console.log('error!');
                 }
             });

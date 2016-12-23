@@ -1,94 +1,98 @@
 {% extends 'layout.twig' %}
 {% block body %}
 <div class="content">
-   <div class="col-md-12 col-md-offset-1">
-       <div class="col-md-11 col-md-pull-1 table-responsive">
-           {#<div class="row">#}
-               <table class="table">
-                   <thead>
-                       <tr id="Thead">
-                           <th rowspan="2">Code</th>
-                           <th rowspan="2">Services</th>
-                           <th rowspan="2">
-                               Pax min
-                           </th>
-                           <th rowspan="2">
-                               Pax max
-                           </th>
-                           <th >
-                               Rate/day</th>
-                           <th >
-                               Number</th>
-                           <th >
-                              Person</th>
-                           <th rowspan="2">
-                               Total price
-                           </th>
-                       </tr>
+    {% if prestation.all_prestation['service']|length > 0 %}
+        <div class="col-md-12 col-md-offset-1">
+            <div class="col-md-11 col-md-pull-1 table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr id="Thead">
+                            <th rowspan="2"></th>
+                            <th rowspan="2">Services</th>
+                            <th rowspan="2">
+                                Pax min
+                            </th>
+                            <th rowspan="2">
+                                Pax max
+                            </th>
+                            <th >
+                                Rate/day</th>
+                            <th >
+                                Number</th>
+                            <th >
+                                Person</th>
+                            <th rowspan="2">
+                                Total price
+                            </th>
+                            {% for j in prestation.min..prestation.max %}
+                                <th rowspan="2">
+                                   {{ j }}
+                                </th>
+                            {% endfor %}
+                        </tr>
                         <tr>
                             <th>Rate/litre</th>
                             <th >Number/litre</th>
                             <th>Pax</th>
                         </tr>
-                   </thead>
-                   <tbody id="Tbod" class="table-bordered">
-                        <tr>
-                            <td class="cod">1</td>
-                            <td ><span>Guide</span></td>
-                            <td title="min"><input class="check" name="paxmin" type="text" ></td>
-                            <td  title="max"><input class="check" name="paxmax" type="text" ></td>
-                            <td class="tarif">80000</td>
-                            <td title="number"><input class="check" type="text" name="nbsvc"/></td>
+                    </thead>
+                    <tbody id="Tbod" class="table-bordered">
+                    {% set services = prestation.all_prestation['service'] %}
+                    {% set others = prestation.all_prestation['other'] %}
+                        {% for i in 0..services|length-1 %}
+                            <tr>
+                                <td class="cod"></td>
+                                <td ><span>{{ services[i] }}</span></td>
+                                <td title="min">{{ others[i].pax_min }}</td>
+                                <td  title="max">{{ others[i].pax_max }}</td>
+                                <td class="tarif">{{ others[i].rate_service }}</td>
+                                <td title="number">{{ others[i].number_service}}</td>
 
-                            <td class="type">Pax</td>
-                            <td class="total"> </td>
+                                <td class="type">{{ others[i].type_service }}</td>
+                                <td class="total">{{ (others[i].rate_service * others[i].number_service)|number_format(2, '.', ',')}} </td>
+                                {% for j in prestation.min..prestation.max %}
+                                    <td>
+                                        {%if j < others[i].pax_min or j > others[i].pax_max  %}
+                                            0
+                                        {% else %}
+                                            {% if others[i].type_service|lower == "per person" %}
+                                                {{ (others[i].rate_service * others[i].number_service)|number_format(2, '.', ',')}}
+                                            {% else %}
+                                                {{ ((others[i].rate_service * others[i].number_service)/j)|number_format(2, '.', ',')}}
+                                            {% endif %}
+                                        {% endif %}
+                                    </td>
+                                 {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr id="Tfoot">
+                            <td colspan="8">
+                                <h2>Total</h2>
+                            </td>
+                            {% for j in prestation.min..prestation.max %}
+                                   <td style="font-weight:bold;color:#2B838E">
+                                       {{ (prestation.value[j-1])|number_format(2, '.', ',') }}
+                                   </td>
+                            {% endfor %}
                         </tr>
-                        <tr>
-                            <td class="cod">2</td>
-                            <td><span >Location voiture</span></td>
-                            <td title="min"><input class="check" name="paxmin" type="text" ></td>
-                            <td  title="max"><input class="check" name="paxmax" type="text" ></td>
-                            <td class="tarif">100000</td>
-                            <td  title="number"><input class="check" type="text" name="nbsvc" /></td>
-
-                            <td  class="type">Pax</td>
-                            <td class="total"></td>
-                        </tr>
-                        <tr>
-                            <td class="cod">3</td>
-                            <td ><span>Entree parc</span></td>
-                            <td title="min"><input class="check" name="paxmin" type="text" ></td>
-                            <td  title="max"><input class="check" name="paxmax" type="text"></td>
-                            <td class="tarif">5000</td>
-                            <td  title="number"><input class="check" type="text" name="nbsvc"/></td>
-
-                            <td  class="type">Person</td>
-                            <td class="total"></td>
-                        </tr>
-                   </tbody>
-                   <tfoot>
-                    <tr id="Tfoot">
-                        <td colspan="8">
-                            <h2><button class="btn btn-danger" id="click">Quotation</button>Total</h2>
-                        </td>
-                    </tr>
-                   </tfoot>
+                    </tfoot>
                </table>
-           {#</div>#}
-           {#<div class="row">#}
-               {#<div class="pull-right">#}
-                   {#<button id="savequota" class="btn btn-default">SAVE</button>#}
-               {#</div>#}
-           {#</div>#}
-           <div class="form-group row">
-               <div class="col-xs-offset-2 col-xs-10">
-                   <div class="add_client" id="savequ">
-                       <span>Save</span>
-                   </div>
-               </div>
-           </div>
-       </div>
-   </div>
+            </div>
+        </div>
+    {% else %}
+        <div id="no_quotation" class="row col-md-10">
+            <div class="row col-xs-offset-2 banner">
+                <div class="span6 text-center"><h3>Client has not yet any Quotation!</h3></div>
+            </div>
+            <div class="row col-xs-offset-2 ">
+                <div class="col-md-4 add_quotation" onclick="location.href ='/prestation'">
+                    Add quotation
+                </div>
+            </div>
+        </div>
+    {% endif %}
 </div>
 {% endblock body %}
 {% block scripts %}

@@ -4,32 +4,12 @@ namespace App\Http\Controller;
 use App\DatabaseConnection\PDOConnection;
 use App\Model\ClientModel;
 use App\Utils\Client;
+use App\Utils\Exchange;
 use Symfony\Component\HttpFoundation\Request;
 use Wau\Http\Controller;
 
 class ClientController extends Controller
 {
-    public function clientInsert(){
-        $clientModel=new ClientModel();
-        $client = new \App\Utils\Client();
-
-        $parts = explode('/', $_GET['stay']);//
-        $date="$parts[2]-$parts[1]-$parts[0]";
-
-        $client->setReference( $_GET['customerRef']);
-        $client->setName( $_GET['name']);
-        $client->setNumberAdult( $_GET['nbAdults']);
-        $client->setNumberChild( $_GET['nbChildren']);
-        $client->setStartDate( $date);
-
-        $array = array('ref'=>$client->getReference(),'name'=>$client->getName(),'number_adult'=>$client->getNumberAdult(),'number_child'=>$client->getNumberChild(),'date'=>$client->getStartDate());
-        $clientModel->insertClient($array);
-
-        $_SESSION['client'] = $client;
-
-        return($array);
-    }
-
     public function setClient(Request $request){
         $client = new Client();
 
@@ -49,11 +29,19 @@ class ClientController extends Controller
         }
 
         $_SESSION['client'] = $client;
-        return $_SESSION['client']->getName();
+        $current_url = $_SERVER['REQUEST_URI'];
+        return $current_url;
     }
 
     public function getClient(){
         $array = array();
+
+        $euro   = new Exchange(0);
+        $dollar = new Exchange(1);
+
+        $exchange = array('euro'=>$euro->exchange[0], 'dollar'=>$dollar->exchange[0]);
+        $_SESSION['exchange'] = $exchange;
+
         $client_session = new Client();
         $query = "SELECT * FROM client";
         $instance = new PDOConnection();

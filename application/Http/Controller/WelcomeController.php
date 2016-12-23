@@ -13,9 +13,6 @@ class WelcomeController extends Controller
     public function info(){
         return $this->app()->make('twig.view')->render('info.twig');
     }
-    public function prestationView(){
-        return $this->app()->make('twig.view')->render('quotaprest.twig');
-    }
 
 
 
