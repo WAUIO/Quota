@@ -34,7 +34,7 @@
                             <div class="search_message">No result for this search !</div>
                             {% for prest in prestations[i] %}
                                 <div class="funkyradio-success line">
-                                    <input type="checkbox" name="individual" id="id_{{ prest.item_id }}" class="check_value" value="check_value_{{ prest.item_id }}"/>
+                                    <input type="checkbox" name="individual" id="id_{{ prest.item_id }}" class="check_value"/>
                                     <label class="funky_label" for="id_{{ prest.item_id }}" style="border: none">{{ prest.others.title.value }}</label>
                                     <span class="others_currency span_hide">{{  attribute(prest.others, 'currency-used').value }}</span>
                                     <span class="others_rate span_hide">{% if(prest.table == 'activity') %}{{ attribute(prest.others, 'wau-rate').value }}{% else %}{{ attribute(prest.others, 'wau-rate-transport').value }}{% endif %}</span>
@@ -70,29 +70,30 @@
     </div>
 
 
-    <div  id="quotafade">
-        <div class="table-responsive">
-            <table class="table" id="prestation_table">
+        <div  id="quotafade">
+            <div class="table-responsive">
+                <table class="table" id="prestation_table">
 
-                <thead>
-                    <tr id="Thead">
-                        <th rowspan="2"></th>
-                        <th rowspan="2" style="padding-left: 20px">Services</th>
-                        <th rowspan="2">Pax min</th>
-                        <th rowspan="2">Pax max</th>
-                        <th >Rate/day</th>
-                        <th >Number</th>
-                        <th >Person</th>
-                        <th rowspan="2">Total price</th>
-                    </tr>
-                    <tr>
-                        <th>Rate/litre</th>
-                        <th >Number/litre</th>
-                        <th>Pax</th>
-                    </tr>
-                </thead>
+                    <thead>
+                        <tr id="Thead">
+                            <th rowspan="2"></th>
+                            <th rowspan="2" style="padding-left: 20px">Services</th>
+                            <th rowspan="2">Pax min</th>
+                            <th rowspan="2">Pax max</th>
+                            <th >Rate/day</th>
+                            <th >Number</th>
+                            <th >Person</th>
+                            <th rowspan="2">Total price</th>
+                        </tr>
+                        <tr>
+                            <th>Rate/litre</th>
+                            <th >Number/litre</th>
+                            <th>Pax</th>
+                        </tr>
+                    </thead>
 
-                <tbody id="Tbody" class="table-bordered">
+                    <tbody id="Tbody" class="table-bordered">
+
                     </tbody>
                     <tfoot>
                         <tr id="Tfoot">

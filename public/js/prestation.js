@@ -231,6 +231,7 @@ function deletePrestation($this){
     var cheked_id = $('#id_'+$checked_prestation.attr('id').replace('check_value_', ''));
 
     $checked_prestation.remove();
+    $('#id_'+$checked_prestation.attr('id')).prop('checked', false);
 
     cheked_id.prop('checked', false);
     ifUnchecked($checked_prestation.attr('id'));
@@ -349,6 +350,7 @@ function savePrestation(){
 
             var service = values.service +" "+values.pax;
 
+            //var infos = JSON.stringify(info);
             $.ajax({
                 type: "GET",
                 url: "/saveprestation",
