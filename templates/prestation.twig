@@ -1,13 +1,9 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-    <div id="prestation_form">
-        <h1 class="title">
-            Benefit : service offered
-        </h1>
-
-        <form action="submit_prestation" method="post">
-
+    <br/>
+    <form action="submit_prestation" method="post">
+        <div id="prestation_form">
             <div id="accordion">
                 {% for i in 0..prestations|length - 1 %}
 
@@ -67,52 +63,50 @@
                     </div>
                 </div>
             </div>
-        </form>
-    </div>
-
-
-    <div  id="quotafade">
-        <div class="table-responsive">
-            <table class="table" id="prestation_table">
-
-                <thead>
-                    <tr id="Thead">
-                        <th rowspan="2"></th>
-                        <th rowspan="2" style="padding-left: 20px">Services</th>
-                        <th rowspan="2">Pax min</th>
-                        <th rowspan="2">Pax max</th>
-                        <th >Rate/day</th>
-                        <th >Number</th>
-                        <th >Person</th>
-                        <th rowspan="2">Total price</th>
-                    </tr>
-                    <tr>
-                        <th>Rate/litre</th>
-                        <th >Number/litre</th>
-                        <th>Pax</th>
-                    </tr>
-                </thead>
-
-                <tbody id="Tbody" class="table-bordered">
-
-                </tbody>
-                <tfoot>
-                    <tr id="Tfoot">
-                        <td colspan="8">
-                            <h2><button class="btn btn-danger" id="click">Quotation</button>Total</h2>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
         </div>
-        <div class="form-group row">
-            <div class="col-xs-offset-2 col-xs-10">
-                <div class="add_client" id="savequota">
-                    <span>Save</span>
+
+        <div  id="quotafade">
+            <div class="table-editable">
+                <table class="table" id="prestation_table">
+                    <thead>
+                        <tr id="Thead">
+                            <th rowspan="2"></th>
+                            <th rowspan="2" style="padding-left: 20px">Services</th>
+                            <th rowspan="2">Pax min</th>
+                            <th rowspan="2">Pax max</th>
+                            <th >Rate/day</th>
+                            <th >Number</th>
+                            <th >Person</th>
+                            <th rowspan="2">Total price</th>
+                        </tr>
+                        <tr>
+                            <th>Rate/litre</th>
+                            <th >Number/litre</th>
+                            <th>Pax</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="Tbody" class="table-bordered">
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-group row">
+                <div class="col-xs-offset-2 col-xs-10">
+                    <div class="col-xs-10">
+                        <div class="add_client" id="back">
+                            <span class="glyphicon glyphicon-arrow-left"></span>
+                            <span> Back</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="add_client" id="save_quota">
+                            <span>Save</span>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div id="idcli_prestation" style="display:none">{{ id['MAX(id)']}}</div>
         </div>
-        <div id="idcli_prestation" style="display:none">{{ id['MAX(id)']}}</div>
-
-    </div>
+    </form>
 {% endblock body %}

@@ -1,5 +1,4 @@
 function calculateTotal() {
-
     tableEvent();
 
     $('table').each(function(){
@@ -87,10 +86,10 @@ function calculateMargin($this, room_type, margin, length){
     for (i=0;i<length-3;i++) {
         val = $('tr#'+tr_id+' > td.td_'+room_type+':eq(' + i + ')').text();
         val_margin = val * margin / 100;
-        td_margin.siblings().eq(i+1).text( val_margin.toFixed(2));
+        td_margin.siblings().eq(i+1).text(roundValue(val_margin));
 
         val_taxes  = val_margin * tax / 100;
-        td_taxes.siblings().eq(i+1).text( val_taxes.toFixed(2));
+        td_taxes.siblings().eq(i+1).text(roundValue(val_taxes));
     }
 }
 
@@ -102,7 +101,7 @@ function calculateTaxes($this, room_type, tax, length){
     for (i=0;i<length-3;i++) {
         val_margin = $('tr#'+td_margin_id+' > td.td_'+room_type+':eq(' + i + ')').text();
         val_taxes  = val_margin * tax / 100;
-        td_taxes.siblings().eq(i+1).text( val_taxes.toFixed(2));
+        td_taxes.siblings().eq(i+1).text(roundValue(val_taxes));
     }
 }
 
@@ -123,9 +122,9 @@ function somme(table_id){
         var total_EUR = $('#'+table_id+' .tr_EUR td');
         var total_MGA = $('#'+table_id+' .tr_MGA td');
 
-        total_MGA.eq(i+2).text(total.toFixed(2));
-        total_EUR.eq(i+1).text((total / euro_exchange).toFixed(2));
-        total_USD.eq(i+1).text((total / dollar_exchange).toFixed(2));
+        total_MGA.eq(i+2).text(roundValue(total));
+        total_EUR.eq(i+1).text(roundValue(total / euro_exchange));
+        total_USD.eq(i+1).text(roundValue(total / dollar_exchange));
     }
 }
 

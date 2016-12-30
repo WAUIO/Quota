@@ -45,29 +45,36 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand title-logo" href="{{ base_url() }}"><img class="center-block" id="logo" src="/images/logo_new.png"/></a>
+            <img class="center-block" id="logo" src="/images/logoWau.png"/>
 
         </div>
+
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        {% if user != null %}
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-            <ul  class="nav navbar-nav" id="menu">
-                <li><a href="/information">Home</a></li>
-                <li>
-                    <a href="/house">Room</a>
-                </li>
-                <li><a href="/prestation">Prestation</a></li>
-                <li>
-                    <a href="#">Quotation</a>
-                    <ul>
-                        <li><a href="/room">Room</a></li>
-                        <li><a href="/quotaprestation">Prestation</a></li>
-                        <li><a href="/total">Total</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <div class="pull-right user">{{ client.reference }}</div>
-        </div>
+                <ul  class="nav navbar-nav" id="menu">
+                    <li><a href="/information">Home</a></li>
+                    <li>
+                        <a href="#">Create</a>
+                        <ul>
+                            <li><a href="/information">Customer</a></li>
+                            <li><a href="/house">Room</a></li>
+                            <li><a href="/prestation">prestation</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">View</a>
+                        <ul>
+                            <li><a href="/room">Room</a></li>
+                            <li><a href="/quotaprestation">Prestation</a></li>
+                            <li><a href="/total">Total</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="pull-right user">{{ user.name }}</div>
+            </div>
+        {% endif %}
         <!-- /.navbar-collapse -->
     </div>
 
@@ -75,58 +82,59 @@
     <div class="row" style="background: #ffffff;margin: 0 !important;padding: 0 !important;">
         <div class="container ref_client" >
             <div class="col-xs-12">
-                <!--/left side-->
-                <div class="col-xs-9"></div>
-                <div class="col-xs-3">
-                    <span style="float: left;">Current customer : </span><span id="client_reference">{{ client.reference }}</span>
-                </div>
+                <span class="pull-left title">{{ title }}</span>
+                {% if client != null and user != null %}
+                    <span class="pull-right">Current customer : <span id="client_reference">{{ client.reference }}</span></span>
+                {% endif %}
             </div>
-
         </div>
     </div>
 </nav>
 
 <div class="container">
     <div class="row">
-        <!--/left side-->
-        <div class="col-xs-9">
-            {% block body %}
-            {% endblock body %}
-        </div>
+        {% if user == null %}
+            <div class="col-xs-12">
+                {% block login %}
+                {% endblock login %}
+            </div>
+        {% else %}
+            <!--/left side-->
+            <div class="col-xs-9 scrollit">
+                {% block body %}
+                {% endblock body %}
+            </div>
 
-        <!--/right side-->
-        <div id="right_side" class="col-xs-3">
-            <div class="sidebar-nav-fixed pull-right affix">
-                <div id="well_search" class="row well">
+            <!--/right side-->
+            <div id="right_side" class="col-xs-3 sidebar-outer">
+                <div class="fixed">
+                    <div id="well_search" class="row well">
+                            <div id="search_menu_title">
+                                <div style="float: left"><h4>All customer</h4></div>
+                                <div id="refresh_client" style="float: right"><span class="glyphicon glyphicon-refresh"></span></div>
+                            </div>
 
-                        {#<div id="search_menu_button">#}
-                            {#<span id="menu_hamburger" class="menu_glyphicon glyphicon glyphicon-menu-hamburger"></span>#}
-                        {#</div>#}
-                        <div id="search_menu_title">
-                            <div style="float: left"><h4>All customer</h4></div>
-                            <div id="refresh_client" style="float: right"><span class="glyphicon glyphicon-refresh"></span></div>
+                        <div class="input-group" style="width:100%;">
+                            <input type="text" class="form-control search_control" id="search_client" placeholder="Search...">
+                        </div>
+                        <!-- /.input-group -->
+                        <div class="row" id="quota_list">
+                            <div class="search_message">No result for this search !</div>
                         </div>
 
-                    <div class="input-group" style="width:100%;">
-                        <input type="text" class="form-control search_control" id="search_client" placeholder="Search...">
-                    </div>
-                    <!-- /.input-group -->
-                    <div class="row" id="quota_list">
-                        <div class="search_message">No result for this search !</div>
+                        <div id="expand">
+                            <span id="search_glyphicon" class="menu_glyphicon glyphicon glyphicon-chevron-up"></span>
+                        </div>
                     </div>
 
-                    <div id="expand">
-                        <span id="search_glyphicon" class="menu_glyphicon glyphicon glyphicon-chevron-up"></span>
-                    </div>
+                    {% block menu_room %}
+                    {% endblock menu_room %}
+                    <!--/.well -->
                 </div>
-
-                {% block menu_room %}
-                {% endblock menu_room %}
-                <!--/.well -->
+                <!--/sidebar-nav-fixed -->
             </div>
-            <!--/sidebar-nav-fixed -->
-        </div>
-        <!--/span-->
+            <!--/span-->
+        {% endif %}
     </div>
     <!--/row-->
 </div>
@@ -165,7 +173,6 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 {% block scripts %}
-    <script src="/js/function.js"></script>
     <script src="/js/info.js"></script>
     <script src="/js/form.js"></script>
     <script src="/js/prestation.js"></script>
@@ -174,6 +181,7 @@
     <script src="/js/quotaprestation.js"></script>
     <script src="/js/perfect-scrollbar.jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="/js/function.js"></script>
 {% endblock scripts %}
 </body>
 </html>

@@ -2,18 +2,16 @@
 
 {% block body %}
     <!--Content LEFT-->
-    <h1 class="title">
-        Total quotation
-    </h1>
     <div style="display: none">
         <span id="euro_exchange">{{ exchange['euro'] }}</span>
         <span id="dollar_exchange">{{ exchange['dollar'] }}</span>
     </div>
+    <br/>
     {% if base_rooms|length > 0 %}
         {% for room in base_rooms %}
             <p class="base_title" id="{{ room.type|replace({' ' : '_'}) }}">Based on {{ room.type }}</p>
             <div class="calculation_quota">
-                <div id="table" class="table-editable">
+                <div class="table-editable">
                     <table class="table" id="table_{{ room.type|replace({' ' : '_'}) }}">
                         <thead>
                             <tr>
@@ -34,7 +32,7 @@
                                 <td class="designation">Prestation</td>
                                 <td></td>
                                 {% for i in prestation.min..prestation.max %}
-                                    <td class="td_value td_{{ room.type|replace({' ' : '_'}) }}">{{ prestation.value[i-prestation.min] }}</td>
+                                    <td class="td_value td_{{ room.type|replace({' ' : '_'}) }}">{{ prestation.value[i-prestation.min]|roundValue }}</td>
                                 {% endfor %}
                                 <td></td>
                             </tr>
@@ -42,7 +40,7 @@
                                 <td class="designation">Margin</td>
                                 <td class="red"><span id="margin_prestation_{{ room.type|replace({' ' : '_'}) }}" class="taxes" data-loading-text="azertyuiti.....">{{ prestation.margin }}</span><span>%</span></td>
                                 {% for i in prestation.min..prestation.max %}
-                                    <td class="td_value td_{{ room.type|replace({' ' : '_'}) }}">{{ prestation.value[i-prestation.min] *  prestation.margin /100 }}</td>
+                                    <td class="td_value td_{{ room.type|replace({' ' : '_'}) }}">{{ (prestation.value[i-prestation.min] *  prestation.margin /100)|roundValue }}</td>
                                 {% endfor %}
                                 <td></td>
                             </tr>
@@ -50,7 +48,7 @@
                                 <td class="designation">VAT</td>
                                 <td class="red"><span id="taxes_prestation_{{ room.type|replace({' ' : '_'}) }}" class="taxes">{{ prestation.vat }}</span><span>%</span></td>
                                 {% for i in prestation.min..prestation.max %}
-                                    <td class="td_value td_{{ room.type|replace({' ' : '_'}) }}">{{ (prestation.value[i-prestation.min] * prestation.margin /100) * prestation.vat /100 }}</td>
+                                    <td class="td_value td_{{ room.type|replace({' ' : '_'}) }}">{{ ((prestation.value[i-prestation.min] * prestation.margin /100) * prestation.vat /100)|roundValue }}</td>
                                 {% endfor %}
                                 <td></td>
                             </tr>
@@ -60,7 +58,7 @@
                                 <td class="designation">{{ room.type|capitalize }}</td>
                                 <td></td>
                                 {% for i in prestation.min..prestation.max %}
-                                    <td class="td_value td_{{ room.type|replace({' ' : '_'}) }}">{{ room.total[1]}}</td>
+                                    <td class="td_value td_{{ room.type|replace({' ' : '_'}) }}">{{ room.total['value']|roundValue }}</td>
                                 {% endfor %}
                                 <td></td>
                             </tr>
@@ -68,7 +66,7 @@
                                 <td class="designation">Margin</td>
                                 <td class="red"><span id="margin_room_{{ room.type|replace({' ' : '_'}) }}" class="taxes">{{ room.margin }}</span><span>%</span></td>
                                 {% for i in prestation.min..prestation.max %}
-                                    <td class="td_value td_{{ room.type|replace({' ' : '_'}) }}">{{ room.total[1] *  room.margin /100 }}</td>
+                                    <td class="td_value td_{{ room.type|replace({' ' : '_'}) }}">{{ (room.total['value'] *  room.margin /100)|roundValue }}</td>
                                 {% endfor %}
                                 <td></td>
                             </tr>
@@ -76,7 +74,7 @@
                                 <td class="designation">VAT</td>
                                 <td class="red"><span id="taxes_room_{{ room.type|replace({' ' : '_'}) }}" class="taxes">{{ room.vat }}</span><span>%</span></td>
                                 {% for i in prestation.min..prestation.max %}
-                                    <td class="td_value td_{{ room.type|replace({' ' : '_'}) }}">{{ (room.total[1] * room.margin /100) * room.vat /100 }}</td>
+                                    <td class="td_value td_{{ room.type|replace({' ' : '_'}) }}">{{ ((room.total['value'] * room.margin /100) * room.vat /100)|roundValue }}</td>
                                 {% endfor %}
                                 <td></td>
                             </tr>
@@ -123,14 +121,14 @@
                                 <td><span class="table-add glyphicon glyphicon-plus"></span></td>
                             </tr>
                             <tr class="tr_total tr_EUR">
-                                <td class="devise">EUR</td>
+                                <td class="devise">EUR ({{ exchange.euro }} Ar)</td>
                                 {% for i in prestation.min..prestation.max %}
                                     <td class="td_value total_{{ room.type|replace({' ' : '_'}) }}"></td>
                                 {% endfor %}
                                 <td></td>
                             </tr>
                             <tr class="tr_total tr_USD">
-                                <td class="devise">USD</td>
+                                <td class="devise">USD ({{ exchange.dollar }} Ar)</td>
                                 {% for i in prestation.min..prestation.max %}
                                     <td class="td_value total_{{ room.type|replace({' ' : '_'}) }}"></td>
                                 {% endfor %}
@@ -145,15 +143,15 @@
     {% else %}
         <div class="no_quota">
             No quota for this customer !<br/><br/>
-            <div id="client_saved" class="row">
+            <div class="row">
                 <div class="col-xs-6">
-                    <div class="col-md-12 add_quotation" onclick="location.href ='/room'">
-                        Room quotation
+                    <div class="col-md-12 add_quotation" onclick="location.href ='/house'">
+                        Add room quotation
                     </div>
                 </div>
                 <div class="col-xs-6">
                     <div class="col-md-12 add_quotation" onclick="location.href ='/prestation'">
-                        Benefit quotation
+                        Add benefit quotation
                     </div>
                 </div>
             </div>
@@ -169,10 +167,10 @@
             <h4>Existing room for this quota</h4>
             {% for room in base_rooms %}
                 <div class="base_types">
-                    <a class="base_type" href="#{{ (room.content[0][0]|lower)|replace({' ' : '_'}) }}" >{{ room.content[0][0] }}</a>
+                    <a class="base_type" href="#{{ (room.content[0]['label']|lower)|replace({' ' : '_'}) }}" >{{ room.content[0]['label'] }}</a>
                 </div>
             {% endfor %}
-            <div class="add_room_button" data-popup-open="popup-1">Add room</div>
+            <div class="add_room_button" data-popup-open="popup-1" onclick="location.href ='/house'">Add room</div>
         </div>
 
     {% endblock menu_room %}

@@ -24,5 +24,6 @@ class PrestationQuota
         $this->value = $array[2];
         $this->margin = $array[3];
         $this->vat = $array[4];
+        $this->all_prestation = $array[5];
     }
 }

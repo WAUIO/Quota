@@ -16,10 +16,10 @@ footer {
 #logo{
     width: 90px;
     position: relative;
-    top: 0;
+    margin:  5px 0;
+    /*top: 0;*/
 }
-
-.title-logo, .navbar-nav{
+.navbar-nav{
     color: white;
 }
 .user{
@@ -28,10 +28,19 @@ footer {
     line-height: 50px;
     color: white;
 }
+.title{
+    padding: 0;
+    font-size: 200%;
+    color: #6F6F6F;
+    font-weight: bold;
+}
 .ref_client{
     height: 50px;
     background: #ffffff;
     line-height: 50px;
+}
+.ref_align_right{
+    float: right;
 }
 #client_reference{
     font-size: 120%;
@@ -45,12 +54,30 @@ footer {
 .content {
     top: 0;
  }
+div#pop-up {
+    display: none;
+    position: absolute;
+    width: 200px;
+    padding: 10px;
+    background: #eeeeee;
+    color: #000000;
+    border: 1px solid #1a1a1a;
+    font-size: 90%;
+}
 .well{
     min-width: 200px;
     padding-top: 5px;
 }
+.sidebar-outer {
+    margin-top: 0;
+    position: relative;
+}
+.fixed {
+    width: 18%;
+    position: fixed;
+}
 .sidebar-nav-fixed {
-    width: 20%;
+    /*margin: 0 !important;*/
 }
 .menu_glyphicon{
     cursor: pointer;
@@ -74,7 +101,6 @@ footer {
 #refresh_client{
     cursor: pointer;
 }
-
 .glyphicon-refresh-animate {
     -animation: spin .7s infinite linear;
     -webkit-animation: spinWebkit .7s infinite linear;
@@ -120,12 +146,71 @@ footer {
 .page-header{
     font-size: 300%;
 }
-.title{
-    font-size: 200%;
-    color: #6F6F6F;
-    padding: 10px;
-    font-weight: bold;
+
+/**********Login**********/
+/* Full-width input fields */
+.input_login{
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
 }
+#login_btn{
+    float: right;
+    font-size: 110%;
+    font-weight: bold;
+    height: 40px;
+    color: white;
+    text-align: center;
+    line-height: 40px;
+    vertical-align: middle;
+    background: #2B838E;
+    border-radius: 2px;
+    cursor: pointer;
+
+}
+#login_btn:hover{
+    background: #2aa198;
+}
+#login_error{
+    display: none;
+    font-style: italic;
+    color: #FF0F22;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+}
+
+/* Center the image and position the close button */
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+}
+
+img.avatar {
+    width: 20%;
+    border-radius: 50%;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+.col-centered{
+    float: none;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 
 /******* For quota view *******/
 .base_title{
@@ -134,7 +219,6 @@ footer {
     color: #2B838E;
 }
 .calculation_quota{
-    /*height: 250px;*/
     width: 100%;
     background: #f4f4f4;
 }
@@ -168,12 +252,12 @@ td {
 #savequota{
     margin-bottom: 30px;
 }
-#Tbody > tr > td{
-    font-weight: bold;
-}
-#Tfoot > tr > td{
-    font-weight:bold;
-}
+/*#Tbody > tr > td{*/
+    /*font-weight: bold;*/
+/*}*/
+/*#Tfoot > tr > td{*/
+    /*font-weight:bold;*/
+/*}*/
 
 .td_designation{
     width: 100%;
@@ -252,6 +336,9 @@ table > thead > tr > th, .total_designation {
     margin-left: 10px;
     margin-bottom: 10px;
     color: #FF0F22;
+}
+.no_quota{
+    padding-left: 10px;
 }
 
 /******* For quota base *******/
@@ -528,8 +615,7 @@ h2,h3{
     height: 0;
 }
 .form-horizontal{
-    padding-top:40px;
-    padding-bottom:40px;
+    padding:40px 0 40px 40px!important;
 }
 #board{
     width: 60px;
@@ -543,10 +629,6 @@ h2,h3{
     width: 15px;
     height: 15px;
 }
-#save{
-    width: 90px;
-    height: 50px;
-}
 #clientsubmit{
     width:70px;
 }
@@ -556,7 +638,7 @@ h2,h3{
     height:10%;
 }
 .selectpicker{
-    margin-top: 10px;
+    /*margin-top: 10px;*/
 }
 .row{
     margin-top: 10px;
@@ -575,9 +657,6 @@ li .lign{
 .lign{
     margin-top: 3px;
 }
-.bootstrap-select > #select-hotel{
-    width:90%;
-}
 #Thead{
     background-color:#2B838E ;
 }
@@ -589,8 +668,10 @@ li .lign{
 }
 
 .table-remove {
-    color: #700;
     cursor: pointer;
+}
+.table-remove:hover {
+    color: #FF0F22;
 }
 
 .btn-danger{
@@ -598,8 +679,10 @@ li .lign{
 }
 
 .table-add {
-    color: #070;
     cursor: pointer;
+}
+.table-add:hover {
+    color: #5cb85c;
 }
 
 .col-form-label{
@@ -608,6 +691,11 @@ li .lign{
 }
 
 /*prestation*/
+.prestation_quota{
+
+    overflow-x: auto;
+    position: relative;
+}
 .prestation_image{
     margin-top: -3px;
     width: 40px;
@@ -636,7 +724,7 @@ li .lign{
     float: right;
     border-radius: 3px;
 }
-.add_client{
+.all_btn{
      float: right;
      font-size: 110%;
      font-weight: bold;
@@ -648,7 +736,8 @@ li .lign{
      background: #2B838E;
      border-radius: 2px;
      cursor: pointer;
- }.add_client:hover{
+ }
+.all_btn:hover{
       background: #2aa198;
   }
 
@@ -768,14 +857,14 @@ li .lign{
     margin-left: 20px;
     font-weight: bold;
     font-size: 20px;
-    color:#2B838E;
+    color: #6F6F6F;
 }
 #euro{
     margin-top: 10px;
     margin-left: 22px;
     font-weight: bold;
     font-size: 20px;
-    color:#2B838E;
+    color: #6F6F6F;
 }
 #loader_gif{
     width: 10px;
@@ -783,6 +872,8 @@ li .lign{
 }
 .no_service_message{
     display: none;
+    color: #FF0F22;
+    font-style: italic;
 }
 .next_prestation:hover{
     background: #2aa198;
@@ -800,4 +891,51 @@ li .lign{
 }
 #client_saved{
     display: none;
+}
+
+
+
+
+.room{
+    height: 40px;
+    font-size: 110%;
+    color: #ffffff;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 0 5px;
+    cursor: pointer;
+    background: #2B838E !important;
+    border: none !important;
+}
+.accordion_body{
+    margin-top: -10px;
+}
+#choose_hotel{
+    font-size: 120%;
+}
+.form_funky{
+    padding: 0!important;
+    margin: 8px 0 4px 20px!important;
+
+    height: 32px;
+    line-height: 32px;
+}
+.form_success{
+    height: 32px;
+    padding: 0!important;
+    margin: 0!important;
+}
+.form_label{
+    margin: 0!important;
+    border: none;
+}
+.row_other_board{
+    display: none;
+}
+.accordion_body{
+    overflow: visible!important;
+}
+.room_message{
+    display: none;
+    font-style: italic;
 }

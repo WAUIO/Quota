@@ -1,17 +1,15 @@
-<?php
+<?php namespace App\Http\Controller;
 
-namespace App\Http\Controller;
 use App\DatabaseConnection\PDOConnection;
 use App\Model\ClientModel;
 use App\Utils\Client;
 use App\Utils\Exchange;
-use Symfony\Component\HttpFoundation\Request;
 use Wau\Http\Controller;
 
 class ClientController extends Controller
 {
     public function clientInsert(){
-        $clientModel=new ClientModel();
+        $clientModel = new ClientModel();
         $client = new \App\Utils\Client();
 
         $parts = explode('/', $_GET['stay']);//
@@ -27,15 +25,13 @@ class ClientController extends Controller
         $clientModel->insertClient($array);
 
         $_SESSION['client'] = $client;
-        $id = $clientModel->getId();
+        $id = $clientModel->getLastClient()['id'];
         $client->setId($id);
-
         return($client);
     }
 
-    public function setClient(Request $request){
+    public function setClient(){
         $client = new Client();
-
         $client_id = $_GET['client_id'];
 
         $query = "SELECT * FROM client WHERE id = ".$client_id;
@@ -81,11 +77,6 @@ class ClientController extends Controller
             $client_session = $client;
             $array[] = $client;
         }
-
-        if($_SESSION['client'] == null){
-            $_SESSION['client'] = $client_session;
-        }
-
         return $array;
     }
 }

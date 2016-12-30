@@ -14,14 +14,15 @@ use Illuminate\Database\Eloquent\Model;
 class House
 {
     var $instance;
-    public function __construct()
-    {
+    public function __construct(){
         $this->instance = new PDOConnection();
     }
-    public function selectData(){
+
+    public function getAllHouse(){
         $sql = "SELECT item_id,house_title FROM house";
         return $this->instance->select($sql);
     }
+
     public function getHouse($id_house){
         $sql = "SELECT house_title FROM house WHERE item_id = ".$id_house;
         return $this->instance->select($sql);
