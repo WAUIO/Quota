@@ -27,7 +27,7 @@ class HouseController extends Controller
          return $this->app()->make('twig.view')->render('form.twig', $data);
      }
 
-    public function dataRoom()
+    public function getDataRoom()
     {
         $list = new Room();
         $id = $_GET['id'];
@@ -35,7 +35,7 @@ class HouseController extends Controller
        return json_encode($room);
 
     }
-    public function dataRestaurant(){
+    public function getDataRestaurant(){
         $board = new Restaurant();
         $id = $_GET['id'];
         $rest = $board->selectRestauration($id);

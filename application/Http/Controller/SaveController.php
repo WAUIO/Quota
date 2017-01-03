@@ -20,7 +20,7 @@ use Wau\Http\Controller;
 class SaveController extends Controller
 {
 
-    public function priceRoom(){
+    public function getPriceRoom(){
         $others = new Room();
         $id = $_GET['id'];
         $euro = new Exchange(0);
@@ -76,7 +76,7 @@ class SaveController extends Controller
 
     }
 
-    public function priceBoard(){
+    public function getPriceBoard(){
         $id =$_GET['id'];
         $board = new Restaurant();
         $euro = new Exchange(0);
@@ -97,7 +97,7 @@ class SaveController extends Controller
         return $price;
     }
 
-    public function itBoard(){
+    public function getPriceOtherBoard(){
         $menu = $_GET['menu'];
         $board = new Restaurant();
         $euro = new Exchange(0);

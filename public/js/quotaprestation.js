@@ -15,10 +15,8 @@ function addColumn() {
            }
         });
 
-
     var minimum = Math.min.apply(Math,minvalues);
     var maximum = Math.max.apply(Math,maxvalues);
-
 
     if(minimum<=maximum){
         for (var i = minimum;i<=maximum;i++){

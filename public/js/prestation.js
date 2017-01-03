@@ -15,20 +15,22 @@ $( function() {
         deletePrestation(this);
     });
 
-    $("#click").click(function(){
+    $(document).on('change keyup blur','[name="nbsvc"]',function(){
         $(".quota").remove();
-        addColumn();
+       addColumn();
     });
 
     searchPrestation();
     checkPrestation();
     savePrestation();
+
 } );
 
 function addColumn() {
     var minvalues = [];
     var maxvalues = [];
     var tr=$("#Tbody > tr");
+
     tr.each(function(){
         var min = $(this).find("td > [name = 'paxmin']").val();
         var max = $(this).find("td > [name = 'paxmax']").val();
@@ -66,15 +68,19 @@ function addColumn() {
                 var amount = parseInt($(this).find(".tarif").html());
                 var total = svc_unit*amount;
 
-
-                $(this).find('td').eq(7).html(total);
+                if(svc_unit ==''){
+                    $(this).find('td').eq(7).html(0);
+                }else{
+                    $(this).find('td').eq(7).html(total);
+                }
 
                 var colbody = $("<td>");
+                var subtotal;
                 colbody.attr("class","quota");
                 if(type === "Per Person"){
-                    var subtotal =total;
+                     subtotal =total;
                 }else {
-                    var subtotal =(total/i);
+                     subtotal =(total/i);
                 }
 
                 if(i<min || i>max){
@@ -83,6 +89,7 @@ function addColumn() {
                 }else{
                     colbody.html(subtotal.toFixed(2));
                     bigtotal = bigtotal+subtotal;
+
                 }
 
                 $(this).append(colbody);
@@ -257,6 +264,8 @@ function mouseEvent(){
 
 
 function checkPrestation() {
+
+
     $('.check_value').click(function () {
         var parent_div = $('#' + $(this).closest('.per_price').attr('id'));
         if ($(this).is(":checked")) {
@@ -275,6 +284,7 @@ function checkPrestation() {
 
             addInTab(this);
 
+
         } else {
             check_list_id = $(this).val();
             $('#' + check_list_id).remove();
@@ -288,10 +298,12 @@ function checkPrestation() {
 
         resetCheckedScroll(parent_div);
     });
+
 }
 
 
 function addInTab($this) {
+
     var label_text = $($this).siblings('label').text();
     var input_id = $($this).attr('id');
     var rate = $($this).siblings('.others_rate').text();
@@ -309,10 +321,65 @@ function addInTab($this) {
     }else{
          price = rate * dollar ;
     }
-
-    var row = '<tr id="tr_' + input_id + '"> <td class="cod"></td> <td class="label_text"><span>' + label_text + '</span><input type="text" class="n_pax" name="n_pax"></td> <td title="min"> <input class="check" name="paxmin" type="text" ></td><td  title="max"><input class="check" name="paxmax" type="text" > </td> <td class="tarif">' + roundValue(price) + '</td> <td title="number"><input class="check" type="text" name="nbsvc"/></td> <td class="type">' + type + '</td> <td class="total"> </td></tr>';
+    var row = '<tr class="tr_' + input_id + '"> ' +
+                    '<td class=" add-record" onclick="duplicateRow(this)">' +
+                        '<span class="glyphicon glyphicon-plus"></span>' +
+                    '</td>' +
+                    '<td class="label_text">' +
+                        '<span>' + label_text + '</span>' +
+                        '<input type="text" class="n_pax" name="n_pax">' +
+                    '</td> ' +
+                    '<td title="min">' +
+                        '<input class="check" name="paxmin" type="text" >' +
+                    '</td>' +
+                    '<td title="max">' +
+                        '<input class="check"  name="paxmax" title="Enter pax_max!" type="text">'+
+                    '</td> ' +
+                    '<td class="tarif">' + roundValue(price) + '</td>' +
+                    '<td title="number">' +
+                        '<input class="check" type="text" name="nbsvc"/>' +
+                    '</td> ' +
+                    '<td class="type">' + type + '</td> ' +
+                    '<td class="total"> </td></tr>';
     $("#Tbody").append(row);
+
 }
+
+function duplicateRow($this){
+    var original = $($this).closest('tr');
+    var tr_class = original.attr('class');
+    var last_tr = $('.'+tr_class).last();
+    var pax_max_msg = last_tr.find('input[name="paxmax"]');
+    var pax_max =  last_tr.find('input[name="paxmax"]').val();
+    var $clone = original.clone(true);
+        if(pax_max==''){
+
+                pax_max_msg.tooltip('show');
+          // pax_max_msg.tooltip({'trigger':'focus'});
+          //   pax_max_msg.tooltipster({
+          //       trigger: 'custom',
+          //       content: 'Enter pax_max'
+          //   })
+          //       .on( 'focus', function() {
+          //           $( this ).tooltipster( 'show' );
+          //       })
+          //   pax_max_msg.on( 'blur', function() {
+          //           $( this ).tooltipster( 'hide' );
+          //       });
+        }else {
+            $clone.find('td:eq(0)').prop('onclick', null).off('click');
+            $clone.find('td:eq(0)').click(function () {
+                $clone.remove();
+            });
+            $clone.find('.quota').text(0);
+            $clone.find('input[name="paxmax"]').val('');
+            $clone.find('input[name="nbsvc"]').val('');
+            $clone.find('input[name="paxmin"]').val(parseInt(pax_max) + 1).attr('disabled', 'disabled');
+            $clone.find('td:eq(0) span').attr('class', 'table-remove glyphicon glyphicon-remove');
+            last_tr.last().after($clone);
+        }
+}
+
 function ifUnchecked(id){
     $('#tr_'+id).remove();
 }
@@ -350,14 +417,14 @@ function savePrestation(){
 
             var service = values.service +" "+values.pax;
 
-            //var infos = JSON.stringify(info);
             $.ajax({
                 type: "GET",
                 url: "/saveprestation",
                 data: {service:service, others:other},
-                dataType: "html",
+                dataType: "json",
                 success: function () {
                    $('#saved_msg').css({'display':'block','color':'#5cb85c'});
+                    console.log();
                     location.reload();
                 },
                 error: function(){

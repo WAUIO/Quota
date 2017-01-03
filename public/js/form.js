@@ -55,6 +55,7 @@ function inHouse(){
                 // $('#ext').empty();
                 // $('#exch').empty();
                 $.each(d,function(i,r){
+                    console.log(r.category);
                     var str = r.others;
                     console.log(r.others);
                     var obj = JSON.parse(str);

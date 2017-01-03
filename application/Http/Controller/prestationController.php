@@ -16,7 +16,8 @@ class prestationController extends Controller
     {
         $table = array("transport", "activity");
         $array = $this->getService($table);
-        return $this->app()->make('twig.view')->render('prestation.twig', ['prestations' => $array]);
+        $title = 'Benefit Offered';
+        return $this->app()->make('twig.view')->render('prestation.twig', ['prestations' => $array,'title'=>$title]);
     }
 
     public function prestationView()
