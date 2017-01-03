@@ -6,9 +6,19 @@ $(document).ready(function () {
         calculateFamilyTotal($(this));
     });
 
+<<<<<<< HEAD
     $('.delete_prestation').click(function(e){
         e.preventDefault();
         deletePrestation(this);
+=======
+    $("form#login_form").on("submit", function(e) {
+        e.preventDefault();
+        login();
+    });
+
+    $('#client_reference').click(function () {
+        $('#about_client').dialog({modal: true, height: 205, width: 400 });
+>>>>>>> 45c40e96755f46038552ce24383c851476146aef
     });
 
     $( "#accordion" ).accordion();
@@ -57,6 +67,7 @@ $(document).ready(function () {
     calculateTotal();
     ancreLink();
     mouseEvent();
+<<<<<<< HEAD
     btnSave();
 
 });
@@ -99,6 +110,73 @@ function client(){
             }
     });
 }
+=======
+    setTooltip();
+});
+
+function setTooltip() {
+    $('#quota_list').tooltip({
+        items: '.quota_lists',
+        content: 'Click to display this customer.',
+        show: null, // show immediately
+        open: function (event, ui) {
+            if (typeof(event.originalEvent) === 'undefined') {
+                return false;
+            }
+
+            var $id = $(ui.tooltip).attr('id');
+
+            // close any lingering tooltips
+            $('div.ui-tooltip').not('#' + $id).remove();
+
+            // ajax function to pull in data and add it to the tooltip goes here
+        },
+        close: function (event, ui) {
+            ui.tooltip.hover(function () {
+                    $(this).stop(true).fadeTo(400, 1);
+                },
+                function () {
+                    $(this).fadeOut('400', function () {
+                        $(this).remove();
+                    });
+                });
+        }
+    });
+}
+
+function isValidEmail(emailText) {
+    var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+    return pattern.test(emailText);
+}
+
+function login(){
+    if(isValidEmail( $("#login_email").val()) && $("#login_password").val() != ''){
+        var avatar = $('.avatar');
+        var newSrc = avatar.attr("src").replace("/images/user1.png", "/images/user_gif.gif");
+        avatar.attr("src", newSrc);
+        $.ajax({
+            url:'/login',
+            type:'GET',
+            dataType:'html',
+            data: $('#login_form').serialize(),
+            success:function(data){
+                if(data == 'not authenticated'){
+                    newSrc = avatar.attr("src").replace("/images/user_gif.gif", "/images/user1.png");
+                    avatar.attr("src", newSrc);
+                    $('#login_error').text('Email or password invalid !').show();
+                }else{
+                    window.location.replace(window.location.pathname);
+                }
+            },error:function (data) {
+                newSrc = avatar.attr("src").replace("/images/user_gif.gif", "/images/user1.png");
+                avatar.attr("src", newSrc);
+                $('#login_error').text('Something wrong !').show();
+            }
+        });
+    }
+}
+
+>>>>>>> 45c40e96755f46038552ce24383c851476146aef
 //round float value (fixed 2)
 
 function roundValue(value){

@@ -7,7 +7,7 @@ class RoomQuota
     var $type;
     var $content;
     var $room;
-    var $breakfast;
+    var $board;
     var $tax;
     var $vignette;
     var $total;
@@ -16,46 +16,53 @@ class RoomQuota
 
     public function __construct($array)
     {
+        $somme = 0;
+        $array_type = array("integer", "double");
         $this->content = array();
         $type       = $array[0];
         $room       = $array[1];
-        $breakfast  = $array[2];
+        $boards     = $array[2];//array()
         $vignette   = $array[3];
         $tax        = $array[4];
         $this->exchange   = $array[5];
 
-        $somme = 0;
-        $array_type = array("integer", "double");
-
         $this->type   = trim($type);
 
-        $this->room[0] = ucfirst($this->type);
+        $this->room['label'] = ucfirst($this->type);
         if(isset($room) && in_array(gettype($room), $array_type) ){
-            $this->room[1] = round($room, 2);
-            $somme += $this->room[1];
+            $this->room['value'] = round($room, 2);
+            $somme += $this->room['value'];
         }
+        array_push($this->content, $this->room);
 
-        $this->breakfast[0] = "Breakfast";
-        if(isset($breakfast) && in_array(gettype($breakfast), $array_type) ){
-            $this->breakfast[1] = round($breakfast, 2);
-            $somme += $this->breakfast[1];
+        $this->board['label'] = "Board";
+        if($boards->length >0){
+            foreach ($boards as $key=>$value){
+                $this->board['value'] += $value;
+                $somme += $value;
+            }
         }
+        else{
+            $this->board['value'] = 0;
+        }
+        array_push($this->content, $this->board);
+        //array_push($this->content, array('label'=>ucfirst($key),'value'=>$value));
 
-        $this->tax[0] = "Various taxes";
+        $this->tax['label'] = "Various taxes";
         if(isset($tax) && in_array(gettype($tax), $array_type) ){
-            $this->tax[1] = round($tax, 2);
-            $somme += $this->tax[1];
+            $this->tax['value'] = round($tax, 2);
+            $somme += $this->tax['value'];
         }
 
-        $this->vignette[0] = "Vignette";
+        $this->vignette['label'] = "Vignette";
         if(isset($vignette) && in_array(gettype($vignette), $array_type) ){
-            $this->vignette[1] = round($vignette, 2);
-            $somme += $this->vignette[1];
+            $this->vignette['value'] = round($vignette, 2);
+            $somme += $this->vignette['value'];
         }
 
-        $this->total[0] = "Total / pax";
-        $this->total[1] = round($somme, 2);
+        $this->total['label'] = "Total / pax";
+        $this->total['value'] = round($somme, 2);
 
-        array_push($this->content, $this->room, $this->breakfast, $this->vignette, $this->tax, $this->total);
+        array_push($this->content, $this->vignette, $this->tax, $this->total);
     }
 }

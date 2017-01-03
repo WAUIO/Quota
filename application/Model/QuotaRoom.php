@@ -19,13 +19,11 @@ class QuotaRoom
     }
     public function insertToQuotaroom($array){
         try{
-
-            $sqlQuery = "INSERT INTO quotaroom (base, id_cli, id_house, price_room, others) VALUES(:base,:id_cli,:id_house,:price_room,:others)";
+            $sqlQuery = "INSERT INTO quotaroom (base, id_client, id_house, price_room, others) VALUES(:base,:id_client,:id_house,:price_room,:others)";
 
             $this->instance->insert($sqlQuery,$array);
         }catch (\Exception $e){
             echo $e->getCode(),$e->getMessage(),$e->getLine();
-
         }
     }
 }

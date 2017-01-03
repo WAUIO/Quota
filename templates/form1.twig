@@ -1,0 +1,102 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+    <br/>
+
+    <form class="form-horizontal" role="form">
+        <div class="row" style="height:40px; line-height: 40px">
+            <div class="col-xs-8">
+                <div class="col-xs-3">Choose hotel :</div>
+                <div class="col-xs-8">
+                    <select class="selectpicker" id="select-hotel" data-live-search="true" title="Select hotel">
+                        {% for house in listhouse %}
+                            <option value={{ house['item_id'] }}> {{ house['house_title'] }} </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-xs-1">
+                    <img class="loader" src="/img/preview.gif" style="display:none">
+                </div>
+            </div>
+            <div class="col-xs-3 pull-right">
+                <span id="dollar">$ {{ exchange['dollar']}}</span>
+                <span id="euro">€ {{ exchange['euro'] }}</span>
+            </div>
+        </div>
+
+        <br/>
+
+        <div id="accordion">
+            {% set type = ['adult','child'] %}
+            {% set base = ['single','double','triple','family','extra-bed'] %}
+            {% set board = ['breakfast','lunch','dinner','menu','hb','fb'] %}
+            
+            {% for i in 0..type|length-1 %}
+                <div class="room">
+                    <span>{{ type[i]|capitalize }}</span>
+                </div>
+                <div class="row accordion_body" id="accordion_body_{{ type[i] }}">
+                    <div class="col-xs-6">
+                        {% if type[i] == 'child' %}
+                            {% set n = 4 %}
+                        {% else %}
+                            {% set n = 0 %}
+                        {% endif %}
+                        {% for j in n..base|length-1 %}
+                            <div class="row" id="id_row_{{ base[j] }}">
+                                <div class="funkyradio form_funky col-xs-3">
+                                    <div class="funkyradio-success form_success">
+                                        <input type="checkbox" id="{{ type[i] }}_{{ base[j] }}" class="base_checkbox" value="{{ base[j]|capitalize }}"/>
+                                        <label class="funky_label form_label" for="{{ type[i] }}_{{ base[j] }}">{{ base[j]|capitalize }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-8">
+                                    <select title="" id="{{ type[i] }}_select_{{ base[j]|replace('-', '_') }}" class="selectpicker show-tick select_room" data-live-search="true" multiple></select>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div id="right" class="col-xs-6">
+                        {% for j in 0..board|length-1 %}
+                            {% set value = board[j]|capitalize %}
+
+                            {% if board[j] in ['menu','hb','fb'] %}
+                                {% set class_select = 'select_other_board' %}
+                                {% set class_row = 'row_other_board' %}
+                                {% if  board[j] != 'menu'%}
+                                    {% set value = board[j]|upper %}
+                                {% endif %}
+                            {% else %}
+                                {% set class_select = 'select_board' %}
+                                {% set class_row = 'row_board' %}
+                            {% endif %}
+                            <div class="row {{ class_row }}" id="id_row_{{ board[j] }}">
+                                <div class="funkyradio form_funky col-xs-3">
+                                    <div class="funkyradio-success form_success">
+                                        <input type="checkbox" id="{{ type[i]}}_{{ board[j] }}" class="board_checkbox" value="{{ value }}"/>
+                                        <label class="funky_label form_label" for="{{ type[i]}}_{{ board[j] }}">{{ value }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-8">
+                                    <select title="" id="{{ type[i] }}_select_{{ board[j] }}" class="selectpicker show-tick select_board" data-live-search="true" multiple></select>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="form-group row">
+            <div class="col-xs-10">
+                <span class="room_message"></span>
+            </div>
+            <div class="col-xs-2">
+                <div class="all_btn" id="save_room">
+                    <span>Save</span>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock body %}

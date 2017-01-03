@@ -3,10 +3,7 @@
 
 {% block body %}
     <!--Content LEFT-->
-    <h1 class="title">
-        Room quotation
-    </h1>
-
+    <br/>
     {% if(base_rooms|length > 0) %}
         {% for room in base_rooms %}
             <p class="base_title" id="{{ room.type|replace({' ' : '_'}) }}">Based on {{ room.type }}</p>
@@ -21,45 +18,45 @@
                             <th class="td_amount">USD<div class="exchange_dollar hide">{{ room.exchange['dollar'] }}</div></th>
                         </tr>
                         {% for content in room.content %}
-                            {% if(content[0] == 'Total / pax') %}
+                            {% if(content['label'] == 'Total / pax') %}
                                 {% set tr_class = "tr_total" %}
-                            {% elseif(content[0] == 'Family room') %}
+                            {% elseif(content['label'] == 'Family room') %}
                                 {% set tr_class = "tr_room" %}
-                            {% elseif(content[0] == 'Vignette') %}
+                            {% elseif(content['label'] == 'Vignette') %}
                                 {% set tr_class = "tr_vignette" %}
-                            {% elseif(content[0] == 'Various taxes') %}
+                            {% elseif(content['label'] == 'Various taxes') %}
                                 {% set tr_class = "tr_tax" %}
                             {% endif %}
                             <tr class="{{ tr_class }}">
-                                {% if(content[0] in ['Vignette','Various taxes']) %}
+                                {% if('room' in content['label']) %}
+                                    {% set glyphicon = "glyphicon glyphicon-bed" %}
+                                {% elseif(content['label'] in ['Vignette','Various taxes']) %}
                                     {% set glyphicon = "glyphicon glyphicon-usd" %}
-                                {% elseif(content[0] in ['Breakfast','Dinner','Lunch']) %}
-                                    {% set glyphicon = "glyphicon glyphicon-cutlery" %}
-                                {% elseif(content[0] == 'Total / pax') %}
+                                {% elseif(content['label'] == 'Total / pax') %}
                                     {% set glyphicon = "glyphicon glyphicon-plus" %}
                                 {% else %}
-                                    {% set glyphicon = "glyphicon glyphicon-bed" %}
+                                    {% set glyphicon = "glyphicon glyphicon-cutlery" %}
                                 {% endif %}
                                 <td>
                                     <span class="{{ glyphicon }}"></span>
-                                    {% if(content[0] == 'Total / pax') %}
-                                        <span class="designation_total">{{ content[0] }}</span>
+                                    {% if(content['label'] == 'Total / pax') %}
+                                        <span class="designation_total">{{ content['label'] }}</span>
                                         {% if(room.type == 'family room') %}
                                             <span style="white-space:pre"> : 1 person out of </span>
                                             <input type="number" min="1" max="20" name="family_member" id="family_member" style="width: 50px;" value="1"/>
                                         {% endif %}
                                     {% else %}
-                                        <span class="designation_element">{{ content[0] }} </span>
+                                        <span class="designation_element">{{ content['label'] }} </span>
                                     {% endif %}
                                 </td>
                                 <td class="td_amount">
-                                    <span class="mga_value">{{ content[1] }}</span>
+                                    <span class="mga_value">{{ content['value']|roundValue }}</span>
                                     {% if(room.type == 'family room') %}
-                                        <span class="hide">{{ content[1] }}</span>
+                                        <span class="hide">{{ content['value']|roundValue }}</span>
                                     {% endif %}
                                 </td>
-                                <td class="td_amount">{{ (content[1] / room.exchange['euro'])|number_format(2, '.', ',') }}</td>
-                                <td class="td_amount">{{ (content[1] / room.exchange['dollar'])|number_format(2, '.', ',')}}</td>
+                                <td class="td_amount">{{ (content['value'] / room.exchange['euro'])|roundValue }}</td>
+                                <td class="td_amount">{{ (content['value'] / room.exchange['dollar'])|roundValue}}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -72,40 +69,47 @@
                 <div class="detail_body">
                     {% set time = 0 %}
                     {% for i in 0..details|length-1 %}
-                        {% if(room.type|split(' ')[0]|lower == details[i]['base']|lower) %}
+                        {% if(room.type|split(' ')[0]|lower == details[i]['base']|split(' ')[0]|lower) %}
                             {% set time = time+1 %}
                             {% if(time > 1) %}
                                 <hr>
                             {% endif %}
                             <div class="row">
                                 <div class="col-xs-4">Hotel : </div>
-                                <div class="col-xs-8">{{ time }}</div>
+                                <div class="col-xs-8">{{ details[i]['house_title'] }}</div>
                             </div>
                             <div class="row">
                                 <div class="col-xs-4">Room : </div>
-                                <div class="col-xs-8">blabla</div>
+                                <div class="col-xs-8">{{ details[i]['others'].room_title }}</div>
                             </div>
                             <div class="row">
                                 <div class="col-xs-4">Wau rate : </div>
-                                <div class="col-xs-8">Ar {{ details[i]['price_room'] }}</div>
+                                <div class="col-xs-8">Ar {{ details[i]['price_room']|roundValue }}</div>
                             </div>
                             <div class="row">
                                 <div class="col-xs-4">Vignette : </div>
-                                <div class="col-xs-8">Ar {{ details[i]['others'].vignet }}</div>
+                                <div class="col-xs-8">Ar {{ details[i]['others'].vignet|roundValue }}</div>
                             </div>
                             <div class="row">
                                 <div class="col-xs-4">Tax : </div>
-                                <div class="col-xs-8">Ar {{ details[i]['others'].tax }}</div>
+                                <div class="col-xs-8">Ar {{ details[i]['others'].tax|roundValue }}</div>
                             </div>
-                            {#<div class="row">#}
-                                {#<div class="col-xs-4">Board : </div>#}
-                                {#<div class="col-xs-8">{% for key,value in details[i]['others']->board %}#}
-                                    {#<div class="row">#}
-                                        {#{{ key }}->{{ value }}#}
-                                    {#</div>#}
-                                    {#{% endfor %}#}
-                                {#</div>#}
-                            {#</div>#}
+                            {% set boards = details[i]['others'].board %}
+                            {% if boards|length != 0 %}
+                                <div class="row">
+                                    <div class="col-xs-4">Board : </div>
+                                    <div class="col-xs-8">
+                                        {% for key, value in boards|cast_to_array %}
+                                            {% if key|lower in ['hb','fb'] %}
+                                                {% set label = key|upper %}
+                                            {% else %}
+                                                {% set label = key|capitalize %}
+                                            {% endif %}
+                                            {{ label }} : Ar {{ value|roundValue }}<br/>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -117,10 +121,15 @@
     {% else %}
         <div class="no_quota">
             No quota for this customer !<br/><br/>
-            <div class="add_room_button" data-popup-open="popup-1">Add quota</div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-md-12 add_quotation" onclick="location.href ='/house'">
+                        Add room quotation
+                    </div>
+                </div>
+            </div>
         </div>
     {% endif %}
-    <hr>
 {% endblock body %}
 
 {% if(base_rooms|length > 0) %}
@@ -130,10 +139,10 @@
             <h4>Existing room for this quota</h4>
                 {% for room in base_rooms %}
                     <div class="base_types">
-                        <a class="base_type" href="#{{ (room.content[0][0]|lower)|replace({' ' : '_'}) }}" >{{ room.content[0][0] }}</a>
+                        <a class="base_type" href="#{{ (room.content[0]['label']|lower)|replace({' ' : '_'}) }}" >{{ room.content[0]['label'] }}</a>
                     </div>
                 {% endfor %}
-            <div class="add_room_button" data-popup-open="popup-1">Add room</div>
+            <div class="add_room_button " data-popup-open="popup-1" onclick="location.href ='/house'">Add room</div>
         </div>
 
     {% endblock menu_room %}

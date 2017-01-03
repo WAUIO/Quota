@@ -16,7 +16,11 @@ $( function() {
 function saveClient(){
     $("#btn_save").click(function(){
         var ref_regex = new RegExp("[a-zA-Z0-9]{5}", "g");
+
         var date_regex = new RegExp("(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])\/[0-9]{4}","g");
+// =======
+//         var date_regex = new RegExp("(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/[0-9]{4}","g");
+// >>>>>>> 45c40e96755f46038552ce24383c851476146aef
         var name_regex = new RegExp("[a-zA-Z]{2}", "g");
         var name = $("#name").val();
         var date = $("#stay").val();
@@ -50,6 +54,7 @@ function saveClient(){
                             }).delay(5000).fadeOut();
 
                             location.reload();
+
                         }
                         else {
                             $("#client_message").text('Date is empty or invalid format!').css('display', 'block').delay(5000).fadeOut();
@@ -65,14 +70,16 @@ function saveClient(){
             }else{
                 $("#client_message").text('Name is empty or invalid format!!').css('display', 'block').delay(5000).fadeOut();
             }
+
         }
         else{
-             $("#client_message").text('Customer Reference is empty or too short!').css('display','block').delay(5000).fadeOut();
+            $("#client_message").text('Customer Reference is empty or too short!').css('display','block').delay(5000).fadeOut();
         }
 
     });
 }
 
+//check if input value is a number between 0..100
 function validateNumber(event) {
     var key = window.event ? event.keyCode : event.which;
 

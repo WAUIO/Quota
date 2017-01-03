@@ -143,7 +143,6 @@ class Migration
         $transport_price        = 133126280;
         array_push($exception, $transport_price);
 
-        //$exception = array($house_title, $category, $room_house_id, $menu, $meals, $restaurant_house_id, $activities_price, $transport_price);
         $field = $item->fields;
 
         for($i = 0; $i<sizeof($field); $i++){

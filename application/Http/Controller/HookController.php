@@ -1,13 +1,11 @@
 <?php namespace App\Http\Controller;
 
-
 use App\DatabaseConnection\PDOConnection;
 use Symfony\Component\HttpFoundation\Request;
 use Wau\Http\Controller\WebhookController;
 use App\Utils\HtmlToText;
 
-
-class hookController extends WebhookController
+class HookController extends WebhookController
 {
     protected $routes = [
         "item.create" => 'itemCreate',
@@ -18,7 +16,6 @@ class hookController extends WebhookController
     public function itemCreate(Request $request)
     {
         $item_id = intval($request->get('item_id'));
-
         $item = \PodioItem::get_basic( $item_id);
         $app_id = $item->app->app_id;
         $this->insertItem($app_id, $item);
@@ -27,44 +24,26 @@ class hookController extends WebhookController
     public function itemDelete(Request $request)
     {
         $item_id = intval($request->get('item_id'));
-
         $app_id = $_POST['app_id'];
         $this->deleteItem($app_id, $item_id);
-
     }
-
-    /*public function itemDelete(Request $request)
-    {
-        $item_id = intval($request->get('item_id'));
-
-        $item = \PodioItem::get_basic( $item_id);
-
-        $app_id = $item->app->app_id;
-        $this->deleteItem($app_id, $item);
-
-    }*/
 
     public function getDataItem($item){
         //House app (field_id)
         $house_title            = 133123764;
-
         //Room app (field_id)
         $category               = 133125182;
         $room_house_id          = 133125179;
-
         //Restaurant app (field_id)
         $menu                   = 133126303;
         $meals                  = 133188371;
         $restaurant_house_id    = 133126301;
-
         //Activities app (field_id)
         $activities_price       = 133126249;
-
         //Transport app (field_id)
         $transport_price        = 133126280;
 
         $exception = array($house_title, $category, $room_house_id, $menu, $meals, $restaurant_house_id, $activities_price, $transport_price);
-
         $others = array();
         $except = array();
 
@@ -153,13 +132,10 @@ class hookController extends WebhookController
         }
 
         $dataItem = array();
-
         $dataItem['item_id'] = $item->item_id;
-
         foreach ($except as $key => $value){
             $dataItem[$key] = $value;
         }
-
         $dataItem['others'] = json_encode($others, JSON_UNESCAPED_UNICODE);
 
         return $dataItem;
@@ -238,7 +214,6 @@ class hookController extends WebhookController
 
         $instance = new  PDOConnection();
         $instance->executeQuery($query, $dataItem);
-
     }
 
     public function deleteItem($app_id, $item_id)
@@ -276,7 +251,6 @@ class hookController extends WebhookController
 
         $instance = new PDOConnection();
         $instance->delete("DELETE FROM ".$table." WHERE item_id = ".$item_id);
-
     }
 
     public function auth () {
@@ -285,11 +259,9 @@ class hookController extends WebhookController
             $this->app->config("podio.CLIENT_SECRET")
         );
 
-
         \Podio::authenticate_with_password(
             $this->app->config('podio.USERNAME'),
             $this->app->config('podio.PASSWORD')
         );
     }
-
 }
