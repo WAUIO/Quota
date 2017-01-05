@@ -1,12 +1,14 @@
 <?php namespace App\Http\Controller;
 
 use App\DatabaseConnection\PDOConnection;
+use App\Model\QuotaPrestationModel;
 use App\Utils\Prestation;
 use App\Utils\PrestationQuota;
 use Wau\Http\Controller;
 
 class PrestationController extends Controller
 {
+    //edit prestation
     public function prestation(){
         $data = array();
         $table = array("transport", "activity");
@@ -18,10 +20,11 @@ class PrestationController extends Controller
         return $this->app()->make('twig.view')->render('prestation.twig',$data);
     }
 
-    public function prestationView()
+    //show prestation quotation
+    public function quotaPrestation()
     {
         $data = array();
-        $prestation = $this->getPrestation();
+        $prestation = $this->getPrestation($_SESSION['client']->id);
 
         array_set($data, 'title', 'Prestation quotation');
         array_set($data, 'prestation', $prestation);
@@ -29,6 +32,19 @@ class PrestationController extends Controller
         return $this->app()->make('twig.view')->render('quotaprest.twig', $data);
     }
 
+
+    public function savePrestation(){
+        $quotaModel = new QuotaPrestationModel();
+        $service = $_GET['service'];
+        $client = (Object)$_SESSION['client'];
+        $id_cli = $client->id;
+        $others = $_GET['others'];
+        $array  =  array('service'=>$service, 'id_client'=>$id_cli,'others'=>$others);
+
+        $quotaModel->insertToQuotaprestation($array);
+    }
+
+    //get all services
     public function getService($table)
     {
         $array = array();
@@ -57,8 +73,7 @@ class PrestationController extends Controller
         return $array;
     }
 
-    public function getPrestation(){
-        $client_id = $_SESSION['client']->id;
+    public function getPrestation($client_id){
         $query = "SELECT * FROM quotaprestation WHERE id_client = ".$client_id;
         $instance = new PDOConnection();
         $result = $instance->select($query);

@@ -1,6 +1,7 @@
 $( function() {
-    $("#click").click(function(){
-        $(".quota").remove();
+
+    $(document).on('keypress','[name="nb_service"]',function(){
+
         addColumn();
     });
 
@@ -28,6 +29,14 @@ $( function() {
 
     searchPrestation();
     checkPrestation();
+
+    $('#pax_max_tooltip').tooltip({
+        open: function (e) {
+            setTimeout(function () {
+                $(e.target).tooltip('close');
+            }, 2000);
+        }
+    });
 } );
 
 //service search filter
@@ -246,14 +255,14 @@ function addInTab($this) {
                         '<input type="text" class="n_pax" name="n_pax">' +
                     '</td> ' +
                     '<td title="min">' +
-                        '<input class="check" name="paxmin" type="text" >' +
+                        '<input type="text" class="check number" name="pax_min" onkeypress="return validateNumber(event)">' +
                     '</td>' +
                     '<td title="max">' +
-                        '<input class="check" name="paxmax" type="text" >' +
+                        '<input type="text" class="check number" name="pax_max" onkeypress="return validateNumber(event)" required="true">' +
                     '</td> ' +
                     '<td class="tarif">' + roundValue(price) + '</td>' +
                     '<td title="number">' +
-                        '<input class="check" type="text" name="nbsvc"/>' +
+                        '<input type="text" class="check number" name="nb_service"/>' +
                     '</td> ' +
                     '<td class="type">' + type + '</td> ' +
                     '<td class="total"> </td>' +
@@ -262,7 +271,6 @@ function addInTab($this) {
     $('#Tbody').append(row);
 }
 
-
 function showQuotationTable(){
     if($('#accordion').find('.check_value:checked').length < 1){
         $('.no_service_message').css('display', 'block').delay(5000).fadeOut();
@@ -270,6 +278,7 @@ function showQuotationTable(){
     else{
         $('#prestation_form').css('display','none');
         $('#quotafade').slideToggle('slow');
+        $('.ps-scrollbar-x-rail').show();
     }
 }
 
@@ -284,8 +293,8 @@ function savePrestation(){
         var values = {
             "service": $(this).find('.label_text span').html(),
             "pax": $(this).find('input[name="n_pax"]').val(),
-            "pax_min": $(this).find('input[name="paxmin"]').val(),
-            "pax_max": $(this).find('input[name="paxmax"]').val(),
+            "pax_min": $(this).find('input[name="pax_min"]').val(),
+            "pax_max": $(this).find('input[name="pax_max"]').val(),
             "rate_service": $(this).find('.tarif').html(),
             "number_service": $(this).find('input[name="nbsvc"]').val(),
             "type_service": $(this).find('.type').html()
@@ -302,7 +311,7 @@ function savePrestation(){
 
         $.ajax({
             type: "GET",
-            url: "/saveprestation",
+            url: "/savePrestation",
             data: info,
             dataType: "html"
         });
@@ -310,24 +319,28 @@ function savePrestation(){
 }
 
 function addColumn() {
+    $(".quota").remove();
     var minvalues = [];
     var maxvalues = [];
-    var tr = $("#Tbody > tr");
+    var tr=$("#Tbody > tr");
+
     tr.each(function(){
-        var min = $(this).find("td > [name = 'paxmin']").val();
-        var max = $(this).find("td > [name = 'paxmax']").val();
+        var min = $(this).find("td > [name = 'pax_min']").val();
+        var max = $(this).find("td > [name = 'pax_max']").val();
         if(min!=="" && max !==""){
             minvalues.push(parseInt(min));
             maxvalues.push(parseInt(max));
         }
     });
 
+
     var minimum = Math.min.apply(Math,minvalues);
     var maximum = Math.max.apply(Math,maxvalues);
 
+
     if(minimum<=maximum){
-        for (i=minimum; i<=maximum; i++){
-            var colhead = $("th");
+        for (i = minimum;i<=maximum;i++){
+            var colhead = $("<th>");
 
             colhead.attr("rowspan","2");
             colhead.attr("class","quota");
@@ -335,50 +348,51 @@ function addColumn() {
             $("#Thead").append(colhead);
         }
 
-        for (i=minimum; i<+maximum; i++){
+        for (i = minimum;i<=maximum;i++){
             var bigtotal = 0;
             var colfoot = $("<td>");
             colfoot.attr("class","quota");
             tr.each(function(){
-                var min = $(this).find("td > [name='paxmin']").val();
-                var max = $(this).find("td > [name='paxmax']").val();
+                var min = $(this).find("td > [name='pax_min']").val();
+                var max = $(this).find("td > [name='pax_max']").val();
                 var type = $(this).find(".type").html();
-                var svc_unit = parseInt($(this).find("td > [name='nbsvc']").val());
+                var svc_unit = parseInt($(this).find("td > [name='nb_service']").val());
                 var amount = parseInt($(this).find(".tarif").html());
                 var total = svc_unit*amount;
 
-
-                $(this).find('td').eq(7).html(total);
-
+                if(svc_unit ==''){
+                    $(this).find('td').eq(7).html(0);
+                }else{
+                    $(this).find('td').eq(7).html(total);
+                }
                 var colbody = $("<td>");
+                var subtotal;
                 colbody.attr("class","quota");
                 if(type === "Per Person"){
-                    var subtotal =total;
+                    subtotal =total;
                 }else {
-                    var subtotal =(total/i);
+                    subtotal =(total/i);
                 }
 
                 if(i<min || i>max){
                     colbody.text("0");
 
                 }else{
-                    colbody.html(subtotal.toFixed(2));
+                    colbody.html(roundValue(subtotal));
                     bigtotal = bigtotal+subtotal;
+
                 }
 
                 $(this).append(colbody);
-
-
                 $(".table").append($(this));
             });
-            colfoot.html(bigtotal.toFixed(2));
+            colfoot.html(roundValue(bigtotal));
             colfoot.css({"font-weight":"bold","color":"#2B838E"});
             $("#Tfoot").append(colfoot);
-
         }
 
     }else{
-        alert('WARNING: Pax min> Pax max');
+        $('.pax_msg').css({'display':'block','color':'red'})
     }
 }
 
@@ -386,19 +400,25 @@ function duplicateRow($this){
     var original = $($this).closest('tr');
     var tr_class = original.attr('class');
     var last_tr = $('.'+tr_class).last();
-    var pax_max =  last_tr.find('input[name="paxmax"]').val();
+    var pax_max =  last_tr.find('input[name="pax_max"]').val();
+    var myInput =  last_tr.find('input[name="pax_max"]');
     var $clone = original.clone(true);
-    if(pax_max == ''){
 
+    if(pax_max == ''){
+        $('#pax_max_tooltip').tooltip({
+            //use 'of' to link the tooltip to your specified input
+            position: { of: myInput, my: 'right center', at: 'left-10 center' }
+        });
+        $('#pax_max_tooltip').tooltip('open');
     }else {
         $clone.find('td:eq(0)').prop('onclick', null).off('click');
         $clone.find('td:eq(0)').click(function () {
             $clone.remove();
         });
         $clone.find('.quota').text(0);
-        $clone.find('input[name="paxmax"]').val('');
-        $clone.find('input[name="nbsvc"]').val('');
-        $clone.find('input[name="paxmin"]').val(parseInt(pax_max) + 1).attr('disabled', 'disabled');
+        $clone.find('input[name="pax_max"]').val('');
+        $clone.find('input[name="nb_service"]').val('');
+        $clone.find('input[name="pax_min"]').val(parseInt(pax_max) + 1).attr('disabled', 'disabled');
         $clone.find('td:eq(0) span').attr('class', 'table-remove glyphicon glyphicon-remove');
         last_tr.last().after($clone);
     }

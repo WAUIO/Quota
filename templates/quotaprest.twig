@@ -37,12 +37,12 @@
                             <td title="number">{{ others[i].number_service}}</td>
 
                             <td class="type">{{ others[i].type_service }}</td>
-                            <td class="total">{{ others[i].rate_service * others[i].number_service}} </td>
+                            <td class="total">{{ others[i].rate_service * others[i].number_service }}</td>
                             {% for j in prestation.min..prestation.max %}
                                 <td>
                                     {%if j >= others[i].pax_min and j <= others[i].pax_max  %}
                                         {% if others[i].type_service|lower == "per person" %}
-                                            {{ others[i].rate_service * others[i].number_service|roundValue }}
+                                            {{ (others[i].rate_service * others[i].number_service)|roundValue }}
                                         {% else %}
                                             {{ ((others[i].rate_service * others[i].number_service)/j)|roundValue }}
                                         {% endif %}
@@ -56,7 +56,7 @@
                     <tr id="Tfoot" class="tr_total">
                         <td colspan="7">Total</td>
                         {% for j in prestation.min..prestation.max %}
-                            <td>{{ (prestation.value[j-1])|number_format(2) }}</td>
+                            <td>{{ (prestation.value[j-1])|roundValue }}</td>
                         {% endfor %}
                     </tr>
                     </tfoot>

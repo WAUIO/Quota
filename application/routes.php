@@ -10,33 +10,25 @@ $app->group(['prefix' => '/webhook',
 $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware'],
     function() use (&$app){
 
-        //InfoController
-        $app->get('/', 'App\Http\Controller\InfoController@info');
-        $app->get('/information', 'App\Http\Controller\InfoController@info');
-        $app->get('/saveClient', 'App\Http\Controller\InfoController@clientInsert');
-
-        //PrestationController
-        $app->get('/quotaprestation', 'App\Http\Controller\PrestationController@prestationView');
-        $app->get('/prestation', 'App\Http\Controller\PrestationController@prestation');
-
-        //QuotaViewController
-        $app->get('/room', 'App\Http\Controller\QuotaViewController@room_quota');
-        $app->get('/total', 'App\Http\Controller\QuotaViewController@total_quota');
-
         //ClientController
+        $app->get('/', 'App\Http\Controller\ClientController@clientForm');
         $app->get('/getClient', 'App\Http\Controller\ClientController@getClient');
         $app->get('/setClient', 'App\Http\Controller\ClientController@setClient');
+        $app->get('/clientForm', 'App\Http\Controller\ClientController@clientForm');
+        $app->get('/saveClient', 'App\Http\Controller\ClientController@saveClient');
 
-        //SaveController
-        $app->get('/sgl', 'App\Http\Controller\SaveController@saveRoom');
-        $app->get('/savequotaroom', 'App\Http\Controller\SaveController@saveQuotaRoom');
-        $app->get('/brd', 'App\Http\Controller\SaveController@priceBoard');
-        $app->get('/saveprestation', 'App\Http\Controller\SaveController@saveQuotaPrestation');
-        $app->get('/otherboard', 'App\Http\Controller\SaveController@itBoard');
-        $app->get('/priceboard', 'App\Http\Controller\SaveController@priceBoard');
+        //PrestationController
+        $app->get('/quotaPrestation', 'App\Http\Controller\PrestationController@quotaPrestation');
+        $app->get('/prestation', 'App\Http\Controller\PrestationController@prestation');
+        $app->get('/savePrestation', 'App\Http\Controller\PrestationController@savePrestation');
+
+        //RoomController
+        $app->get('/quotaRoom', 'App\Http\Controller\RoomController@quotaRoom');
+        $app->get('/quotaTotal', 'App\Http\Controller\RoomController@quotaTotal');
+        $app->get('/saveQuotaRoom', 'App\Http\Controller\RoomController@saveQuotaRoom');
 
         //HouseController
-        $app->get('/house', 'App\Http\Controller\HouseController@select');
+        $app->get('/editRoom', 'App\Http\Controller\HouseController@editRoom');
         $app->get('/getAllHouseData', 'App\Http\Controller\HouseController@getAllHouseData');
 
         //MigrationController

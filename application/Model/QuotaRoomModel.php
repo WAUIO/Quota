@@ -9,7 +9,7 @@
 namespace App\Model;
 use App\DatabaseConnection\PDOConnection;
 
-class QuotaRoom
+class QuotaRoomModel
 {
     var $instance;
     public function __construct()

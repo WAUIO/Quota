@@ -1,7 +1,8 @@
-
 {% extends 'layout.twig' %}
+
 {% block body %}
     <br/>
+
     <form class="form-horizontal" role="form">
         <div class="row" style="height:40px; line-height: 40px">
             <div class="col-xs-8">
@@ -26,221 +27,73 @@
         <br/>
 
         <div id="accordion">
-            <div class="room">
-                <span>Adult</span>
-            </div>
-            <div class="row" style="margin-top: -10px">
-                <div id="left-child" class="col-xs-6">
-                    <div id="singlebed" class="row">
-                        <div class="funkyradio form_funky col-xs-3">
-                            <div class="funkyradio-success form_success">
-                                <input type="checkbox" id="single" class="check_value" value="Single"/>
-                                <label class="funky_label form_label" for="single" style="border: none">Single</label>
-                            </div>
-                        </div>
-                        <div class="col-xs-8">
-                            <select title="Nothing" id="sgl" class="selectpicker show-tick" data-live-search="true" multiple></select>
-                        </div>
-                    </div>
-                    <div id="doublebed" class="row">
-                        <div class="funkyradio form_funky col-xs-3">
-                            <div class="funkyradio-success form_success">
-                                <input type="checkbox" id="double" class="check_value" value="Double"/>
-                                <label class="funky_label form_label" for="double" style="border: none">Double</label>
-                            </div>
-                        </div>
-                        <div class="col-xs-8">
-                            <select title="Nothing" id="dbl" class="selectpicker show-tick" data-live-search="true" multiple></select>
-                        </div>
-                    </div>
-                    <div id="triplebed" class="row">
-                        <div class="funkyradio form_funky col-xs-3">
-                            <div class="funkyradio-success form_success">
-                                <input type="checkbox" id="triple" class="check_value" value="Triple"/>
-                                <label class="funky_label form_label" for="triple" style="border: none">Triple</label>
-                            </div>
-                        </div>
-                        <div class="col-xs-8">
-                            <select title="Nothing" id="tpl" class="selectpicker show-tick" data-live-search="true" multiple></select>
-                        </div>
-                    </div>
-                    <div id="familybed" class="row">
-                        <div class="funkyradio form_funky col-xs-3">
-                            <div class="funkyradio-success form_success">
-                                <input type="checkbox" id="family" class="check_value" value="Family"/>
-                                <label class="funky_label form_label" for="family" style="border: none">Family</label>
-                            </div>
-                        </div>
-                        <div class="col-xs-8">
-                            <select title="Nothing" id="fml" class="selectpicker show-tick" data-live-search="true" multiple></select>
-                        </div>
-                    </div>
-                    <div id="extrabed" class="row">
-                        <div class="funkyradio form_funky col-xs-3">
-                            <div class="funkyradio-success form_success">
-                                <input type="checkbox" id="extra-adult" class="check_value" value="Extra-bed"/>
-                                <label class="funky_label form_label" for="extra-adult" style="border: none">Extra-bed</label>
-                            </div>
-                        </div>
-                        <div class="col-xs-8">
-                            <select title="Nothing" id="ext" class="selectpicker show-tick" data-live-search="true" multiple></select>
-                        </div>
-                    </div>
+            {% set type = ['adult','child'] %}
+            {% set base = ['single','double','triple','family','extra-bed'] %}
+            {% set board = ['breakfast','lunch','dinner','menu','hb','fb'] %}
+            
+            {% for i in 0..type|length-1 %}
+                <div class="room">
+                    <span>{{ type[i]|capitalize }}</span>
                 </div>
+                <div class="row accordion_body" id="accordion_body_{{ type[i] }}">
+                    <div class="col-xs-6">
+                        {% if type[i] == 'child' %}
+                            {% set n = 4 %}
+                        {% else %}
+                            {% set n = 0 %}
+                        {% endif %}
+                        {% for j in n..base|length-1 %}
+                            <div class="row" id="id_row_{{ base[j] }}">
+                                <div class="funkyradio form_funky col-xs-3">
+                                    <div class="funkyradio-success form_success">
+                                        <input type="checkbox" id="{{ type[i] }}_{{ base[j] }}" class="base_checkbox" value="{{ base[j]|capitalize }}"/>
+                                        <label class="funky_label form_label" for="{{ type[i] }}_{{ base[j] }}">{{ base[j]|capitalize }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-8">
+                                    <select title="" id="{{ type[i] }}_select_{{ base[j]|replace('-', '_') }}" class="selectpicker show-tick select_room" data-live-search="true" multiple></select>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
 
-                <div id="right" class="col-xs-6">
-                    <div class="row">
-                        <div class="funkyradio form_funky col-xs-3">
-                            <div class="funkyradio-success form_success">
-                                <input type="checkbox" id="adult-breakfast" class="check_value" value="Breakfast"/>
-                                <label class="funky_label form_label" for="adult-breakfast" style="border: none">Breakfast</label>
-                            </div>
-                        </div>
-                        <div class="col-xs-8">
-                            <select title="Nothing" id="bft"  class="selectpicker show-tick" data-live-search="true"></select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="funkyradio form_funky col-xs-3">
-                            <div class="funkyradio-success form_success">
-                                <input type="checkbox" id="adult-lunch" class="check_value" value="Lunch"/>
-                                <label class="funky_label form_label" for="adult-lunch" style="border: none">Lunch</label>
-                            </div>
-                        </div>
-                        <div class="col-xs-8">
-                            <select title="Nothing" id="lch"  class="selectpicker show-tick" data-live-search="true"></select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="funkyradio form_funky col-xs-3">
-                            <div class="funkyradio-success form_success">
-                                <input type="checkbox" id="adult-dinner" class="check_value" value="Dinner"/>
-                                <label class="funky_label form_label" for="adult-dinner" style="border: none">Dinner</label>
-                            </div>
-                        </div>
-                        <div class="col-xs-8">
-                            <select title="Nothing" id="dnr"  class="selectpicker show-tick" data-live-search="true"></select>
-                        </div>
-                    </div>
-                    <div id="menu2" class="row board">
-                        <div class="funkyradio form_funky col-xs-3">
-                            <div class="funkyradio-success form_success">
-                                <input type="checkbox" id="amenu" class="check_value" value="Menu"/>
-                                <label class="funky_label form_label" for="amenu" style="border: none">Menu</label>
-                            </div>
-                        </div>
-                        <div class="col-xs-8" id="menu-adult" style="display: none"></div>
-                    </div>
-                    <div id="hb" class="row board">
-                        <div class="funkyradio form_funky col-xs-3">
-                            <div class="funkyradio-success form_success">
-                                <input type="checkbox" id="ahb" class="check_value" value="HB"/>
-                                <label class="funky_label form_label" for="ahb" style="border: none">HB</label>
-                            </div>
-                        </div>
-                        <div class="col-xs-8"  id="hb-adult" style="display: none"></div>
-                    </div>
-                    <div id="fb" class="row board">
-                        <div class="funkyradio form_funky col-xs-3">
-                            <div class="funkyradio-success form_success">
-                                <input type="checkbox" id="afb" class="check_value" value="FB"/>
-                                <label class="funky_label form_label" for="afb" style="border: none">FB</label>
-                            </div>
-                        </div>
-                        <div class="col-xs-8"  id="fb-adult" style="display: none"></div>
-                    </div>
-                </div>
-            </div>
+                    <div id="right" class="col-xs-6">
+                        {% for j in 0..board|length-1 %}
+                            {% set value = board[j]|capitalize %}
 
-            <div class="room">
-                <span>Child</span>
-            </div>
-
-            <div class="row">
-                <div id="right" class="col-xs-6">
-                    <div class="row">
-                        <div class="funkyradio form_funky col-xs-3">
-                            <div class="funkyradio-success form_success">
-                                <input type="checkbox" id="extra-child" class="check_value" value="Extra-bed"/>
-                                <label class="funky_label form_label" for="extra-child" style="border: none">Extra-bed</label>
+                            {% if board[j] in ['menu','hb','fb'] %}
+                                {% set class_select = 'select_other_board' %}
+                                {% set class_row = 'row_other_board' %}
+                                {% if  board[j] != 'menu'%}
+                                    {% set value = board[j]|upper %}
+                                {% endif %}
+                            {% else %}
+                                {% set class_select = 'select_board' %}
+                                {% set class_row = 'row_board' %}
+                            {% endif %}
+                            <div class="row {{ class_row }}" id="id_row_{{ board[j] }}">
+                                <div class="funkyradio form_funky col-xs-3">
+                                    <div class="funkyradio-success form_success">
+                                        <input type="checkbox" id="{{ type[i]}}_{{ board[j] }}" class="board_checkbox" value="{{ value }}"/>
+                                        <label class="funky_label form_label" for="{{ type[i]}}_{{ board[j] }}">{{ value }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-8">
+                                    <select title="" id="{{ type[i] }}_select_{{ board[j] }}" class="selectpicker show-tick select_board" data-live-search="true" multiple></select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-xs-8">
-                            <select title="Nothing" id="exch"  class="selectpicker show-tick" data-live-search="true"></select>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
-                <div id="right" class="col-xs-6">
-                    <div class="row">
-                        <div class="funkyradio form_funky col-xs-3">
-                            <div class="funkyradio-success form_success">
-                                <input type="checkbox" id="child-breakfast" class="check_value" value="Breakfast"/>
-                                <label class="funky_label form_label" for="child-breakfast" style="border: none">Breakfast</label>
-                            </div>
-                        </div>
-                        <div class="col-xs-8">
-                            <select title="Nothing" id="chb"  class="selectpicker show-tick" data-live-search="true"></select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="funkyradio form_funky col-xs-3">
-                            <div class="funkyradio-success form_success">
-                                <input type="checkbox" id="child-lunch" class="check_value" value="Lunch"/>
-                                <label class="funky_label form_label" for="child-lunch" style="border: none">Lunch</label>
-                            </div>
-                        </div>
-                        <div class="col-xs-8">
-                            <select title="Nothing" id="chl"  class="selectpicker show-tick" data-live-search="true"></select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="funkyradio form_funky col-xs-3">
-                            <div class="funkyradio-success form_success">
-                                <input type="checkbox" id="child-dinner" class="check_value" value="Dinner"/>
-                                <label class="funky_label form_label" for="child-dinner" style="border: none">Dinner</label>
-                            </div>
-                        </div>
-                        <div class="col-xs-8">
-                            <select title="Nothing" id="chd"  class="selectpicker show-tick" data-live-search="true"></select>
-                        </div>
-                    </div>
-                    <div id="chmenu" class="row board">
-                        <div class="funkyradio form_funky col-xs-3">
-                            <div class="funkyradio-success form_success">
-                                <input type="checkbox" id="menuc" class="check_value" value="Menu"/>
-                                <label class="funky_label form_label" for="menuc" style="border: none">Menu</label>
-                            </div>
-                        </div>
-                        <div class="col-xs-8" id="menu-child" style="display: none"></div>
-                    </div>
-                    <div id="chhb" class="row board">
-                        <div class="funkyradio form_funky col-xs-3">
-                            <div class="funkyradio-success form_success">
-                                <input type="checkbox" id="hbc" class="check_value" value="HB"/>
-                                <label class="funky_label form_label" for="hbc" style="border: none">HB</label>
-                            </div>
-                        </div>
-                        <div class="col-xs-8"  id="hb-child" style="display: none"></div>
-                    </div>
-                    <div id="chfb" class="row board">
-                        <div class="funkyradio form_funky col-xs-3">
-                            <div class="funkyradio-success form_success">
-                                <input type="checkbox" id="fbc" class="check_value" value="FB"/>
-                                <label class="funky_label form_label" for="fbc" style="border: none">FB</label>
-                            </div>
-                        </div>
-                        <div class="col-xs-8"  id="fb-child" style="display: none"></div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
+
         <div class="form-group row">
             <div class="col-xs-10">
-                <img id="loader_gif" src="/img/preview.gif" style="display:none">
                 <span class="room_message"></span>
             </div>
             <div class="col-xs-2">
-                <div class="all_btn" id="save">
+                <div class="all_btn" id="save_room">
                     <span>Save</span>
                 </div>
             </div>

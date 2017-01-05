@@ -14,14 +14,14 @@ $(document).ready(function () {
     });
 
     select_hotel.on('change', function () {
-        inHouse();
+        dataHouse();
     });
 
     checkOption();
 });
 
 function checkOption(){
-    $("[type = 'checkbox']").click(function () {
+    $("input[type = 'checkbox']").click(function () {
         var parent = $(this).parents().eq(2);
         var select_picker = parent.find('select');
 
@@ -34,7 +34,8 @@ function checkOption(){
     });
 }
 
-function inHouse(){
+//when select house, get all data about room and board
+function dataHouse(){
     $('.room_message').fadeOut();
     $('#adult_select_single').html('');
     $('#adult_select_double').html('');
@@ -152,6 +153,7 @@ function setBoard(data){
         $('#accordion_body_adult').css('height', '350px');
     }
 }
+
 
 function saveRoom(){
     $('#loader_gif').show();

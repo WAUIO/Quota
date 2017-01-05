@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controller;
 
 use App\Model\ClientModel;
-use App\Model\House;
+use App\Model\HouseModel;
 use App\Model\RestaurantModel;
 use App\Model\RoomModel;
 use App\Utils\Restaurant;
@@ -10,15 +10,17 @@ use Wau\Http\Controller;
 
 class HouseController extends Controller
 {
-    public function select(){
-        $house = new House();
-        $list_house = $house->getAllHouse();
+    //edit room quotation
+    public function editRoom(){
+        $houseModel = new HouseModel();
+        $list_house = $houseModel->getAllHouse();
         array_set($data, 'title', "Room (add quotation)");
         array_set($data, 'listhouse', $list_house);
 
-        return $this->app()->make('twig.view')->render('form1.twig', $data);
+        return $this->app()->make('twig.view')->render('form.twig', $data);
     }
 
+    //get restaurants and rooms for selected house
     public function getAllHouseData(){
         $list  = array();
         $house_id = $_GET['house_id'];
@@ -27,6 +29,7 @@ class HouseController extends Controller
         return $list;
     }
 
+    //get all room data for $house_id
     public function dataRoom($house_id){
         $list  = array();
         $roomModel = new RoomModel();
@@ -44,6 +47,7 @@ class HouseController extends Controller
         return $list;
     }
 
+    //get all restaurant data for $house_id
     public function dataRestaurant($house_id){
         $list  = array();
         $restaurantModel = new RestaurantModel();

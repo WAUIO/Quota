@@ -43,7 +43,7 @@
                                         <span class="designation_total">{{ content['label'] }}</span>
                                         {% if(room.type == 'family room') %}
                                             <span style="white-space:pre"> : 1 person out of </span>
-                                            <input type="number" min="1" max="20" name="family_member" id="family_member" style="width: 50px;" value="1"/>
+                                            <input type="number" min="1" max="20" name="family_member" id="family_member" class="number" style="width: 50px;" value="1"/>
                                         {% endif %}
                                     {% else %}
                                         <span class="designation_element">{{ content['label'] }} </span>
@@ -63,6 +63,7 @@
                 </table>
             </div>
 
+            <!-- for details -->
             <div class="detail" id="detail_{{ room.type|replace({' ' : '_'}) }}">
                 <div class="detail_head">Details<span class="glyphicon glyphicon-menu-down"></span></div>
 
@@ -74,6 +75,10 @@
                             {% if(time > 1) %}
                                 <hr>
                             {% endif %}
+                            <div class="row">
+                                <div class="col-xs-4">EUR : {{ details[i]['others'].euro }}</div>
+                                <div class="col-xs-8">USD : {{ details[i]['others'].dollar }}</div>
+                            </div>
                             <div class="row">
                                 <div class="col-xs-4">Hotel : </div>
                                 <div class="col-xs-8">{{ details[i]['house_title'] }}</div>
@@ -91,7 +96,7 @@
                                 <div class="col-xs-8">Ar {{ details[i]['others'].vignet|roundValue }}</div>
                             </div>
                             <div class="row">
-                                <div class="col-xs-4">Tax : </div>
+                                <div class="col-xs-4">Taxes : </div>
                                 <div class="col-xs-8">Ar {{ details[i]['others'].tax|roundValue }}</div>
                             </div>
                             {% set boards = details[i]['others'].board %}
@@ -123,7 +128,7 @@
             No quota for this customer !<br/><br/>
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="col-md-12 add_quotation" onclick="location.href ='/house'">
+                    <div class="col-md-12 add_quotation" onclick="location.href ='/editRoom'">
                         Add room quotation
                     </div>
                 </div>
@@ -142,7 +147,7 @@
                         <a class="base_type" href="#{{ (room.content[0]['label']|lower)|replace({' ' : '_'}) }}" >{{ room.content[0]['label'] }}</a>
                     </div>
                 {% endfor %}
-            <div class="add_room_button " data-popup-open="popup-1" onclick="location.href ='/house'">Add room</div>
+            <div class="add_room_button " data-popup-open="popup-1" onclick="location.href ='/editRoom'">Add room</div>
         </div>
 
     {% endblock menu_room %}

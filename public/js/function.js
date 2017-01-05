@@ -18,6 +18,7 @@ $( function() {
     });
 
     quota_list.perfectScrollbar();
+
     if(quota_list.hasScrollBar('vertical')) {
         $('.quota_lists').css('margin-right', '15px');
         $('.ps-scrollbar-y-rail').css('z-index', '1000');

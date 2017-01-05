@@ -19,6 +19,9 @@ footer {
     margin:  5px 0;
     /*top: 0;*/
 }
+#menu_nav_bar{
+    margin-left: 120px!important;
+}
 .navbar-nav{
     color: white;
 }
@@ -156,7 +159,7 @@ div#pop-up {
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
-#login_btn{
+#login_btn,#btn_save_customer{
     float: right;
     font-size: 110%;
     font-weight: bold;
@@ -168,7 +171,6 @@ div#pop-up {
     background: #2B838E;
     border-radius: 2px;
     cursor: pointer;
-
 }
 #login_btn:hover{
     background: #2aa198;
@@ -181,7 +183,7 @@ div#pop-up {
 
 /* Set a style for all buttons */
 button {
-    background-color: #4CAF50;
+    background-color: #2B838E;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -195,12 +197,10 @@ button {
     margin: 24px 0 12px 0;
     position: relative;
 }
-
 img.avatar {
     width: 20%;
     border-radius: 50%;
 }
-
 span.psw {
     float: right;
     padding-top: 16px;
@@ -210,7 +210,6 @@ span.psw {
     margin-right: auto;
     margin-left: auto;
 }
-
 
 /******* For quota view *******/
 .base_title{
@@ -320,6 +319,7 @@ table > thead > tr > th, .total_designation {
     user-select: none;      /* Non-prefixed version, currently not supported by any browser */
 }
 .detail_body{
+    background: #FCFCFC;
     display: none;
     max-height: 300px;
     padding: 10px 40px 0 40px;
@@ -327,6 +327,7 @@ table > thead > tr > th, .total_designation {
     position: relative;
 }
 .detail_foot{
+    background: #FCFCFC;
     display: none;
     height: 10px;
 }
@@ -842,8 +843,13 @@ li .lign{
 .next_prestation:hover {
   background: #2aa198;
 }
+#prestation_form{
+    background: #ffffff;
+}
 #quotafade{
     display: none;
+    width: 100%;
+    background: #ffffff;
 }
 .n_pax{
     width: 50px;
