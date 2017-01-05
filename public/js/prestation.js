@@ -313,7 +313,11 @@ function savePrestation(){
             type: "GET",
             url: "/savePrestation",
             data: info,
-            dataType: "html"
+            dataType: "html",
+            success: function(){
+                $('#loader_gif').hide();
+                $('.prestation_message').text('Room(s) saved !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'});
+            }
         });
     });
 }

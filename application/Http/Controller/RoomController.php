@@ -98,7 +98,7 @@ class RoomController extends PrestationController
             $base = strtolower($res['base']);
             $res['base'] = $base;
             $res['others'] = json_decode($res['others']);
-            $res['house_title'] = $house->getHouse($res['id_house'])[0]['house_title'];
+            $res['house_title'] = $houseModel->getHouse($res['id_house'])[0]['house_title'];
             $details[] = $res;
 
             $price[$base] += $res['price_room'];
@@ -114,7 +114,6 @@ class RoomController extends PrestationController
             $exchange[$base]    = ['euro'=>$res['others']->euro, 'dollar'=>$res['others']->dollar];
             $exist_rooms[$base] = true;
         }
-
         foreach ($exist_rooms as $key=>$value ){
             if($value){
                 $room  = new RoomQuota(array($key." room", $price[$key], $boards[$key], $vignette[$key], $tax[$key], $exchange[$key]));

@@ -12,7 +12,7 @@ use Wau\Http\Controller;
 
 class LoginController extends Controller
 {
-    public function login(){
+    public function authenticate(){
         $space_id = 4691756;
         $username = $_GET['email'];
         $password = $_GET['password'];

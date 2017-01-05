@@ -17,7 +17,7 @@ class HouseController extends Controller
         array_set($data, 'title', "Room (add quotation)");
         array_set($data, 'listhouse', $list_house);
 
-        return $this->app()->make('twig.view')->render('form.twig', $data);
+        return $this->app()->make('twig.view')->render('room.twig', $data);
     }
 
     //get restaurants and rooms for selected house

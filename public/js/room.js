@@ -1,11 +1,13 @@
 $(document).ready(function () {
+    var select_hotel = $('#select-hotel');
     $(this).scrollTop(0);
     $('.accordion_body_scroll').perfectScrollbar();
-    $("select").attr("disabled","disabled");
-    select_hotel =$("#select-hotel");
-    select_hotel.removeAttr("disabled");
+
+    $('select').attr('disabled','disabled');
+    select_hotel.removeAttr('disabled');
+
     $('[type = "checkbox"]').prop('checked', false);
-    $("#ddl").removeAttr("disabled");
+    // $("#ddl").removeAttr("disabled");
 
     $( "#form_accordion" ).accordion();
 
@@ -58,7 +60,7 @@ function dataHouse(){
     $('[type = "checkbox"]').prop('checked', false);
 
     //get house id
-    var house_id = $("#select-hotel").val();
+    var house_id = $('#select-hotel').val();
     getAllHouseData(house_id);
 }
 
@@ -201,15 +203,15 @@ function saveRoom(){
     if(all_data.length > 0 ){
         $.ajax({
             type: 'GET',
-            url: '/savequotaroom',
+            url: '/saveQuotaRoom',
             dataType:'html',
             data: {all_data: all_data},
             success: function(){
                 $('#loader_gif').hide();
-                $('.room_message').text('Room(s) saved !').css({'display' : 'block', 'color' : '#5cb85c'});
+                $('.room_message').text('Room(s) saved !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'});
             }
         });
     }else{
-        $('.room_message').text('No room checked !').css({'display' : 'block', 'color' : '#FF0F22'}).delay(5000).fadeOut();
+        $('.room_message').text('No room checked !').css({'display':'block', 'color':'#FF0F22', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
     }
 }

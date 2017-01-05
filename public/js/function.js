@@ -96,7 +96,7 @@ function login(){
         var newSrc = avatar.attr("src").replace("/images/user1.png", "/images/user_gif.gif");
         avatar.attr("src", newSrc);
         $.ajax({
-            url:'/login',
+            url:'/authenticate',
             type:'GET',
             dataType:'html',
             data: $('#login_form').serialize(),

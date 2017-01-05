@@ -29,7 +29,7 @@ class PrestationController extends Controller
         array_set($data, 'title', 'Prestation quotation');
         array_set($data, 'prestation', $prestation);
 
-        return $this->app()->make('twig.view')->render('quotaprest.twig', $data);
+        return $this->app()->make('twig.view')->render('quotaPrestation.twig', $data);
     }
 
 
