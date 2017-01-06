@@ -15,7 +15,6 @@ class QuotaRoomModel
     public function __construct()
     {
         $this->instance = new PDOConnection();
-
     }
     public function insertToQuotaroom($array){
         try{

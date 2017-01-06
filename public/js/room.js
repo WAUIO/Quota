@@ -205,7 +205,7 @@ function saveRoom(){
             type: 'GET',
             url: '/saveQuotaRoom',
             dataType:'html',
-            data: {all_data: all_data},
+            data: {all_data : all_data},
             success: function(){
                 $('#loader_gif').hide();
                 $('.room_message').text('Room(s) saved !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'});

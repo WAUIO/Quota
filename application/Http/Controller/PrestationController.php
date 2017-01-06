@@ -25,7 +25,8 @@ class PrestationController extends Controller
     {
         $data = array();
         $prestation = $this->getPrestation($_SESSION['client']->id);
-
+var_dump("");
+var_dump($prestation->all_prestation);
         array_set($data, 'title', 'Prestation quotation');
         array_set($data, 'prestation', $prestation);
 
@@ -35,13 +36,17 @@ class PrestationController extends Controller
 
     public function savePrestation(){
         $quotaModel = new QuotaPrestationModel();
-        $service = $_GET['service'];
-        $client = (Object)$_SESSION['client'];
-        $id_cli = $client->id;
-        $others = $_GET['others'];
-        $array  =  array('service'=>$service, 'id_client'=>$id_cli,'others'=>$others);
+        $all_data = $_GET['all_data'];
+        $id_client = $_SESSION['client']->id;
 
-        $quotaModel->insertToQuotaprestation($array);
+        foreach ($all_data as $data){
+            $service = $data['service'];
+            $others = $data['others'];
+
+            $array  =  array('id_client'=>$id_client, 'service'=>$service, 'others'=>json_encode($others));
+            $quotaModel->insertToQuotaprestation($array);
+        }
+        return $all_data;
     }
 
     //get all services

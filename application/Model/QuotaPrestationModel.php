@@ -20,7 +20,7 @@ class QuotaPrestationModel
     public function insertToQuotaprestation($array){
         try{
 
-            $sqlQuery = "INSERT INTO quotaprestation (service, id_client, others) VALUES(:service,:id_client,:others)";
+            $sqlQuery = "INSERT INTO quotaprestation (id_client, service, others) VALUES(:id_client, :service, :others)";
 
             $this->instance->insert($sqlQuery,$array);
         }catch (\Exception $e){

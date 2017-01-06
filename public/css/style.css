@@ -898,10 +898,9 @@ li .lign{
 #client_saved{
     display: none;
 }
-
-
-
-
+#client_form{
+    margin-left: 16px;
+}
 .room{
     height: 40px;
     font-size: 110%;
