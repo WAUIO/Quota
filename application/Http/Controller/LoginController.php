@@ -19,7 +19,7 @@ use Wau\Http\Controller;
 
 class LoginController extends Controller
 {
-    public function login(){
+    public function authenticate(){
         $space_id = 4691756;
         $username = $_GET['email'];
         $password = $_GET['password'];
@@ -57,5 +57,10 @@ class LoginController extends Controller
         }
 
         return $return;
+    }
+
+    public function logout(){
+        $_SESSION['user'] = null;
+        return $this->app()->make('twig.view')->render('login.twig');
     }
 }

@@ -1,17 +1,11 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-{#<<<<<<< HEAD#}
-    {#<h3>{{ title }}</h3>#}
-    {#<br/>#}
-    {#<div id="prestation_form">#}
-        {#<form action="submit_prestation" method="post">#}
-
-{#=======#}
     <br/>
-    <form action="submit_prestation" method="post">
+    <a id="pax_max_tooltip" title="Set the pax maximal" style="color: red"></a>
+    <a id="pax_min_tooltip" title="Set the pax minimal" style="color: red"></a>
+    <form id="prestation_quotation" action="submit_prestation" method="post">
         <div id="prestation_form">
-
             <div id="accordion">
                 {% for i in 0..prestations|length - 1 %}
 
@@ -63,6 +57,7 @@
             <div class="form-group row">
                 <div class="col-xs-10">
                     <span class="no_service"  style="display:none">No service checked!</span>
+                 </div>
                 <div class="col-xs-2">
                     <div class="next_prestation" id="btn_next">
                         <span style="white-space:pre">Next  </span>
@@ -70,20 +65,10 @@
                     </div>
                 </div>
             </div>
-{#<<<<<<< HEAD#}
-            {#</div>#}
-        {#</form>#}
-    {#</div>#}
-
-
-    {#<div  id="quotafade">#}
-        {#<div class="table-responsive">#}
-            {#<table class="table" id="prestation_table">#}
-{#=======#}
         </div>
 
         <div  id="quotafade">
-            <div class="table-editable">
+            <div class="table-responsive">
                 <table class="table" id="prestation_table">
                     <thead>
                         <tr id="Thead">
@@ -105,31 +90,21 @@
 
                     <tbody id="Tbody" class="table-bordered">
 
-{#<<<<<<< HEAD#}
-                {#</tbody>#}
-                {#<tfoot>#}
-                    {#<tr id="Tfoot">#}
-                        {#<td colspan="8">#}
-                            {#<h2>Total</h2>#}
-                        {#</td>#}
-                    {#</tr>#}
-                {#</tfoot>#}
-            {#</table>#}
-        {#</div>#}
-        {#<div class="form-group row">#}
-            {#<div class="col-xs-10">#}
-                {#<span id="saved_msg">Quotation saved!</span>#}
-            {#</div>#}
-            {#<div class="col-xs-offset-2 col-xs-10">#}
-                {#<div class="add_client" id="savequota">#}
-                    {#<span>Save</span>#}
-{#=======#}
                     </tbody>
+                    <tfoot>
+                    <tr id="Tfoot" class="tr_total">
+                        <td colspan="8">Total</td>
+
+                    </tr>
+                    </tfoot>
                 </table>
             </div>
             <div class="form-group row">
                 <div class="col-xs-offset-2 col-xs-10">
-                    <div class="col-xs-10">
+                    <div class="col-xs-5">
+                        <span class="prestation_message"></span>
+                    </div>
+                    <div class="col-xs-5">
                         <div class="add_client" id="back">
                             <span class="glyphicon glyphicon-arrow-left"></span>
                             <span> Back</span>
@@ -140,16 +115,8 @@
                             <span>Save</span>
                         </div>
                     </div>
-{#>>>>>>> 45c40e96755f46038552ce24383c851476146aef#}
                 </div>
             </div>
-            <div id="idcli_prestation" style="display:none">{{ id['MAX(id)']}}</div>
         </div>
-{#<<<<<<< HEAD#}
-
-    </div>
-
-{#=======#}
     </form>
-{#>>>>>>> 45c40e96755f46038552ce24383c851476146aef#}
 {% endblock body %}

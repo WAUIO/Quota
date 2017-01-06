@@ -40,12 +40,6 @@ class TwigExtension extends \Twig_Extension
     }
 
     public function roundValue($value){
-//        if($value % 1 == 0){
-//            return $value;
-//        }else{
-//            return round($value, 2);
-//        }
-
         return round($value, 2);
     }
 }

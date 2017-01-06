@@ -3,7 +3,7 @@
 
 //$app->get('/room', 'App\Http\Controller\QuotaViewController@room_quota');
 //
-//$app->get('/information', 'App\Http\Controller\infoController@info');
+$app->get('/information', 'App\Http\Controller\InfoController@info');
 //$app->get('/saveClient', 'App\Http\Controller\infoController@clientInsert');
 //
 //$app->get('/prestation', 'App\Http\Controller\prestationController@prestation');
@@ -43,7 +43,7 @@ $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware
 
         //InfoController
         $app->get('/', 'App\Http\Controller\InfoController@info');
-        $app->get('/information', 'App\Http\Controller\InfoController@info');
+//        $app->get('/information', 'App\Http\Controller\InfoController@info');
         $app->get('/saveClient', 'App\Http\Controller\InfoController@clientInsert');
 
         //PrestationController
@@ -56,13 +56,13 @@ $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware
 
         //ClientController
         $app->get('/getClient', 'App\Http\Controller\ClientController@getClient');
-        $app->get('/setClient', 'App\Http\Controller\ClientController@setClient');
+       $app->get('/setClient', 'App\Http\Controller\ClientController@setClient');
 
         //SaveController
         $app->get('/sgl', 'App\Http\Controller\SaveController@saveRoom');
         $app->get('/savequotaroom', 'App\Http\Controller\SaveController@saveQuotaRoom');
         $app->get('/brd', 'App\Http\Controller\SaveController@priceBoard');
-        $app->get('/saveprestation', 'App\Http\Controller\SaveController@saveQuotaPrestation');
+        $app->get('/savePrestation', 'App\Http\Controller\SaveController@saveQuotaPrestation');
         $app->get('/otherboard', 'App\Http\Controller\SaveController@itBoard');
         $app->get('/priceboard', 'App\Http\Controller\SaveController@priceBoard');
 
@@ -78,6 +78,7 @@ $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware
 $app->group(['prefix'=>'/', 'middleware' => ['Wau\Podio\PodioAuthMiddleware'],
     function() use (&$app){
         $app->get('/migrate','App\Http\Controller\MigrationController@migrate');
-        $app->get('/login', 'App\Http\Controller\LoginController@login');
+        $app->get('/authenticate', 'App\Http\Controller\LoginController@authenticate');
+        $app->get('/logout', 'App\Http\Controller\LoginController@logout');
     }
 ]);

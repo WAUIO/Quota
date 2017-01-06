@@ -6,11 +6,11 @@ $(document).ready(function () {
         calculateFamilyTotal($(this));
     });
 
-<<<<<<< HEAD
-    $('.delete_prestation').click(function(e){
-        e.preventDefault();
-        deletePrestation(this);
-=======
+// <<<<<<< HEAD
+//     $('.delete_prestation').click(function(e){
+//         e.preventDefault();
+//         deletePrestation(this);
+// =======
     $("form#login_form").on("submit", function(e) {
         e.preventDefault();
         login();
@@ -18,7 +18,7 @@ $(document).ready(function () {
 
     $('#client_reference').click(function () {
         $('#about_client').dialog({modal: true, height: 205, width: 400 });
->>>>>>> 45c40e96755f46038552ce24383c851476146aef
+// >>>>>>> 45c40e96755f46038552ce24383c851476146aef
     });
 
     $( "#accordion" ).accordion();
@@ -67,7 +67,7 @@ $(document).ready(function () {
     calculateTotal();
     ancreLink();
     mouseEvent();
-<<<<<<< HEAD
+
     btnSave();
 
 });
@@ -110,9 +110,7 @@ function client(){
             }
     });
 }
-=======
     setTooltip();
-});
 
 function setTooltip() {
     $('#quota_list').tooltip({
@@ -155,7 +153,7 @@ function login(){
         var newSrc = avatar.attr("src").replace("/images/user1.png", "/images/user_gif.gif");
         avatar.attr("src", newSrc);
         $.ajax({
-            url:'/login',
+            url:'/authenticate',
             type:'GET',
             dataType:'html',
             data: $('#login_form').serialize(),
@@ -175,8 +173,6 @@ function login(){
         });
     }
 }
-
->>>>>>> 45c40e96755f46038552ce24383c851476146aef
 //round float value (fixed 2)
 
 function roundValue(value){
@@ -223,22 +219,29 @@ function searchClient(){
 
 function getClient() {
 
+    var quota_list = $('#quota_list');
+    var $icon = $('#refresh_client').find('.glyphicon.glyphicon-refresh'),
+        animateClass = "glyphicon-refresh-animate";
+    $icon.addClass( animateClass );
+
     $.ajax({
         url: "/getClient",
         type: "GET",
         dataType: "json",
         success: function (data) {
             var $length = data.length;
-
+            var client_id;
+            quota_list.html('');
             for(i=0;i<$length;i++){
-                $('#quota_list').append($('<div id="client_'+data[i].id+'" class="quota_lists">'+data[i].reference+' : '+data[i].name+'</div>')
+                quota_list.append($('<div id="client_'+data[i].id+'" class="quota_lists">'+data[i].reference+' : '+data[i].name+'</div>')
                     .click(function(){
-                        setClient(window.location, $(this).attr('id').replace('client_',''));
+                        client_id = $(this).attr('id').replace('client_','');
+                        setClient(window.location, client_id);
                     })
                 );
             }
-
-            $('.ref_client').load(window.location + ' .ref_client');
+            $icon.removeClass( animateClass );
+//$('.ref_client').load(window.location + ' .client_reference');
         }
     });
 }
@@ -408,7 +411,7 @@ function editValuePopup() {
     });
     $("#search_control").removeAttr("disabled");
    // total_dataTable();
-    somme("#table_single_room");
+   //  somme("#table_single_room");
     //somme("#table_double_room");
 }
 function saveClient(){

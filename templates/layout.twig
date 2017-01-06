@@ -73,7 +73,17 @@
                         </ul>
                     </li>
                 </ul>
-                <div class="pull-right user">{{ user.name }}</div>
+                <div class="pull-right user">
+
+                    <ul  class="nav navbar-nav" id="deconnexion">
+                        <li>
+                            <a href="#">{{ user.name }}</a>
+                            <ul>
+                                <li><a href="/logout">Deconnexion</a></li>
+                             </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
         {% endif %}
         <!-- /.navbar-collapse -->

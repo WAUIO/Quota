@@ -1,9 +1,4 @@
 $( function() {
-    $("#click").click(function(){
-        $(".quota").remove();
-        addColumn();
-    });
-
     $( "#accordion" ).accordion();
     $('.prestation_quota').perfectScrollbar();
     $('.checked_list_content').perfectScrollbar();
@@ -25,21 +20,29 @@ $( function() {
         e.preventDefault();
         deletePrestation(this);
     });
-
-// <<<<<<< HEAD
-    $(document).on('change keyup blur','[name="nbsvc"]',function(){
-        $(".quota").remove();
+    $(document).on('change keyup blur','[name="nb_service"]',function(){
        addColumn();
+    });
+
+    $('#pax_min_tooltip').tooltip({
+        open: function (e) {
+            setTimeout(function () {
+                $(e.target).tooltip('close');
+            }, 2000);
+        }
+    });
+
+    $('#pax_max_tooltip').tooltip({
+        open: function (e) {
+            setTimeout(function () {
+                $(e.target).tooltip('close');
+            }, 2000);
+        }
     });
 
     searchPrestation();
     checkPrestation();
     savePrestation();
-
-// =======
-//     searchPrestation();
-//     checkPrestation();
-// >>>>>>> 45c40e96755f46038552ce24383c851476146aef
 } );
 
 function addColumn() {
@@ -47,9 +50,11 @@ function addColumn() {
     var maxvalues = [];
     var tr=$("#Tbody > tr");
 
+    $(".quota").remove();
+
     tr.each(function(){
-        var min = $(this).find("td > [name = 'paxmin']").val();
-        var max = $(this).find("td > [name = 'paxmax']").val();
+        var min = $(this).find("td > [name = 'pax_min']").val();
+        var max = $(this).find("td > [name = 'pax_max']").val();
         if(min!=="" && max !==""){
             minvalues.push(parseInt(min));
             maxvalues.push(parseInt(max));
@@ -77,10 +82,10 @@ function addColumn() {
             var colfoot = $("<td>");
             colfoot.attr("class","quota");
             tr.each(function(){
-                var min = $(this).find("td > [name='paxmin']").val();
-                var max = $(this).find("td > [name='paxmax']").val();
+                var min = $(this).find("td > [name='pax_min']").val();
+                var max = $(this).find("td > [name='pax_max']").val();
                 var type = $(this).find(".type").html();
-                var svc_unit = parseInt($(this).find("td > [name='nbsvc']").val());
+                var svc_unit = parseInt($(this).find("td > [name='nb_service']").val());
                 var amount = parseInt($(this).find(".tarif").html());
                 var total = svc_unit*amount;
 
@@ -123,8 +128,6 @@ function addColumn() {
         $('.pax_msg').css({'display':'block','color':'red'})
     }
 }
-
-
 
 //service search filter
 function searchPrestation(){
@@ -206,7 +209,7 @@ function resize(parent_block, items){
 jQuery.fn.hasScrollBar = function(direction) {
     if (direction == 'vertical')
     {
-        return this.get(0).scrollHeight > this.innerHeight();
+        // return this.get(0).scrollHeight > this.innerHeight();
     }
     else if (direction == 'horizontal')
     {
@@ -338,33 +341,26 @@ function addInTab($this) {
     }else{
          price = rate * dollar ;
     }
-// <<<<<<< HEAD
-//     var row = '<tr class="tr_' + input_id + '"> ' +
-//                     '<td class=" add-record" onclick="duplicateRow(this)">' +
-// =======
 
     var row =   '<tr class="tr_' + input_id + '"> ' +
                     '<td class="table-add add_record" onclick="duplicateRow(this)">' +
-// >>>>>>> 45c40e96755f46038552ce24383c851476146aef
+
                         '<span class="glyphicon glyphicon-plus"></span>' +
                     '</td>' +
                     '<td class="label_text">' +
                         '<span>' + label_text + '</span>' +
-                        '<input type="text" class="n_pax" name="n_pax">' +
+                        '<input type="text" class="n_pax" name="n_pax" >' +
                     '</td> ' +
                     '<td title="min">' +
-                        '<input class="check" name="paxmin" type="text" >' +
+                        '<input class="check" name="pax_min" type="number" onkeypress="return validateNumber(event)">' +
                     '</td>' +
                     '<td title="max">' +
-// <<<<<<< HEAD
-                        '<input class="check"  name="paxmax" title="Enter pax_max!" type="text">'+
-// =======
-//                         '<input class="check" name="paxmax" type="text" >' +
-// >>>>>>> 45c40e96755f46038552ce24383c851476146aef
+
+                        '<input class="check"  name="pax_max" title="Enter pax_max!" type="number" onkeypress="return validateNumber(event)">'+
                     '</td> ' +
                     '<td class="tarif">' + roundValue(price) + '</td>' +
                     '<td title="number">' +
-                        '<input class="check" type="text" name="nbsvc"/>' +
+                        '<input class="check" type="text" name="nb_service" onkeypress="return validateNumber(event)"/>' +
                     '</td> ' +
                     '<td class="type">' + type + '</td> ' +
                     '<td class="total"> </td></tr>';
@@ -376,32 +372,36 @@ function duplicateRow($this){
     var original = $($this).closest('tr');
     var tr_class = original.attr('class');
     var last_tr = $('.'+tr_class).last();
-    var pax_max_msg = last_tr.find('input[name="paxmax"]');
-    var pax_max =  last_tr.find('input[name="paxmax"]').val();
+    var pax_max =  last_tr.find('input[name="pax_max"]').val();
+    var pax_min =  last_tr.find('input[name="pax_min"]').val();
+    var myInput =  last_tr.find('input[name="pax_max"]');
+    var minInput =  last_tr.find('input[name="pax_min"]');
     var $clone = original.clone(true);
-        if(pax_max==''){
+        if(pax_min=='') {
+            $('#pax_min_tooltip').tooltip({
+                //use 'of' to link the tooltip to your specified input
+                position: {of: minInput, my: 'left center', at: 'right-2 center'}
+            });
+            $('#pax_min_tooltip').tooltip('open');
 
-                pax_max_msg.tooltip('show');
-          // pax_max_msg.tooltip({'trigger':'focus'});
-          //   pax_max_msg.tooltipster({
-          //       trigger: 'custom',
-          //       content: 'Enter pax_max'
-          //   })
-          //       .on( 'focus', function() {
-          //           $( this ).tooltipster( 'show' );
-          //       })
-          //   pax_max_msg.on( 'blur', function() {
-          //           $( this ).tooltipster( 'hide' );
-          //       });
-        }else {
+
+        }else if(pax_max==''){
+
+            $('#pax_max_tooltip').tooltip({
+                //use 'of' to link the tooltip to your specified input
+                position: {of: myInput, my: 'right center', at: 'left-2 center'}
+            });
+            $('#pax_max_tooltip').tooltip('open');
+
+        }else{
             $clone.find('td:eq(0)').prop('onclick', null).off('click');
             $clone.find('td:eq(0)').click(function () {
                 $clone.remove();
             });
             $clone.find('.quota').text(0);
-            $clone.find('input[name="paxmax"]').val('');
-            $clone.find('input[name="nbsvc"]').val('');
-            $clone.find('input[name="paxmin"]').val(parseInt(pax_max) + 1).attr('disabled', 'disabled');
+            $clone.find('input[name="pax_max"]').val('');
+            $clone.find('input[name="nb_service"]').val('');
+            $clone.find('input[name="pax_min"]').val(parseInt(pax_max) + 1).attr('disabled', 'disabled');
             $clone.find('td:eq(0) span').attr('class', 'table-remove glyphicon glyphicon-remove');
             last_tr.last().after($clone);
         }
@@ -423,173 +423,36 @@ function showQuotationTable(){
 }
 
 //save Prestation into database
-function savePrestation() {
-    $('#savequota').click(function () {
-        var allTR = $('#Tbody').children('tr');
-        allTR.each(function () {
-            var values = {
-                "service": $(this).find('.label_text span').html(),
-                "pax": $(this).find('input[name="n_pax"]').val(),
-                "pax_min": $(this).find('input[name="paxmin"]').val(),
-                "pax_max": $(this).find('input[name="paxmax"]').val(),
-                "rate_service": $(this).find('.tarif').html(),
-                "number_service": $(this).find('input[name="nbsvc"]').val(),
-                "type_service": $(this).find('.type').html()
-            };
-            var other = {};
-            other.pax_min = values.pax_min;
-            other.pax_max = values.pax_max;
-            other.rate_service = values.rate_service;
-            other.number_service = values.number_service;
-            other.type_service = values.type_service;
+function savePrestation(){
+    var allTR = $('#Tbody').children('tr');
+    var all_data = [];
+    allTR.each(function() {
+        var info = {};
+        var others = {};
+        others.pax_min = $(this).find('input[name="pax_min"]').val();
+        others.pax_max = $(this).find('input[name="pax_max"]').val();
+        others.rate_service = $(this).find('.tarif').html();
+        others.number_service = $(this).find('input[name="nb_service"]').val();
+        others.type_service = $(this).find('.type').html();
 
-            var service = values.service + " " + values.pax;
+        info.service = $(this).find('.label_text span').html();
+        info.others = others;
 
-            $.ajax({
-                type: "GET",
-                url: "/saveprestation",
-                data: {service: service, others: other},
-                dataType: "json",
-                success: function () {
-                    $('#saved_msg').css({'display': 'block', 'color': '#5cb85c'});
-                    console.log();
-                    location.reload();
-                },
-                error: function () {
-                    $('#saved_msg').css({'display': 'block', 'color': '#5cb85c'});
-                    console.log('error!');
-                }
-            });
-        });
+        all_data.push(info);
+    });
+
+    $.ajax({
+        type: "GET",
+        url: "/savePrestation",
+        data: {all_data : all_data},
+        dataType: "html",
+        success: function(){
+            $('#loader_gif').hide();
+            $('.prestation_message').text('Benefit(s) saved !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'});
+        }
     });
 }
 function showQuotationEdit(){
     $('#quotafade').css('display','none');
     $('#prestation_form').slideToggle('slow');
-}
-
-function savePrestation(){
-    var allTR = $('#Tbody').children('tr');
-    allTR.each(function() {
-        var values = {
-            "service": $(this).find('.label_text span').html(),
-            "pax": $(this).find('input[name="n_pax"]').val(),
-            "pax_min": $(this).find('input[name="paxmin"]').val(),
-            "pax_max": $(this).find('input[name="paxmax"]').val(),
-            "rate_service": $(this).find('.tarif').html(),
-            "number_service": $(this).find('input[name="nbsvc"]').val(),
-            "type_service": $(this).find('.type').html()
-        };
-        var other = {};
-        other.pax_min = values.pax_min;
-        other.pax_max = values.pax_max;
-        other.rate_service = values.rate_service;
-        other.number_service = values.number_service;
-        other.type_service = values.type_service;
-
-        var others = JSON.stringify(other);
-        var info = "service=" + values.service +" "+values.pax+"&others="+others;
-
-        $.ajax({
-            type: "GET",
-            url: "/saveprestation",
-            data: info,
-            dataType: "html"
-        });
-    });
-}
-
-function addColumn() {
-    var minvalues = [];
-    var maxvalues = [];
-    var tr = $("#Tbody > tr");
-    tr.each(function(){
-        var min = $(this).find("td > [name = 'paxmin']").val();
-        var max = $(this).find("td > [name = 'paxmax']").val();
-        if(min!=="" && max !==""){
-            minvalues.push(parseInt(min));
-            maxvalues.push(parseInt(max));
-        }
-    });
-
-    var minimum = Math.min.apply(Math,minvalues);
-    var maximum = Math.max.apply(Math,maxvalues);
-
-    if(minimum<=maximum){
-        for (i=minimum; i<=maximum; i++){
-            var colhead = $("th");
-
-            colhead.attr("rowspan","2");
-            colhead.attr("class","quota");
-            colhead.text(i);
-            $("#Thead").append(colhead);
-        }
-
-        for (i=minimum; i<+maximum; i++){
-            var bigtotal = 0;
-            var colfoot = $("<td>");
-            colfoot.attr("class","quota");
-            tr.each(function(){
-                var min = $(this).find("td > [name='paxmin']").val();
-                var max = $(this).find("td > [name='paxmax']").val();
-                var type = $(this).find(".type").html();
-                var svc_unit = parseInt($(this).find("td > [name='nbsvc']").val());
-                var amount = parseInt($(this).find(".tarif").html());
-                var total = svc_unit*amount;
-
-
-                $(this).find('td').eq(7).html(total);
-
-                var colbody = $("<td>");
-                colbody.attr("class","quota");
-                if(type === "Per Person"){
-                    var subtotal =total;
-                }else {
-                    var subtotal =(total/i);
-                }
-
-                if(i<min || i>max){
-                    colbody.text("0");
-
-                }else{
-                    colbody.html(subtotal.toFixed(2));
-                    bigtotal = bigtotal+subtotal;
-                }
-
-                $(this).append(colbody);
-
-
-                $(".table").append($(this));
-            });
-            colfoot.html(bigtotal.toFixed(2));
-            colfoot.css({"font-weight":"bold","color":"#2B838E"});
-            $("#Tfoot").append(colfoot);
-
-        }
-
-    }else{
-        alert('WARNING: Pax min> Pax max');
-    }
-}
-
-function duplicateRow($this){
-    var original = $($this).closest('tr');
-    var tr_class = original.attr('class');
-    var last_tr = $('.'+tr_class).last();
-    var pax_max =  last_tr.find('input[name="paxmax"]').val();
-    var $clone = original.clone(true);
-    if(pax_max == ''){
-
-    }else {
-        $clone.find('td:eq(0)').prop('onclick', null).off('click');
-        $clone.find('td:eq(0)').click(function () {
-            $clone.remove();
-        });
-        $clone.find('.quota').text(0);
-        $clone.find('input[name="paxmax"]').val('');
-        $clone.find('input[name="nbsvc"]').val('');
-        $clone.find('input[name="paxmin"]').val(parseInt(pax_max) + 1).attr('disabled', 'disabled');
-        $clone.find('td:eq(0) span').attr('class', 'table-remove glyphicon glyphicon-remove');
-        last_tr.last().after($clone);
-    }
 }

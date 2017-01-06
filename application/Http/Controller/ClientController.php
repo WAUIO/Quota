@@ -15,13 +15,13 @@ class ClientController extends Controller
         $parts = explode('/', $_GET['stay']);//
         $date="$parts[2]-$parts[1]-$parts[0]";
 
-        $client->setReference( $_GET['customerRef']);
+        $client->setReference( $_GET['reference']);
         $client->setName( $_GET['name']);
         $client->setNumberAdult( $_GET['nbAdults']);
         $client->setNumberChild( $_GET['nbChildren']);
         $client->setStartDate( $date);
 
-        $array = array('reference'=>"azerty",'name'=>$client->getName(),'number_adult'=>$client->getNumberAdult(),'number_child'=>$client->getNumberChild(),'date'=>$client->getStartDate());
+        $array = array('reference'=>$client->getReference(),'name'=>$client->getName(),'number_adult'=>$client->getNumberAdult(),'number_child'=>$client->getNumberChild(),'date'=>$client->getStartDate());
         $clientModel->insertClient($array);
 
         $_SESSION['client'] = $client;
@@ -30,7 +30,7 @@ class ClientController extends Controller
         return($client);
     }
 
-    public function setClient(Request $request){
+    public function setClient(){
         $client = new Client();
         $client_id = $_GET['client_id'];
 
@@ -48,8 +48,7 @@ class ClientController extends Controller
         }
 
         $_SESSION['client'] = $client;
-        $current_url = $_SERVER['REQUEST_URI'];
-        return $current_url;
+        return $_SESSION['client']->getName();
     }
 
     public function getClient(){
@@ -61,7 +60,7 @@ class ClientController extends Controller
         $exchange = array('euro' => $euro->exchange[0], 'dollar' => $dollar->exchange[0]);
         $_SESSION['exchange'] = $exchange;
 
-        $client_session = new Client();
+       // $client_session = new Client();
         $query = "SELECT * FROM client";
         $instance = new PDOConnection();
         $result = $instance->select($query);
@@ -75,7 +74,7 @@ class ClientController extends Controller
             $client->setNumberAdult($res['number_adult']);
             $client->setStartDate($res['start_date']);
 
-            $client_session = $client;
+            //$client_session = $client;
             $array[] = $client;
         }
         return $array;

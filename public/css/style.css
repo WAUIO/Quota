@@ -145,19 +145,6 @@ div#pop-up {
 .page-header{
     font-size: 300%;
 }
-
-.title{
-    font-size: 200%;
-    color: #6F6F6F;
-    padding: 10px;
-}
-
-#reference {
-    background: #f4f4f4;
-    color: #6F6F6F;
-    padding: 10px;
-    font-size: 120%;
-}
 /**********Login**********/
 /* Full-width input fields */
 .input_login{
@@ -206,6 +193,7 @@ button {
     margin: 24px 0 12px 0;
     position: relative;
 }
+
 
 img.avatar {
     width: 20%;
@@ -258,7 +246,7 @@ td {
     width:25px;
 }
 .check{
-    width:25px;
+    width:50px;
 }
 #savequota{
     margin-bottom: 30px;
@@ -1010,5 +998,12 @@ li .lign{
 .room_message{
     display: none;
     font-style: italic;
-
+}
+.prestation_message{
+    display: none;
+    font-style: italic;
+}
+.client_message{
+    display: none;
+    font-style: italic;
 }
