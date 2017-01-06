@@ -1,6 +1,6 @@
 $( function() {
     $('.detail_body').perfectScrollbar();
-    $('#family_member').on('change keyup', function () {
+    $('#family_member').on('change keyUp', function () {
         calculateFamilyTotal($(this));
     });
 } );

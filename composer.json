@@ -8,6 +8,7 @@
     "swiftmailer/swiftmailer": "~5.0",
     "twilio/sdk": "~4.3",
     "symfony/dom-crawler": "~2.7",
+    "symfony/routing": "^2.7",
     "illuminate/database": "^5.3"
   },
   "repositories": [

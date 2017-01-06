@@ -1,12 +1,14 @@
 <?php namespace App\Http\Controller;
 
 use App\DatabaseConnection\PDOConnection;
+use App\Model\QuotaPrestationModel;
 use App\Utils\Prestation;
 use App\Utils\PrestationQuota;
 use Wau\Http\Controller;
 
 class PrestationController extends Controller
 {
+    //edit prestation
     public function prestation(){
         $data = array();
         $table = array("transport", "activity");
@@ -18,17 +20,34 @@ class PrestationController extends Controller
         return $this->app()->make('twig.view')->render('prestation.twig',$data);
     }
 
-    public function prestationView()
+    //show prestation quotation
+    public function quotaPrestation()
     {
         $data = array();
-        $prestation = $this->getPrestation();
-
+        $prestation = $this->getPrestation($_SESSION['client']->id);
         array_set($data, 'title', 'Prestation quotation');
         array_set($data, 'prestation', $prestation);
 
-        return $this->app()->make('twig.view')->render('quotaprest.twig', $data);
+        return $this->app()->make('twig.view')->render('quotaPrestation.twig', $data);
     }
 
+
+    public function savePrestation(){
+        $quotaModel = new QuotaPrestationModel();
+        $all_data = $_GET['all_data'];
+        $id_client = $_SESSION['client']->id;
+
+        foreach ($all_data as $data){
+            $service = $data['service'];
+            $others = $data['others'];
+
+            $array  =  array('id_client'=>$id_client, 'service'=>$service, 'others'=>json_encode($others));
+            $quotaModel->insertToQuotaprestation($array);
+        }
+        return $all_data;
+    }
+
+    //get all services
     public function getService($table)
     {
         $array = array();
@@ -57,8 +76,7 @@ class PrestationController extends Controller
         return $array;
     }
 
-    public function getPrestation(){
-        $client_id = $_SESSION['client']->id;
+    public function getPrestation($client_id){
         $query = "SELECT * FROM quotaprestation WHERE id_client = ".$client_id;
         $instance = new PDOConnection();
         $result = $instance->select($query);

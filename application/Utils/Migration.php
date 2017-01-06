@@ -20,13 +20,13 @@ class Migration
         $limit = 100;
 
         $items = \PodioItem::filter($app['app_id'], array('limit' => $limit, 'offset' => $offset, 'sort_by' => 'created_on'));
-        $this-> saveItem($app['app_name'], $items);
+        $this-> saveItem($app['app_id'], $items);
 
 
         try{
             do {
                 $items = \PodioItem::filter($app['app_id'], array('limit' => $limit, 'offset' => $offset, 'sort_by' => 'created_on'));
-                $this-> saveItem($app['app_name'], $items);
+                $this-> saveItem($app['app_id'], $items);
 
                 //increase for next heap
                 $offset += $limit;
@@ -38,21 +38,21 @@ class Migration
     }
 
     //Insert or Update item
-    public function saveItem($app_name, $items){
+    public function saveItem($id_app, $items){
         //app_id
-//        $houses         = 17063114;
-//        $rooms          = 17063267;
-//        $restaurants    = 17063393;
-//        $activities     = 17063389;
-//        $transports     = 17063391;
-//        $place          = 17063425;
+        $id_app_houses         = 17063114;
+        $id_app_rooms          = 17063267;
+        $id_app_restaurants    = 17063393;
+        $id_app_activities     = 17063389;
+        $id_app_transports     = 17063391;
+        $id_app_places         = 17063425;
 
         foreach ($items as $item) {
             $query = "";
             $dataItem = $this->getDataItem($item);
 
-            switch (strtolower($app_name)){
-                case 'houses':
+            switch (strtolower($id_app)){
+                case $id_app_houses :
                     if(!array_key_exists('title',$dataItem)){
                         $dataItem = $this->array_insert_before(1, $dataItem, 'title', "");
                     }
@@ -61,7 +61,7 @@ class Migration
                               ON DUPLICATE KEY UPDATE house_title = VALUES(house_title), others = VALUES(others)";
                     break;
 
-                case 'rooms':
+                case $id_app_rooms :
                     if(!array_key_exists('for-hotel',$dataItem)){
                         $dataItem = $this->array_insert_before(1, $dataItem, 'forhotel', "");
                     }
@@ -73,7 +73,7 @@ class Migration
                               ON DUPLICATE KEY UPDATE house_id = VALUES(house_id), others = VALUES(others)";
                     break;
 
-                case 'restaurants':
+                case $id_app_restaurants :
                     if(!array_key_exists('house',$dataItem)){
                         $dataItem = $this->array_insert_before(1, $dataItem, 'house', "");
                     }
@@ -88,7 +88,7 @@ class Migration
                               ON DUPLICATE KEY UPDATE house_id = VALUES(house_id), menu = VALUES(menu), meals = VALUES(meals), others = VALUES(others)";
                     break;
 
-                case 'activities':
+                case $id_app_activities :
                     if(!array_key_exists('price-2',$dataItem)){
                         $dataItem = $this->array_insert_before(1, $dataItem, 'price2', "");
                     }
@@ -97,7 +97,7 @@ class Migration
                               ON DUPLICATE KEY UPDATE price = VALUES(price), others = VALUES(others)";
                     break;
 
-                case 'transports':
+                case $id_app_transports :
                     if(!array_key_exists('price-2',$dataItem)){
                         $dataItem = $this->array_insert_before(1, $dataItem, 'price2', "");
                     }
@@ -106,7 +106,7 @@ class Migration
                               ON DUPLICATE KEY UPDATE price = VALUES(price), others = VALUES(others)";
                     break;
 
-                case 'places':
+                case $id_app_places :
                     $table = "place";
                     $query = "INSERT INTO ".$table." (item_id, others) VALUES (:itemid, :others)
                               ON DUPLICATE KEY UPDATE others = VALUES(others)";
@@ -122,7 +122,6 @@ class Migration
         $exception = array();
         $others = array();
         $except = array();
-        $tax_vignette = array(133125195, 133125196);
 
         //House app (field_id)
         $house_title            = 133123764;
@@ -145,7 +144,7 @@ class Migration
 
         $field = $item->fields;
 
-        for($i = 0; $i<sizeof($field); $i++){
+        for($i = 0; $i < sizeof($field); $i++){
             $json = array();
             $value = null;
 

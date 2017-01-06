@@ -43,7 +43,15 @@ $( function() {
     searchPrestation();
     checkPrestation();
     savePrestation();
-} );
+
+    $('#pax_max_tooltip').tooltip({
+        open: function (e) {
+            setTimeout(function () {
+                $(e.target).tooltip('close');
+            }, 2000);
+        }
+    });
+});
 
 function addColumn() {
     var minvalues = [];
@@ -282,8 +290,6 @@ function mouseEvent(){
 }
 
 function checkPrestation() {
-
-
     $('.check_value').click(function () {
         var parent_div = $('#' + $(this).closest('.per_price').attr('id'));
         if ($(this).is(":checked")) {
@@ -301,8 +307,6 @@ function checkPrestation() {
             parent_div.find('.checked_list_content').append($clone);
 
             addInTab(this);
-
-
         } else {
             check_list_id = $(this).val();
 
@@ -344,7 +348,6 @@ function addInTab($this) {
 
     var row =   '<tr class="tr_' + input_id + '"> ' +
                     '<td class="table-add add_record" onclick="duplicateRow(this)">' +
-
                         '<span class="glyphicon glyphicon-plus"></span>' +
                     '</td>' +
                     '<td class="label_text">' +
@@ -352,18 +355,18 @@ function addInTab($this) {
                         '<input type="text" class="n_pax" name="n_pax" >' +
                     '</td> ' +
                     '<td title="min">' +
-                        '<input class="check" name="pax_min" type="number" onkeypress="return validateNumber(event)">' +
+                        '<input type="number" min="1" max="50" class="check number" name="pax_min" style="width: 50px;" onkeypress="return validateNumber(event)">' +
                     '</td>' +
                     '<td title="max">' +
-
-                        '<input class="check"  name="pax_max" title="Enter pax_max!" type="number" onkeypress="return validateNumber(event)">'+
+                        '<input type="number" min="1" max="50" class="check number" name="pax_max" style="width: 50px;" onkeypress="return validateNumber(event)" required="true">' +
                     '</td> ' +
                     '<td class="tarif">' + roundValue(price) + '</td>' +
                     '<td title="number">' +
-                        '<input class="check" type="text" name="nb_service" onkeypress="return validateNumber(event)"/>' +
+                        '<input type="number" min="1" max="50" class="nb_services number" name="nb_service" style="width: 50px;" onkeypress="return validateNumber(event)">' +
                     '</td> ' +
                     '<td class="type">' + type + '</td> ' +
-                    '<td class="total"> </td></tr>';
+                    '<td class="total"> </td>' +
+                '</tr>';
     $("#Tbody").append(row);
 
 }
@@ -405,12 +408,12 @@ function duplicateRow($this){
             $clone.find('td:eq(0) span').attr('class', 'table-remove glyphicon glyphicon-remove');
             last_tr.last().after($clone);
         }
+    // $('#Tbody').append(row);
+    //
+    // $('.nb_services').on('change keyPress', function(){
+    //     addColumn($(this));
+    // })
 }
-
-function ifUnchecked(id){
-    $('#tr_'+id).remove();
-}
-
 
 function showQuotationTable(){
     if($('#accordion').find('.check_value:checked').length < 1){
@@ -419,6 +422,7 @@ function showQuotationTable(){
     else{
         $('#prestation_form').css('display','none');
         $('#quotafade').slideToggle('slow');
+        $('.ps-scrollbar-x-rail').show();
     }
 }
 
@@ -429,13 +433,13 @@ function savePrestation(){
     allTR.each(function() {
         var info = {};
         var others = {};
-        others.pax_min = $(this).find('input[name="pax_min"]').val();
-        others.pax_max = $(this).find('input[name="pax_max"]').val();
-        others.rate_service = $(this).find('.tarif').html();
-        others.number_service = $(this).find('input[name="nb_service"]').val();
-        others.type_service = $(this).find('.type').html();
+        others.pax_min          = $(this).find('input[name="pax_min"]').val();
+        others.pax_max          = $(this).find('input[name="pax_max"]').val();
+        others.rate_service     = $(this).find('.tarif').html();
+        others.number_service   = $(this).find('input[name="nb_service"]').val();
+        others.type_service     = $(this).find('.type').html();
 
-        info.service = $(this).find('.label_text span').html();
+        info.service =  $(this).find('.label_text span').html();
         info.others = others;
 
         all_data.push(info);
@@ -455,4 +459,5 @@ function savePrestation(){
 function showQuotationEdit(){
     $('#quotafade').css('display','none');
     $('#prestation_form').slideToggle('slow');
+
 }

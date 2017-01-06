@@ -36,7 +36,8 @@ class RoomQuota
         array_push($this->content, $this->room);
 
         $this->board['label'] = "Board";
-        if($boards->length >0){
+
+        if(sizeof($boards) > 0){
             foreach ($boards as $key=>$value){
                 $this->board['value'] += $value;
                 $somme += $value;

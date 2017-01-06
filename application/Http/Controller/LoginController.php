@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: rindra
- * Date: 22/12/2016
- * Time: 13:21
- */
 
 namespace App\Http\Controller;
-
 
 use App\Model\ClientModel;
 use App\Model\ExchangeModel;
@@ -62,5 +55,6 @@ class LoginController extends Controller
     public function logout(){
         $_SESSION['user'] = null;
         return $this->app()->make('twig.view')->render('login.twig');
+        header('Location: /');
     }
 }

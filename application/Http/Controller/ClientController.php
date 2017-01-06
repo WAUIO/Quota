@@ -1,33 +1,45 @@
 <?php namespace App\Http\Controller;
 
 use App\DatabaseConnection\PDOConnection;
-use App\Model\ClientModel;
 use App\Utils\Client;
 use App\Utils\Exchange;
 use Wau\Http\Controller;
+use App\Model\ClientModel;
 
 class ClientController extends Controller
 {
-    public function clientInsert(){
+    //edit client
+    public function clientForm(){
+        if($_SESSION['client'] == null){
+            $clientModel = new ClientModel();
+            $_SESSION['client'] = $clientModel->getLastClient();
+        }
+
+        array_set($data, 'title', 'New customer');
+        return $this->app()->make('twig.view')->render('client.twig', $data);
+    }
+
+    public function saveClient(){
         $clientModel = new ClientModel();
-        $client = new \App\Utils\Client();
+        $client = new Client();
 
-        $parts = explode('/', $_GET['stay']);//
-        $date="$parts[2]-$parts[1]-$parts[0]";
+        $parts = explode('/', $_GET['stay']);
+        $date = "$parts[2]-$parts[1]-$parts[0]";
 
-        $client->setReference( $_GET['reference']);
-        $client->setName( $_GET['name']);
-        $client->setNumberAdult( $_GET['nbAdults']);
-        $client->setNumberChild( $_GET['nbChildren']);
-        $client->setStartDate( $date);
+
+        $client->setReference($_GET['reference']);
+        $client->setName($_GET['name']);
+        $client->setNumberAdult($_GET['nbAdults']);
+        $client->setNumberChild($_GET['nbChildren']);
+        $client->setStartDate($date);
 
         $array = array('reference'=>$client->getReference(),'name'=>$client->getName(),'number_adult'=>$client->getNumberAdult(),'number_child'=>$client->getNumberChild(),'date'=>$client->getStartDate());
         $clientModel->insertClient($array);
 
+        $client->setId($clientModel->getLastClient()->getId());
         $_SESSION['client'] = $client;
-        $id = $clientModel->getLastClient()['id'];
-        $client->setId($id);
-        return($client);
+
+        return $array;
     }
 
     public function setClient(){
@@ -60,7 +72,7 @@ class ClientController extends Controller
         $exchange = array('euro' => $euro->exchange[0], 'dollar' => $dollar->exchange[0]);
         $_SESSION['exchange'] = $exchange;
 
-       // $client_session = new Client();
+
         $query = "SELECT * FROM client";
         $instance = new PDOConnection();
         $result = $instance->select($query);

@@ -145,7 +145,7 @@
             No quota for this customer !<br/><br/>
             <div class="row">
                 <div class="col-xs-6">
-                    <div class="col-md-12 add_quotation" onclick="location.href ='/house'">
+                    <div class="col-md-12 add_quotation" onclick="location.href ='/editRoom'">
                         Add room quotation
                     </div>
                 </div>
@@ -157,7 +157,6 @@
             </div>
         </div>
     {% endif %}
-    <hr>
 {% endblock body %}
 
 {% if(base_rooms|length > 0) %}
@@ -170,7 +169,7 @@
                     <a class="base_type" href="#{{ (room.content[0]['label']|lower)|replace({' ' : '_'}) }}" >{{ room.content[0]['label'] }}</a>
                 </div>
             {% endfor %}
-            <div class="add_room_button" data-popup-open="popup-1" onclick="location.href ='/house'">Add room</div>
+            <div class="add_room_button" data-popup-open="popup-1" onclick="location.href ='/editRoom'">Add room</div>
         </div>
 
     {% endblock menu_room %}

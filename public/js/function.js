@@ -5,12 +5,6 @@ $(document).ready(function () {
     $('#family_member').on('change keyup', function () {
         calculateFamilyTotal($(this));
     });
-
-// <<<<<<< HEAD
-//     $('.delete_prestation').click(function(e){
-//         e.preventDefault();
-//         deletePrestation(this);
-// =======
     $("form#login_form").on("submit", function(e) {
         e.preventDefault();
         login();
@@ -18,7 +12,6 @@ $(document).ready(function () {
 
     $('#client_reference').click(function () {
         $('#about_client').dialog({modal: true, height: 205, width: 400 });
-// >>>>>>> 45c40e96755f46038552ce24383c851476146aef
     });
 
     $( "#accordion" ).accordion();
@@ -32,44 +25,48 @@ $(document).ready(function () {
     $('#quota_list').perfectScrollbar();
     if($('#quota_list').hasScrollBar('vertical')) {
 
-        $('.quota_lists').css('margin-right', '15px');
-        $('.ps-scrollbar-y-rail').css('z-index', '1000');
+
+        quota_list.perfectScrollbar();
+
+        if (quota_list.hasScrollBar('vertical')) {
+            $('.quota_lists').css('margin-right', '15px');
+            $('.ps-scrollbar-y-rail').css('z-index', '1000');
+        }
+
+        $('.table-editable').perfectScrollbar();
+
+        $('.based_on').removeAttr("href");
+
+        $('#search_glyphicon').click(function (e) {
+            e.preventDefault();
+            ShowHideQuotaList($('#quota_list'), 0);
+        });
+
+        $('#refresh_client').click(function () {
+            getClient();
+        });
+
+        $('.taxes').css('border-bottom', 'none');
+        $('.others').css('border-bottom', 'none');
+        $(".selectpicker").attr("disabled", "disabled");
+        $("#select-hotel").removeAttr("disabled");
+        $("#search_control").removeAttr("disabled");
+
+        //checkboxEvent();
+        menuView();
+        popupView();
+        detailView();
+
+        editValuePopup();
+        tableEvent();
+        //editValuePopup();
+
+        calculateTotal();
+        ancreLink();
+        mouseEvent();
+
+        btnSave();
     }
-
-    $('.table-editable').perfectScrollbar();
-
-    $('.based_on').removeAttr("href");
-
-    $('#search_glyphicon').click(function(e){
-        e.preventDefault();
-        ShowHideQuotaList($('#quota_list'), 0);
-    });
-
-    $('#refresh_client').click(function () {
-        getClient();
-    });
-
-    $('.taxes').css('border-bottom', 'none');
-    $('.others').css('border-bottom', 'none');
-    $(".selectpicker").attr("disabled","disabled");
-    $("#select-hotel").removeAttr("disabled");
-    $("#search_control").removeAttr("disabled");
-
-    //checkboxEvent();
-    menuView();
-    popupView();
-    detailView();
-
-    editValuePopup();
-    tableEvent();
-    //editValuePopup();
-
-    calculateTotal();
-    ancreLink();
-    mouseEvent();
-
-    btnSave();
-
 });
 
 $( function() {

@@ -1,11 +1,13 @@
 $(document).ready(function () {
+    var select_hotel = $('#select-hotel');
     $(this).scrollTop(0);
     $('.accordion_body_scroll').perfectScrollbar();
-    $("select").attr("disabled","disabled");
-    select_hotel =$("#select-hotel");
-    select_hotel.removeAttr("disabled");
+
+    $('select').attr('disabled','disabled');
+    select_hotel.removeAttr('disabled');
+
     $('[type = "checkbox"]').prop('checked', false);
-    $("#ddl").removeAttr("disabled");
+    // $("#ddl").removeAttr("disabled");
 
     $( "#form_accordion" ).accordion();
 
@@ -14,16 +16,15 @@ $(document).ready(function () {
     });
 
     select_hotel.on('change', function () {
-        inHouse();
+        dataHouse();
     });
 
     checkOption();
 });
 
 function checkOption(){
-    $("[type = 'checkbox']").click(function () {
-        var checkbox_id = $('#'+$(this).closest(this).attr("id"));
-        var parent = checkbox_id.parents().eq(3);
+    $("input[type = 'checkbox']").click(function () {
+        var parent = $(this).parents().eq(2);
         var select_picker = parent.find('select');
 
         if($(this).is(':checked')){
@@ -34,7 +35,9 @@ function checkOption(){
         }
     });
 }
-function inHouse(){
+
+//when select house, get all data about room and board
+function dataHouse(){
     $('.room_message').fadeOut();
     $('#adult_select_single').html('');
     $('#adult_select_double').html('');
@@ -57,7 +60,7 @@ function inHouse(){
     $('[type = "checkbox"]').prop('checked', false);
 
     //get house id
-    var house_id = $("#select-hotel").val();
+    var house_id = $('#select-hotel').val();
     getAllHouseData(house_id);
 }
 
@@ -151,6 +154,7 @@ function setBoard(data){
     }
 }
 
+
 function saveRoom(){
     $('#loader_gif').show();
     var board_option = {};
@@ -198,16 +202,15 @@ function saveRoom(){
         console.log(all_data);
         $.ajax({
             type: 'GET',
-            url: '/savequotaroom',
+            url: '/saveQuotaRoom',
             dataType:'html',
-            data: {all_data: all_data},
-            success: function(data){
-                console.log(data);
+            data: {all_data : all_data},
+            success: function(){
                 $('#loader_gif').hide();
-                $('.room_message').text('Room(s) saved !').css({'display' : 'block', 'color' : '#5cb85c'});
+                $('.room_message').text('Room(s) saved !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'});
             }
         });
     }else{
-        $('.room_message').text('No room checked !').css({'display' : 'block', 'color' : '#FF0F22'}).delay(5000).fadeOut();
+        $('.room_message').text('No room checked !').css({'display':'block', 'color':'#FF0F22', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
     }
 }

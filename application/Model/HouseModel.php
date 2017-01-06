@@ -11,7 +11,7 @@ use App\DatabaseConnection\PDOConnection;
 use Illuminate\Database\Eloquent\Model;
 
 
-class House
+class HouseModel
 {
     var $instance;
     public function __construct(){

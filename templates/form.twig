@@ -1,14 +1,6 @@
 
 {% extends 'layout.twig' %}
 {% block body %}
-{#<<<<<<< HEAD#}
-    {#<form class="form-horizontal" role="form">#}
-        {#<div class="row">#}
-            {#<div class="form-group">#}
-                {#<label class="col-md-2" for="name"><img id="hotel" src="/img/hotel.png"/></label>#}
-                {#<div class="col-md-7">#}
-                    {#<select title="Nothing selected" name="idhouse" id="select-hotel" class="selectpicker" data-live-search="true">#}
-{#=======#}
     <br/>
     <form class="form-horizontal" role="form">
         <div class="row" style="height:40px; line-height: 40px">
@@ -16,90 +8,10 @@
                 <div class="col-xs-3">Choose hotel :</div>
                 <div class="col-xs-8">
                     <select class="selectpicker" id="select-hotel" data-live-search="true" title="Select hotel">
-{#>>>>>>> 45c40e96755f46038552ce24383c851476146aef#}
                         {% for house in listhouse %}
                             <option value={{ house['item_id'] }}> {{ house['house_title'] }} </option>
                         {% endfor %}
                     </select>
-{#<<<<<<< HEAD#}
-                    {#<img class="loader" src="/img/preview.gif" style="display:none">#}
-                {#</div>#}
-                {#<div class="col-md-3">#}
-                    {#<span id="dollar" class="glyphicon glyphicon-usd">{{ exchange['dollar'] }}</span>#}
-                    {#<span id="euro" class="glyphicon glyphicon-euro">{{ exchange['euro'] }}</span>#}
-                {#</div>#}
-            {#</div>#}
-        {#</div>    #}
-        {#<div class="row">#}
-            {#<h3>ADULT</h3>#}
-        {#</div>#}
-        {#<div class="row">#}
-            {#<div id="left-child" class="col-md-6">#}
-                {#<div class="form-group">#}
-                    {#<label class="col-md-2" for="name"><img id="room" src="/img/room.png"></label>#}
-                    {#<div class="col-md-10">#}
-                        {#<div id="singlebed" class="row">#}
-                            {#<div class="col-md-6">#}
-                                {#<div class="checkbox">#}
-                                    {#<label>#}
-                                        {#<input id="single" type="checkbox"> Single#}
-                                    {#</label>#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<div class="col-md-6">#}
-                                {#<select title="Nothing" id="sgl" class="selectpicker form-control show-tick" data-live-search="true"></select>#}
-                            {#</div>#}
-                        {#</div>#}
-                        {#<div id="doublebed" class="row">#}
-                            {#<div class="col-md-6">#}
-                                {#<div class="checkbox">#}
-                                    {#<label>#}
-                                        {#<input id="double" type="checkbox"> Double#}
-                                    {#</label>#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<div class="col-md-6">#}
-                                {#<select title="Nothing" id="dbl" class="selectpicker form-control show-tick" data-live-search="true" multiple>#}
-
-                                {#</select>#}
-                            {#</div>#}
-                        {#</div>#}
-                        {#<div id="triplebed" class="row">#}
-                            {#<div class="col-md-6">#}
-                                {#<div class="checkbox">#}
-                                    {#<label>#}
-                                        {#<input id="triple" type="checkbox"> Triple#}
-                                    {#</label>#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<div class="col-md-6">#}
-                                {#<select title="Nothing" id="tpl" class="selectpicker form-control show-tick" data-live-search="true" multiple>#}
-
-                                {#</select>#}
-                            {#</div>#}
-                        {#</div>#}
-                        {#<div id="familybed" class="row">#}
-                            {#<div class="col-md-6">#}
-                                {#<div class="checkbox">#}
-                                    {#<label>#}
-                                        {#<input id="family" type="checkbox"> Family#}
-                                    {#</label>#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<div class="col-md-6">#}
-                                {#<select title="Nothing" id="fml" class="selectpicker form-control show-tick" data-live-search="true" multiple>#}
-
-                                {#</select>#}
-                            {#</div>#}
-                        {#</div>#}
-                        {#<div id="extrabed" class="row">#}
-                            {#<div class="col-md-6">#}
-                                {#<div class="checkbox">#}
-                                    {#<label>#}
-                                        {#<input id="extra-adult" type="checkbox"> Extra-bed#}
-                                    {#</label>#}
-                                {#</div>#}
-{#=======#}
                 </div>
                 <div class="col-xs-1">
                     <img class="loader" src="/img/preview.gif" style="display:none">
@@ -182,7 +94,6 @@
                             <div class="funkyradio-success form_success">
                                 <input type="checkbox" id="adult-breakfast" class="check_value" value="Breakfast"/>
                                 <label class="funky_label form_label" for="adult-breakfast" style="border: none">Breakfast</label>
-{#>>>>>>> 45c40e96755f46038552ce24383c851476146aef#}
                             </div>
                             <div class="col-md-6">
                                 <select title="Nothing" id="ext" class="selectpicker form-control show-tick" data-live-search="true">
@@ -190,167 +101,6 @@
                                 </select>
                             </div>
                         </div>
-{#<<<<<<< HEAD#}
-
-                    {#</div>#}
-                {#</div>#}
-            {#</div>#}
-            {#<div id="right" class="col-md-6">#}
-                {#<div class="form-group">#}
-                    {#<label class="col-md-2" for="name"><img id="board" src="/img/board.png"></label>#}
-                    {#<div id="resto" class="col-md-10">#}
-                        {#<div class="row">#}
-                            {#<div class="col-md-6">#}
-                                {#<div class="checkbox">#}
-                                    {#<label>#}
-                                        {#<input id="adult-breakfast" type="checkbox"> Breakfast#}
-                                    {#</label>#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<div class="col-md-6">#}
-                                {#<select title="Nothing" id="bft"  class="selectpicker form-control show-tick" data-live-search="true">#}
-
-
-                                {#</select>#}
-                            {#</div>#}
-                        {#</div>#}
-                        {#<div class="row">#}
-                            {#<div class="col-md-6">#}
-                                {#<div class="checkbox">#}
-                                    {#<label>#}
-                                        {#<input id="adult-lunch" type="checkbox"> Lunch#}
-                                    {#</label>#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<div class="col-md-6">#}
-                                {#<select title="Nothing" id="lch" class="selectpicker form-control show-tick" data-live-search="true">#}
-
-                                {#</select>#}
-                            {#</div>#}
-                        {#</div>#}
-                        {#<div class="row">#}
-                            {#<div class="col-md-6">#}
-                                {#<div class="checkbox">#}
-                                    {#<label>#}
-                                        {#<input id="adult-dinner" type="checkbox"> Dinner#}
-                                    {#</label>#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<div class="col-md-6" >#}
-                                {#<select title="Nothing" id="dnr" class="selectpicker form-control show-tick" data-live-search="true">#}
-
-                                {#</select>#}
-                            {#</div>#}
-                        {#</div>#}
-                        {#<div id="menu2" class="row">#}
-                            {#<div class='col-md-6'> <div class='checkbox'> <label> <input id='amenu' type='checkbox'> Menu </label> </div> </div>#}
-                            {#<div class="col-md-6"  id="menu-adult" style="display: none">#}
-                            {#</div>#}
-                        {#</div>#}
-                        {#<div id="hb" class="row">#}
-                            {#<div class='col-md-6'> <div class='checkbox'> <label> <input id='ahb' type='checkbox'> HB </label> </div> </div>#}
-                            {#<div class="col-md-6"  id="hb-adult" style="display: none">#}
-                            {#</div>#}
-                        {#</div>#}
-                        {#<div id="fb" class="row">#}
-                            {#<div class='col-md-6'> <div class='checkbox'> <label> <input id='afb' type='checkbox'> FB </label> </div> </div>#}
-                            {#<div class="col-md-6"  id="fb-adult" style="display: none">#}
-                            {#</div>#}
-                        {#</div>#}
-                    {#</div>#}
-                {#</div>#}
-            {#</div>#}
-        {#</div>#}
-        {#<div name="child" class="row">#}
-            {#<h3 class="col-md-8">CHILD</h3>#}
-        {#</div>#}
-        {#<div name="child" class="row">#}
-            {#<div id="left-child" class="col-md-6">#}
-                {#<div class="form-group">#}
-                    {#<label class="col-md-2" for="name"><img id="room" src="/img/room.png"></label>#}
-                    {#<div class="col-md-10">#}
-                        {#<div class="row">#}
-                            {#<div class="col-md-6">#}
-                                {#<div class="checkbox">#}
-                                    {#<label>#}
-                                        {#<input id="extra-child" type="checkbox"> Extra-bed#}
-                                    {#</label>#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<div class="col-md-6">#}
-                                {#<select  title="Nothing" id="exch" class="selectpicker form-control show-tick" data-live-search="true" multiple>#}
-
-                                {#</select>#}
-                                {#<img class="loader" src="/img/preview.gif" style="display:none">#}
-                            {#</div>#}
-                        {#</div>#}
-
-                    {#</div>#}
-                {#</div>#}
-            {#</div>#}
-            {#<div id="right" class="col-md-6">#}
-                {#<div class="form-group">#}
-                    {#<label class="col-md-2" for="name"><img id="board" src="/img/board.png"></label>#}
-                    {#<div class="col-md-10">#}
-                        {#<div class="row">#}
-                            {#<div class="col-md-6">#}
-                                {#<div class="checkbox">#}
-                                    {#<label>#}
-                                        {#<input id="child-breakfast" type="checkbox"> Breakfast#}
-                                    {#</label>#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<div class="col-md-6">#}
-                                {#<select title="Nothing" id="chb" class="selectpicker form-control show-tick" data-live-search="true">#}
-
-                                {#</select>#}
-                                {#<img class="loader" src="/img/preview.gif" style="display:none">#}
-                            {#</div>#}
-                        {#</div>#}
-                        {#<div class="row">#}
-                            {#<div class="col-md-6">#}
-                                {#<div class="checkbox">#}
-                                    {#<label>#}
-                                        {#<input id="child-lunch" type="checkbox"> Lunch#}
-                                    {#</label>#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<div class="col-md-6">#}
-                                {#<select title="Nothing" id="chl" class="selectpicker form-control show-tick" data-live-search="true">#}
-
-                                {#</select>#}
-                                {#<img class="loader" src="/img/preview.gif" style="display:none">#}
-                            {#</div>#}
-                        {#</div>#}
-                        {#<div class="row">#}
-                            {#<div class="col-md-6">#}
-                                {#<div class="checkbox">#}
-                                    {#<label>#}
-                                        {#<input id="child-dinner" type="checkbox"> Dinner#}
-                                    {#</label>#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<div class="col-md-6" >#}
-                                {#<select title="Nothing" id="chd" class="selectpicker form-control show-tick" data-live-search="true">#}
-
-                                {#</select>#}
-                                {#<img class="loader" src="/img/preview.gif" style="display:none">#}
-                            {#</div>#}
-                        {#</div>#}
-                        {#<div id="chmenu" class="row">#}
-                            {#<div class='col-md-6'> <div class='checkbox'> <label> <input id='menuc' type='checkbox'> Menu </label> </div> </div>#}
-                            {#<div class="col-md-6"  id="menu-child" style="display: none">#}
-                            {#</div>#}
-                        {#</div>#}
-                        {#<div id="chhb" class="row">#}
-                            {#<div class='col-md-6'> <div class='checkbox'> <label> <input id='hbc' type='checkbox'> HB </label> </div> </div>#}
-                            {#<div class="col-md-6"  id="hb-child" style="display: none">#}
-                            {#</div>#}
-                        {#</div>#}
-                        {#<div id="chfb" class="row">#}
-                            {#<div class='col-md-6'> <div class='checkbox'> <label> <input id='fbc' type='checkbox'> FB </label> </div> </div>#}
-                            {#<div class="col-md-6"  id="fb-child" style="display: none">#}
-{#=======#}
                         <div class="col-xs-8">
                             <select title="Nothing" id="bft"  class="selectpicker show-tick" data-live-search="true"></select>
                         </div>
@@ -449,21 +199,6 @@
                             <select title="Nothing" id="chl"  class="selectpicker show-tick" data-live-search="true"></select>
                         </div>
                     </div>
-{#<<<<<<< HEAD#}
-                {#</div>#}
-            {#</div>#}
-        {#</div>#}
-        {#<div class="form-group row">#}
-            {#<div class="col-xs-10">#}
-                {#<span class="client_message"></span>#}
-            {#</div>#}
-            {#<div class="col-xs-2">#}
-                {#<div class="all_btn" id="save">#}
-                    {#<span>Save</span>#}
-                {#</div>#}
-            {#</div>#}
-        {#</div>#}
-{#=======#}
                     <div class="row">
                         <div class="funkyradio form_funky col-xs-3">
                             <div class="funkyradio-success form_success">
@@ -516,6 +251,5 @@
                 </div>
             </div>
         </div>
-{#>>>>>>> 45c40e96755f46038552ce24383c851476146aef#}
     </form>
 {% endblock body %}

@@ -52,24 +52,24 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         {% if user != null %}
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="collapse navbar-collapse" id="menu_nav_bar">
 
                 <ul  class="nav navbar-nav" id="menu">
-                    <li><a href="/information">Home</a></li>
+                    <li><a href="/clientForm">Home</a></li>
                     <li>
                         <a href="#">Create</a>
                         <ul>
-                            <li><a href="/information">Customer</a></li>
-                            <li><a href="/house">Room</a></li>
-                            <li><a href="/prestation">prestation</a></li>
+                            <li><a href="/clientForm">Customer</a></li>
+                            <li><a href="/editRoom">Room</a></li>
+                            <li><a href="/prestation">Benefit</a></li>
                         </ul>
                     </li>
                     <li>
                         <a href="#">View</a>
                         <ul>
-                            <li><a href="/room">Room</a></li>
-                            <li><a href="/quotaprestation">Prestation</a></li>
-                            <li><a href="/total">Total</a></li>
+                            <li><a href="/quotaRoom">Room</a></li>
+                            <li><a href="/quotaPrestation">Benefit</a></li>
+                            <li><a href="/quotaTotal">Total</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -77,9 +77,10 @@
 
                     <ul  class="nav navbar-nav" id="deconnexion">
                         <li>
-                            <a href="#">{{ user.name }}</a>
+                            <a href="#"> <span class="glyphicon glyphicon-user"></span></a>
                             <ul>
-                                <li><a href="/logout">Deconnexion</a></li>
+                                <li><a href="#">{{ user.name }}</a></li>
+                                <li><a href="/logout">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
                              </ul>
                         </li>
                     </ul>
@@ -177,6 +178,7 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Latest compiled and minified JavaScript -->
+{% block scripts %}
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/bootstrap-editable.min.js"></script>
@@ -184,17 +186,12 @@
 <script src="/js/perfect-scrollbar.jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="js/tooltipster.bundle.min.js"></script>
-
-{% block scripts %}
-    <script src="/js/info.js"></script>
-    <script src="/js/form.js"></script>
-    <script src="/js/prestation.js"></script>
-    <script src="/js/room_quota.js"></script>
-    <script src="/js/total_quota.js"></script>
-    {#<script src="/js/quotaprestation.js"></script>#}
-    <script src="/js/perfect-scrollbar.jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="/js/function.js"></script>
+<script src="/js/client.js"></script>
+<script src="/js/room.js"></script>
+<script src="/js/prestation.js"></script>
+<script src="/js/quotaRoom.js"></script>
+<script src="/js/quotaTotal.js"></script>
+<script src="/js/function.js"></script>
 {% endblock scripts %}
 </body>
 </html>

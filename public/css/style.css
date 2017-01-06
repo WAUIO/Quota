@@ -21,6 +21,9 @@ footer {
     margin:  5px 0;
     /*top: 0;*/
 }
+#menu_nav_bar{
+    margin-left: 120px!important;
+}
 .navbar-nav{
     color: white;
 }
@@ -154,7 +157,7 @@ div#pop-up {
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
-#login_btn{
+#login_btn,#btn_save_customer{
     float: right;
     font-size: 110%;
     font-weight: bold;
@@ -166,7 +169,6 @@ div#pop-up {
     background: #2B838E;
     border-radius: 2px;
     cursor: pointer;
-
 }
 #login_btn:hover{
     background: #2aa198;
@@ -179,7 +181,7 @@ div#pop-up {
 
 /* Set a style for all buttons */
 button {
-    background-color: #4CAF50;
+    background-color: #2B838E;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -193,13 +195,10 @@ button {
     margin: 24px 0 12px 0;
     position: relative;
 }
-
-
 img.avatar {
     width: 20%;
     border-radius: 50%;
 }
-
 span.psw {
     float: right;
     padding-top: 16px;
@@ -209,7 +208,6 @@ span.psw {
     margin-right: auto;
     margin-left: auto;
 }
-
 
 /******* For quota view *******/
 .base_title{
@@ -260,12 +258,6 @@ td {
 #Tfoot > tr > td{
     font-weight:bold;
 }
-/*#Tbody > tr > td{*/
-    /*font-weight: bold;*/
-/*}*/
-/*#Tfoot > tr > td{*/
-    /*font-weight:bold;*/
-/*}*/
 
 .td_designation{
     width: 100%;
@@ -328,6 +320,7 @@ table > thead > tr > th, .total_designation {
     user-select: none;      /* Non-prefixed version, currently not supported by any browser */
 }
 .detail_body{
+    background: #FCFCFC;
     display: none;
     max-height: 300px;
     padding: 10px 40px 0 40px;
@@ -335,6 +328,7 @@ table > thead > tr > th, .total_designation {
     position: relative;
 }
 .detail_foot{
+    background: #FCFCFC;
     display: none;
     height: 10px;
 }
@@ -551,13 +545,13 @@ h2,h3{
     top: 50px;
     left: 0;
     z-index: 99999;
-    background: #2B838E;
-    background: -moz-linear-gradient(#2B838E, #2B838E);
+    background:  #6F6F6F;
+    background: -moz-linear-gradient( #6F6F6F, #6F6F6F);
     background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #2B838E),color-stop(1, #2B838E));
-    background: -webkit-linear-gradient(#2B838E, #2B838E);
-    background: -o-linear-gradient(#2B838E, #2B838E);
-    background: -ms-linear-gradient(#2B838E, #2B838E);
-    background: linear-gradient(#2B838E, #2B838E);
+    background: -webkit-linear-gradient( #6F6F6F,  #6F6F6F);
+    background: -o-linear-gradient( #6F6F6F,  #6F6F6F);
+    background: -ms-linear-gradient( #6F6F6F,  #6F6F6F);
+    background: linear-gradient( #6F6F6F,  #6F6F6F);
     -moz-border-radius: 0;
     border-radius: 0;
 }
@@ -592,12 +586,12 @@ h2,h3{
 }
 
 .navbar-nav ul a:hover{
-    background: #2B838E;
-    background: -moz-linear-gradient(#2B838E, #2B838E);
-    background: -webkit-gradient(linear, left top, left bottom, from(#2B838E), to(#2B838E));
-    background: -webkit-linear-gradient(#2B838E, #2B838E);
-    background: -o-linear-gradient(#2B838E, #2B838E);
-    background: -ms-linear-gradient(#2B838E, #2B838E);
+    background:  #6F6F6F;
+    background: -moz-linear-gradient(#6F6F6F, #6F6F6F);
+    background: -webkit-gradient(linear, left top, left bottom, from( #6F6F6F), to(#6F6F6F));
+    background: -webkit-linear-gradient(#6F6F6F, #6F6F6F);
+    background: -o-linear-gradient(#6F6F6F,#6F6F6F);
+    background: -ms-linear-gradient(#6F6F6F,#6F6F6F);
     background: linear-gradient(#2B838E, #2B838E);
 }
 .navbar-nav ul li:first-child a:hover:after{
@@ -856,8 +850,13 @@ li .lign{
 .next_prestation:hover {
   background: #2aa198;
 }
+#prestation_form{
+    background: #ffffff;
+}
 #quotafade{
     display: none;
+    width: 100%;
+    background: #ffffff;
 }
 .n_pax{
     width: 50px;
@@ -916,45 +915,8 @@ li .lign{
 #client_saved{
     display: none;
 }
-/* Tooltip container */
-.tooltip {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
-}
-
-/* Tooltip text */
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    padding: 5px 0;
-    border-radius: 6px;
-
-    /* Position the tooltip text */
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
-
-    /* Fade in tooltip */
-    opacity: 0;
-    transition: opacity 1s;
-}
-
-/* Tooltip arrow */
-.tooltip .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
+#client_form{
+    margin-left: 16px;
 }
 .room{
     height: 40px;
