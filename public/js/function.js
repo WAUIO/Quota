@@ -1,12 +1,24 @@
 $( function() {
     var quota_list = $('#quota_list');
-    //$(this).scrollTop(0);
 
     searchClient();
 
     $("form#login_form").on("submit", function(e) {
         e.preventDefault();
         login();
+    });
+
+    $('#user_icon').hover(
+        function () {
+            $('#user_name').show("slide", { direction: "right" }, 200);
+        },
+        function () {
+            $('#user_name').hide("slide", { direction: "right" }, 200);
+        }
+    );
+
+    $('#user_logout').click(function () {
+        logout();
     });
 
     $('#client_reference').click(function () {
@@ -43,9 +55,6 @@ $( function() {
     $('#select-hotel').removeAttr("disabled");
     $('#search_control').removeAttr("disabled");
 
-    //checkboxEvent();
-    //menuView();
-    //popupView();
     getClient();
     detailView();
     editValuePopup();
@@ -115,6 +124,16 @@ function login(){
             }
         });
     }
+}
+function logout(){
+    url = '/';
+    $.ajax({
+        url:'/logout',
+        type: "GET",
+        success: function () {
+            window.location.replace(url);
+        }
+    });
 }
 
 //round float value (fixed 2)

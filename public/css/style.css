@@ -26,10 +26,42 @@ footer {
     color: white;
 }
 .user{
+    padding-top: 15px;
+    padding-bottom: 15px;
     height: 50px;
     background: #2B838E;
     line-height: 50px;
+    text-align: center;
     color: white;
+    float:right;
+}
+#user_name{
+    height: 50px;
+    line-height: 50px;
+    color: white;
+    margin-right: 5px;
+}
+#user_icon{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    background-image : url('../images/user_icon1.png');
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+}
+#user_logout{
+    width: 20px;
+    height: 20px;
+    background-image : url('../images/logout.png');
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+}
+#user_logout:hover{
+    background-image : url('../images/logout_black.png');
+}
+
+#user_icon:hover{
+    background-image : url('../images/user_black.png');
 }
 .title{
     padding: 0;
