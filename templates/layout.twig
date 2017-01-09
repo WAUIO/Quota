@@ -73,18 +73,18 @@
                         </ul>
                     </li>
                 </ul>
-                <div class="pull-right user">
 
-                    <ul  class="nav navbar-nav" id="deconnexion">
-                        <li>
-                            <a href="#"> <span class="glyphicon glyphicon-user"></span></a>
-                            <ul>
-                                <li><a href="#">{{ user.name }}</a></li>
-                                <li><a href="/logout">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
-                             </ul>
-                        </li>
-                    </ul>
+                {% if user != null %}
+                <div class="pull-right user" id="logout">
+                    <div class="center-block" id="user_logout"></div>
                 </div>
+                <div class="pull-right user"  id="user">
+                    <div class="center-block" id="user_icon"></div>
+                </div>
+                <div class="pull-right" id="user_name"  style="display: none;">
+                    <span>{{ user.name }}</span>
+                </div>
+                {% endif %}
             </div>
         {% endif %}
         <!-- /.navbar-collapse -->

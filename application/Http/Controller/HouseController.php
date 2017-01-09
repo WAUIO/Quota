@@ -1,11 +1,11 @@
 <?php namespace App\Http\Controller;
 
-use App\Model\ClientModel;
 use App\Model\HouseModel;
 use App\Model\RestaurantModel;
 use App\Model\RoomModel;
 use App\Utils\Restaurant;
 use App\Utils\Room;
+use Symfony\Component\HttpFoundation\Request;
 use Wau\Http\Controller;
 
 class HouseController extends Controller

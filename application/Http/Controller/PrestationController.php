@@ -25,7 +25,9 @@ class PrestationController extends Controller
     {
         $data = array();
         $prestation = $this->getPrestation($_SESSION['client']->id);
-        array_set($data, 'title', 'Prestation quotation');
+
+
+        array_set($data, 'title', 'Benefit quotation');
         array_set($data, 'prestation', $prestation);
 
         return $this->app()->make('twig.view')->render('quotaPrestation.twig', $data);

@@ -10,8 +10,11 @@ $app->group(['prefix' => '/webhook',
 $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware'],
     function() use (&$app){
 
-//ClientController
-        $app->get('/', 'App\Http\Controller\ClientController@clientForm');
+
+        //UserController
+        $app->get('/logout', 'App\Http\Controller\UserController@logout');
+
+        //ClientController        $app->get('/', 'App\Http\Controller\ClientController@clientForm');
         $app->get('/getClient', 'App\Http\Controller\ClientController@getClient');
         $app->get('/setClient', 'App\Http\Controller\ClientController@setClient');
         $app->get('/clientForm', 'App\Http\Controller\ClientController@clientForm');

@@ -1,13 +1,32 @@
-$(document).ready(function () {
+
+
+$( function() {
     getClient();
+    var quota_list = $('#quota_list');
+
+    searchClient();
 
     $(this).scrollTop(0);
     $('#family_member').on('change keyup', function () {
         calculateFamilyTotal($(this));
     });
+
     $("form#login_form").on("submit", function(e) {
         e.preventDefault();
         login();
+    });
+
+    $('#user_icon').hover(
+        function () {
+            $('#user_name').show("slide", { direction: "right" }, 200);
+        },
+        function () {
+            $('#user_name').hide("slide", { direction: "right" }, 200);
+        }
+    );
+
+    $('#user_logout').click(function () {
+        logout();
     });
 
     $('#client_reference').click(function () {
@@ -41,33 +60,14 @@ $(document).ready(function () {
             e.preventDefault();
             ShowHideQuotaList($('#quota_list'), 0);
         });
-
-        $('#refresh_client').click(function () {
-            getClient();
-        });
-
-        $('.taxes').css('border-bottom', 'none');
-        $('.others').css('border-bottom', 'none');
-        $(".selectpicker").attr("disabled", "disabled");
-        $("#select-hotel").removeAttr("disabled");
-        $("#search_control").removeAttr("disabled");
-
-        //checkboxEvent();
-        menuView();
-        popupView();
-        detailView();
-
-        editValuePopup();
-        tableEvent();
-        //editValuePopup();
-
-        calculateTotal();
-        ancreLink();
-        mouseEvent();
-
-        btnSave();
-    }
-});
+    getClient();
+    detailView();
+    editValuePopup();
+    calculateTotal();
+    ancreLink();
+    mouseEvent();
+    setTooltip();
+}
 
 $( function() {
     var options={
@@ -169,6 +169,17 @@ function login(){
             }
         });
     }
+}
+
+function logout(){
+    url = '/';
+    $.ajax({
+        url:'/logout',
+        type: "GET",
+        success: function () {
+            window.location.replace(url);
+        }
+    });
 }
 //round float value (fixed 2)
 
