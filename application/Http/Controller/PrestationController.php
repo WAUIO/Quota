@@ -33,7 +33,7 @@ class PrestationController extends Controller
         return $this->app()->make('twig.view')->render('quotaPrestation.twig', $data);
     }
 
-
+    // save Prestation
     public function savePrestation(){
         $quotaModel = new QuotaPrestationModel();
         $all_data = $_GET['all_data'];
@@ -78,6 +78,7 @@ class PrestationController extends Controller
         return $array;
     }
 
+    //select client prestation
     public function getPrestation($client_id){
         $query = "SELECT * FROM quotaprestation WHERE id_client = ".$client_id;
         $instance = new PDOConnection();

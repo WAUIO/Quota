@@ -78,6 +78,7 @@ class RoomController extends PrestationController
         }
     }
 
+    //select client room
     public function getRoom($client_id){
         $houseModel = new HouseModel();
         $base_rooms     = array();

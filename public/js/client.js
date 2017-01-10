@@ -18,7 +18,6 @@ $( function() {
 
 //save client
 function insertClient(){
-    var ref_regex = new RegExp("\w", "g");
     var date_regex = new RegExp("(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/[0-9]{4}","g");
     var name_regex = new RegExp("[a-zA-Z]{2}", "g");
     var name = $("#name").val();
@@ -40,7 +39,7 @@ function insertClient(){
                                 $('#client_saved').show();
                                 $('form')[0].reset();
                             },
-                            error: function (data) {
+                            error: function () {
                                 $("#client_message").text('Something wrong !').css('display', 'block').delay(5000).fadeOut();
                             }
                         });
@@ -50,8 +49,6 @@ function insertClient(){
                             'height': '40px',
                             'line-height': '40px'
                         }).delay(5000).fadeOut();
-
-                        //location.reload();
                     }
                     else {
                         $("#client_message").text('Date is empty or invalid format!').css('display', 'block').delay(5000).fadeOut();

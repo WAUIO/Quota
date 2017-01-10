@@ -3,18 +3,24 @@ $(document).ready(function () {
     $(this).scrollTop(0);
     $('.accordion_body_scroll').perfectScrollbar();
 
+    //make select disable when page on ready
     $('select').attr('disabled','disabled');
+
+    //make select option for house enable
     select_hotel.removeAttr('disabled');
 
+    //make checkbox unchecked
     $('[type = "checkbox"]').prop('checked', false);
-    // $("#ddl").removeAttr("disabled");
+    $('.check_able').prop('disabled', true);
 
     $( "#form_accordion" ).accordion();
 
+    // save room trigger
     $("#save_room").click(function() {
         saveRoom();
     });
 
+    // get data appropriate when house option selected change
     select_hotel.on('change', function () {
         dataHouse();
     });
@@ -22,6 +28,7 @@ $(document).ready(function () {
     checkOption();
 });
 
+//make select menu enable if checkbox checked
 function checkOption(){
     $("input[type = 'checkbox']").click(function () {
         var parent = $(this).parents().eq(2);
@@ -36,7 +43,7 @@ function checkOption(){
     });
 }
 
-//when select house, get all data about room and board
+// get all data about room and board when house selected,
 function dataHouse(){
     $('.room_message').fadeOut();
     $('#adult_select_single').html('');
@@ -63,7 +70,7 @@ function dataHouse(){
     var house_id = $('#select-hotel').val();
     getAllHouseData(house_id);
 }
-
+// get all room and restaurant data in house
 function getAllHouseData(house_id){
     $.ajax({
         type: 'GET',
@@ -73,10 +80,12 @@ function getAllHouseData(house_id){
         success: function(data) {
             setBase(data[0], house_id);
             setBoard(data[1]);
+            checkbox_able();
             $('.loader').hide();
         }
     });
 }
+//append data of room into select option
 function setBase(data, house_id){
     var select = {'single':'', 'double':'','triple':'','family':'','extra_bed':''};
 
@@ -107,7 +116,6 @@ function setBase(data, house_id){
         var category = value.category.replace('-', '_').toLowerCase();
         select[category] += "<option value='"+ JSON.stringify(room_option) +"'>"+ room_option.room_title +"</option>";
     });
-
     $.each( select, function( key, value ) {
         select[key] += '</optgroup>';
     });
@@ -120,6 +128,8 @@ function setBase(data, house_id){
     $('#child_select_extra_bed').append(select['extra_bed']);
 }
 
+
+//append data of board into select option
 function setBoard(data){
     $.each( data, function(e, value){
         others = JSON.parse(value.others.replace('<br/>', ''));
@@ -153,8 +163,19 @@ function setBoard(data){
         $('#accordion_body_adult').css('height', '350px');
     }
 }
+//make checkbox checkable if select option is not empty
+function checkbox_able(){
+    $('select').each(function() {
+        var parent = $(this).parent().parent();
+        var siblings = parent.siblings();
+        var checkbox = siblings.find('[type="checkbox"]');
 
-
+        if(($(this).children().text() !='')) {
+            checkbox.removeAttr('disabled');
+        }
+    })
+}
+//get room data to save
 function saveRoom(){
     $('#loader_gif').show();
     var board_option = {};
@@ -208,6 +229,7 @@ function saveRoom(){
             success: function(){
                 $('#loader_gif').hide();
                 $('.room_message').text('Room(s) saved !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'});
+                location.reload();
             }
         });
     }else{

@@ -17,6 +17,7 @@ $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware
         //ClientController        $app->get('/', 'App\Http\Controller\ClientController@clientForm');
         $app->get('/getClient', 'App\Http\Controller\ClientController@getClient');
         $app->get('/setClient', 'App\Http\Controller\ClientController@setClient');
+        $app->get('/', 'App\Http\Controller\ClientController@clientForm');
         $app->get('/clientForm', 'App\Http\Controller\ClientController@clientForm');
         $app->get('/saveClient', 'App\Http\Controller\ClientController@saveClient');
 
@@ -43,6 +44,5 @@ $app->group(['prefix'=>'/', 'middleware' => ['Wau\Podio\PodioAuthMiddleware'],
     function() use (&$app){
         $app->get('/migrate','App\Http\Controller\MigrationController@migrate');
         $app->get('/authenticate', 'App\Http\Controller\LoginController@authenticate');
-        $app->get('/logout', 'App\Http\Controller\LoginController@logout');
     }
 ]);
