@@ -39,7 +39,6 @@ function calculateFamilyTotal($this){
 }
 
 function detailView() {
-    alert();
     //detail hide
     $('.detail_head').click(function(e){
         e.preventDefault();
