@@ -398,6 +398,10 @@ table > thead > tr > th, .total_designation {
 .base_types{
     height: 30px;
 }
+
+#client_form input{
+    height: 35px;
+}
 .add_client{
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -930,6 +934,11 @@ li .lign{
 #client_saved{
     display: none;
 }
+#client_message{
+    line-height: 40px;
+    font-style: italic;
+    color: #FF0F22;
+ }
 #client_form{
     margin-left: 16px;
 }

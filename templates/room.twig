@@ -25,7 +25,12 @@
         <br/>
 
         <div id="accordion">
-            {% set type = ['adult','child'] %}
+            {% if client.number_child < 1 %}
+                {% set type = ['adult'] %}
+            {% else %}
+                {% set type = ['adult','child'] %}
+            {% endif %}
+
             {% set base = ['single','double','triple','family','extra-bed'] %}
             {% set board = ['breakfast','lunch','dinner','menu','hb','fb'] %}
             
@@ -92,7 +97,7 @@
             </div>
             <div class="col-xs-2">
                 <div class="all_btn" id="save_room">
-                    <span>Save</span>
+                    <span id="btn_save_room">Save</span>
                 </div>
             </div>
         </div>

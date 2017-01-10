@@ -60,25 +60,27 @@ function dataHouse(){
     $('[type = "checkbox"]').prop('checked', false);
 
     //get house id
-    var house_id = $('#select-hotel').val();
-    getAllHouseData(house_id);
+    var id_house = $('#select-hotel').val();
+    var name_house = $('#select-hotel option:selected').text();
+    getAllHouseData(id_house, name_house);
 }
 
-function getAllHouseData(house_id){
+function getAllHouseData(id_house, name_house){
+    alert(name_house);
     $.ajax({
         type: 'GET',
         url: '/getAllHouseData',
         dataType: 'json',
-        data: {house_id: house_id},
+        data: {house_id: id_house},
         success: function(data) {
-            setBase(data[0], house_id);
+            setBase(data[0], id_house, name_house);
             setBoard(data[1]);
             $('.loader').hide();
         }
     });
 }
 
-function setBase(data, house_id){
+function setBase(data, house_id, name_house){
     var select = {'single':'', 'double':'','triple':'','family':'','extra_bed':''};
 
     $.each( select, function( key, value ) {
@@ -99,6 +101,7 @@ function setBase(data, house_id){
         }
 
         room_option.id_house = house_id;
+        room_option.name_house = name_house;
         room_option.rate = others['wau-rate'].value;
         room_option.currency = others['public-rate'].currency;
         room_option.room_title = others['name'].value;
@@ -201,14 +204,15 @@ function saveRoom(){
     });
 
     if(all_data.length > 0 ){
+        $('#btn_save_room').html('Saving&nbsp;<img src="/images/loader.gif" alt="Avatar" class="" style="width:20px; height:5px">');
         $.ajax({
             type: 'GET',
             url: '/saveQuotaRoom',
             dataType:'html',
             data: {all_data : all_data},
-            success: function(){
-                $('#loader_gif').hide();
-                $('.room_message').text('Room(s) saved !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'});
+            success: function(data){
+                $('.room_message').text('Room(s) saved for '+data+' hotel !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'});
+                $('#btn_save_room').html('Save');
             }
         });
     }else{

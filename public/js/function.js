@@ -3,6 +3,10 @@ $( function() {
 
     searchClient();
 
+    $(window).on('resize', function(){
+        windowResize();
+    });
+
     $("form#login_form").on("submit", function(e) {
         e.preventDefault();
         login();
@@ -55,7 +59,7 @@ $( function() {
     $('#select-hotel').removeAttr("disabled");
     $('#search_control').removeAttr("disabled");
 
-    getClient();
+    //getClient();
     detailView();
     editValuePopup();
     calculateTotal();
@@ -63,6 +67,12 @@ $( function() {
     mouseEvent();
     setTooltip();
 });
+
+function windowResize(){
+    if($('#header_title').height() > 100 ){
+        $('body').css('padding-top', '130px');
+    }else $('body').css('padding-top', '80px');
+}
 
 function setTooltip() {
     $('#quota_list').tooltip({
@@ -100,20 +110,30 @@ function isValidEmail(emailText) {
 }
 
 function login(){
-    if(isValidEmail( $("#login_email").val()) && $("#login_password").val() != ''){
+    var login_form = '#login_form';
+    var email = $("#login_email").val();
+    var password = $("#login_password").val();
+    if(isValidEmail( email ) && password != ''){
         var avatar = $('.avatar');
         var newSrc = avatar.attr("src").replace("/images/user1.png", "/images/user_gif.gif");
         avatar.attr("src", newSrc);
+
+        $('#login_btn').append('&nbsp;<img src="/images/loader.gif" alt="Avatar" class="" style="width:20px; height:5px">');
+        $(login_form+' input').prop('disabled', true);
+        $(login_form+' button').prop('disabled', true);
         $.ajax({
             url:'/authenticate',
             type:'GET',
             dataType:'html',
-            data: $('#login_form').serialize(),
+            data: {email : email, password : password},
             success:function(data){
                 if(data == 'not authenticated'){
                     newSrc = avatar.attr("src").replace("/images/user_gif.gif", "/images/user1.png");
                     avatar.attr("src", newSrc);
                     $('#login_error').text('Email or password invalid !').show();
+                    $(login_form+' input').prop('disabled', false);
+                    $(login_form+' button').prop('disabled', false);
+                    $('#login_btn').html('Login');
                 }else{
                     window.location.replace(window.location.pathname);
                 }
@@ -203,7 +223,6 @@ function getClient() {
                 );
             }
             $icon.removeClass( animateClass );
-            //$('.ref_client').load(window.location + ' .client_reference');
         }
     });
 }
@@ -265,52 +284,3 @@ function ShowHideQuotaList(quota_list, nbr){
         }
     }
 }
-
-// function checkboxEvent() {
-//     /*******checkbox event*******/
-//     $("input[type=checkbox]").click(function () {
-//         var checkbox_id = $('#'+$(this).closest(this).attr("id"));
-//         var parent = checkbox_id.parents().eq(2);
-//         var select_picker = parent.closest('select');
-//         if($(this).is(':checked')){
-//             $(select_picker).attr('disabled', !this.checked).selectpicker('refresh');
-//         }else{
-//             $(select_picker).attr('disabled', !this.checked).selectpicker('refresh');
-//         }
-//     });
-// }
-
-// function menuView() {
-//     //Show & hide menu(Search and room basis)
-//     $('#menu_hamburger').click(function(e){
-//         e.preventDefault();
-//         var quota_list = '#quota_list';
-//         var bloc_well = $('.well');
-//         if(bloc_well.not('#well_search').css("display") == "block"){
-//             bloc_well.not('#well_search').fadeOut(100,function () {
-//                 ShowHideQuotaList(quota_list, 1);
-//             });
-//         }else{
-//             ShowHideQuotaList(quota_list, 2);
-//             bloc_well.fadeIn();
-//         }
-//     });
-// }
-// function popupView() {
-//     //show
-//     $('[data-popup-open]').on('click', function(e)  {
-//         var targeted_popup_class = jQuery(this).attr('data-popup-open');
-//         $('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);
-//
-//         $('.select_data').perfectScrollbar();
-//         e.preventDefault();
-//     });
-//
-//     //close
-//     $('[data-popup-close]').on('click', function(e)  {
-//         var targeted_popup_class = jQuery(this).attr('data-popup-close');
-//         $('[data-popup="' + targeted_popup_class + '"]').fadeOut(350);
-//
-//         e.preventDefault();
-//     });
-// }

@@ -53,10 +53,12 @@ class RoomController extends PrestationController
         $all_data = $_GET['all_data'];
         $id_client = $_SESSION['client']->id;
         $exchange = $_SESSION['exchange'];
+
         foreach ($all_data as $data){
             $others = array();
             $base       = $data['base'];
             $id_house   = $data['id_house'];
+            $name_house = $data['name_house'];
             if(strtolower($data['currency']) == 'eur'){
                 $price_room = (float)$data['rate'] * $exchange['euro'];
             }elseif(strtolower($data['currency']) == 'usd'){
@@ -65,10 +67,11 @@ class RoomController extends PrestationController
                 $price_room = (float)$data['rate'];
             }
 
-            $others['vignet'] = $data['vignet'];
-            $others['room_title'] = $data['room_title'];
-            $others['euro'] = $exchange['euro'];
-            $others['dollar'] = $exchange['dollar'];
+            $others['vignet']       = $data['vignet'];
+            $others['room_title']   = $data['room_title'];
+            $others['euro']         = $exchange['euro'];
+            $others['dollar']       = $exchange['dollar'];
+
             if($data['board'] != null){
                 $others['board'] = $data['board'];
             }
@@ -76,6 +79,7 @@ class RoomController extends PrestationController
             $array  =  array('base'=>$base, 'id_client'=>$id_client, 'id_house'=>$id_house,'price_room'=>$price_room,'others'=>json_encode($others));
             $quotaModel->insertToQuotaroom($array);
         }
+        return $name_house;
     }
 
     public function getRoom($client_id){
