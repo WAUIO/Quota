@@ -2,14 +2,11 @@
 
 use App\Model\ExchangeModel;
 use App\Model\HouseModel;
-use App\Model\QuotaRoomModel;
+use App\Model\RoomModel;
 use App\Utils\RoomQuota;
-use App\DatabaseConnection\PDOConnection;
 
 class RoomController extends PrestationController
 {
-    var $instance;
-
     //show room quotation
     public function quotaRoom()
     {
@@ -49,7 +46,7 @@ class RoomController extends PrestationController
 
     //save room quotation
     public function saveQuotaRoom(){
-        $quotaModel = new QuotaRoomModel();
+        $quotaModel = new RoomModel();
         $all_data = $_GET['all_data'];
         $id_client = $_SESSION['client']->id;
         $exchange = $_SESSION['exchange'];
@@ -77,7 +74,7 @@ class RoomController extends PrestationController
             }
 
             $array  =  array('base'=>$base, 'id_client'=>$id_client, 'id_house'=>$id_house,'price_room'=>$price_room,'others'=>json_encode($others));
-            $quotaModel->insertToQuotaroom($array);
+            $quotaModel->insertToQuotaRoom($array);
         }
         return $name_house;
     }
@@ -85,6 +82,7 @@ class RoomController extends PrestationController
     //select client room
     public function getRoom($client_id){
         $houseModel = new HouseModel();
+        $roomModel = new RoomModel();
         $base_rooms     = array();
         $details     = array();
         $exist_rooms[]  = false;
@@ -95,9 +93,7 @@ class RoomController extends PrestationController
         $exchange[] = 0;
         $boards[][] = 0;
 
-        $query = "SELECT * FROM quotaroom WHERE id_client = ".$client_id;
-        $instance = new PDOConnection();
-        $result = $instance->select($query);
+        $result = $roomModel->selectQuotaRoom($client_id);
 
         foreach ($result as $res){
             $base = strtolower($res['base']);

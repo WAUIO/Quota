@@ -48,11 +48,9 @@ class ClientController extends Controller
 
     public function setClient(){
         $client = new Client();
+        $clientModel = new ClientModel();
         $client_id = $_GET['client_id'];
-
-        $query = "SELECT * FROM client WHERE id = ".$client_id;
-        $instance = new PDOConnection();
-        $result = $instance->select($query);
+        $result = $clientModel->selectClientByid($client_id);
 
         foreach ($result as $res){
             $client->setId($res['id']);
@@ -72,14 +70,11 @@ class ClientController extends Controller
 
         $euro   = new Exchange(0);
         $dollar = new Exchange(1);
-
         $exchange = array('euro' => $euro->exchange[0], 'dollar' => $dollar->exchange[0]);
         $_SESSION['exchange'] = $exchange;
 
-
-        $query = "SELECT * FROM client";
-        $instance = new PDOConnection();
-        $result = $instance->select($query);
+        $clientModel = new ClientModel();
+        $result = $clientModel->selectAllClient();
 
         foreach ($result as $res){
             $client = new Client();

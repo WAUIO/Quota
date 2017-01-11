@@ -1,5 +1,9 @@
+
 .bootstrap-select {
     outline: none !important;
+}
+.bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+    width: auto;
 }
 body {
     padding-top: 80px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
@@ -872,8 +876,7 @@ ul{
     width: 10px;
     height:10px;
 }
-#dollar{
-    margin-left: 20px;
+#hotel_label, #dollar{
     font-weight: bold;
     font-size: 20px;
     color: #6F6F6F;
@@ -886,8 +889,6 @@ ul{
     margin-bottom: 30px;
 }
 #euro{
-    margin-top: 10px;
-    margin-left: 22px;
     font-weight: bold;
     font-size: 20px;
     color: #6F6F6F;

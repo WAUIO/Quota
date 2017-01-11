@@ -10,7 +10,7 @@ namespace App\Model;
 
 use App\DatabaseConnection\PDOConnection;
 
-class QuotaPrestationModel
+class PrestationModel
 {
     var $instance;
     public function __construct()
@@ -28,10 +28,19 @@ class QuotaPrestationModel
         }
     }
 
-    public function selectQuotaprestation($id){
-        $sql = "SELECT * FROM quotaprestation WHERE id_client =".$id;
+    public function getPrestation($client_id){
+        $sql = "SELECT * FROM quotaprestation WHERE id_client = $client_id";
 
         return $this->instance->select($sql);
+    }
+    public function getServices($tab){
+        $sql = "SELECT * FROM ".$tab." WHERE price NOT LIKE ''";
 
+        return $this->instance->select($sql);
+    }
+    public function selectQuotaprestation($id){
+        $sql = "SELECT * FROM quotaprestation WHERE id_client = $id";
+
+        return $this->instance->select($sql);
     }
 }

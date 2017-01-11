@@ -1,6 +1,6 @@
 $( function() {
     var quota_list = $('#quota_list');
-
+    windowResize();
     searchClient();
 
     $(window).on('resize', function(){
@@ -243,10 +243,14 @@ function setClient(url, client_id) {
 
 //Ancre Onclick base type
 function ancreLink() {
+    if($('#header_title').height() > 100 ){
+        top_value = 150;
+    }else top_value = 100;
+
     $('.base_type').on('click', function () {
         var page = $(this).attr('href');
         var speed = 500;
-        $('html, body').animate({scrollTop: $(page).offset().top - 100}, speed);
+        $('html, body').animate({scrollTop: $(page).offset().top - top_value}, speed);
         return false;
     });
 }

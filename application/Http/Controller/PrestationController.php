@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controller;
 
 use App\DatabaseConnection\PDOConnection;
-use App\Model\QuotaPrestationModel;
+use App\Model\PrestationModel;
 use App\Utils\Prestation;
 use App\Utils\PrestationQuota;
 use Wau\Http\Controller;
@@ -35,7 +35,7 @@ class PrestationController extends Controller
 
     // save Prestation
     public function savePrestation(){
-        $quotaModel = new QuotaPrestationModel();
+        $prestationModel = new PrestationModel();
         $all_data = $_GET['all_data'];
         $id_client = $_SESSION['client']->id;
 
@@ -44,7 +44,7 @@ class PrestationController extends Controller
             $others = $data['others'];
 
             $array  =  array('id_client'=>$id_client, 'service'=>$service, 'others'=>json_encode($others));
-            $quotaModel->insertToQuotaprestation($array);
+            $prestationModel->insertToQuotaprestation($array);
         }
         return $all_data;
     }
@@ -55,10 +55,10 @@ class PrestationController extends Controller
         $array = array();
         $person = array();
         $group = array();
+        $prestationModel = new PrestationModel();
 
         foreach($table as $tab){
-            $instance = new PDOConnection();
-            $services = $instance->select("SELECT * FROM ".$tab." WHERE price NOT LIKE ''" );
+            $services = $prestationModel->getServices($tab);
 
             foreach ($services as $service){
                 $prestation = new Prestation();
@@ -80,15 +80,14 @@ class PrestationController extends Controller
 
     //select client prestation
     public function getPrestation($client_id){
-        $query = "SELECT * FROM quotaprestation WHERE id_client = ".$client_id;
-        $instance = new PDOConnection();
-        $result = $instance->select($query);
-
         $service = array();
         $other = array();
         $prestation[] = 0;
         $smaller = 100;
         $bigger = 0;
+
+        $prestationModel = new PrestationModel();
+        $result = $prestationModel->getPrestation($client_id);
 
         if($result == null){
             return null;
@@ -110,7 +109,6 @@ class PrestationController extends Controller
                         $i++;
                     }
                 }else{
-                    $number = $max - $min + 1;
                     while($i < $max){
                         $prestation[$i] += $rate_service / ($i+1);
                         $i++;
