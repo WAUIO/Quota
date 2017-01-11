@@ -24,7 +24,6 @@ $(document).ready(function () {
     select_hotel.on('change', function () {
         dataHouse();
     });
-
     checkOption();
 });
 
