@@ -60,20 +60,18 @@ $( function() {
     $('#search_control').removeAttr("disabled");
 
     getClient();
-    detailView();
-    editValuePopup();
-    calculateTotal();
     ancreLink();
-    mouseEvent();
     setTooltip();
 });
 
+//when resize window
 function windowResize(){
     if($('#header_title').height() > 100 ){
         $('body').css('padding-top', '130px');
     }else $('body').css('padding-top', '80px');
 }
 
+//if cursor hover list customer
 function setTooltip() {
     $('#quota_list').tooltip({
         items: '.quota_lists',
@@ -104,27 +102,39 @@ function setTooltip() {
     });
 }
 
+//test validation email
 function isValidEmail(emailText) {
     var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
     return pattern.test(emailText);
 }
 
-function login() {
-    if (isValidEmail($("#login_email").val()) && $("#login_password").val() != '') {
+//user log in
+function login(){
+    var login_form = '#login_form';
+    var email = $("#login_email").val();
+    var password = $("#login_password").val();
+    if(isValidEmail( email ) && password != ''){
         var avatar = $('.avatar');
         var newSrc = avatar.attr("src").replace("/images/user1.png", "/images/user_gif.gif");
         avatar.attr("src", newSrc);
+
+        $('#login_btn').append('&nbsp;<img src="/images/loader.gif" alt="Avatar" class="" style="width:20px; height:5px">');
+        $(login_form+' input').prop('disabled', true);
+        $(login_form+' button').prop('disabled', true);
         $.ajax({
-            url: '/authenticate',
-            type: 'GET',
-            dataType: 'html',
-            data: $('#login_form').serialize(),
-            success: function (data) {
-                if (data == 'not authenticated') {
+            url:'/authenticate',
+            type:'GET',
+            dataType:'html',
+            data: {email : email, password : password},
+            success:function(data){
+                if(data == 'not authenticated'){
                     newSrc = avatar.attr("src").replace("/images/user_gif.gif", "/images/user1.png");
                     avatar.attr("src", newSrc);
                     $('#login_error').text('Email or password invalid !').show();
-                } else {
+                    $(login_form+' input').prop('disabled', false);
+                    $(login_form+' button').prop('disabled', false);
+                    $('#login_btn').html('Login');
+                }else{
                     window.location.replace(window.location.pathname);
                 }
             }, error: function (data) {
@@ -136,6 +146,7 @@ function login() {
     }
 }
 
+//user log out
 function logout() {
     url = '/';
     $.ajax({
@@ -190,8 +201,8 @@ function searchClient() {
         });
     }
 
+//fill out the customer list
 function getClient() {
-
         var quota_list = $('#quota_list');
         var $icon = $('#refresh_client').find('.glyphicon.glyphicon-refresh'),
             animateClass = "glyphicon-refresh-animate";
@@ -214,7 +225,6 @@ function getClient() {
                     );
                 }
                 $icon.removeClass(animateClass);
-//$('.ref_client').load(window.location + ' .client_reference');
             }
         });
     }
@@ -236,25 +246,26 @@ function ancreLink() {
     $('.base_type').on('click', function () {
         var page = $(this).attr('href');
         var speed = 500;
-        $('html, body').animate({scrollTop: $(page).offset().top - 60}, speed);
+        $('html, body').animate({scrollTop: $(page).offset().top - 100}, speed);
         return false;
     });
 }
 
 //test if a string is a float
 function isFloat(val) {
-        var floatRegex = /^-?\d+(?:[.,]\d*?)?$/;
+    var floatRegex = /^-?\d+(?:[.,]\d*?)?$/;
 
-        if (!floatRegex.test(val))
-            return false;
+    if (!floatRegex.test(val))
+        return false;
 
-        val = parseFloat(val);
-        if (isNaN(val))
-            return false;
+    val = parseFloat(val);
+    if (isNaN(val))
+        return false;
 
-        return true;
-    }
+    return true;
+}
 
+//when user show / hide customer list
 function ShowHideQuotaList(quota_list, nbr) {
     if (nbr == 0) {
         if (quota_list.is(":visible") === true) {
@@ -276,4 +287,3 @@ function ShowHideQuotaList(quota_list, nbr) {
         }
     }
 }
-

@@ -23,7 +23,7 @@ class ClientController extends Controller
         $clientModel = new ClientModel();
         $client = new Client();
 
-        $parts = explode('/', $_GET['stay']);
+        $parts = explode('/', $_GET['date']);
         $date = "$parts[2]-$parts[1]-$parts[0]";
 
 
@@ -34,12 +34,16 @@ class ClientController extends Controller
         $client->setStartDate($date);
 
         $array = array('reference'=>$client->getReference(),'name'=>$client->getName(),'number_adult'=>$client->getNumberAdult(),'number_child'=>$client->getNumberChild(),'date'=>$client->getStartDate());
-        $clientModel->insertClient($array);
 
-        $client->setId($clientModel->getLastClient()->getId());
-        $_SESSION['client'] = $client;
-
-        return $array;
+        if ($clientModel->existClient($client->getReference())){
+            return "client exist";
+        }
+        else {
+            $clientModel->insertClient($array);
+            $client->setId($clientModel->getLastClient()->getId());
+            $_SESSION['client'] = $client;
+            return $client->getReference();
+        }
     }
 
     public function setClient(){

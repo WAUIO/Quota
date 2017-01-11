@@ -12,7 +12,8 @@ $( function() {
         showQuotationEdit();
     });
 
-    $('#save_prestation').click(function(){
+    $("form#prestation_form").on("submit", function(e) {
+        e.preventDefault();
         savePrestation();
     });
 
@@ -49,7 +50,7 @@ $( function() {
 
     searchPrestation();
     checkPrestation();
-    savePrestation();
+    mouseEvent();
 });
 
 /*add column according to the pax_min and pax_max value
@@ -257,13 +258,14 @@ function resetCheckedScroll(parent_div){
 function deletePrestation($this){
     var parent_div = $($this).closest('.per_price');
     var $checked_prestation = $($this).closest('.checked_prestation');
-    var cheked_id = $('#id_'+$checked_prestation.attr('id').replace('check_value_', ''));
+    var id = $checked_prestation.attr('id').replace('check_value_', '');
+    var checked_id = $('#id_'+id);
 
     $checked_prestation.remove();
     $('#id_'+$checked_prestation.attr('id')).prop('checked', false);
 
-    cheked_id.prop('checked', false);
-    ifUnchecked($checked_prestation.attr('id'));
+    checked_id.prop('checked', false);
+    ifUnchecked(id);
 
     if(parent_div.find('.check_value:checked').length == 0){
         parent_div.find('.checked_lists').css('height', 36);
@@ -271,6 +273,10 @@ function deletePrestation($this){
     }
 
     checkScroll(parent_div);
+}
+
+function ifUnchecked(id){
+    $('#tr_id_'+id).remove();
 }
 
 function mouseEvent(){
@@ -283,6 +289,7 @@ function mouseEvent(){
         $(this).find('.delete_prestation').hide();
     });
 }
+
 /*
 * check service on list of Benefit
 * add each in table quotation
@@ -299,7 +306,6 @@ function checkPrestation() {
             }
 
             var $clone = parent_div.find('.checked_list').clone(true).removeClass('checked_list').removeClass('hide');
-
             $clone.attr('id', $(this).val());
             $clone.find('.prestation_label').html(label_text).css('font-size', '80%');
             parent_div.find('.checked_list_content').append($clone);
@@ -321,12 +327,11 @@ function checkPrestation() {
 
         resetCheckedScroll(parent_div);
     });
-
 }
+
 /* Add row in table for each service checked
 * Append value needed for quotation*/
 function addInTab($this) {
-
     var label_text = $($this).siblings('label').text();
     var input_id = $($this).attr('id');
     var rate = $($this).siblings('.others_rate').text();
@@ -345,7 +350,7 @@ function addInTab($this) {
          price = (rate * dollar).toFixed(2);
     }
 
-    var row =   '<tr class="tr_' + input_id + '"> ' +
+    var row =   '<tr id="tr_' + input_id + '"> ' +
                     '<td class="table-add add_record" onclick="duplicateRow(this)">' +
                         '<span class="glyphicon glyphicon-plus"></span>' +
                     '</td>' +
@@ -367,7 +372,6 @@ function addInTab($this) {
                     '<td class="total"> </td>' +
                 '</tr>';
     $("#Tbody").append(row);
-
 }
 //clone row in prestation tab
 function duplicateRow($this){
@@ -414,10 +418,10 @@ function duplicateRow($this){
  * show list of service(s)*/
 function showQuotationTable(){
     if($('#accordion').find('.check_value:checked').length < 1){
-        $('.no_service_message').css('display', 'block').delay(5000).fadeOut();
+        $('.no_service').css({'display':'block', 'line-height':'40px'}).delay(5000).fadeOut();
     }
     else{
-        $('#prestation_form').css('display','none');
+        $('#choose_service').css('display','none');
         $('#quotafade').slideToggle('slow');
         $('.ps-scrollbar-x-rail').show();
     }
@@ -442,14 +446,15 @@ function savePrestation(){
         all_data.push(info);
     });
 
+    $('#btn_save_prestation').html('Saving&nbsp;<img src="/images/loader.gif" alt="Avatar" class="" style="width:20px; height:5px">');
     $.ajax({
         type: "GET",
         url: "/savePrestation",
         data: {all_data : all_data},
         dataType: "html",
         success: function(){
-            $('#loader_gif').hide();
-            $('.prestation_message').text('Benefit(s) saved !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
+            $('.prestation_message').text('Benefit(s) saved !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'});
+            $('#btn_save_prestation').html('Save');
         }
     });
 }
@@ -457,6 +462,5 @@ function savePrestation(){
 //back to list of prestation
 function showQuotationEdit(){
     $('#quotafade').css('display','none');
-    $('#prestation_form').slideToggle('slow');
-
+    $('#choose_service').slideToggle('slow');
 }

@@ -19,9 +19,18 @@ class ClientModel
         $this->instance->insert($sqlQuery,$array);
     }
 
+    public function existClient($reference){
+        $query = "SELECT * FROM client WHERE ref_client = '$reference'";
+        $res = $this->instance->select($query);
+        if (count($res)>0)
+            return true;
+        else
+            return false;
+    }
+
     public function getLastClient(){
-        $stmt="SELECT * FROM client ORDER BY id DESC LIMIT 1";
-        $res = $this->instance->select($stmt)[0];
+        $query = "SELECT * FROM client ORDER BY id DESC LIMIT 1";
+        $res = $this->instance->select($query)[0];
         $client = new Client();
         $client->setId($res['id']);
         $client->setName($res['name']);

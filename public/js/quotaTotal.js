@@ -3,13 +3,14 @@ $( function() {
     calculateTotal();
 });
 
+//make somme in each table(total)
 function calculateTotal() {
-
     $('table').each(function(){
         somme(this.id);
     });
 }
 
+//popup editable event
 function editValuePopup() {
     $.fn.editable.defaults.mode = 'popup';
 
@@ -111,8 +112,8 @@ function calculateTaxes($this, room_type, tax, length){
 
 function somme(table_id){
     var room_type = table_id.replace('table_','');
-    var euro_exchange = parseFloat($('#euro_exchange').text()).toFixed(2);
-    var dollar_exchange = parseFloat($('#dollar_exchange').text()).toFixed(2);
+    var euro_exchange = parseFloat($('#euro_exchange').text());
+    var dollar_exchange = parseFloat($('#dollar_exchange').text());
 
     length = $('#'+table_id+' tbody tr:eq(1) td').length;
     for (i=0;i<length-2;i++) {
