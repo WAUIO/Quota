@@ -1,7 +1,6 @@
 $( function() {
     editValuePopup();
     calculateTotal();
-    //tableEvent();
 });
 
 //make somme in each table(total)
@@ -170,6 +169,7 @@ function somme(table_id){
 //         });
 //         $TABLE.find('#'+table_id+' .tr_MGA').before($clone);
 //     });
+
 //     /*** remove others row ***/
 //     $('.table-remove').click(function () {
 //         table_id = $(this).closest('table').attr('id');

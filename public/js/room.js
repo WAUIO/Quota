@@ -25,7 +25,6 @@ $(document).ready(function () {
     select_hotel.on('change', function () {
         dataHouse();
     });
-
     checkOption();
 });
 
@@ -46,6 +45,8 @@ function checkOption(){
 
 // get all data about room and board when house selected,
 function dataHouse(){
+
+    $('.check_able').prop('disabled', true);
     $('.room_message').fadeOut();
     $('#adult_select_single').html('');
     $('#adult_select_double').html('');

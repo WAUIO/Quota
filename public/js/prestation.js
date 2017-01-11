@@ -84,7 +84,6 @@ function addColumn() {
                 $("#Thead").append(colhead);
 
             }
-
             for (var i = minimum;i<=maximum;i++){
                 var bigtotal = 0;
                 var colfoot = $("<td>");
@@ -95,15 +94,8 @@ function addColumn() {
                     var type = $(this).find(".type").html();
                     var svc_unit = parseInt($(this).find("td > [name='nb_service']").val());
                     var amount = parseInt($(this).find(".tarif").html());
-                    var total;
-
-                    if(svc_unit == ''){
-                        total = 0;
-                        $(this).find('td').eq(7).html(0);
-                    }else{
-                        total = svc_unit*amount;
-                        $(this).find('td').eq(7).html(total);
-                    }
+                    var total = svc_unit*amount;
+                    $(this).find('td').eq(7).html(total);
 
                     var colbody = $("<td>");
                     var subtotal;
@@ -115,27 +107,29 @@ function addColumn() {
                     }
 
                     if(i<min || i>max){
-                        colbody.text("0");
-
+                        colbody.text();
                     }else{
-                        colbody.html(subtotal.toFixed(2));
-                        bigtotal = bigtotal+subtotal;
-
+                        if(subtotal == 0){
+                            colbody.html();
+                            bigtotal = bigtotal+subtotal;
+                        }else{
+                            colbody.html(roundValue(subtotal));
+                            bigtotal = bigtotal+subtotal;
+                        }
                     }
 
                     $(this).append(colbody);
 
-
                     $(".table").append($(this));
                 });
-                colfoot.html(bigtotal.toFixed(2));
+                colfoot.html(roundValue(bigtotal));
                 colfoot.css({"font-weight":"bold","color":"#2B838E"});
                 $("#Tfoot").append(colfoot);
 
             }
 
         }else{
-            $('.pax_msg').css({'display':'block','color':'red'})
+            $('.prestation_message').text('pax_max must be higher than pax_min!').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
         }
 }
 
@@ -298,7 +292,8 @@ function mouseEvent(){
 
 /*
 * check service on list of Benefit
-* add each in table quotation*/
+* add each in table quotation
+* */
 function checkPrestation() {
     $('.check_value').click(function () {
         var parent_div = $('#' + $(this).closest('.per_price').attr('id'));
@@ -371,7 +366,7 @@ function addInTab($this) {
                     '</td> ' +
                     '<td class="tarif">' + roundValue(price)+ '</td>' +
                     '<td title="number">' +
-                        '<input type="number" min="1" max="50" class="nb_services number" name="nb_service" style="width: 50px;" onkeypress="return validateNumber(event)">' +
+                        '<input type="number" min="1" max="50" class="nb_services number" name="nb_service" value="0" style="width: 50px;" onkeypress="return validateNumber(event)" >' +
                     '</td> ' +
                     '<td class="type">' + type + '</td> ' +
                     '<td class="total"> </td>' +
@@ -411,7 +406,7 @@ function duplicateRow($this){
             });
             $clone.find('.quota').text(0);
             $clone.find('input[name="pax_max"]').val('');
-            $clone.find('input[name="nb_service"]').val('');
+            $clone.find('input[name="nb_service"]').val('0');
             $clone.find('input[name="pax_min"]').val(parseInt(pax_max) + 1).attr('disabled', 'disabled');
             $clone.find('td:eq(0) span').attr('class', 'table-remove glyphicon glyphicon-remove');
             last_tr.last().after($clone);
