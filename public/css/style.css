@@ -521,7 +521,6 @@ h2,h3{
     text-align: center;
     line-height: 40px;
     background: #2B838E;
-    border-radius: 2px;
     cursor: pointer;
 }
 .all_btn:hover{
@@ -755,23 +754,6 @@ ul{
     float: right;
     border-radius: 3px;
 }
-.all_btn{
-     float: right;
-     font-size: 110%;
-     font-weight: bold;
-     width: 120px;
-     height: 40px;
-     color: white;
-     text-align: center;
-     line-height: 40px;
-     background: #2B838E;
-     border-radius: 2px;
-     cursor: pointer;
- }
-
-.add_client:hover{
-      background: #2aa198;
-  }
 
 .search_message{
     display: none;
