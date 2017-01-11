@@ -1,5 +1,9 @@
+$( function() {
+    editValuePopup();
+    calculateTotal();
+});
+
 function calculateTotal() {
-    tableEvent();
 
     $('table').each(function(){
         somme(this.id);
@@ -64,7 +68,7 @@ function editValuePopup() {
                     table_id  = $(this).closest('table').attr('id');
                     length = $('#'+table_id+' tbody tr:eq(1) td ').length;
                     td = $(this).parent('td');
-                    for (i=0;i<length-3;i++) {
+                    for (i=0;i<length-2;i++) {
                         td.siblings().eq(i+1).text(value);
                     }
                     somme(table_id);
@@ -83,7 +87,7 @@ function calculateMargin($this, room_type, margin, length){
     var tr_id = $($this).closest('tr').prev().attr('id');
     var tax = isFloat(span_taxes.text()) ? span_taxes.text() : 0;
 
-    for (i=0;i<length-3;i++) {
+    for (i=0;i<length-2;i++) {
         val = $('tr#'+tr_id+' > td.td_'+room_type+':eq(' + i + ')').text();
         val_margin = val * margin / 100;
         td_margin.siblings().eq(i+1).text(roundValue(val_margin));
@@ -98,7 +102,7 @@ function calculateTaxes($this, room_type, tax, length){
     var td_taxes = $($this).closest('td');
     var td_margin_id = $($this).closest('tr').prev().attr('id');
 
-    for (i=0;i<length-3;i++) {
+    for (i=0;i<length-2;i++) {
         val_margin = $('tr#'+td_margin_id+' > td.td_'+room_type+':eq(' + i + ')').text();
         val_taxes  = val_margin * tax / 100;
         td_taxes.siblings().eq(i+1).text(roundValue(val_taxes));
@@ -111,7 +115,7 @@ function somme(table_id){
     var dollar_exchange = parseFloat($('#dollar_exchange').text()).toFixed(2);
 
     length = $('#'+table_id+' tbody tr:eq(1) td').length;
-    for (i=0;i<length-3;i++) {
+    for (i=0;i<length-2;i++) {
         var total = 0;
         $('td.td_'+room_type+':eq(' + i + ')', 'tr').each(function(i) {
             if($(this).text() != ""){
@@ -128,51 +132,51 @@ function somme(table_id){
     }
 }
 
-function tableEvent(){
-    var $TABLE = $('.table-editable');
-
-    /*** add others row ***/
-    $('.table-add').click(function () {
-        table_id = $(this).closest('table').attr('id');
-        var $clone = $TABLE.find('#'+table_id+' tr.hide').clone(true).removeClass('hide');
-        $clone.find('td:eq(1) span').attr('class','others').css('border-bottom', 'none').remove('editable').editable({
-            type: 'text',
-            inputclass:'lebar',
-            showbuttons:true,
-            title: 'Enter a value' ,
-            value:'',
-            placement:'top',
-            emptytext:'------',
-            validate: function(value) {
-                if($.trim(value) == '') {
-                    return 'Numeric value required';
-                }
-                if ($.isNumeric(value) == '') {
-                    return 'Numeric value required';
-                }else{
-                    $(this).on('hidden.bs.modal', function () {
-                        table_id  = $(this).closest('table').attr('id');
-                        length = $('#'+table_id+' tbody tr:eq(1) td ').length;
-                        td = $(this).parent('td');
-                        for (i=0;i<length-3;i++) {
-                            td.siblings().eq(i+1).text(value);
-                        }
-                        somme(table_id);
-                    });
-
-                }
-            }
-        });
-        $TABLE.find('#'+table_id+' .tr_MGA').before($clone);
-    });
-
-    $('.table-remove').click(function () {
-        table_id = $(this).closest('table').attr('id');
-        length = $('#'+table_id+' tbody tr:eq(1) td').length;
-        for (i=1;i<length-1;i++) {
-            $(this).parents('td').siblings().eq(i).text(0);
-        }
-        somme(table_id);
-        $(this).parents('tr').detach();
-    });
-}
+// function tableEvent(){
+//     var $TABLE = $('.table-editable');
+//
+//     /*** add others row ***/
+//     $('.table-add').click(function () {
+//         table_id = $(this).closest('table').attr('id');
+//         var $clone = $TABLE.find('#'+table_id+' tr.hide').clone(true).removeClass('hide');
+//         $clone.find('td:eq(1) span').attr('class','others').css('border-bottom', 'none').remove('editable').editable({
+//             type: 'text',
+//             inputclass:'lebar',
+//             showbuttons:true,
+//             title: 'Enter a value' ,
+//             value:'',
+//             placement:'top',
+//             emptytext:'------',
+//             validate: function(value) {
+//                 if($.trim(value) == '') {
+//                     return 'Numeric value required';
+//                 }
+//                 if ($.isNumeric(value) == '') {
+//                     return 'Numeric value required';
+//                 }else{
+//                     $(this).on('hidden.bs.modal', function () {
+//                         table_id  = $(this).closest('table').attr('id');
+//                         length = $('#'+table_id+' tbody tr:eq(1) td ').length;
+//                         td = $(this).parent('td');
+//                         for (i=0;i<length-2;i++) {
+//                             td.siblings().eq(i+1).text(value);
+//                         }
+//                         somme(table_id);
+//                     });
+//
+//                 }
+//             }
+//         });
+//         $TABLE.find('#'+table_id+' .tr_MGA').before($clone);
+//     });
+//
+//     $('.table-remove').click(function () {
+//         table_id = $(this).closest('table').attr('id');
+//         length = $('#'+table_id+' tbody tr:eq(1) td').length;
+//         for (i=1;i<length-1;i++) {
+//             $(this).parents('td').siblings().eq(i).text(0);
+//         }
+//         somme(table_id);
+//         $(this).parents('tr').detach();
+//     });
+// }
