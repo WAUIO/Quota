@@ -3,7 +3,9 @@ $( function() {
     $('#family_member').on('change keyUp', function () {
         calculateFamilyTotal($(this));
     });
-} );
+
+    detailView();
+});
 
 function calculateFamilyTotal($this){
 

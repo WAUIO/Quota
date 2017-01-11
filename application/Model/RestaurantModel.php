@@ -16,6 +16,7 @@ class RestaurantModel
     public function __construct(){
         $this->instance = new PDOConnection();
     }
+//    :application/Model/RestaurantModel.php
 
     public function selectRestaurant($id){
         $sql="SELECT * FROM restaurant WHERE house_id = $id";

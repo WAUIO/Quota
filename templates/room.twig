@@ -1,7 +1,7 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-    <form class="form-horizontal" role="form">
+    <form class="form-horizontal" id="room_form">
         <div class="row" style="height:40px; line-height: 40px">
             <div class="col-xs-8">
                 <div class="col-xs-3">Choose hotel :</div>
@@ -35,7 +35,7 @@
             {% set board = ['breakfast','lunch','dinner','menu','hb','fb'] %}
             
             {% for i in 0..type|length-1 %}
-                <div class="room">
+                <div class="room" id="accordion_head_{{ type[i] }}">
                     <span>{{ type[i]|capitalize }}</span>
                 </div>
                 <div class="row accordion_body" id="accordion_body_{{ type[i] }}">
@@ -46,10 +46,10 @@
                             {% set n = 0 %}
                         {% endif %}
                         {% for j in n..base|length-1 %}
-                            <div class="row" id="id_row_{{ base[j] }}">
+                            <div class="row all_select" id="id_row_{{ type[i] }}_{{ base[j]|replace('-', '_') }}">
                                 <div class="funkyradio form_funky col-xs-3">
                                     <div class="funkyradio-success form_success">
-                                        <input type="checkbox" id="{{ type[i] }}_{{ base[j] }}" class="base_checkbox" value="{{ base[j]|capitalize }}"/>
+                                        <input type="checkbox" id="{{ type[i] }}_{{ base[j] }}" class="base_checkbox check_able" value="{{ base[j]|capitalize }}"/>
                                         <label class="funky_label form_label" for="{{ type[i] }}_{{ base[j] }}">{{ base[j]|capitalize }}</label>
                                     </div>
                                 </div>
@@ -65,19 +65,17 @@
                             {% set value = board[j]|capitalize %}
 
                             {% if board[j] in ['menu','hb','fb'] %}
-                                {% set class_select = 'select_other_board' %}
                                 {% set class_row = 'row_other_board' %}
                                 {% if  board[j] != 'menu'%}
                                     {% set value = board[j]|upper %}
                                 {% endif %}
                             {% else %}
-                                {% set class_select = 'select_board' %}
                                 {% set class_row = 'row_board' %}
                             {% endif %}
-                            <div class="row {{ class_row }}" id="id_row_{{ board[j] }}">
+                            <div class="row all_select {{ class_row }}" id="id_row_{{ type[i] }}_{{ board[j]|replace('-', '_') }}">
                                 <div class="funkyradio form_funky col-xs-3">
                                     <div class="funkyradio-success form_success">
-                                        <input type="checkbox" id="{{ type[i]}}_{{ board[j] }}" class="board_checkbox" value="{{ value }}"/>
+                                        <input type="checkbox" id="{{ type[i]}}_{{ board[j] }}" class="board_checkbox check_able" value="{{ value }}"/>
                                         <label class="funky_label form_label" for="{{ type[i]}}_{{ board[j] }}">{{ value }}</label>
                                     </div>
                                 </div>
@@ -96,9 +94,10 @@
                 <span class="room_message"></span>
             </div>
             <div class="col-xs-2">
-                <div class="all_btn" id="save_room">
-                    <span id="btn_save_room">Save</span>
-                </div>
+                {#<div class="all_btn" id="save_room">#}
+                    <button type="submit" class="col-xs-12" style="margin: 0!important;padding: 0!important"><span class="all_btn col-xs-12" id="btn_save_room">Save</span></button>
+                    {#<span id="btn_save_room">Save</span>#}
+                {#</div>#}
             </div>
         </div>
     </form>

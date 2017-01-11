@@ -64,6 +64,9 @@ h3{
     width:15%;
     height:10%;
 }
+#Tbod,tr,td{
+    font-weight: bold;
+}
 .selectpicker{
     margin-top: 10px;
 }

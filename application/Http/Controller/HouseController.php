@@ -10,6 +10,7 @@ use Wau\Http\Controller;
 
 class HouseController extends Controller
 {
+
     //edit room quotation
     public function editRoom(){
         $houseModel = new HouseModel();

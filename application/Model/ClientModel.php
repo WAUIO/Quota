@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Model;
 
 use App\DatabaseConnection\PDOConnection;
@@ -42,5 +41,4 @@ class ClientModel
 
         return $client;
     }
-
 }

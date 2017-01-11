@@ -59,21 +59,19 @@ $( function() {
     $('#select-hotel').removeAttr("disabled");
     $('#search_control').removeAttr("disabled");
 
-    //getClient();
-    detailView();
-    editValuePopup();
-    calculateTotal();
+    getClient();
     ancreLink();
-    mouseEvent();
     setTooltip();
 });
 
+//when resize window
 function windowResize(){
     if($('#header_title').height() > 100 ){
         $('body').css('padding-top', '130px');
     }else $('body').css('padding-top', '80px');
 }
 
+//if cursor hover list customer
 function setTooltip() {
     $('#quota_list').tooltip({
         items: '.quota_lists',
@@ -104,11 +102,13 @@ function setTooltip() {
     });
 }
 
+//test validation email
 function isValidEmail(emailText) {
     var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
     return pattern.test(emailText);
 }
 
+//user log in
 function login(){
     var login_form = '#login_form';
     var email = $("#login_email").val();
@@ -137,7 +137,7 @@ function login(){
                 }else{
                     window.location.replace(window.location.pathname);
                 }
-            },error:function (data) {
+            }, error: function (data) {
                 newSrc = avatar.attr("src").replace("/images/user_gif.gif", "/images/user1.png");
                 avatar.attr("src", newSrc);
                 $('#login_error').text('Something wrong !').show();
@@ -145,10 +145,12 @@ function login(){
         });
     }
 }
-function logout(){
+
+//user log out
+function logout() {
     url = '/';
     $.ajax({
-        url:'/logout',
+        url: '/logout',
         type: "GET",
         success: function () {
             window.location.replace(url);
@@ -157,94 +159,94 @@ function logout(){
 }
 
 //round float value (fixed 2)
-function roundValue(value){
+function roundValue(value) {
     value = parseFloat(value);
-    if(value % 1 != 0){
+    if (value % 1 != 0) {
         value = value.toFixed(2);
-    }else value = value.toFixed(0);
+    } else value = value.toFixed(0);
     return value;
 }
 
 //search customer (search input)
-function searchClient(){
-    $('#search_client').keyup(function(){
-        var exist = false;
-        var quota_list = $('#quota_list');
-        var input_text = $(this).val().toLowerCase();
+function searchClient() {
+        $('#search_client').keyup(function () {
+            var exist = false;
+            var quota_list = $('#quota_list');
+            var input_text = $(this).val().toLowerCase();
 
-        if(quota_list.is(":visible") === false){
-            quota_list.fadeIn(200);
-            $('#search_glyphicon').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
-        }
-
-        $('.quota_lists').each(function(){
-            var text = $(this).text().toLowerCase();
-            if(text.indexOf(input_text) != -1){
-                $(this).show();
-                exist = true;
+            if (quota_list.is(":visible") === false) {
+                quota_list.fadeIn(200);
+                $('#search_glyphicon').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
             }
-            else{
-                $(this).hide();
+
+            $('.quota_lists').each(function () {
+                var text = $(this).text().toLowerCase();
+                if (text.indexOf(input_text) != -1) {
+                    $(this).show();
+                    exist = true;
+                }
+                else {
+                    $(this).hide();
+                }
+            });
+
+            if (!exist) {
+                quota_list.find('.search_message').show();
+            } else
+                quota_list.find('.search_message').hide();
+
+            quota_list.scrollTop(0);
+            quota_list.perfectScrollbar('update');
+
+        });
+    }
+
+//fill out the customer list
+function getClient() {
+        var quota_list = $('#quota_list');
+        var $icon = $('#refresh_client').find('.glyphicon.glyphicon-refresh'),
+            animateClass = "glyphicon-refresh-animate";
+        $icon.addClass(animateClass);
+
+        $.ajax({
+            url: "/getClient",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                var $length = data.length;
+                var client_id;
+                quota_list.html('');
+                for (i = 0; i < $length; i++) {
+                    quota_list.append($('<div id="client_' + data[i].id + '" class="quota_lists">' + data[i].reference + ' : ' + data[i].name + '</div>')
+                        .click(function () {
+                            client_id = $(this).attr('id').replace('client_', '');
+                            setClient(window.location, client_id);
+                        })
+                    );
+                }
+                $icon.removeClass(animateClass);
             }
         });
-
-        if(!exist){
-            quota_list.find('.search_message').show();
-        }else
-            quota_list.find('.search_message').hide();
-
-        quota_list.scrollTop(0);
-        quota_list.perfectScrollbar('update');
-
-    });
-}
-
-//list of all customers
-function getClient() {
-    var quota_list = $('#quota_list');
-    var $icon = $('#refresh_client').find('.glyphicon.glyphicon-refresh'),
-        animateClass = "glyphicon-refresh-animate";
-    $icon.addClass( animateClass );
-
-    $.ajax({
-        url: "/getClient",
-        type: "GET",
-        dataType: "json",
-        success: function (data) {
-            var $length = data.length;
-            var client_id;
-            quota_list.html('');
-            for(i=0;i<$length;i++){
-                quota_list.append($('<div id="client_'+data[i].id+'" class="quota_lists">'+data[i].reference+' : '+data[i].name+'</div>')
-                    .click(function(){
-                        client_id = $(this).attr('id').replace('client_','');
-                        setClient(window.location, client_id);
-                    })
-                );
-            }
-            $icon.removeClass( animateClass );
-        }
-    });
-}
+    }
 
 //set customer in session
-function setClient(url, client_id){
-    $.ajax({
-        url: "/setClient",
-        type: "GET",
-        data: {client_id : client_id},
-        success: function () {
-            window.location.replace(url);
-        }
-    });
-}
+function setClient(url, client_id) {
+        $.ajax({
+            url: "/setClient",
+            type: "GET",
+            data: {client_id: client_id},
+            success: function () {
+                window.location.replace(url);
+            }
+        });
+    }
 
 //Ancre Onclick base type
 function ancreLink() {
-    $('.base_type').on('click', function() {
+    $('.base_type').on('click', function () {
         var page = $(this).attr('href');
         var speed = 500;
-        $('html, body').animate( { scrollTop: $(page).offset().top-100 }, speed );
+        $('html, body').animate({scrollTop: $(page).offset().top - 100}, speed);
         return false;
     });
 }
@@ -263,22 +265,23 @@ function isFloat(val) {
     return true;
 }
 
-function ShowHideQuotaList(quota_list, nbr){
-    if(nbr == 0){
-        if(quota_list.is(":visible") === true){
+//when user show / hide customer list
+function ShowHideQuotaList(quota_list, nbr) {
+    if (nbr == 0) {
+        if (quota_list.is(":visible") === true) {
             quota_list.fadeOut(200);
             $('#search_glyphicon').toggleClass('glyphicon-chevron-up').toggleClass('glyphicon-chevron-down');
-        }else{
+        } else {
             quota_list.fadeIn(200);
             $('#search_glyphicon').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
         }
-    }else if(nbr == 1){
-        if(quota_list.is(":visible") === true){
+    } else if (nbr == 1) {
+        if (quota_list.is(":visible") === true) {
             quota_list.fadeOut(200);
             $('#search_glyphicon').toggleClass('glyphicon-chevron-up').toggleClass('glyphicon-chevron-down');
         }
-    }else{
-        if(quota_list.is(":visible") === false){
+    } else {
+        if (quota_list.is(":visible") === false) {
             quota_list.fadeIn(200);
             $('#search_glyphicon').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
         }

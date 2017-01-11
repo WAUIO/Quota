@@ -51,4 +51,10 @@ class LoginController extends Controller
 
         return $return;
     }
+
+    public function logout(){
+        $_SESSION['user'] = null;
+        return $this->app()->make('twig.view')->render('login.twig');
+        header('Location: /');
+    }
 }

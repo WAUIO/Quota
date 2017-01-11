@@ -27,4 +27,11 @@ class QuotaPrestationModel
             echo $e->getCode(),$e->getMessage(),$e->getLine();
         }
     }
+
+    public function selectQuotaprestation($id){
+        $sql = "SELECT * FROM quotaprestation WHERE id_client =".$id;
+
+        return $this->instance->select($sql);
+
+    }
 }

@@ -3,7 +3,8 @@
 {% block body %}
     <br/>
     <a id="pax_max_tooltip" title="Set the pax maximal" style="color: red"></a>
-    <form id="theform" method="post">
+    <a id="pax_min_tooltip" title="Set the pax minimal" style="color: red"></a>
+    <form id="prestation_form">
         <div id="prestation_form">
             <div id="accordion">
                 {% for i in 0..prestations|length - 1 %}
@@ -31,7 +32,7 @@
                             <div class="search_message">No result for this search !</div>
                             {% for prest in prestations[i] %}
                                 <div class="funkyradio-success line">
-                                    <input type="checkbox" name="individual" id="id_{{ prest.item_id }}" class="check_value" value="check_value_{{ prest.item_id }}"/>
+                                    <input type="checkbox" name="individual" id="id_{{ prest.item_id }}" class="check_value"/>
                                     <label class="funky_label" for="id_{{ prest.item_id }}" style="border: none">{{ prest.others.title.value }}</label>
                                     <span class="others_currency span_hide">{{  attribute(prest.others, 'currency-used').value }}</span>
                                     <span class="others_rate span_hide">{% if(prest.table == 'activity') %}{{ attribute(prest.others, 'wau-rate').value }}{% else %}{{ attribute(prest.others, 'wau-rate-transport').value }}{% endif %}</span>
@@ -54,9 +55,9 @@
                 {% endfor %}
             </div>
             <div class="form-group row">
-                <div class="col-xs-10 no_service">
-                    <span class="no_service_message">No service checked !</span>
-                </div>
+                <div class="col-xs-10">
+                    <span class="no_service"  style="display:none">No service checked!</span>
+                 </div>
                 <div class="col-xs-2">
                     <div class="next_prestation" id="btn_next">
                         <span style="white-space:pre">Next  </span>
@@ -65,7 +66,6 @@
                 </div>
             </div>
         </div>
-
         <div id="quotafade">
             <div class="calculation_quota">
                 <div class="table-editable">
@@ -89,8 +89,12 @@
                         </thead>
 
                         <tbody id="Tbody" class="table-bordered">
-
                         </tbody>
+                        <tfoot>
+                        <tr id="Tfoot" class="tr_total">
+                            <td colspan="8">Total</td>
+                        </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>

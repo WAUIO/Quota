@@ -1,5 +1,4 @@
 $( function() {
-
     $( "#accordion" ).accordion();
     $('.prestation_quota').perfectScrollbar();
     $('.checked_list_content').perfectScrollbar();
@@ -13,7 +12,8 @@ $( function() {
         showQuotationEdit();
     });
 
-    $('#save_quota').click(function(){
+    $("form#prestation_form").on("submit", function(e) {
+        e.preventDefault();
         savePrestation();
     });
 
@@ -22,9 +22,24 @@ $( function() {
         deletePrestation(this);
     });
 
-    searchPrestation();
-    checkPrestation();
+    //trigger for quota_prestation calculation
+    $(document).on('change keyup blur','[name="pax_min"],[name="pax_max"],[name="nb_service"]',function(){
 
+        if($('[name="nb_service"]').val() != ''){
+           addColumn();
+        }
+    });
+
+    //tooltips message if pax_min value is empty
+    $('#pax_min_tooltip').tooltip({
+        open: function (e) {
+            setTimeout(function () {
+                $(e.target).tooltip('close');
+            }, 2000);
+        }
+    });
+
+    //tooltips message if pax_max value is empty
     $('#pax_max_tooltip').tooltip({
         open: function (e) {
             setTimeout(function () {
@@ -32,7 +47,98 @@ $( function() {
             }, 2000);
         }
     });
-} );
+
+    searchPrestation();
+    checkPrestation();
+    savePrestation();
+    mouseEvent();
+});
+
+/*add column according to the pax_min and pax_max value
+* calculate prestation quotation*/
+function addColumn() {
+        var minvalues = [];
+        var maxvalues = [];
+        var tr=$("#Tbody > tr");
+
+        $(".quota").remove();
+
+        tr.each(function(){
+            var min = $(this).find("td > [name = 'pax_min']").val();
+            var max = $(this).find("td > [name = 'pax_max']").val();
+            if(min!=="" && max !==""){
+                minvalues.push(parseInt(min));
+                maxvalues.push(parseInt(max));
+            }
+        });
+
+        var minimum = Math.min.apply(Math,minvalues);
+        var maximum = Math.max.apply(Math,maxvalues);
+
+        if(minimum<=maximum){
+            for (var i = minimum;i<=maximum;i++){
+                var colhead = $("<th>");
+
+                colhead.attr("rowspan","2");
+                colhead.attr("class","quota");
+                colhead.text(i);
+                $("#Thead").append(colhead);
+
+            }
+
+            for (var i = minimum;i<=maximum;i++){
+                var bigtotal = 0;
+                var colfoot = $("<td>");
+                colfoot.attr("class","quota");
+                tr.each(function(){
+                    var min = $(this).find("td > [name='pax_min']").val();
+                    var max = $(this).find("td > [name='pax_max']").val();
+                    var type = $(this).find(".type").html();
+                    var svc_unit = parseInt($(this).find("td > [name='nb_service']").val());
+                    var amount = parseInt($(this).find(".tarif").html());
+                    var total;
+
+                    if(svc_unit == ''){
+                        total = 0;
+                        $(this).find('td').eq(7).html(0);
+                    }else{
+                        total = svc_unit*amount;
+                        $(this).find('td').eq(7).html(total);
+                    }
+
+                    var colbody = $("<td>");
+                    var subtotal;
+                    colbody.attr("class","quota");
+                    if(type === "Per Person"){
+                        subtotal =total;
+                    }else {
+                        subtotal =(total/i);
+                    }
+
+                    if(i<min || i>max){
+                        colbody.text("0");
+
+                    }else{
+                        colbody.html(subtotal.toFixed(2));
+                        bigtotal = bigtotal+subtotal;
+
+                    }
+
+                    $(this).append(colbody);
+
+
+                    $(".table").append($(this));
+                });
+                colfoot.html(bigtotal.toFixed(2));
+                colfoot.css({"font-weight":"bold","color":"#2B838E"});
+                $("#Tfoot").append(colfoot);
+
+            }
+
+        }else{
+            $('.pax_msg').css({'display':'block','color':'red'})
+        }
+}
 
 //service search filter
 function searchPrestation(){
@@ -114,7 +220,7 @@ function resize(parent_block, items){
 jQuery.fn.hasScrollBar = function(direction) {
     if (direction == 'vertical')
     {
-        return this.get(0).scrollHeight > this.innerHeight();
+        // return this.get(0).scrollHeight > this.innerHeight();
     }
     else if (direction == 'horizontal')
     {
@@ -162,6 +268,7 @@ function deletePrestation($this){
     var cheked_id = $('#id_'+$checked_prestation.attr('id').replace('check_value_', ''));
 
     $checked_prestation.remove();
+    $('#id_'+$checked_prestation.attr('id')).prop('checked', false);
 
     cheked_id.prop('checked', false);
     ifUnchecked($checked_prestation.attr('id'));
@@ -184,7 +291,9 @@ function mouseEvent(){
         $(this).find('.delete_prestation').hide();
     });
 }
-
+/*
+* check service on list of Benefit
+* add each in table quotation*/
 function checkPrestation() {
     $('.check_value').click(function () {
         var parent_div = $('#' + $(this).closest('.per_price').attr('id'));
@@ -203,7 +312,6 @@ function checkPrestation() {
             parent_div.find('.checked_list_content').append($clone);
 
             addInTab(this);
-
         } else {
             check_list_id = $(this).val();
 
@@ -220,9 +328,12 @@ function checkPrestation() {
 
         resetCheckedScroll(parent_div);
     });
-}
 
+}
+/* Add row in table for each service checked
+* Append value needed for quotation*/
 function addInTab($this) {
+
     var label_text = $($this).siblings('label').text();
     var input_id = $($this).attr('id');
     var rate = $($this).siblings('.others_rate').text();
@@ -234,11 +345,11 @@ function addInTab($this) {
     var price;
 
     if(currency == "EUR"){
-         price = euro * rate;
+         price = (euro * rate).toFixed(2);
     }else  if(currency == "MGA"){
          price = rate;
     }else{
-         price = rate * dollar ;
+         price = (rate * dollar).toFixed(2);
     }
 
     var row =   '<tr class="tr_' + input_id + '"> ' +
@@ -247,7 +358,7 @@ function addInTab($this) {
                     '</td>' +
                     '<td class="label_text">' +
                         '<span>' + label_text + '</span>' +
-                        '<input type="text" class="n_pax" name="n_pax">' +
+                        '<input type="text" class="n_pax" name="n_pax" >' +
                     '</td> ' +
                     '<td title="min">' +
                         '<input type="number" min="1" max="50" class="check number" name="pax_min" style="width: 50px;" onkeypress="return validateNumber(event)">' +
@@ -255,21 +366,59 @@ function addInTab($this) {
                     '<td title="max">' +
                         '<input type="number" min="1" max="50" class="check number" name="pax_max" style="width: 50px;" onkeypress="return validateNumber(event)" required="true">' +
                     '</td> ' +
-                    '<td class="tarif">' + roundValue(price) + '</td>' +
+                    '<td class="tarif">' + price+ '</td>' +
                     '<td title="number">' +
                         '<input type="number" min="1" max="50" class="nb_services number" name="nb_service" style="width: 50px;" onkeypress="return validateNumber(event)">' +
                     '</td> ' +
                     '<td class="type">' + type + '</td> ' +
                     '<td class="total"> </td>' +
                 '</tr>';
+    $("#Tbody").append(row);
 
-    $('#Tbody').append(row);
+}
+//clone row in prestation tab
+function duplicateRow($this){
+    var original = $($this).closest('tr');
+    var tr_class = original.attr('class');
+    var last_tr = $('.'+tr_class).last();
+    var pax_max =  last_tr.find('input[name="pax_max"]').val();
+    var pax_min =  last_tr.find('input[name="pax_min"]').val();
+    var myInput =  last_tr.find('input[name="pax_max"]');
+    var minInput =  last_tr.find('input[name="pax_min"]');
+    var $clone = original.clone(true);
+        if(pax_min =='') {
+            $('#pax_min_tooltip').tooltip({
+                //use 'of' to link the tooltip to your specified input
+                position: {of: minInput, my: 'left center', at: 'right-2 center'}
+            });
+            $('#pax_min_tooltip').tooltip('open');
 
-    $('.nb_services').on('change keyPress', function(){
-        addColumn($(this));
-    });
+
+        }else if(pax_max ==''){
+
+            $('#pax_max_tooltip').tooltip({
+                //use 'of' to link the tooltip to your specified input
+                position: {of: myInput, my: 'right center', at: 'left-2 center'}
+            });
+            $('#pax_max_tooltip').tooltip('open');
+
+        }else{
+            $clone.find('td:eq(0)').prop('onclick', null).off('click');
+            $clone.find('td:eq(0)').click(function () {
+                $clone.remove();
+            });
+            $clone.find('.quota').text(0);
+            $clone.find('input[name="pax_max"]').val('');
+            $clone.find('input[name="nb_service"]').val('');
+            $clone.find('input[name="pax_min"]').val(parseInt(pax_max) + 1).attr('disabled', 'disabled');
+            $clone.find('td:eq(0) span').attr('class', 'table-remove glyphicon glyphicon-remove');
+            last_tr.last().after($clone);
+        }
 }
 
+/*show checked service(s)
+ * show message if any service checked
+ * show list of service(s)*/
 function showQuotationTable(){
     if($('#accordion').find('.check_value:checked').length < 1){
         $('.no_service_message').css('display', 'block').delay(5000).fadeOut();
@@ -281,11 +430,7 @@ function showQuotationTable(){
     }
 }
 
-function showQuotationEdit(){
-    $('#quotafade').css('display','none');
-    $('#prestation_form').slideToggle('slow');
-}
-
+//save Prestation into database
 function savePrestation(){
     var allTR = $('#Tbody').children('tr');
     var all_data = [];
@@ -317,111 +462,8 @@ function savePrestation(){
     });
 }
 
-function addColumn($this){
-    var number = $this.val();
-    if ($.isNumeric(number)){
-        $(".quota").remove();
-        var minvalues = [];
-        var maxvalues = [];
-        var tr=$("#Tbody > tr");
-
-        tr.each(function(){
-            var min = $(this).find("td > [name = 'pax_min']").val();
-            var max = $(this).find("td > [name = 'pax_max']").val();
-            if(min!=="" && max !==""){
-                minvalues.push(parseInt(min));
-                maxvalues.push(parseInt(max));
-            }
-        });
-
-
-        var minimum = Math.min.apply(Math,minvalues);
-        var maximum = Math.max.apply(Math,maxvalues);
-
-
-        if(minimum<=maximum){
-            for (i = minimum;i<=maximum;i++){
-                var colhead = $("<th>");
-
-                colhead.attr("rowspan","2");
-                colhead.attr("class","quota");
-                colhead.text(i);
-                $("#Thead").append(colhead);
-            }
-
-            for (i = minimum;i<=maximum;i++){
-                var bigtotal = 0;
-                var colfoot = $("<td>");
-                colfoot.attr("class","quota");
-                tr.each(function(){
-                    var min = $(this).find("td > [name='pax_min']").val();
-                    var max = $(this).find("td > [name='pax_max']").val();
-                    var type = $(this).find(".type").html();
-                    var svc_unit = parseInt($(this).find("td > [name='nb_service']").val());
-                    var amount = parseInt($(this).find(".tarif").html());
-                    var total = svc_unit*amount;
-
-                    if(svc_unit ==''){
-                        $(this).find('td').eq(7).html(0);
-                    }else{
-                        $(this).find('td').eq(7).html(total);
-                    }
-                    var colbody = $("<td>");
-                    var subtotal;
-                    colbody.attr("class","quota");
-                    if(type === "Per Person"){
-                        subtotal =total;
-                    }else {
-                        subtotal =(total/i);
-                    }
-
-                    if(i<min || i>max){
-                        colbody.text("0");
-
-                    }else{
-                        colbody.html(roundValue(subtotal));
-                        bigtotal = bigtotal+subtotal;
-
-                    }
-
-                    $(this).append(colbody);
-                    $(".table").append($(this));
-                });
-                colfoot.html(roundValue(bigtotal));
-                colfoot.css({"font-weight":"bold","color":"#2B838E"});
-                $("#Tfoot").append(colfoot);
-            }
-
-        }else{
-            $('.pax_msg').css({'display':'block','color':'red'})
-        }
-    }
-}
-
-function duplicateRow($this){
-    var original = $($this).closest('tr');
-    var tr_class = original.attr('class');
-    var last_tr = $('.'+tr_class).last();
-    var pax_max =  last_tr.find('input[name="pax_max"]').val();
-    var myInput =  last_tr.find('input[name="pax_max"]');
-    var $clone = original.clone(true);
-
-    if(pax_max == ''){
-        $('#pax_max_tooltip').tooltip({
-            //use 'of' to link the tooltip to your specified input
-            position: { of: myInput, my: 'right center', at: 'left-10 center' }
-        });
-        $('#pax_max_tooltip').tooltip('open');
-    }else {
-        $clone.find('td:eq(0)').prop('onclick', null).off('click');
-        $clone.find('td:eq(0)').click(function () {
-            $clone.remove();
-        });
-        $clone.find('.quota').text(0);
-        $clone.find('input[name="pax_max"]').val('');
-        $clone.find('input[name="nb_service"]').val('');
-        $clone.find('input[name="pax_min"]').val(parseInt(pax_max) + 1).attr('disabled', 'disabled');
-        $clone.find('td:eq(0) span').attr('class', 'table-remove glyphicon glyphicon-remove');
-        last_tr.last().after($clone);
-    }
+//back to list of prestation
+function showQuotationEdit(){
+    $('#quotafade').css('display','none');
+    $('#prestation_form').slideToggle('slow');
 }

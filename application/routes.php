@@ -10,31 +10,32 @@ $app->group(['prefix' => '/webhook',
 $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware'],
     function() use (&$app){
 
+
         //UserController
         $app->get('/logout', 'App\Http\Controller\UserController@logout');
 
-        //ClientController
-        $app->get('/', 'App\Http\Controller\ClientController@clientForm');
+        //ClientController        $app->get('/', 'App\Http\Controller\ClientController@clientForm');
         $app->get('/getClient', 'App\Http\Controller\ClientController@getClient');
         $app->get('/setClient', 'App\Http\Controller\ClientController@setClient');
+        $app->get('/', 'App\Http\Controller\ClientController@clientForm');
         $app->get('/clientForm', 'App\Http\Controller\ClientController@clientForm');
         $app->get('/saveClient', 'App\Http\Controller\ClientController@saveClient');
 
-        //PrestationController
+//PrestationController
         $app->get('/quotaPrestation', 'App\Http\Controller\PrestationController@quotaPrestation');
         $app->get('/prestation', 'App\Http\Controller\PrestationController@prestation');
         $app->get('/savePrestation', 'App\Http\Controller\PrestationController@savePrestation');
 
-        //RoomController
+//RoomController
         $app->get('/quotaRoom', 'App\Http\Controller\RoomController@quotaRoom');
         $app->get('/quotaTotal', 'App\Http\Controller\RoomController@quotaTotal');
         $app->get('/saveQuotaRoom', 'App\Http\Controller\RoomController@saveQuotaRoom');
 
-        //HouseController
+//HouseController
         $app->get('/editRoom', 'App\Http\Controller\HouseController@editRoom');
         $app->get('/getAllHouseData', 'App\Http\Controller\HouseController@getAllHouseData');
 
-        //MigrationController
+//MigrationController
         $app->get('/dumpTable', 'App\Http\Controller\MigrationController@dumpTable');
     }
 ]);

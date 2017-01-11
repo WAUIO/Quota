@@ -17,7 +17,6 @@ $( function() {
 
 //save client
 function insertClient(){
-    //var ref_regex = new RegExp("\w", "g");
     var date_regex = new RegExp("(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/[0-9]{4}","g");
     var name_regex = new RegExp("[a-zA-Z]{2}", "g");
 
@@ -45,7 +44,6 @@ function insertClient(){
                         dataType: "html",
                         cache: false,
                         success: function (data) {
-                            console.log(data);
                             if ((data == 'client exist')){
                                 client_message.text('Customer reference is already exist!').css('display','block').delay(10000).fadeOut();
                             }else{
@@ -61,8 +59,6 @@ function insertClient(){
                             $(client_form+' input').prop('disabled', false);
                             $(client_form+' button').prop('disabled', false);
                             $('#btn_save_customer').html('Save');
-                        },error:function(data){alert(data);
-                            console.log(data);
                         }
                     });
                 }

@@ -112,7 +112,6 @@ class Migration
                               ON DUPLICATE KEY UPDATE others = VALUES(others)";
                     break;
             }
-
             $this->instance->insert_migration($query, $dataItem);
         }
     }

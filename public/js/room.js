@@ -3,18 +3,25 @@ $(document).ready(function () {
     $(this).scrollTop(0);
     $('.accordion_body_scroll').perfectScrollbar();
 
+    //make select disable when page on ready
     $('select').attr('disabled','disabled');
+
+    //make select option for house enable
     select_hotel.removeAttr('disabled');
 
+    //make checkbox unchecked
     $('[type = "checkbox"]').prop('checked', false);
-    // $("#ddl").removeAttr("disabled");
+    $('.check_able').prop('disabled', true);
 
     $( "#form_accordion" ).accordion();
 
-    $("#save_room").click(function() {
+    // save room trigger
+    $("form#room_form").on("submit", function(e) {
+        e.preventDefault();
         saveRoom();
     });
 
+    // get data appropriate when house option selected change
     select_hotel.on('change', function () {
         dataHouse();
     });
@@ -22,6 +29,7 @@ $(document).ready(function () {
     checkOption();
 });
 
+//make select menu enable if checkbox checked
 function checkOption(){
     $("input[type = 'checkbox']").click(function () {
         var parent = $(this).parents().eq(2);
@@ -36,7 +44,7 @@ function checkOption(){
     });
 }
 
-//when select house, get all data about room and board
+// get all data about room and board when house selected,
 function dataHouse(){
     $('.room_message').fadeOut();
     $('#adult_select_single').html('');
@@ -57,6 +65,8 @@ function dataHouse(){
     $('#child_select_lunch').html('');
 
     $('.loader').show();
+    $('.all_select').hide();
+    $('.check_able').prop('disabled', true);
     $('[type = "checkbox"]').prop('checked', false);
 
     //get house id
@@ -65,8 +75,8 @@ function dataHouse(){
     getAllHouseData(id_house, name_house);
 }
 
+// get all room and restaurant data in house
 function getAllHouseData(id_house, name_house){
-    alert(name_house);
     $.ajax({
         type: 'GET',
         url: '/getAllHouseData',
@@ -76,12 +86,15 @@ function getAllHouseData(id_house, name_house){
             setBase(data[0], id_house, name_house);
             setBoard(data[1]);
             $('.loader').hide();
+            checkbox_enable();
         }
     });
 }
 
+//append data of room into select option
 function setBase(data, house_id, name_house){
     var select = {'single':'', 'double':'','triple':'','family':'','extra_bed':''};
+    var exist_extra_bed = false;
 
     $.each( select, function( key, value ) {
         select[key] = '<optgroup label="'+key.substr(0,1).toUpperCase() + key.substr(1)+'">';
@@ -103,16 +116,22 @@ function setBase(data, house_id, name_house){
         room_option.id_house = house_id;
         room_option.name_house = name_house;
         room_option.rate = others['wau-rate'].value;
-        room_option.currency = others['public-rate'].currency;
+        if ("'public-rate" in others){
+            room_option.currency = others['public-rate'].currency;
+        }else
+            room_option.currency = 'MGA';
         room_option.room_title = others['name'].value;
         room_option.vignet = vignette;
         room_option.tax = tax;
 
         var category = value.category.replace('-', '_').toLowerCase();
-
         select[category] += "<option value='"+ JSON.stringify(room_option) +"'>"+ room_option.room_title +"</option>";
+        $('#id_row_adult_'+category).show();
+        if (category == "extra_bed"){
+            exist_extra_bed = true;
+            $('#id_row_child_'+category).show();
+        }
     });
-
     $.each( select, function( key, value ) {
         select[key] += '</optgroup>';
     });
@@ -122,15 +141,23 @@ function setBase(data, house_id, name_house){
     $('#adult_select_triple').append(select['triple'], select['double'], select['single'], select['extra_bed']);
     $('#adult_select_family').append(select['family'], select['triple'], select['double'], select['single'], select['extra_bed']);
     $('#adult_select_extra_bed').append(select['extra_bed']);
-    $('#child_select_extra_bed').append(select['extra_bed']);
+    if (exist_extra_bed){
+        $('#child_select_extra_bed').append(select['extra_bed']);
+        $('#accordion_head_child').show();
+        //$('#accordion_body_child').show();
+    }else{
+        $('#accordion_head_child').hide();
+        $('#accordion_body_child').hide();
+    }
 }
 
+//append data of board into select option
 function setBoard(data){
     $.each( data, function(e, value){
         others = JSON.parse(value.others.replace('<br/>', ''));
         meals = value.meals.toLowerCase();
 
-        if(meals != ''){
+        if(meals != '') {
             var array_meals = meals.split('/');
             var other_board = ['menu', 'fb', 'hb'];
 
@@ -142,14 +169,16 @@ function setBoard(data){
 
                 if(~val.indexOf('chd')){
                     select_id = "#child_select_"+val.replace(' chd', '');
+                    id_row = "#id_row_child_"+val.replace(' chd', '');
                 }else{
-                    select_id = "#adult_select_"+val
+                    select_id = "#adult_select_"+val;
+                    id_row = "#id_row_adult_"+val;
                 }
 
                 board_option[val] = others['wau-rate'].value;
                 option = "<option value='"+ JSON.stringify(board_option) +"'>"+ value.menu +"</option>";
-
                 $(select_id).append(option);
+                $(id_row).show();
             });
         }
     });
@@ -158,10 +187,21 @@ function setBoard(data){
         $('#accordion_body_adult').css('height', '350px');
     }
 }
+//make checkbox checkable if select option is not empty
+function checkbox_enable(){
+    $('select').each(function() {
+        var parent = $(this).parent().parent();
+        var siblings = parent.siblings();
+        var checkbox = siblings.find('[type="checkbox"]');
 
+        if(($(this).children().text() !='')) {
+            checkbox.removeAttr('disabled');
+        }
+    })
+}
 
+//get room data to save
 function saveRoom(){
-    $('#loader_gif').show();
     var board_option = {};
     var all_data = [];
 
@@ -178,7 +218,6 @@ function saveRoom(){
                 $.each(select, function () {
                     $.each( JSON.parse($(this).val()), function(key, value){
                         board_option[key] = value;
-                        //console.log(value);
                     });
                 });
             }
@@ -204,6 +243,7 @@ function saveRoom(){
     });
 
     if(all_data.length > 0 ){
+
         $('#btn_save_room').html('Saving&nbsp;<img src="/images/loader.gif" alt="Avatar" class="" style="width:20px; height:5px">');
         $.ajax({
             type: 'GET',
@@ -213,6 +253,7 @@ function saveRoom(){
             success: function(data){
                 $('.room_message').text('Room(s) saved for '+data+' hotel !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'});
                 $('#btn_save_room').html('Save');
+                $(client_form+' button').prop('disabled', false);
             }
         });
     }else{

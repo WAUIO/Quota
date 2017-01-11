@@ -26,6 +26,7 @@ class ClientController extends Controller
         $parts = explode('/', $_GET['date']);
         $date = "$parts[2]-$parts[1]-$parts[0]";
 
+
         $client->setReference($_GET['reference']);
         $client->setName($_GET['name']);
         $client->setNumberAdult($_GET['nbAdults']);
@@ -75,6 +76,7 @@ class ClientController extends Controller
         $exchange = array('euro' => $euro->exchange[0], 'dollar' => $dollar->exchange[0]);
         $_SESSION['exchange'] = $exchange;
 
+
         $query = "SELECT * FROM client";
         $instance = new PDOConnection();
         $result = $instance->select($query);
@@ -88,6 +90,7 @@ class ClientController extends Controller
             $client->setNumberAdult($res['number_adult']);
             $client->setStartDate($res['start_date']);
 
+            //$client_session = $client;
             $array[] = $client;
         }
         return $array;
