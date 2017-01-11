@@ -361,7 +361,7 @@ function addInTab($this) {
                     '</td>' +
                     '<td class="label_text">' +
                         '<span>' + label_text + '</span>' +
-                        '<input type="text" class="n_pax" name="n_pax" >' +
+                        '<input type="text" class="n_pax" name="n_pax">' +
                     '</td> ' +
                     '<td title="min">' +
                         '<input type="number" min="1" max="50" class="check number" name="pax_min" style="width: 50px;" onkeypress="return validateNumber(event)">' +
