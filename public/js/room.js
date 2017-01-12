@@ -47,7 +47,7 @@ function checkOption(){
 function dataHouse(){
 
     $('.check_able').prop('disabled', true);
-    $('.room_message').fadeOut();
+    $('#room_message').fadeOut();
     $('#adult_select_single').html('');
     $('#adult_select_double').html('');
     $('#adult_select_triple').html('');
@@ -115,9 +115,9 @@ function setBase(data, house_id, name_house){
         }
 
         room_option.id_house = house_id;
-        room_option.name_house = name_house;
+        room_option.name_house = name_house.trim();
         room_option.rate = others['wau-rate'].value;
-        if ("'public-rate" in others){
+        if ("public-rate" in others){
             room_option.currency = others['public-rate'].currency;
         }else
             room_option.currency = 'MGA';
@@ -126,7 +126,8 @@ function setBase(data, house_id, name_house){
         room_option.tax = tax;
 
         var category = value.category.replace('-', '_').toLowerCase();
-        select[category] += "<option value='"+ JSON.stringify(room_option) +"'>"+ room_option.room_title +"</option>";
+
+        select[category] += "<option value='"+ JSON.stringify(room_option).replace("'","&quot") +"'>"+ room_option.room_title +"</option>";
         $('#id_row_adult_'+category).show();
         if (category == "extra_bed"){
             exist_extra_bed = true;
@@ -205,6 +206,8 @@ function checkbox_enable(){
 function saveRoom(){
     var board_option = {};
     var all_data = [];
+    var client_form_button = $('#client_form button');
+    client_form_button.prop('disabled', true);
 
     $('.accordion_body').each( function( ) {
         base_checkbox = $(this).find('.base_checkbox');
@@ -232,7 +235,8 @@ function saveRoom(){
                 parent = $(this).parents().eq(2);
                 select = parent.find('select option:selected');
                 $.each(select,function () {
-                    room_option = JSON.parse($(this).val());
+                    console.log($(this).val().replace("&quot","'"));
+                    room_option = JSON.parse($(this).val().replace("&quot","'"));
                     room_option.base = base;
                     if(Object.keys(board_option).length  > 0){
                         room_option.board = board_option;
@@ -252,12 +256,12 @@ function saveRoom(){
             dataType:'html',
             data: {all_data : all_data},
             success: function(data){
-                $('.room_message').text('Room(s) saved for '+data+' hotel !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'});
+                $('#room_message').text('Room(s) saved for '+data+' hotel !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'});
                 $('#btn_save_room').html('Save');
-                $(client_form+' button').prop('disabled', false);
+                client_form_button.prop('disabled', false);
             }
         });
     }else{
-        $('.room_message').text('No room checked !').css({'display':'block', 'color':'#FF0F22', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
+        $('#room_message').text('No room checked !').css({'display':'block', 'color':'#FF0F22', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
     }
 }

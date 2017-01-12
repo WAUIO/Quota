@@ -1,8 +1,9 @@
 $( function() {
-    var quota_list = $('#quota_list');
     windowResize();
+    getClient();
     searchClient();
 
+    var quota_list = $('#quota_list');
     $(window).on('resize', function(){
         windowResize();
     });
@@ -59,9 +60,7 @@ $( function() {
     $('#select-hotel').removeAttr("disabled");
     $('#search_control').removeAttr("disabled");
 
-    getClient();
     ancreLink();
-    setTooltip();
 });
 
 //when resize window
@@ -72,10 +71,16 @@ function windowResize(){
 }
 
 //if cursor hover list customer
-function setTooltip() {
-    $('#quota_list').tooltip({
+function setTooltip(client) {
+    var $content = '<p>Reference : '+ client.reference +'</p>'+
+                    '<p>Name : '+ client.name +'</p>'+
+                    '<p>Adult number : '+ client.number_adult +'</p>'+
+                    '<p>Child number : '+ client.number_child +'</p>'+
+                    '<p>Stay beginning : '+ client.start_date +'</p>';
+
+    $('#client_'+client.id).tooltip({
         items: '.quota_lists',
-        content: 'Click to display this customer.',
+        content: $content,
         show: null, // show immediately
         open: function (event, ui) {
             if (typeof(event.originalEvent) === 'undefined') {
@@ -91,13 +96,13 @@ function setTooltip() {
         },
         close: function (event, ui) {
             ui.tooltip.hover(function () {
-                    $(this).stop(true).fadeTo(400, 1);
-                },
-                function () {
-                    $(this).fadeOut('400', function () {
-                        $(this).remove();
-                    });
+                $(this).stop(true).fadeTo(400, 1);
+            },
+            function () {
+                $(this).fadeOut('400', function () {
+                    $(this).remove();
                 });
+            });
         }
     });
 }
@@ -223,6 +228,7 @@ function getClient() {
                             setClient(window.location, client_id);
                         })
                     );
+                    setTooltip(data[i]);
                 }
                 $icon.removeClass(animateClass);
             }

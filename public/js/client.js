@@ -12,11 +12,35 @@ $( function() {
         insertClient();
     });
 
+    // var ele = document.querySelector("input[name=reference]");
+    // attachHandler(ele, "invalid", function () {
+    //     this.setCustomValidity("Please enter at least 5 characters.");
+    //     this.setCustomValidity("");
+    // });
+
     $('input[type="number"]').keypress(validateNumber);
 } );
 
+// function check(input) {alert(input.val().length);
+//     if(input.val().length <5){
+//         input.setCustomValidity('The two email addresses must match.');
+//     } else {
+//         // input is valid -- reset the error message
+//         input.setCustomValidity('');
+//     }
+// }
+
+// function attachHandler(el, evtname, fn) {
+//     if (el.addEventListener) {
+//         el.addEventListener(evtname, fn.bind(el), false);
+//     } else if (el.attachEvent) {
+//         el.attachEvent('on' + evtname, fn.bind(el));
+//     }
+// }
+
 //save client
 function insertClient(){
+    $('#client_saved').hide();
     var date_regex = new RegExp("(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/[0-9]{4}","g");
     var name_regex = new RegExp("[a-zA-Z]{2}", "g");
 
@@ -28,8 +52,9 @@ function insertClient(){
 
     var client_message = $("#client_message");
     var client_form = '#client_form';
+    var message_error = {'display':'block','color':'FF0F22'};
 
-    if( reference.length > 4)
+    if( reference.trim().length > 4)
         if(name_regex.test(name))
             if (nbAdults > 0)
                 if (date_regex.test(stay_date)) {
@@ -45,7 +70,7 @@ function insertClient(){
                         cache: false,
                         success: function (data) {
                             if ((data == 'client exist')){
-                                client_message.text('Customer reference is already exist!').css('display','block').delay(10000).fadeOut();
+                                client_message.text('Customer reference is already exist !').css('display','block').delay(10000).fadeOut();
                             }else{
                                 client_message.text('Customer '+data+' added !').css({
                                     'display': 'block',
@@ -62,10 +87,11 @@ function insertClient(){
                         }
                     });
                 }
-                else client_message.text('Date is empty or invalid format!').css('display', 'block').delay(5000).fadeOut();
-            else client_message.text('Adult\'s number empty!').css('display', 'block').delay(5000).fadeOut();
-        else client_message.text('Name is empty or invalid format!!').css('display', 'block').delay(5000).fadeOut();
-    else client_message.text('Customer Reference is empty or too short!').css('display','block').delay(5000).fadeOut();
+                else client_message.text('Date format invalid !').css(message_error).delay(5000).fadeOut();
+            else client_message.text('Empty adult number !').css(message_error).delay(5000).fadeOut();
+        else client_message.text('Name format invalid or too short !').css(message_error).delay(5000).fadeOut();
+    else client_message.text('Reference empty or too short !').css(message_error).delay(5000).fadeOut();
+
 }
 
 //check if input value is a number between 0..100

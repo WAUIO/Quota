@@ -969,15 +969,18 @@ ul{
 .accordion_body{
     overflow: visible!important;
 }
-.room_message{
+#room_message{
     display: none;
     font-style: italic;
 }
-.prestation_message{
+#prestation_message{
     display: none;
     font-style: italic;
 }
-.client_message{
+#client_message{
     display: none;
     font-style: italic;
+}
+.message{
+    margin-right: 10px;
 }
