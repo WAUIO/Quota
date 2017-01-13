@@ -129,7 +129,7 @@ function addColumn() {
             }
 
         }else{
-            $('.prestation_message').text('pax_max must be higher than pax_min!').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
+            $('#prestation_message').text('pax_max must be higher than pax_min!').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
         }
 }
 
@@ -455,7 +455,7 @@ function savePrestation(){
         data: {all_data : all_data},
         dataType: "html",
         success: function(){
-            $('.prestation_message').text('Benefit(s) saved !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'});
+            $('#prestation_message').text('Benefit(s) saved !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'});
             $('#btn_save_prestation').html('Save');
         }
     });
