@@ -350,7 +350,7 @@ function addInTab($this) {
          price = (rate * dollar).toFixed(2);
     }
 
-    var row =   '<tr id="tr_' + input_id + '"> ' +
+    var row =   '<tr id="tr_' + input_id + '"  class="tr_class_' + input_id + '"> ' +
                     '<td class="table-add add_record" onclick="duplicateRow(this)">' +
                         '<span class="glyphicon glyphicon-plus"></span>' +
                     '</td>' +
@@ -366,7 +366,7 @@ function addInTab($this) {
                     '</td> ' +
                     '<td class="tarif">' + roundValue(price)+ '</td>' +
                     '<td title="number">' +
-                        '<input type="number" min="1" max="50" class="nb_services number" name="nb_service" value="0" style="width: 50px;" onkeypress="return validateNumber(event)" >' +
+                        '<input type="number" min="1" max="50" class="nb_services number" name="nb_service" value="1" style="width: 50px;" onkeypress="return validateNumber(event)" >' +
                     '</td> ' +
                     '<td class="type">' + type + '</td> ' +
                     '<td class="total"> </td>' +
@@ -400,6 +400,7 @@ function duplicateRow($this){
             $('#pax_max_tooltip').tooltip('open');
 
         }else{
+            var pax = parseInt(pax_max) + 1;
             $clone.find('td:eq(0)').prop('onclick', null).off('click');
             $clone.find('td:eq(0)').click(function () {
                 $clone.remove();
@@ -407,7 +408,8 @@ function duplicateRow($this){
             $clone.find('.quota').text(0);
             $clone.find('input[name="pax_max"]').val('');
             $clone.find('input[name="nb_service"]').val('0');
-            $clone.find('input[name="pax_min"]').val(parseInt(pax_max) + 1).attr('disabled', 'disabled');
+            $clone.find('input[name="pax_min"]').val(pax).attr('disabled', 'disabled');
+            $clone.find('input[name="pax_max"]').val(pax).attr({'min':pax,'max':50});
             $clone.find('td:eq(0) span').attr('class', 'table-remove glyphicon glyphicon-remove');
             last_tr.last().after($clone);
         }
