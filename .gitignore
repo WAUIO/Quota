@@ -8,6 +8,8 @@ project.dev_error_log*
 .env
 composer.lock
 
+#test
+
 public/hook.wau-error_log
 public/hook.wau-access_log
 
