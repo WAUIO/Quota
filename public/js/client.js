@@ -11,32 +11,8 @@ $( function() {
         e.preventDefault();
         insertClient();
     });
-
-    // var ele = document.querySelector("input[name=reference]");
-    // attachHandler(ele, "invalid", function () {
-    //     this.setCustomValidity("Please enter at least 5 characters.");
-    //     this.setCustomValidity("");
-    // });
-
     $('input[type="number"]').keypress(validateNumber);
 } );
-
-// function check(input) {alert(input.val().length);
-//     if(input.val().length <5){
-//         input.setCustomValidity('The two email addresses must match.');
-//     } else {
-//         // input is valid -- reset the error message
-//         input.setCustomValidity('');
-//     }
-// }
-
-// function attachHandler(el, evtname, fn) {
-//     if (el.addEventListener) {
-//         el.addEventListener(evtname, fn.bind(el), false);
-//     } else if (el.attachEvent) {
-//         el.attachEvent('on' + evtname, fn.bind(el));
-//     }
-// }
 
 //save client
 function insertClient(){

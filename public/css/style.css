@@ -246,8 +246,52 @@ span.psw {
 }
 
 /******* For quota view *******/
+.btn_export{
+    width: 30px;
+    height: 25px;
+    float: right;
+    margin-bottom: 5px;
+}
+.btn_export:hover{
+    cursor: pointer;
+}
+.export_excel{
+    margin-right: 5px;
+    background-image : url('../images/excel_111.png');
+    background-repeat: no-repeat;
+    background-size: 30px 25px;
+}
+.export_excel:hover{
+    background-image : url('../images/excel_noir.png');
+    background-repeat: no-repeat;
+    background-size: 30px 25px;
+}
+
+.export_pdf{
+    margin-right: 5px;
+    background-image : url('../images/pdf_111.png');
+    background-repeat: no-repeat;
+    background-size: 30px 25px;
+}
+.export_pdf:hover{
+    background-image : url('../images/pdf_noir.png');
+    background-repeat: no-repeat;
+    background-size: 30px 25px;
+}
+.export_csv{
+    margin-right: 5px;
+    background-image : url('../images/csv_111.png');
+    background-repeat: no-repeat;
+    background-size: 30px 25px;
+}
+.export_csv:hover{
+    margin-right: 5px;
+    background-image : url('../images/csv_noir.png');
+    background-repeat: no-repeat;
+    background-size: 30px 25px;
+}
 .base_title{
-    text-align: center;
+    text-align: left;
     font-size: 170%;
     color: #2B838E;
 }
@@ -717,7 +761,7 @@ ul{
     color: #5cb85c;
 }
 .col-form-label{
-    color: rgb(111, 111, 111);
+    color: #6F6F6F;
     white-space: nowrap;
 }
 .editable-buttons{
@@ -983,4 +1027,13 @@ ul{
 }
 .message{
     margin-right: 10px;
+
+}
+.no_client{
+    color: #FF0F22;
+    padding-left: 10px;
+    font-style: italic;
+}
+#add_new_customer{
+    margin-top: 10px;
 }

@@ -90,4 +90,11 @@ class ClientController extends Controller
         }
         return $array;
     }
+
+    public function test()
+    {
+        $pdo = new PDOConnection();
+        var_dump($pdo->getInstance());
+        return "";
+    }
 }

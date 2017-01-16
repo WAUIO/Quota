@@ -16,19 +16,16 @@ class PDOConnection
     {
         if(is_null(self::$instance))
         {
-            $app        = Application::getInstance();
+            $app = Application::getInstance();
 
             $this->host       = $app->config('database.host');
-            $this->database  = $app->config('database.database');
+            $this->database   = $app->config('database.database');
             $this->user       = $app->config('database.username');
             $this->password   = $app->config('database.password');
 
             return self::$instance = new \PDO('mysql:dbname='.$this->database.';host='.$this->host, $this->user , $this->password, array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
-
-
         }
         return self::$instance;
-
     }
 
 

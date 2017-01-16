@@ -15,6 +15,7 @@ $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware
         $app->get('/logout', 'App\Http\Controller\UserController@logout');
 
         //ClientController        $app->get('/', 'App\Http\Controller\ClientController@clientForm');
+        $app->get('/test', 'App\Http\Controller\ClientController@test');
         $app->get('/getClient', 'App\Http\Controller\ClientController@getClient');
         $app->get('/setClient', 'App\Http\Controller\ClientController@setClient');
         $app->get('/', 'App\Http\Controller\ClientController@clientForm');

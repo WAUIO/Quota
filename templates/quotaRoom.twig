@@ -152,7 +152,7 @@
                         <a class="base_type" href="#{{ (room.content[0]['label']|lower)|replace({' ' : '_'}) }}" >{{ room.content[0]['label'] }}</a>
                     </div>
                 {% endfor %}
-            <div class="add_room_button " data-popup-open="popup-1" onclick="location.href ='/editRoom'">Add room</div>
+            <div class="add_room_button " onclick="location.href ='/editRoom'">Add room</div>
         </div>
 
     {% endblock menu_room %}

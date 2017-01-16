@@ -142,10 +142,11 @@ function login(){
                 }else{
                     window.location.replace(window.location.pathname);
                 }
-            }, error: function (data) {
+            }, error: function () {
                 newSrc = avatar.attr("src").replace("/images/user_gif.gif", "/images/user1.png");
                 avatar.attr("src", newSrc);
-                $('#login_error').text('Something wrong !').show();
+                $('#login_error').text('Something wrong, please refresh !').show();
+                $(login_form+' button').prop('disabled', false);
             }
         });
     }
@@ -221,16 +222,24 @@ function getClient() {
                 var $length = data.length;
                 var client_id;
                 quota_list.html('');
-                for (i = 0; i < $length; i++) {
-                    quota_list.append($('<div id="client_' + data[i].id + '" class="quota_lists">' + data[i].reference + ' : ' + data[i].name + '</div>')
-                        .click(function () {
-                            client_id = $(this).attr('id').replace('client_', '');
-                            setClient(window.location, client_id);
-                        })
-                    );
-                    setTooltip(data[i]);
+                if($length == 0){
+                    quota_list.append('<div class="no_client">No existing customer !</div>'+
+                        '<div class="add_room_button " id="add_new_customer" onclick="location.href =\'/clientForm\'">Add customer</div>');
+
+                }else{
+                    for (i = 0; i < $length; i++) {
+                        quota_list.append($('<div id="client_' + data[i].id + '" class="quota_lists">' + data[i].reference + ' : ' + data[i].name + '</div>')
+                            .click(function () {
+                                client_id = $(this).attr('id').replace('client_', '');
+                                setClient(window.location, client_id);
+                            })
+                        );
+                        setTooltip(data[i]);
+                    }
+                    getClient();
                 }
                 $icon.removeClass(animateClass);
+                quota_list.perfectScrollbar('update');
             }
         });
     }
