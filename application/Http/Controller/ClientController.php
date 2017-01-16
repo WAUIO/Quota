@@ -15,7 +15,7 @@ class ClientController extends Controller
             $_SESSION['client'] = $clientModel->getLastClient();
         }
 
-        array_set($data, 'title', 'New customer');
+        array_set($data, 'title', 'Customer');
         return $this->app()->make('twig.view')->render('client.twig', $data);
     }
 
@@ -85,16 +85,8 @@ class ClientController extends Controller
             $client->setNumberAdult($res['number_adult']);
             $client->setStartDate($res['start_date']);
 
-            //$client_session = $client;
             $array[] = $client;
         }
         return $array;
-    }
-
-    public function test()
-    {
-        $pdo = new PDOConnection();
-        var_dump($pdo->getInstance());
-        return "";
     }
 }

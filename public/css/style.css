@@ -80,6 +80,9 @@ footer {
     background: #ffffff;
     line-height: 50px;
 }
+#client_form{
+    display:none;
+}
 .ref_align_right{
     float: right;
 }
