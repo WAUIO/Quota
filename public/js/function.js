@@ -1,6 +1,6 @@
 $( function() {
+    //getClient();
     windowResize();
-    getClient();
     searchClient();
 
     var quota_list = $('#quota_list');
@@ -126,6 +126,7 @@ function login(){
         $('#login_btn').append('&nbsp;<img src="/images/loader.gif" alt="Avatar" class="" style="width:20px; height:5px">');
         $(login_form+' input').prop('disabled', true);
         $(login_form+' button').prop('disabled', true);
+
         $.ajax({
             url:'/authenticate',
             type:'GET',
@@ -163,13 +164,7 @@ function logout() {
         url: '/logout',
         type: "GET",
         success: function () {
-            $.ajax({
-                url: '/logout',
-                type: "GET",
-                success: function () {
-                    window.location.replace(url);
-                }
-            });
+            window.location.replace(url);
         }
     });
 }
@@ -230,7 +225,6 @@ function getClient() {
         dataType: "json",
         success: function (data) {
             var $length = data.length;
-            var client_id;
             quota_list.html('');
 
             if($length == 0){
