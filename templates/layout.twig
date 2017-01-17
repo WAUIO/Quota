@@ -53,11 +53,11 @@
         {% if user != null %}
             <div class="collapse navbar-collapse" id="menu_nav_bar">
                 <ul  class="nav navbar-nav" id="menu">
-                    <li><a href="/clientForm">Home</a></li>
+                    <li><a href="/informationClient">Home</a></li>
                     <li>
                         <a href="#">Create</a>
                         <ul>
-                            <li><a href="/clientForm">Customer</a></li>
+                            <li><a href="/addClient">Customer</a></li>
                             <li><a href="/editRoom">Room</a></li>
                             <li><a href="/prestation">Benefit</a></li>
                         </ul>
@@ -110,7 +110,7 @@
             </div>
         {% else %}
             <!--/left side-->
-            <div class="col-xs-9 scrollit">
+            <div class="col-xs-9">
                 {% block body %}
                 {% endblock body %}
             </div>
@@ -178,6 +178,12 @@
 <script src="/js/bootstrap-select.min.js"></script>
 <script src="/js/perfect-scrollbar.jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script src="/js/export/FileSaver.min.js"></script>
+    <script src="/js/export/xlsx.core.min.js"></script>
+    <script src="/js/export/jspdf.min.js"></script>
+    <script src="/js/export/jspdf.plugin.autotable.js"></script>
+    <script src="/js/export/tableExport.min.js"></script>
 
 <script src="/js/function.js"></script>
 <script src="/js/client.js"></script>

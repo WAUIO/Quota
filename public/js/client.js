@@ -1,5 +1,4 @@
 $( function() {
-
     var options={
         dateFormat: 'dd/mm/yy',
         todayHighlight: true,
@@ -15,12 +14,13 @@ $( function() {
     $('input[type="number"]').keypress(validateNumber);
     addNewCustomer();
 } );
+
 function addNewCustomer(){
     $('#add_customer').click(function(){
-        $('#current_customer').css('display','none');
-        $('#client_form').css('display','block');
+        window.location.replace('/addClient');
     });
 }
+
 //save client
 function insertClient(){
     $('#client_saved').hide();
@@ -55,6 +55,7 @@ function insertClient(){
                             if ((data == 'client exist')){
                                 client_message.text('Customer reference is already exist !').css('display','block').delay(10000).fadeOut();
                             }else{
+                                getClient();
                                 client_message.text('Customer '+data+' added !').css({
                                     'display': 'block',
                                     'color': '#5cb85c',

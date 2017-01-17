@@ -4,14 +4,15 @@
     <form class="form-horizontal" id="room_form">
         <p id="hotel_label" class="col-xs-12" style="white-space: nowrap; margin: 0!important;padding: 0!important;">Hotel :</p>
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-xs-7">
                 <select class="selectpicker" id="select-hotel" data-live-search="true" title="Select hotel">
                     {% for house in listhouse %}
                         <option value={{ house['item_id'] }}> {{ house['house_title'] }} </option>
                     {% endfor %}
                 </select>
+                <img class="loader" src="/images/loading.gif" alt="loading..." style="display: none;">
             </div>
-            <div class="row col-xs-6">
+            <div class="row col-xs-5">
 
                 <span class="col-xs-11" id="dollar">$.{{ exchange['dollar']}}&nbsp;&nbsp;€.{{ exchange['euro'] }}</span>
             </div>

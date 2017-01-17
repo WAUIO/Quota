@@ -11,14 +11,15 @@ $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware
     function() use (&$app){
 
 
-        //UserController
+//UserController
         $app->get('/logout', 'App\Http\Controller\UserController@logout');
 
-        //ClientController        $app->get('/', 'App\Http\Controller\ClientController@clientForm');
+//ClientController
         $app->get('/getClient', 'App\Http\Controller\ClientController@getClient');
         $app->get('/setClient', 'App\Http\Controller\ClientController@setClient');
-        $app->get('/', 'App\Http\Controller\ClientController@clientForm');
-        $app->get('/clientForm', 'App\Http\Controller\ClientController@clientForm');
+        $app->get('/', 'App\Http\Controller\ClientController@informationClient');
+        $app->get('/informationClient', 'App\Http\Controller\ClientController@informationClient');
+        $app->get('/addClient', 'App\Http\Controller\ClientController@addClient');
         $app->get('/saveClient', 'App\Http\Controller\ClientController@saveClient');
 
 //PrestationController
@@ -34,9 +35,6 @@ $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware
 //HouseController
         $app->get('/editRoom', 'App\Http\Controller\HouseController@editRoom');
         $app->get('/getAllHouseData', 'App\Http\Controller\HouseController@getAllHouseData');
-
-//MigrationController
-        $app->get('/dumpTable', 'App\Http\Controller\MigrationController@dumpTable');
     }
 ]);
 

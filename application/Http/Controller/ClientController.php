@@ -9,7 +9,17 @@ use App\Model\ClientModel;
 class ClientController extends Controller
 {
     //edit client
-    public function clientForm(){
+    public function informationClient(){
+        if($_SESSION['client'] == null){
+            $clientModel = new ClientModel();
+            $_SESSION['client'] = $clientModel->getLastClient();
+        }
+
+        array_set($data, 'title', 'Customer');
+        return $this->app()->make('twig.view')->render('aboutClient.twig', $data);
+    }
+
+    public function addClient(){
         if($_SESSION['client'] == null){
             $clientModel = new ClientModel();
             $_SESSION['client'] = $clientModel->getLastClient();
@@ -85,7 +95,6 @@ class ClientController extends Controller
             $client->setNumberAdult($res['number_adult']);
             $client->setStartDate($res['start_date']);
 
-            //$client_session = $client;
             $array[] = $client;
         }
         return $array;
