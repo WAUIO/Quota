@@ -1,5 +1,5 @@
 $( function() {
-
+//Wautraveldb2/
     var options={
         dateFormat: 'dd/mm/yy',
         todayHighlight: true,
@@ -57,6 +57,7 @@ function insertClient(){
                             if ((data == 'client exist')){
                                 client_message.text('Customer reference is already exist !').css('display','block').delay(10000).fadeOut();
                             }else{
+                                getClient();
                                 client_message.text('Customer '+data+' added !').css({
                                     'display': 'block',
                                     'color': '#5cb85c',

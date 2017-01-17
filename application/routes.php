@@ -11,11 +11,10 @@ $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware
     function() use (&$app){
 
 
-        //UserController
+//UserController
         $app->get('/logout', 'App\Http\Controller\UserController@logout');
 
-        //ClientController        $app->get('/', 'App\Http\Controller\ClientController@clientForm');
-        $app->get('/test', 'App\Http\Controller\ClientController@test');
+//ClientController
         $app->get('/getClient', 'App\Http\Controller\ClientController@getClient');
         $app->get('/setClient', 'App\Http\Controller\ClientController@setClient');
         $app->get('/', 'App\Http\Controller\ClientController@clientForm');
