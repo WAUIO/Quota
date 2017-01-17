@@ -8,6 +8,7 @@
 namespace App\Console\Podio;
 
 
+use App\Utils\Mysqldump;
 use League\Flysystem\Exception;
 use Wau\Console\Podio\PodioCommandAbstract;
 use Symfony\Component\Console\Input\InputArgument;
@@ -26,7 +27,8 @@ class appGetItems extends PodioCommandAbstract
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $this->migrate();
+        //$this->migrate();
+        $this->dumpDatabase();
     }
 
     public function migrate()
@@ -44,6 +46,40 @@ class appGetItems extends PodioCommandAbstract
             echo $app_id." ".$app_name."<br/>";
         }
     }
+
+    public function dumpDatabase(){
+        //MySQL connection parameters
+        $dbhost = '127.0.0.1';
+        $dbuser = 'root';
+        $dbpsw = '';
+        $dbname = 'wm-database';
+
+        //Connects to mysql server
+        $connessione = @mysql_connect($dbhost,$dbuser,$dbpsw);
+
+
+//Creates a new instance of MySQLDump: it exports a compressed and base-16 file
+        $dumper = new \MySQLDump($dbname,'C:\Users\rindra\Downloads\wm-database\filename.sql',true,true);
+
+//Use this for plain text and not compressed file
+//$dumper = new MySQLDump($dbname,'filename.sql',false,false);
+
+//Dumps all the database
+        //$dumper->doDump();
+
+//Dumps all the database structure only (no data)
+        $dumper->getDatabaseStructure();
+
+//Dumps all the database data only (no structure)
+        //$dumper->getDatabaseData();
+
+//Dumps "mytable" table structure only (no data)
+        //$dumper->getTableStructure('mytable');
+
+//Dumps "mytable" table data only (no structure)
+        //$dumper->getTableData('mytable');
+    }
+
     //    public function getItem($app_id, $offset = 0)
 //    {
 //        $limit = 500;

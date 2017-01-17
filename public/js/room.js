@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var select_hotel = $('#select-hotel');
     $(this).scrollTop(0);
-    $('.accordion_body_scroll').perfectScrollbar();
+    $('.accordion_body_scroll').perfectScrollbar('update');
 
     //make select disable when page on ready
     $('select').attr('disabled','disabled');
@@ -67,7 +67,6 @@ function dataHouse(){
 
     $('.loader').show();
     $('.all_select').hide();
-    $('.check_able').prop('disabled', true);
     $('[type = "checkbox"]').prop('checked', false);
 
     //get house id

@@ -1,7 +1,49 @@
 $( function() {
     editValuePopup();
     calculateTotal();
+
+    $(".btn_export").click(function (e) {
+        var btn_export_id = $(this).attr('id');
+        if (~btn_export_id.indexOf('excel')){
+            table_id = $(this).attr('id').replace('export_excel','table');
+            doExport('#'+table_id, {type: 'excel'});
+        }
+        else if(~btn_export_id.indexOf('pdf')){
+            table_id = $(this).attr('id').replace('export_pdf','table');
+            doExport('#'+table_id,
+                {
+                    type: 'pdf',
+                    jspdf: {autotable: {tableWidth: 'wrap'}}
+                }
+            );
+        }
+        else{
+            table_id = $(this).attr('id').replace('export_csv','table');
+            doExport('#'+table_id,
+                {
+                    type: 'csv',numbers: {html: {decimalMark: '.',
+                    thousandsSeparator: ','},
+                    output: {decimalMark: ',',
+                    thousandsSeparator: ''}
+                }
+            });
+        }
+    });
 });
+
+function doExport(selector, params) {
+    var options = {
+        //ignoreRow: [1,11,12,-2],
+        //ignoreColumn: [0,-1],
+        //pdfmake: {enabled: true},
+        tableName: 'quotation',
+        worksheetName: 'quotation'
+    };
+
+    $.extend(true, options, params);
+
+    $(selector).tableExport(options);
+}
 
 //make somme in each table(total)
 function calculateTotal() {

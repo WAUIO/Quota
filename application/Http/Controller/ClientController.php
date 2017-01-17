@@ -95,7 +95,6 @@ class ClientController extends Controller
             $client->setNumberAdult($res['number_adult']);
             $client->setStartDate($res['start_date']);
 
-            //$client_session = $client;
             $array[] = $client;
         }
         return $array;

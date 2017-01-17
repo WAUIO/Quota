@@ -15,12 +15,14 @@ $( function() {
     $('input[type="number"]').keypress(validateNumber);
     addNewCustomer();
 } );
+
 function addNewCustomer(){
     $('#add_customer').click(function(){
         $('#current_customer').css('display','none');
         $('#client_form').css('display','block');
     });
 }
+
 //save client
 function insertClient(){
     $('#client_saved').hide();

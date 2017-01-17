@@ -9,10 +9,23 @@
     <br/>
     {% if base_rooms|length > 0 %}
         {% for room in base_rooms %}
-            <p class="base_title" id="{{ room.type|replace({' ' : '_'}) }}">Based on {{ room.type }}</p>
+            <div class="row">
+                <div class="col-xs-8 base_title" id="{{ room.type|replace({' ' : '_'}) }}">Based on {{ room.type }}</div>
+                <div class="col-xs-4 row" style="margin: 0!important;">
+                    <div class="btn_export export_csv" id="export_csv_{{ room.type|replace({' ' : '_'}) }}"></div>
+                    <div class="btn_export export_excel" id="export_excel_{{ room.type|replace({' ' : '_'}) }}"></div>
+                    <div class="btn_export export_pdf" id="export_pdf_{{ room.type|replace({' ' : '_'}) }}"></div>
+                </div>
+            </div>
+            {#<button id="export_excel_{{ room.type|replace({' ' : '_'}) }}" class="btn_export btn btn-lg btn-danger clearfix"><span class="fa fa-file-pdf-o"></span> Export to Excel</button>#}
+            {#<button id="export_pdf_{{ room.type|replace({' ' : '_'}) }}" class="btn_export btn btn-lg btn-danger clearfix"><span class="fa fa-file-pdf-o"></span> Export to PDF</button>#}
             <div class="calculation_quota">
                 <div class="table-editable">
-                    <table class="table" id="table_{{ room.type|replace({' ' : '_'}) }}">
+                    <table class="table"
+                           id="table_{{ room.type|replace({' ' : '_'}) }}"
+                           data-show-export="true"
+                           data-show-toggle="true"
+                           data-tableexport-display="always">
                         <thead>
                             <tr>
                                 <th class="table_header" rowspan="2" colspan="2">Designation</th>
