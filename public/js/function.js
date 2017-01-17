@@ -1,9 +1,15 @@
 $( function() {
-    getClient();
+    //don't call getClient() when login page
+    if( !$('#login_form').length )
+    {
+        getClient();
+    }
+
     windowResize();
     searchClient();
 
     var quota_list = $('#quota_list');
+
     $(window).on('resize', function(){
         windowResize();
     });
