@@ -19,6 +19,7 @@ $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware
         $app->get('/setClient', 'App\Http\Controller\ClientController@setClient');
         $app->get('/', 'App\Http\Controller\ClientController@clientForm');
         $app->get('/clientForm', 'App\Http\Controller\ClientController@clientForm');
+        $app->get('/clientAdd', 'App\Http\Controller\ClientController@clientAdd');
         $app->get('/saveClient', 'App\Http\Controller\ClientController@saveClient');
 
 //PrestationController

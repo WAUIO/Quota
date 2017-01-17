@@ -16,6 +16,16 @@ class ClientController extends Controller
         }
 
         array_set($data, 'title', 'Customer');
+        return $this->app()->make('twig.view')->render('Infoclient.twig', $data);
+    }
+
+    public function clientAdd(){
+        if($_SESSION['client'] == null){
+            $clientModel = new ClientModel();
+            $_SESSION['client'] = $clientModel->getLastClient();
+        }
+
+        array_set($data, 'title', 'Customer');
         return $this->app()->make('twig.view')->render('client.twig', $data);
     }
 
