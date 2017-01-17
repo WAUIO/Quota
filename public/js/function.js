@@ -1,5 +1,5 @@
 $( function() {
-    //getClient();
+    getClient();
     windowResize();
     searchClient();
 
