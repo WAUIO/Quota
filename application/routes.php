@@ -18,8 +18,8 @@ $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware
         $app->get('/test', 'App\Http\Controller\ClientController@test');
         $app->get('/getClient', 'App\Http\Controller\ClientController@getClient');
         $app->get('/setClient', 'App\Http\Controller\ClientController@setClient');
-        $app->get('/', 'App\Http\Controller\ClientController@clientForm');
-        $app->get('/clientForm', 'App\Http\Controller\ClientController@clientForm');
+        $app->get('/', 'App\Http\Controller\ClientController@clientInformation');
+        $app->get('/clientInformation', 'App\Http\Controller\ClientController@clientInformation');
         $app->get('/clientAdd', 'App\Http\Controller\ClientController@clientAdd');
         $app->get('/saveClient', 'App\Http\Controller\ClientController@saveClient');
 

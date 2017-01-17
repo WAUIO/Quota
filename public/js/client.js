@@ -18,8 +18,7 @@ $( function() {
 
 function addNewCustomer(){
     $('#add_customer').click(function(){
-        $('#current_customer').css('display','none');
-        $('#client_form').css('display','block');
+        window.location.replace('/clientAdd');
     });
 }
 
