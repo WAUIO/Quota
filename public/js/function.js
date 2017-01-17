@@ -163,7 +163,13 @@ function logout() {
         url: '/logout',
         type: "GET",
         success: function () {
-            window.location.replace(url);
+            $.ajax({
+                url: '/logout',
+                type: "GET",
+                success: function () {
+                    window.location.replace(url);
+                }
+            });
         }
     });
 }
@@ -229,7 +235,7 @@ function getClient() {
 
             if($length == 0){
                 quota_list.append('<div class="no_client">No existing customer !</div>'+
-                    '<div class="add_room_button " id="add_new_customer" onclick="location.href =\'/clientAdd\'">Add customer</div>');
+                    '<div class="add_room_button " id="add_new_customer" onclick="location.href =\'/addClient\'">Add customer</div>');
 
             }else{
                 for (i = 0; i < $length; i++) {

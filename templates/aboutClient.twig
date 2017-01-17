@@ -5,21 +5,21 @@
     <div id="current_customer">
         <table class="table table-striped">
             <thead class="thead-inverse">
-                <tr>
-                    <th colspan="2">Customer Information</th>
-                </tr>
+            <tr>
+                <th colspan="2">Customer Information</th>
+            </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td style="padding-left: 30px"><label for="label">Reference :</label></td>
-                    <td>{{ client.reference }}</td>
-                </tr>
-                <tr>
-                    {% if(client.name) != '' %}
-                        <td style="padding-left: 30px"><label for="label">Name :</label></td>
-                        <td>{{ client.name }}</td>
-                    {% endif %}
-                </tr>
+            <tr>
+                <td style="padding-left: 30px"><label for="label">Reference :</label></td>
+                <td>{{ client.reference }}</td>
+            </tr>
+            <tr>
+                {% if(client.name) != '' %}
+                    <td style="padding-left: 30px"><label for="label">Name :</label></td>
+                    <td>{{ client.name }}</td>
+                {% endif %}
+            </tr>
             <tr>
                 {% if(client.numberAdult) != '' %}
                     <td style="padding-left: 30px"><label for="label">Adult number : </label></td>
@@ -50,70 +50,6 @@
             </div>
         </div>
     </div>
-    <form id="client_form">
-        <div class="form-group row">
-            <label for="label" class="col-xs-4 col-form-label">Reference</label>
-            <div class="col-xs-8">
-                {#<input type="text" class="col-xs-12" name="reference" id="reference" required pattern=".{5,}"/>#}
-                {#<input type="text" class="col-xs-12" name="reference" id="reference" required oninput="check(this)">#}
-                <input type="text" class="col-xs-12" name="reference" id="reference" required onInvalid="this.setCustomValidity('Please complete this field')" onchange="try{setCustomValidity('')}catch(e){}"/>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="label" class="col-xs-4 col-form-label">Name</label>
-            <div class="col-xs-8">
-                <input type="text" class="col-xs-12" name="name" id="name" required oninvalid="this.setCustomValidity('Please complete this field')" onchange="try{setCustomValidity('')}catch(e){}"/>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="label" class="col-xs-4 col-form-label">Number of adult</label>
-            <div class="col-xs-8">
-                <input type="number" class="col-xs-12 number" min="0" max="100"  name="nbAdults" id="nbAdults" required oninvalid="this.setCustomValidity('Please complete this field')" onchange="try{setCustomValidity('')}catch(e){}"/>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="label" class="col-xs-4 col-form-label">Number of children</label>
-            <div class="col-xs-8">
-                <input type="number" class="col-xs-12 number" min="0" max="100" name="nbChildren" id="nbChildren" required oninvalid="this.setCustomValidity('Please complete this field')" onchange="try{setCustomValidity('')}catch(e){}"/>
-            </div>
-         </div>
-        <div class="form-group row">
-            <label for="label" class="col-xs-4 col-form-label">Beginning of stay</label>
-            <div class="col-xs-8">
-                <input type="text" class="col-xs-12 " name="stay" id="stay" placeholder="dd/mm/yyyy" required oninvalid="this.setCustomValidity('Please complete this field')" onchange="try{setCustomValidity('')}catch(e){}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-xs-10">
-                <span id="client_message" class="pull-right"></span>
-            </div>
-            <div class="col-xs-2">
-                <div class="all_btn">
-                    <button type="submit" class="col-xs-12" style="margin: 0!important;padding: 0!important"><span class="col-xs-12" id="btn_save_customer">Save</span></button>
-                </div>
-            </div>
-        </div>
-
-
-        <!--show if client saved-->
-        <div id="client_saved" class="row">
-            <div class="row">
-                <h4>Add quotation for this customer</h4>
-            </div>
-            <div class="row">
-                <div class="col-xs-6">
-                    <div class="col-md-12 add_quotation" onclick="location.href ='/editRoom'">
-                        Room quotation
-                    </div>
-                </div>
-                <div class="col-xs-6">
-                    <div class="col-md-12 add_quotation" onclick="location.href ='/prestation'">
-                        Benefit quotation
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
 
 {% endblock body %}
 

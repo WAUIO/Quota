@@ -9,7 +9,7 @@ use App\Model\ClientModel;
 class ClientController extends Controller
 {
     //edit client
-    public function clientInformation(){
+    public function informationClient(){
         if($_SESSION['client'] == null){
             $clientModel = new ClientModel();
             $_SESSION['client'] = $clientModel->getLastClient();
@@ -19,7 +19,7 @@ class ClientController extends Controller
         return $this->app()->make('twig.view')->render('aboutClient.twig', $data);
     }
 
-    public function clientAdd(){
+    public function addClient(){
         if($_SESSION['client'] == null){
             $clientModel = new ClientModel();
             $_SESSION['client'] = $clientModel->getLastClient();

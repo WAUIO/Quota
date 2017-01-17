@@ -15,9 +15,7 @@ class MigrationController extends Controller
         foreach ($list_app as $app){
             $app_id = $app['app_id'];
             //$app_name = $app['app_name'];
-            if($app_id == 17063267){
-                $migrate->getItems($app);
-            }
+            $migrate->getItems($app);
         }
         return "";
     }
