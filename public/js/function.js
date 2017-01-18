@@ -125,6 +125,7 @@ function login(){
     var loginData = $(login_form).serialize();
     var email = $("#login_email").val();
     var password = $("#login_password").val();
+    $('#login_error').hide();
     if(isValidEmail( email ) && password != ''){
         var avatar = $('.avatar');
         var newSrc = avatar.attr("src").replace("/images/user1.png", "/images/user_gif.gif");
@@ -169,7 +170,7 @@ function logout() {
     url = '/';
     $.ajax({
         url: '/logout',
-        type: "POST",
+        type: "GET",
         success: function () {
             window.location.replace(url);
         }
