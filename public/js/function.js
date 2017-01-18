@@ -159,13 +159,7 @@ function logout() {
         url: '/logout',
         type: "GET",
         success: function () {
-            $.ajax({
-                url: '/logout',
-                type: "GET",
-                success: function () {
-                    window.location.replace(url);
-                }
-            });
+            window.location.replace(url);
         }
     });
 }
