@@ -6,11 +6,10 @@ use App\Model\ClientModel;
 use App\Model\ExchangeModel;
 use App\Utils\User;
 use Wau\Http\Controller;
-use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller
 {
-    public function authenticate(Request $request){
+    public function authenticate(){
         //wm-database workspace
         $space_id = 4691756;
         $email = $_POST['login_email'];
