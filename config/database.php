@@ -1,10 +1,11 @@
 <?php
+//Wautraveldb2/
 return [
     'driver'   => 'mysql',
-    'host'     => env('DB_HOST', '104.198.0.93'),
+    'host'     => env('DB_HOST', 'localhost'),
     'database' => env('DB_NAME', 'wm-database'),
     'username' => env('DB_USER', 'root'),
-    'password' => env('DB_PASSWORD', 'ninahhexadec'),
+    'password' => env('DB_PASSWORD', ''),
     'prefix'   => '',
     'charset'   => 'utf8',
     'collation' => 'utf8_unicode_ci',

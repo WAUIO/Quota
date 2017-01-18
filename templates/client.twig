@@ -6,8 +6,6 @@
         <div class="form-group row">
             <label for="label" class="col-xs-4 col-form-label">Reference</label>
             <div class="col-xs-8">
-                {#<input type="text" class="col-xs-12" name="reference" id="reference" required pattern=".{5,}"/>#}
-                {#<input type="text" class="col-xs-12" name="reference" id="reference" required oninput="check(this)">#}
                 <input type="text" class="col-xs-12" name="reference" id="reference" required onInvalid="this.setCustomValidity('Please complete this field')" onchange="try{setCustomValidity('')}catch(e){}"/>
             </div>
         </div>

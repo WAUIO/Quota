@@ -1,9 +1,15 @@
 $( function() {
+    //don't call getClient() when login page
+    if( !$('#login_form').length )
+    {
+        getClient();
+    }
+
     windowResize();
-    getClient();
     searchClient();
 
     var quota_list = $('#quota_list');
+
     $(window).on('resize', function(){
         windowResize();
     });
@@ -126,6 +132,7 @@ function login(){
         $('#login_btn').append('&nbsp;<img src="/images/loader.gif" alt="Avatar" class="" style="width:20px; height:5px">');
         $(login_form+' input').prop('disabled', true);
         $(login_form+' button').prop('disabled', true);
+
         $.ajax({
             url:'/authenticate',
             type:'GET',
@@ -133,23 +140,27 @@ function login(){
             data: {email : email, password : password},
             success:function(data){
                 if(data == 'not authenticated'){
-                    newSrc = avatar.attr("src").replace("/images/user_gif.gif", "/images/user1.png");
-                    avatar.attr("src", newSrc);
-                    $('#login_error').text('Email or password invalid !').show();
-                    $(login_form+' input').prop('disabled', false);
-                    $(login_form+' button').prop('disabled', false);
-                    $('#login_btn').html('Login');
+                    message = 'Email or password invalid !';
+                    afterLoginFailed(avatar, login_form, message);
                 }else{
                     window.location.replace(window.location.pathname);
                 }
             }, error: function () {
-                newSrc = avatar.attr("src").replace("/images/user_gif.gif", "/images/user1.png");
-                avatar.attr("src", newSrc);
-                $('#login_error').text('Something wrong, please refresh !').show();
-                $(login_form+' button').prop('disabled', false);
+                message = 'Something wrong !';
+                afterLoginFailed(avatar, login_form, message);
             }
         });
     }
+}
+
+//set message after login
+function afterLoginFailed(avatar, login_form, message){
+    newSrc = avatar.attr("src").replace("/images/user_gif.gif", "/images/user1.png");
+    avatar.attr("src", newSrc);
+    $('#login_error').text(message).show();
+    $(login_form+' input').prop('disabled', false);
+    $(login_form+' button').prop('disabled', false);
+    $('#login_btn').html('Login');
 }
 
 //user log out
@@ -209,40 +220,39 @@ function searchClient() {
 
 //fill out the customer list
 function getClient() {
-        var quota_list = $('#quota_list');
-        var $icon = $('#refresh_client').find('.glyphicon.glyphicon-refresh'),
-            animateClass = "glyphicon-refresh-animate";
-        $icon.addClass(animateClass);
+    var quota_list = $('#quota_list'),
+        $icon = $('#refresh_client').find('.glyphicon.glyphicon-refresh'),
+        animateClass = "glyphicon-refresh-animate";
+    $icon.addClass(animateClass);
 
-        $.ajax({
-            url: "/getClient",
-            type: "GET",
-            dataType: "json",
-            success: function (data) {
-                var $length = data.length;
-                var client_id;
-                quota_list.html('');
-                if($length == 0){
-                    quota_list.append('<div class="no_client">No existing customer !</div>'+
-                        '<div class="add_room_button " id="add_new_customer" onclick="location.href =\'/clientAdd\'">Add customer</div>');
+    $.ajax({
+        url: "/getClient",
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            var $length = data.length;
+            quota_list.html('');
 
-                }else{
-                    for (i = 0; i < $length; i++) {
-                        quota_list.append($('<div id="client_' + data[i].id + '" class="quota_lists">' + data[i].reference + ' : ' + data[i].name + '</div>')
-                            .click(function () {
-                                client_id = $(this).attr('id').replace('client_', '');
-                                setClient(window.location, client_id);
-                            })
-                        );
-                        setTooltip(data[i]);
-                    }
-                    getClient();
+            if($length == 0){
+                quota_list.append('<div class="no_client">No existing customer !</div>'+
+                    '<div class="add_room_button " id="add_new_customer" onclick="location.href =\'/addClient\'">Add customer</div>');
+
+            }else{
+                for (i = 0; i < $length; i++) {
+                    quota_list.append($('<div id="client_' + data[i].id + '" class="quota_lists">' + data[i].reference + ' : ' + data[i].name + '</div>')
+                        .click(function () {
+                            client_id = $(this).attr('id').replace('client_', '');
+                            setClient(window.location, client_id);
+                        })
+                    );
+                    setTooltip(data[i]);
                 }
-                $icon.removeClass(animateClass);
-                quota_list.perfectScrollbar('update');
             }
-        });
-    }
+            quota_list.perfectScrollbar('update');
+            $icon.removeClass(animateClass);
+        }
+    });
+}
 
 //set customer in session
 function setClient(url, client_id) {

@@ -1,5 +1,4 @@
 $( function() {
-
     var options={
         dateFormat: 'dd/mm/yy',
         todayHighlight: true,
@@ -18,7 +17,7 @@ $( function() {
 
 function addNewCustomer(){
     $('#add_customer').click(function(){
-        window.location.replace('/clientAdd');
+        window.location.replace('/addClient');
     });
 }
 
@@ -56,6 +55,7 @@ function insertClient(){
                             if ((data == 'client exist')){
                                 client_message.text('Customer reference is already exist !').css('display','block').delay(10000).fadeOut();
                             }else{
+                                getClient();
                                 client_message.text('Customer '+data+' added !').css({
                                     'display': 'block',
                                     'color': '#5cb85c',

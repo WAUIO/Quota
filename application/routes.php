@@ -9,18 +9,15 @@ $app->group(['prefix' => '/webhook',
 
 $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware'],
     function() use (&$app){
-
-
-        //UserController
+//UserController
         $app->get('/logout', 'App\Http\Controller\UserController@logout');
 
-        //ClientController        $app->get('/', 'App\Http\Controller\ClientController@clientForm');
-        $app->get('/test', 'App\Http\Controller\ClientController@test');
+//ClientController
         $app->get('/getClient', 'App\Http\Controller\ClientController@getClient');
         $app->get('/setClient', 'App\Http\Controller\ClientController@setClient');
-        $app->get('/', 'App\Http\Controller\ClientController@clientInformation');
-        $app->get('/clientInformation', 'App\Http\Controller\ClientController@clientInformation');
-        $app->get('/clientAdd', 'App\Http\Controller\ClientController@clientAdd');
+        $app->get('/', 'App\Http\Controller\ClientController@informationClient');
+        $app->get('/informationClient', 'App\Http\Controller\ClientController@informationClient');
+        $app->get('/addClient', 'App\Http\Controller\ClientController@addClient');
         $app->get('/saveClient', 'App\Http\Controller\ClientController@saveClient');
 
 //PrestationController
@@ -36,15 +33,12 @@ $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware
 //HouseController
         $app->get('/editRoom', 'App\Http\Controller\HouseController@editRoom');
         $app->get('/getAllHouseData', 'App\Http\Controller\HouseController@getAllHouseData');
-
-//MigrationController
-        $app->get('/dumpTable', 'App\Http\Controller\MigrationController@dumpTable');
     }
 ]);
 
 $app->group(['prefix'=>'/', 'middleware' => ['Wau\Podio\PodioAuthMiddleware'],
     function() use (&$app){
         $app->get('/migrate','App\Http\Controller\MigrationController@migrate');
-        $app->get('/authenticate', 'App\Http\Controller\LoginController@authenticate');
+        $app->get('/authenticate', 'App\Http\Controller\UserController@authenticate');
     }
 ]);
