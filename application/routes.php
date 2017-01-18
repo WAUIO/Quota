@@ -39,6 +39,6 @@ $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware
 $app->group(['prefix'=>'/', 'middleware' => ['Wau\Podio\PodioAuthMiddleware'],
     function() use (&$app){
         $app->get('/migrate','App\Http\Controller\MigrationController@migrate');
-        $app->get('/authenticate', 'App\Http\Controller\UserController@authenticate');
+        $app->post('/authenticate', 'App\Http\Controller\UserController@authenticate');
     }
 ]);

@@ -122,6 +122,7 @@ function isValidEmail(emailText) {
 //user log in
 function login(){
     var login_form = '#login_form';
+    var loginData = $(login_form).serialize();
     var email = $("#login_email").val();
     var password = $("#login_password").val();
     if(isValidEmail( email ) && password != ''){
@@ -135,9 +136,9 @@ function login(){
 
         $.ajax({
             url:'/authenticate',
-            type:'GET',
+            type:'POST',
+            data: loginData,
             dataType:'html',
-            data: {email : email, password : password},
             success:function(data){
                 if(data == 'not authenticated'){
                     message = 'Email or password invalid !';
@@ -168,7 +169,7 @@ function logout() {
     url = '/';
     $.ajax({
         url: '/logout',
-        type: "GET",
+        type: "POST",
         success: function () {
             window.location.replace(url);
         }
