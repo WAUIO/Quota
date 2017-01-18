@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'CLIENT_ID'     => 'CLIENT_ID',
-    'CLIENT_SECRET' => 'CLIENT_SECRET',
-    'USERNAME'      => 'podio_user@email.co',
-    'PASSWORD'      => 'your_password',
+    'CLIENT_ID'     => 'new-xuo5zs',
+    'CLIENT_SECRET' => 'f7ZeWUi4sFLgapOxzZK2oLssx7hmwkJAiG0WUfo8sqCM3OCv7chXnOOVWtPXIKit',
+    'USERNAME'      => 'ninah@wau.solutions',
+    'PASSWORD'      => 'ninahwaupodio24',
 ];
