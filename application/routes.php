@@ -9,8 +9,6 @@ $app->group(['prefix' => '/webhook',
 
 $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware'],
     function() use (&$app){
-
-
 //UserController
         $app->get('/logout', 'App\Http\Controller\UserController@logout');
 
@@ -41,6 +39,6 @@ $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware
 $app->group(['prefix'=>'/', 'middleware' => ['Wau\Podio\PodioAuthMiddleware'],
     function() use (&$app){
         $app->get('/migrate','App\Http\Controller\MigrationController@migrate');
-        $app->get('/authenticate', 'App\Http\Controller\LoginController@authenticate');
+        $app->get('/authenticate', 'App\Http\Controller\UserController@authenticate');
     }
 ]);
