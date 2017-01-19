@@ -417,7 +417,13 @@ table > thead > tr > th, .total_designation {
     margin-bottom: 10px;
     color: #FF0F22;
 }
-.no_quota{
+.no_customer{
+    height: 90px;
+    padding: auto;
+    color: #6F6F6F;
+    background:whitesmoke;
+}
+.no_quota, .no_customer{
     padding-left: 10px;
 }
 

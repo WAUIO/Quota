@@ -18,7 +18,10 @@ class UserController extends Controller
         $client_id = $this->app->config('podio.CLIENT_ID');
         $client_secret = $this->app->config('podio.CLIENT_SECRET');
 
-        $return = "not authenticated";
+        $return = array();
+        $return['authenticated'] = false;
+        $return['message'] = 'Email or password invalid !';
+
         \Podio::setup($client_id, $client_secret);
         try {
             if(\Podio::authenticate_with_password($email, $password)){
@@ -38,12 +41,18 @@ class UserController extends Controller
 
                         $exchange = new ExchangeModel();
                         $exchange->getExchange();
-                        $return = "authenticated";
+
+                        $return['authenticated'] = true;
+                        $return['message'] = 'You are authorized !';
+                        break;
+                    }else{
+                        $return['message'] = 'You are not authorized !';
                     }
                 }
             }
         }
         catch (\PodioError $e) {
+            $return['message'] = 'Something wrong !';
             // Something went wrong. Examine $e->body['error_description'] for a description of the error.
         }
 
