@@ -12,7 +12,9 @@ class ClientController extends Controller
     public function informationClient(){
         if($_SESSION['client'] == null){
             $clientModel = new ClientModel();
-            $_SESSION['client'] = $clientModel->getLastClient();
+            $client = $clientModel->getLastClient();
+            if($client != null)
+            $_SESSION['client'] = $client;
         }
 
         array_set($data, 'title', 'Customer');
