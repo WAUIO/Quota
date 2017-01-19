@@ -28,7 +28,7 @@ class ClientController extends Controller
             $_SESSION['client'] = $clientModel->getLastClient();
         }
 
-        array_set($data, 'title', 'Customer');
+        array_set($data, 'title', 'New customer');
         return $this->app()->make('twig.view')->render('client.twig', $data);
     }
 

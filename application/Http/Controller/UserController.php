@@ -24,10 +24,11 @@ class UserController extends Controller
 
         \Podio::setup($client_id, $client_secret);
         try {
-            if(\Podio::authenticate_with_password($email, $password)){
+            if($authenticated =  \Podio::authenticate_with_password($email, $password)){
 
                 $auth = \PodioUser::get();
                 $members = \PodioSpaceMember::get_all( $space_id );
+                $return['message'] = 'You are not authorized !';
 
                 foreach ($members as $member){
                     if ($member->user->user_id == $auth->user_id){
@@ -44,15 +45,16 @@ class UserController extends Controller
 
                         $return['authenticated'] = true;
                         $return['message'] = 'You are authorized !';
-                        break;
-                    }else{
-                        $return['message'] = 'You are not authorized !';
                     }
                 }
             }
         }
+        catch (\PodioInvalidGrantError $e) {
+            $return['message'] = "Email or password is wrong";
+
+        }
         catch (\PodioError $e) {
-            $return['message'] = 'Something wrong !';
+            $return['message'] = $e->getMessage();
             // Something went wrong. Examine $e->body['error_description'] for a description of the error.
         }
 

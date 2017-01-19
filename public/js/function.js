@@ -137,7 +137,7 @@ function login(){
         url:'/authenticate',
         type:'POST',
         data:loginData,
-        dataType:'html',
+        dataType:'json',
         success:function(data){
             if(data.authenticated){
                 window.location.replace(url);
