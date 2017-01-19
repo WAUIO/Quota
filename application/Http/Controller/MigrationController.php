@@ -13,8 +13,8 @@ class MigrationController extends Controller
         $list_app = $migrate->getApps($space_id);
 
         foreach ($list_app as $app){
-            $app_id = $app['app_id'];
-            //$app_name = $app['app_name'];
+//            $app_id = $app['app_id'];
+//            $app_name = $app['app_name'];
             $migrate->getItems($app);
         }
         return "";

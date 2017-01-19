@@ -6,14 +6,15 @@ use App\Model\ClientModel;
 use App\Model\ExchangeModel;
 use App\Utils\User;
 use Wau\Http\Controller;
+use Wau\Request;
 
 class UserController extends Controller
 {
-    public function authenticate(){
+    public function authenticate(Request $request){
         //wm-database workspace
         $space_id = 4691756;
-        $email = $_POST['login_email'];
-        $password = $_POST['login_password'];
+        $email = $request->get('login_email', '');
+        $password = $request->get('login_password', '');
         $client_id = $this->app->config('podio.CLIENT_ID');
         $client_secret = $this->app->config('podio.CLIENT_SECRET');
 
@@ -37,7 +38,6 @@ class UserController extends Controller
 
                         $exchange = new ExchangeModel();
                         $exchange->getExchange();
-
                         $return = "authenticated";
                     }
                 }

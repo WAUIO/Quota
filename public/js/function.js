@@ -127,6 +127,7 @@ function login(){
     var password = $("#login_password").val();
     $('#login_error').hide();
     if(isValidEmail( email ) && password != ''){
+        var url = window.location.pathname;
         var avatar = $('.avatar');
         var newSrc = avatar.attr("src").replace("/images/user1.png", "/images/user_gif.gif");
         avatar.attr("src", newSrc);
@@ -145,7 +146,7 @@ function login(){
                     message = 'Email or password invalid !';
                     afterLoginFailed(avatar, login_form, message);
                 }else{
-                    window.location.replace(window.location.pathname);
+                    window.location.replace(url);
                 }
             }, error: function () {
                 message = 'Something wrong !';
