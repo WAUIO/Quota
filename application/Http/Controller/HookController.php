@@ -69,8 +69,8 @@ class HookController extends WebhookController
     //override auth
     public function auth () {
         \Podio::setup(
-            $this->app->config("podio.CLIENT_ID"),
-            $this->app->config("podio.CLIENT_SECRET")
+            $this->app->config('podio.CLIENT_ID'),
+            $this->app->config('podio.CLIENT_SECRET')
         );
 
         \Podio::authenticate_with_password(
