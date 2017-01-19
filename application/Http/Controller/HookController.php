@@ -4,7 +4,6 @@ use App\DatabaseConnection\PDOConnection;
 use App\Utils\Migration;
 use Symfony\Component\HttpFoundation\Request;
 use Wau\Http\Controller\WebhookController;
-use App\Utils\HtmlToText;
 
 class HookController extends WebhookController
 {
@@ -64,6 +63,19 @@ class HookController extends WebhookController
         }
 
         $instance = new PDOConnection();
-        $instance->delete("DELETE FROM ".$table." WHERE item_id = ".$item_id);
+        $instance->delete("DELETE FROM $table WHERE item_id = $item_id");
+    }
+
+    //override auth
+    public function auth () {
+        \Podio::setup(
+            $this->app->config('podio.CLIENT_ID'),
+            $this->app->config('podio.CLIENT_SECRET')
+        );
+
+        \Podio::authenticate_with_password(
+            $this->app->config('podio.USERNAME'),
+            $this->app->config('podio.PASSWORD')
+        );
     }
 }

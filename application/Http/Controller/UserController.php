@@ -6,21 +6,22 @@ use App\Model\ClientModel;
 use App\Model\ExchangeModel;
 use App\Utils\User;
 use Wau\Http\Controller;
+use Wau\Request;
 
 class UserController extends Controller
 {
-    public function authenticate(){
+    public function authenticate(Request $request){
         //wm-database workspace
         $space_id = 4691756;
-        $username = $_POST['email'];
-        $password = $_POST['password'];
+        $email = $request->get('login_email', '');
+        $password = $request->get('login_password', '');
         $client_id = $this->app->config('podio.CLIENT_ID');
         $client_secret = $this->app->config('podio.CLIENT_SECRET');
 
         $return = "not authenticated";
         \Podio::setup($client_id, $client_secret);
         try {
-            if(\Podio::authenticate_with_password($username, $password)){
+            if(\Podio::authenticate_with_password($email, $password)){
 
                 $auth = \PodioUser::get();
                 $members = \PodioSpaceMember::get_all( $space_id );

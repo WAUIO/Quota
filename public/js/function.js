@@ -124,6 +124,7 @@ function login(){
     var login_form = '#login_form';
     var email = $("#login_email").val();
     var password = $("#login_password").val();
+    $('#login_error').hide();
     if(isValidEmail( email ) && password != ''){
         var avatar = $('.avatar');
         var newSrc = avatar.attr("src").replace("/images/user1.png", "/images/user_gif.gif");
@@ -137,7 +138,6 @@ function login(){
             url:'/authenticate',
             type:'POST',
             dataType:'html',
-            data: {email : email, password : password},
             success:function(data){
                 if(data == 'not authenticated'){
                     message = 'Email or password invalid !';
