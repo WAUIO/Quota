@@ -7,11 +7,13 @@
         </div>
 
         <form id="login_form">
-            <label class="col-xsg-12"><b>Email</b></label>
+            <label class="col-xs-12"><b>Email</b></label>
             <input type="text" id="login_email" class="col-xs-12 input_login" placeholder="Enter Email address" name="email" required oninvalid="this.setCustomValidity('Please complete this field')" onchange="try{setCustomValidity('')}catch(e){}">
 
             <label class="col-xs-12"><b>Password</b></label>
             <input type="password" id="login_password" class="col-xs-12 input_login" placeholder="Enter Password" name="login_password" required oninvalid="this.setCustomValidity('Please complete this field')" onchange="try{setCustomValidity('')}catch(e){}">
+
+            <p style="font-size:0.7em; text-align: center;"><em>*Only specific Podio members are allowed</em></p>
 
             <div class="col-xs-12" id="login_error">Error message</div>
 
