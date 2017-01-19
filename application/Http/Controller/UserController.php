@@ -12,8 +12,8 @@ class UserController extends Controller
     public function authenticate(){
         //wm-database workspace
         $space_id = 4691756;
-        $username = $_GET['email'];
-        $password = $_GET['password'];
+        $username = $_POST['email'];
+        $password = $_POST['password'];
         $client_id = $this->app->config('podio.CLIENT_ID');
         $client_secret = $this->app->config('podio.CLIENT_SECRET');
 

@@ -135,7 +135,7 @@ function login(){
 
         $.ajax({
             url:'/authenticate',
-            type:'GET',
+            type:'POST',
             dataType:'html',
             data: {email : email, password : password},
             success:function(data){
@@ -143,6 +143,7 @@ function login(){
                     message = 'Email or password invalid !';
                     afterLoginFailed(avatar, login_form, message);
                 }else{
+                    console.log(data);
                     window.location.replace(window.location.pathname);
                 }
             }, error: function () {
