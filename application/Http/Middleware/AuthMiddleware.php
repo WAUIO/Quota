@@ -11,6 +11,6 @@ class AuthMiddleware extends MiddlewareAbstract{
 
     public function down()
     {
-        return $this->app()->make('twig.view')->render('login.twig');
+        return $this->app->abort($this->app()->make('twig.view')->render('login.twig'), 200);
     }
 }
