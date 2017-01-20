@@ -23,8 +23,7 @@ $( function() {
     });
 
     //trigger for quota_prestation calculation
-    $(document).on('change keyup blur','[name="pax_min"],[name="pax_max"],[name="nb_service"]',function(){
-
+    $(document).on('change','[name="pax_min"],[name="pax_max"],[name="nb_service"]',function(){
         if($('[name="nb_service"]').val() != ''){
            addColumn();
         }
@@ -56,81 +55,82 @@ $( function() {
 /*add column according to the pax_min and pax_max value
 * calculate prestation quotation*/
 function addColumn() {
-        var minvalues = [];
-        var maxvalues = [];
-        var tr=$("#Tbody > tr");
+    var minvalues = [];
+    var maxvalues = [];
+    var tr = $("#Tbody > tr");
 
-        $(".quota").remove();
+    $(".quota").remove();
 
-        tr.each(function(){
-            var min = $(this).find("td > [name = 'pax_min']").val();
-            var max = $(this).find("td > [name = 'pax_max']").val();
-            if(min!=="" && max !==""){
-                minvalues.push(parseInt(min));
-                maxvalues.push(parseInt(max));
-            }
-        });
-
-        var minimum = Math.min.apply(Math,minvalues);
-        var maximum = Math.max.apply(Math,maxvalues);
-
-        if(minimum<=maximum){
-            for (var i = minimum;i<=maximum;i++){
-                var colhead = $("<th>");
-
-                colhead.attr("rowspan","2");
-                colhead.attr("class","quota");
-                colhead.text(i);
-                $("#Thead").append(colhead);
-
-            }
-            for (var i = minimum;i<=maximum;i++){
-                var bigtotal = 0;
-                var colfoot = $("<td>");
-                colfoot.attr("class","quota");
-                tr.each(function(){
-                    var min = $(this).find("td > [name='pax_min']").val();
-                    var max = $(this).find("td > [name='pax_max']").val();
-                    var type = $(this).find(".type").html();
-                    var svc_unit = parseInt($(this).find("td > [name='nb_service']").val());
-                    var amount = parseInt($(this).find(".tarif").html());
-                    var total = svc_unit*amount;
-                    $(this).find('td').eq(7).html(total);
-
-                    var colbody = $("<td>");
-                    var subtotal;
-                    colbody.attr("class","quota");
-                    if(type === "Per Person"){
-                        subtotal =total;
-                    }else {
-                        subtotal =(total/i);
-                    }
-
-                    if(i<min || i>max){
-                        colbody.text();
-                    }else{
-                        if(subtotal == 0){
-                            colbody.html();
-                            bigtotal = bigtotal+subtotal;
-                        }else{
-                            colbody.html(roundValue(subtotal));
-                            bigtotal = bigtotal+subtotal;
-                        }
-                    }
-
-                    $(this).append(colbody);
-
-                    $(".table").append($(this));
-                });
-                colfoot.html(roundValue(bigtotal));
-                colfoot.css({"font-weight":"bold","color":"#2B838E"});
-                $("#Tfoot").append(colfoot);
-
-            }
-
-        }else{
-            $('#prestation_message').text('pax_max must be higher than pax_min!').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
+    tr.each(function(){
+        var min = $(this).find("td > [name = 'pax_min']").val();
+        var max = $(this).find("td > [name = 'pax_max']").val();
+        if(min != "" && max != ""){
+            minvalues.push(parseInt(min));
+            maxvalues.push(parseInt(max));
         }
+    });
+
+    var minimum = Math.min.apply(Math,minvalues);
+    var maximum = Math.max.apply(Math,maxvalues);
+
+    if( minimum <= maximum ){
+        for (i = minimum;i<maximum+1;i++){
+            var colhead = $("<th>");
+            colhead.attr("rowspan","2");
+            colhead.attr("class","quota");
+            colhead.text(i);
+            $("#Thead").append(colhead);
+
+            var bigtotal = 0;
+            var colfoot = $("<td>");
+            colfoot.attr("class","quota");
+            tr.each(function(){
+                var type = $(this).find(".type").html();
+                var service_unit = parseInt($(this).find("td > [name='nb_service']").val());
+                var amount = parseInt($(this).find(".tarif").html());
+                var total = service_unit * amount;
+
+                var colbody = $("<td>");
+                var subtotal;
+
+                min = $(this).find('td > [name="pax_min"]').val();
+                max = $(this).find('td > [name="pax_max"]').val();
+                $(this).find('td').eq(7).html(total);
+
+                colbody.attr("class","quota");
+                if(type == "Per Person"){
+                    subtotal = total;
+                }else {
+                    subtotal = total / i;
+                }
+
+                if( i<min || i>max ){
+                    colbody.html('');
+                }else{
+                    if(subtotal == 0){
+                        colbody.html('');
+                        bigtotal = bigtotal + subtotal;
+                    }else{
+                        colbody.html(roundValue(subtotal));
+                        bigtotal = bigtotal + subtotal;
+                    }
+                }
+
+                console.log("qsdfg : "+i);
+                $(this).append(colbody);
+
+                $(".table").append($(this));
+            });
+
+            colfoot.html(roundValue(bigtotal));
+            colfoot.css({"font-weight":"bold","color":"#2B838E"});
+            $("#Tfoot").append(colfoot);
+            console.log(i);
+        }
+
+    }else{
+        $('#prestation_message').text('pax_max must be higher than pax_min!').css({'display':'block', 'color':'#FF0F22', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
+    }
 }
 
 //service search filter
@@ -344,10 +344,10 @@ function addInTab($this) {
 
     if(currency == "EUR"){
          price = (euro * rate).toFixed(2);
-    }else  if(currency == "MGA"){
-         price = rate;
+    }else  if(currency == "USD"){
+        price = (rate * dollar).toFixed(2);
     }else{
-         price = (rate * dollar).toFixed(2);
+        price = rate;
     }
 
     var row =   '<tr id="tr_' + input_id + '"  class="tr_class_' + input_id + '"> ' +
