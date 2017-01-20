@@ -116,7 +116,6 @@ function addColumn() {
                     }
                 }
 
-                console.log("qsdfg : "+i);
                 $(this).append(colbody);
 
                 $(".table").append($(this));
@@ -125,9 +124,7 @@ function addColumn() {
             colfoot.html(roundValue(bigtotal));
             colfoot.css({"font-weight":"bold","color":"#2B838E"});
             $("#Tfoot").append(colfoot);
-            console.log(i);
         }
-
     }else{
         $('#prestation_message').text('pax_max must be higher than pax_min!').css({'display':'block', 'color':'#FF0F22', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
     }
