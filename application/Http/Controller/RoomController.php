@@ -73,8 +73,10 @@ class RoomController extends PrestationController
             $others['euro']         = $exchange['euro'];
             $others['dollar']       = $exchange['dollar'];
 
-            foreach ($data['board'] as $key=>$value){
-                $data['board'][$key] = (float)$value * $currency_value;
+            if(array_key_exists('board', $data)){
+                foreach ($data['board'] as $key=>$value){
+                    $data['board'][$key] = (float)$value * $currency_value;
+                }
             }
 
             $others['board'] = $data['board'];

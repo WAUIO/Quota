@@ -1,5 +1,5 @@
 $( function() {
-    //don't call getClient() when login page
+    //don't call getClient() when displaying login page
     if( !$('#login_form').length )
     {
         getClient();

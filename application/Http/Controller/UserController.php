@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function authenticate (Request $request)
     {
-        //wm-database workspace
+//wm-database workspace
         $space_id = 4691756;
         $email = $request->get('login_email', '');
         $password = $request->get('login_password', '');
@@ -25,7 +25,7 @@ class UserController extends Controller
 
         \Podio::setup($client_id, $client_secret);
 
-        //try to authenticate first
+//try to authenticate first
         try {
             \Podio::authenticate_with_password($email, $password);
         } catch (\PodioInvalidGrantError $e) {
@@ -37,10 +37,10 @@ class UserController extends Controller
 
         }
 
-        //only allow workspace member even if credentials are correct
+//only allow workspace member even if credentials are correct
         try {
-
-            if ($member = $this->isUserAMemberOfWorkspace($space_id) !== false) {
+            $member = $this->isUserAMemberOfWorkspace($space_id);
+            if ($member !== false) {
 
                 $this->fillSessionDatas(['member' => $member]);
 
@@ -49,6 +49,7 @@ class UserController extends Controller
 
             } else {
                 $return['message'] = 'Sorry, only members of wm-database workspace are allowed';
+
             }
 
         } catch (\PodioError $e) {
@@ -58,7 +59,6 @@ class UserController extends Controller
             $return['message'] = $e->getMessage();
 
         }
-
         return $return;
     }
 
@@ -112,5 +112,6 @@ class UserController extends Controller
     public function logout ()
     {
         $_SESSION['user'] = null;
+        $_SESSION['client'] = null;
     }
 }

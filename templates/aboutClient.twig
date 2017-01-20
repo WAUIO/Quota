@@ -40,28 +40,19 @@
                 {% endif %}
             </tr>
             </tbody>
-
         </table>
        {% else %}
-           <div class="no_customer">
-               <div class="row">
+           <div id="user_home">
+               <div class="row" style="margin: 0!important; padding: 0!important;">
                    <div class="span12 text-center">
                        <h3 style="color: #2B838E">
                            Welcome {{ user.name }} !<br/>
                        </h3>
-                       <h4>For creating Quotations, you need to add new Customer.</h4>
+                       <h4>To create quotations, you need to add a new customer.</h4>
                    </div>
                </div>
            </div>
        {% endif %}
-        <div class="form-group row">
-            <div class="col-xs-12">
-                <div class="all_btn" id="add_customer">
-                    <span class="glyphicon glyphicon-plus"></span>
-                    <span>Add new customer</span>
-                </div>
-            </div>
-        </div>
 
     </div>
 
