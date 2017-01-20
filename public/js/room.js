@@ -177,7 +177,6 @@ function setBoard(data){
                     id_row = "#id_row_adult_"+val;
                 }
 
-                board_option.currency = others['currency-used'].value;
                 board_option[val] = others['wau-rate'].value;
                 option = "<option value='"+ JSON.stringify(board_option) +"'>"+ value.menu +"</option>";
                 $(select_id).append(option);
