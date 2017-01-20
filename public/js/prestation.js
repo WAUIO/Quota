@@ -125,7 +125,6 @@ function addColumn() {
             colfoot.css({"font-weight":"bold","color":"#2B838E"});
             $("#Tfoot").append(colfoot);
         }
-
     }else{
         $('#prestation_message').text('pax_max must be higher than pax_min!').css({'display':'block', 'color':'#FF0F22', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
     }
