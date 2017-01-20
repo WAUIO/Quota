@@ -93,7 +93,7 @@
         <div class="container ref_client" >
             <div class="col-xs-12">
                 <span class="pull-left title">{{ title }}</span>
-                {% if client != null %}
+                {% if client != null and user != null%}
                     <span class="pull-right">Current customer : <span id="client_reference">{{ client.reference }}</span></span>
                 {% endif %}
             </div>

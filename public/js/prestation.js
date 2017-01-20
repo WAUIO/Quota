@@ -23,7 +23,7 @@ $( function() {
     });
 
     //trigger for quota_prestation calculation
-    $(document).on('change keyup blur','[name="pax_min"],[name="pax_max"],[name="nb_service"]',function(){
+    $(document).on('change','[name="pax_min"],[name="pax_max"],[name="nb_service"]',function(){
 
         if($('[name="nb_service"]').val() != ''){
            addColumn();
@@ -58,13 +58,15 @@ $( function() {
 function addColumn() {
         var minvalues = [];
         var maxvalues = [];
+        var min;
+        var max;
         var tr=$("#Tbody > tr");
 
-        $(".quota").remove();
+       $(".quota").remove();
 
         tr.each(function(){
-            var min = $(this).find("td > [name = 'pax_min']").val();
-            var max = $(this).find("td > [name = 'pax_max']").val();
+            min = $(this).find("td > [name = 'pax_min']").val();
+            max = $(this).find("td > [name = 'pax_max']").val();
             if(min!=="" && max !==""){
                 minvalues.push(parseInt(min));
                 maxvalues.push(parseInt(max));
@@ -75,7 +77,7 @@ function addColumn() {
         var maximum = Math.max.apply(Math,maxvalues);
 
         if(minimum<=maximum){
-            for (var i = minimum;i<=maximum;i++){
+            for (i = minimum;i<=maximum;i++){
                 var colhead = $("<th>");
 
                 colhead.attr("rowspan","2");
@@ -83,11 +85,8 @@ function addColumn() {
                 colhead.text(i);
                 $("#Thead").append(colhead);
 
-            }
-            for (var i = minimum;i<=maximum;i++){
                 var bigtotal = 0;
-                var colfoot = $("<td>");
-                colfoot.attr("class","quota");
+
                 tr.each(function(){
                     var min = $(this).find("td > [name='pax_min']").val();
                     var max = $(this).find("td > [name='pax_max']").val();
@@ -103,33 +102,34 @@ function addColumn() {
                     if(type === "Per Person"){
                         subtotal =total;
                     }else {
-                        subtotal =(total/i);
+                        subtotal =(total / i);
                     }
 
                     if(i<min || i>max){
-                        colbody.text();
+                        colbody.html('');
                     }else{
                         if(subtotal == 0){
-                            colbody.html();
-                            bigtotal = bigtotal+subtotal;
+                            colbody.html('');
+                            bigtotal = bigtotal + subtotal;
                         }else{
                             colbody.html(roundValue(subtotal));
-                            bigtotal = bigtotal+subtotal;
+                            bigtotal = bigtotal + subtotal;
                         }
                     }
 
                     $(this).append(colbody);
-
                     $(".table").append($(this));
                 });
+
+                var colfoot = $("<td>");
+                colfoot.attr("class","quota");
                 colfoot.html(roundValue(bigtotal));
                 colfoot.css({"font-weight":"bold","color":"#2B838E"});
                 $("#Tfoot").append(colfoot);
-
             }
 
         }else{
-            $('#prestation_message').text('pax_max must be higher than pax_min!').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
+            $('#prestation_message').text('pax_max must be higher than pax_min!').css({'display':'block', 'color':'red', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
         }
 }
 
@@ -342,12 +342,13 @@ function addInTab($this) {
     var tr = $('#Tbody > tr');
     var price;
 
+
     if(currency == "EUR"){
          price = (euro * rate).toFixed(2);
-    }else  if(currency == "MGA"){
-         price = rate;
+    }else  if(currency == "USD"){
+        price = (rate * dollar).toFixed(2);
     }else{
-         price = (rate * dollar).toFixed(2);
+        price = rate;
     }
 
     var row =   '<tr id="tr_' + input_id + '"  class="tr_class_' + input_id + '"> ' +

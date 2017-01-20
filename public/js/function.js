@@ -122,6 +122,7 @@ function isValidEmail(emailText) {
 //user log in
 function login(){
     var login_form = '#login_form';
+    var loginData = $(login_form).serialize();
     var email = $("#login_email").val();
     var password = $("#login_password").val();
     $('#login_error').hide();
@@ -137,6 +138,7 @@ function login(){
         $.ajax({
             url:'/authenticate',
             type:'POST',
+            data: loginData,
             dataType:'html',
             success:function(data){
                 if(data == 'not authenticated'){

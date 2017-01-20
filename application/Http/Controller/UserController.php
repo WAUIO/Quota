@@ -40,6 +40,7 @@ class UserController extends Controller
                         $exchange->getExchange();
 
                         $return = "authenticated";
+
                     }
                 }
             }
@@ -47,8 +48,8 @@ class UserController extends Controller
         catch (\PodioError $e) {
             // Something went wrong. Examine $e->body['error_description'] for a description of the error.
         }
-
         return $return;
+
     }
 
     public function logout(){

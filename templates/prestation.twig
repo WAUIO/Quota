@@ -34,7 +34,7 @@
                                 <div class="funkyradio-success line">
                                     <input type="checkbox" name="individual" id="id_{{ prest.item_id }}" class="check_value" value="check_value_{{ prest.item_id }}"/>
                                     <label class="funky_label" for="id_{{ prest.item_id }}" style="border: none">{{ prest.others.title.value }}</label>
-                                    <span class="others_currency span_hide">{{  attribute(prest.others, 'currency-used').value }}</span>
+                                    <span class="others_currency span_hide">{{ prest.others.price.value.currency }}</span>
                                     <span class="others_rate span_hide">{% if(prest.table == 'activity') %}{{ attribute(prest.others, 'wau-rate').value }}{% else %}{{ attribute(prest.others, 'wau-rate-transport').value }}{% endif %}</span>
                                     <span class="others_type span_hide" >{{ prest.price }}</span>
                                     <span class="others_euro span_hide" >{{ exchange['euro'] }}</span>
