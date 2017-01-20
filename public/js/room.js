@@ -116,8 +116,8 @@ function setBase(data, house_id, name_house){
         room_option.id_house = house_id;
         room_option.name_house = name_house.trim();
         room_option.rate = others['wau-rate'].value;
-        if ("public-rate" in others){
-            room_option.currency = others['public-rate'].currency;
+        if ("currency-used" in others){
+            room_option.currency = others['currency-used'].value;
         }else
             room_option.currency = 'MGA';
         room_option.room_title = others['name'].value;
@@ -158,6 +158,7 @@ function setBoard(data){
         others = JSON.parse(value.others.replace('<br/>', ''));
         meals = value.meals.toLowerCase();
 
+
         if(meals != '') {
             var array_meals = meals.split('/');
             var other_board = ['menu', 'fb', 'hb'];
@@ -176,6 +177,7 @@ function setBoard(data){
                     id_row = "#id_row_adult_"+val;
                 }
 
+                board_option.currency = others['currency-used'].value;
                 board_option[val] = others['wau-rate'].value;
                 option = "<option value='"+ JSON.stringify(board_option) +"'>"+ value.menu +"</option>";
                 $(select_id).append(option);
@@ -234,7 +236,6 @@ function saveRoom(){
                 parent = $(this).parents().eq(2);
                 select = parent.find('select option:selected');
                 $.each(select,function () {
-                    console.log($(this).val().replace("&quot","'"));
                     room_option = JSON.parse($(this).val().replace("&quot","'"));
                     room_option.base = base;
                     if(Object.keys(board_option).length  > 0){

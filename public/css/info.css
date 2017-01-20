@@ -12,7 +12,6 @@
 .customer_info {
     max-width: 1500px;
     height: 350px;
-    float: center;
     background-color: #f4f4f4;
     border-radius: 5px;
 }
@@ -72,15 +71,6 @@
 .col-xs-6 .content {
     max-width: 200px;
     border-radius: 5px;
-}
-.client_message{
-    display: none;
-    color: #FF0F22;
-    height: 40px;
-    float: right;
-    font-style: italic;
-    line-height: 40px;
-    border-radius: 2px;
 }
 #client_saved{
     padding: 0 15px;

@@ -40,15 +40,18 @@ class ClientModel
 
     public function getLastClient(){
         $query = "SELECT * FROM client ORDER BY id DESC LIMIT 1";
-        $res = $this->instance->select($query)[0];
-        $client = new Client();
-        $client->setId($res['id']);
-        $client->setName($res['name']);
-        $client->setReference($res['ref_client']);
-        $client->setNumberAdult($res['number_adult']);
-        $client->setNumberChild($res['number_child']);
-        $client->setStartDate($res['start_date']);
-
-        return $client;
+        $result = $this->instance->select($query);
+        if(count($result) > 0){
+            $res = $result[0];
+            $client = new Client();
+            $client->setId($res['id']);
+            $client->setName($res['name']);
+            $client->setReference($res['ref_client']);
+            $client->setNumberAdult($res['number_adult']);
+            $client->setNumberChild($res['number_child']);
+            $client->setStartDate($res['start_date']);
+            return $client;
+        }else
+            return null;
     }
 }
