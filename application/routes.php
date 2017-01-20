@@ -28,7 +28,7 @@ $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware
 //RoomController
         $app->get('/quotaRoom', 'App\Http\Controller\RoomController@quotaRoom');
         $app->get('/quotaTotal', 'App\Http\Controller\RoomController@quotaTotal');
-        $app->get('/saveQuotaRoom', 'App\Http\Controller\RoomController@saveQuotaRoom');
+        $app->post('/saveQuotaRoom', 'App\Http\Controller\RoomController@saveQuotaRoom');
 
 //HouseController
         $app->get('/editRoom', 'App\Http\Controller\HouseController@editRoom');

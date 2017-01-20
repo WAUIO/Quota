@@ -47,7 +47,7 @@ class RoomController extends PrestationController
     //save room quotation
     public function saveQuotaRoom(){
         $quotaModel = new RoomModel();
-        $all_data = $_GET['all_data'];
+        $all_data = $_POST['all_data'];
         $id_client = $_SESSION['client']->id;
         $exchange = $_SESSION['exchange'];
 
