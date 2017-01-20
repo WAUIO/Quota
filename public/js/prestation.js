@@ -339,6 +339,7 @@ function addInTab($this) {
     var tr = $('#Tbody > tr');
     var price;
 
+
     if(currency == "EUR"){
          price = (euro * rate).toFixed(2);
     }else  if(currency == "USD"){

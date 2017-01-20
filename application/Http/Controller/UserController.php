@@ -40,8 +40,8 @@ class UserController extends Controller
 //only allow workspace member even if credentials are correct
         try {
             $member = $this->isUserAMemberOfWorkspace($space_id);
-            if ($member !== false) {
 
+            if ($member !== false) {
                 $this->fillSessionDatas(['member' => $member]);
 
                 $return['authenticated'] = true;
@@ -60,6 +60,7 @@ class UserController extends Controller
 
         }
         return $return;
+
     }
 
 
