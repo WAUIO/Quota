@@ -3,6 +3,7 @@
 {% block body %}
     <br/>
     <div id="current_customer">
+       {% if client != null %}
         <table class="table table-striped">
             <thead class="thead-inverse">
             <tr>
@@ -41,6 +42,18 @@
             </tbody>
 
         </table>
+       {% else %}
+           <div class="no_customer">
+               <div class="row">
+                   <div class="span12 text-center">
+                       <h3 style="color: #2B838E">
+                           Welcome {{ user.name }} !<br/>
+                       </h3>
+                       <h4>For creating Quotations, you need to add new Customer.</h4>
+                   </div>
+               </div>
+           </div>
+       {% endif %}
         <div class="form-group row">
             <div class="col-xs-12">
                 <div class="all_btn" id="add_customer">
@@ -49,6 +62,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
 {% endblock body %}

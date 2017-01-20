@@ -37,7 +37,7 @@ class Migration
 
             } while ($items->total > $offset);
         }catch(Exception $e){
-            dump_var($e->getMessage());
+            //dump_var($e->getMessage());
         }
     }
 
@@ -238,7 +238,7 @@ class Migration
             $dataItem[$key] = $value;
         }
 
-        echo$dataItem['others'] = json_encode($others, JSON_UNESCAPED_UNICODE)."<br/>";
+        $dataItem['others'] = json_encode($others, JSON_UNESCAPED_UNICODE);
 
         return $dataItem;
     }

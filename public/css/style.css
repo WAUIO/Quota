@@ -47,13 +47,15 @@ footer {
     color: white;
     margin-right: 5px;
 }
+img#user_avatar{
+    display: block;
+    width:20px;
+    height:20px;
+    max-width:20px;
+    max-height:20px;
+}
 #user_icon{
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    background-image : url('../images/user_icon1.png');
-    background-repeat: no-repeat;
-    background-size: 20px 20px;
+    margin-right: 5px;
 }
 #user_logout{
     width: 20px;
@@ -64,10 +66,6 @@ footer {
 }
 #user_logout:hover{
     background-image : url('../images/logout_black.png');
-}
-
-#user_icon:hover{
-    background-image : url('../images/user_black.png');
 }
 .title{
     padding: 0;
@@ -356,7 +354,6 @@ td {
 .tr_total{
     font-weight: bold;
     font-size: 110%;
-    background-color: rgba(35, 130, 255, 0.63);
 }
 .others, .taxes{
     font-weight: normal !important;
@@ -419,7 +416,13 @@ table > thead > tr > th, .total_designation {
     margin-bottom: 10px;
     color: #FF0F22;
 }
-.no_quota{
+.no_customer{
+    height: 90px;
+    padding: auto;
+    color: #6F6F6F;
+    background:whitesmoke;
+}
+.no_quota, .no_customer{
     padding-left: 10px;
 }
 
@@ -555,10 +558,11 @@ table > thead > tr > th, .total_designation {
     margin-left: 20px;
 }
 
-h2,h3{
-    color:#2B838E;
-    font-weight: bolder;
-}
+/*h2,h3{*/
+    /*color:#2B838E;*/
+    /*font-weight: bolder;*/
+/*}*/
+
 .all_btn{
     float: right;
     font-size: 110%;
@@ -1023,7 +1027,12 @@ ul{
 }
 #client_message{
     display: none;
+    color: #FF0F22;
+    height: 40px;
+    float: right;
     font-style: italic;
+    line-height: 40px;
+    border-radius: 2px;
 }
 .message{
     margin-right: 10px;
