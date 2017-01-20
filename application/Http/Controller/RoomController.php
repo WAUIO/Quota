@@ -56,22 +56,28 @@ class RoomController extends PrestationController
             $base       = $data['base'];
             $id_house   = $data['id_house'];
             $name_house = $data['name_house'];
-            if(strtolower($data['currency']) == 'eur'){
-                $price_room = (float)$data['rate'] * $exchange['euro'];
-            }elseif(strtolower($data['currency']) == 'usd'){
-                $price_room = (float)$data['rate'] * $exchange['dollar'];
+
+            $currency = strtolower($data['currency']);
+            if($currency == 'eur'){
+                $currency_value = $exchange['euro'];
+            }elseif($currency == 'usd'){
+                $currency_value =  $exchange['dollar'];
             }else{
-                $price_room = (float)$data['rate'];
+                $currency_value = 1;
             }
+
+            $price_room = (float)$data['rate'] * $currency_value;
 
             $others['vignet']       = $data['vignet'];
             $others['room_title']   = $data['room_title'];
             $others['euro']         = $exchange['euro'];
             $others['dollar']       = $exchange['dollar'];
 
-            if($data['board'] != null){
-                $others['board'] = $data['board'];
+            foreach ($data['board'] as $key=>$value){
+                $data['board'][$key] = (float)$value * $currency_value;
             }
+
+            $others['board'] = $data['board'];
 
             $array  =  array('base'=>$base, 'id_client'=>$id_client, 'id_house'=>$id_house,'price_room'=>$price_room,'others'=>json_encode($others));
             $quotaModel->insertToQuotaRoom($array);

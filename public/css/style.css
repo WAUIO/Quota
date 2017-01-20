@@ -354,7 +354,6 @@ td {
 .tr_total{
     font-weight: bold;
     font-size: 110%;
-    background-color: rgba(35, 130, 255, 0.63);
 }
 .others, .taxes{
     font-weight: normal !important;
@@ -559,10 +558,11 @@ table > thead > tr > th, .total_designation {
     margin-left: 20px;
 }
 
-h2,h3{
-    color:#2B838E;
-    font-weight: bolder;
-}
+/*h2,h3{*/
+    /*color:#2B838E;*/
+    /*font-weight: bolder;*/
+/*}*/
+
 .all_btn{
     float: right;
     font-size: 110%;
