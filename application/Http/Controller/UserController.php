@@ -49,6 +49,7 @@ class UserController extends Controller
 
             } else {
                 $return['message'] = 'Sorry, only members of wm-database workspace are allowed';
+
             }
 
         } catch (\PodioError $e) {
