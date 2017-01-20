@@ -84,6 +84,7 @@ class RoomController extends PrestationController
             $array  =  array('base'=>$base, 'id_client'=>$id_client, 'id_house'=>$id_house,'price_room'=>$price_room,'others'=>json_encode($others));
             $quotaModel->insertToQuotaRoom($array);
         }
+
         return $name_house;
     }
 
