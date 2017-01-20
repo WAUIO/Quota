@@ -77,7 +77,9 @@
                     <div class="center-block" id="user_logout"></div>
                 </div>
                 <div class="pull-right user"  id="user">
-                    <div class="center-block" id="user_icon"></div>
+                    <div class="center-block" id="user_icon">
+                        <img class="media-object img-responsive" id="user_avatar" src="{{ user.image.thumbnail_link }}">
+                    </div>
                 </div>
                 <div class="pull-right" id="user_name"  style="display: none;">
                     <span>{{ user.name }}</span>
@@ -93,7 +95,7 @@
         <div class="container ref_client" >
             <div class="col-xs-12">
                 <span class="pull-left title">{{ title }}</span>
-                {% if client != null and user != null%}
+                {% if client != null and user != null %}
                     <span class="pull-right">Current customer : <span id="client_reference">{{ client.reference }}</span></span>
                 {% endif %}
             </div>

@@ -47,13 +47,15 @@ footer {
     color: white;
     margin-right: 5px;
 }
+img#user_avatar{
+    display: block;
+    width:20px;
+    height:20px;
+    max-width:20px;
+    max-height:20px;
+}
 #user_icon{
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    background-image : url('../images/user_icon1.png');
-    background-repeat: no-repeat;
-    background-size: 20px 20px;
+    margin-right: 5px;
 }
 #user_logout{
     width: 20px;
@@ -64,10 +66,6 @@ footer {
 }
 #user_logout:hover{
     background-image : url('../images/logout_black.png');
-}
-
-#user_icon:hover{
-    background-image : url('../images/user_black.png');
 }
 .title{
     padding: 0;
@@ -1029,7 +1027,12 @@ ul{
 }
 #client_message{
     display: none;
+    color: #FF0F22;
+    height: 40px;
+    float: right;
     font-style: italic;
+    line-height: 40px;
+    border-radius: 2px;
 }
 .message{
     margin-right: 10px;

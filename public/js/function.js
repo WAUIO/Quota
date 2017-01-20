@@ -123,37 +123,31 @@ function isValidEmail(emailText) {
 function login(){
     var login_form = '#login_form';
     var loginData = $(login_form).serialize();
-    var email = $("#login_email").val();
-    var password = $("#login_password").val();
+    var url = window.location.pathname;
+    var avatar = $('.avatar');
+    var newSrc = avatar.attr("src").replace("/images/user1.png", "/images/user_gif.gif");
+
+    avatar.attr("src", newSrc);
     $('#login_error').hide();
-    if(isValidEmail( email ) && password != ''){
-        var avatar = $('.avatar');
-        var newSrc = avatar.attr("src").replace("/images/user1.png", "/images/user_gif.gif");
-        avatar.attr("src", newSrc);
+    $('#login_btn').append('&nbsp;<img src="/images/loader.gif" alt="..." class="" style="width:20px; height:5px">');
+    $(login_form+' input').prop('disabled', true);
+    $(login_form+' button').prop('disabled', true);
 
-        $('#login_btn').append('&nbsp;<img src="/images/loader.gif" alt="Avatar" class="" style="width:20px; height:5px">');
-        $(login_form+' input').prop('disabled', true);
-        $(login_form+' button').prop('disabled', true);
-
-        $.ajax({
-            url:'/authenticate',
-            type:'POST',
-            data: loginData,
-            dataType:'html',
-            success:function(data){
-                if(data == 'not authenticated'){
-                    message = 'Email or password invalid !';
-                    afterLoginFailed(avatar, login_form, message);
-                }else{
-                    console.log(data);
-                    window.location.replace(window.location.pathname);
-                }
-            }, error: function () {
-                message = 'Something wrong !';
-                afterLoginFailed(avatar, login_form, message);
+    $.ajax({
+        url:'/authenticate',
+        type:'POST',
+        data:loginData,
+        dataType:'json',
+        success:function(data){
+            if(data.authenticated){
+                window.location.replace(url);
+            }else{
+                afterLoginFailed(avatar, login_form, data.message);
             }
-        });
-    }
+        }, error: function () {
+            afterLoginFailed(avatar, login_form, 'Something wrong !');
+        }
+    });
 }
 
 //set message after login

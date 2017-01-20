@@ -13,8 +13,9 @@ class ClientController extends Controller
         if($_SESSION['client'] == null){
             $clientModel = new ClientModel();
             $client = $clientModel->getLastClient();
-            if($client != null)
-            $_SESSION['client'] = $client;
+            if($client != null){
+                $_SESSION['client'] = $client;
+            }
         }
 
         array_set($data, 'title', 'Customer');
@@ -26,8 +27,7 @@ class ClientController extends Controller
             $clientModel = new ClientModel();
             $_SESSION['client'] = $clientModel->getLastClient();
         }
-
-        array_set($data, 'title', 'New Customer');
+        array_set($data, 'title', 'New customer');
         return $this->app()->make('twig.view')->render('client.twig', $data);
     }
 

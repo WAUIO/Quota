@@ -19,6 +19,6 @@ class User
     {
         $this->user_id = $user->user_id;
         $this->name = $user->name;
-        $this->avatar = $user->avatar;
+        $this->image = $user->image;
     }
 }
