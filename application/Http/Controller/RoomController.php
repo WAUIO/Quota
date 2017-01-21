@@ -114,7 +114,7 @@ class RoomController extends PrestationController
             $price[$base] += $res['price_room'];
 
             if(array_key_exists('board', $res['others'])){
-                foreach ($res['others']->board as $key => $value){
+                foreach ((array)$res['others']->board as $key => $value){
                     $boards[$base][$key] += $value;
                 }
             }
