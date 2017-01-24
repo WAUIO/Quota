@@ -5,7 +5,6 @@ $( function() {
         getClient();
     }
 
-    windowResize();
     searchClient();
 
     var quota_list = $('#quota_list');
@@ -19,12 +18,15 @@ $( function() {
         login();
     });
 
-    $('#user_icon').hover(
+    var $user_name = $('#user_name');
+    $('#user_avatar').hover(
         function () {
-            $('#user_name').show("slide", { direction: "right" }, 200);
+            $user_name.closest('li').show();
+            $user_name.show("slide", { direction: "right" }, 200);
         },
         function () {
-            $('#user_name').hide("slide", { direction: "right" }, 200);
+            $user_name.hide("slide", { direction: "right" }, 200);
+            $user_name.closest('li').hide();
         }
     );
 
@@ -67,6 +69,7 @@ $( function() {
     $('#search_control').removeAttr("disabled");
 
     ancreLink();
+    windowResize();
 });
 
 //when resize window
@@ -74,6 +77,10 @@ function windowResize(){
     if($('#header_title').height() > 100 ){
         $('body').css('padding-top', '130px');
     }else $('body').css('padding-top', '80px');
+
+    if ($( window ).width() > 768) {
+        $('.dropdown').removeClass('open');
+    }
 }
 
 //if cursor hover list customer
@@ -183,37 +190,37 @@ function roundValue(value) {
 
 //search customer (search input)
 function searchClient() {
-        $('#search_client').keyup(function () {
-            var exist = false;
-            var quota_list = $('#quota_list');
-            var input_text = $(this).val().toLowerCase();
+    $('#search_client').keyup(function () {
+        var exist = false;
+        var quota_list = $('#quota_list');
+        var input_text = $(this).val().toLowerCase();
 
-            if (quota_list.is(":visible") === false) {
-                quota_list.fadeIn(200);
-                $('#search_glyphicon').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
+        if (quota_list.is(":visible") === false) {
+            quota_list.fadeIn(200);
+            $('#search_glyphicon').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
+        }
+
+        $('.quota_lists').each(function () {
+            var text = $(this).text().toLowerCase();
+            if (text.indexOf(input_text) != -1) {
+                $(this).show();
+                exist = true;
             }
-
-            $('.quota_lists').each(function () {
-                var text = $(this).text().toLowerCase();
-                if (text.indexOf(input_text) != -1) {
-                    $(this).show();
-                    exist = true;
-                }
-                else {
-                    $(this).hide();
-                }
-            });
-
-            if (!exist) {
-                quota_list.find('.search_message').show();
-            } else
-                quota_list.find('.search_message').hide();
-
-            quota_list.scrollTop(0);
-            quota_list.perfectScrollbar('update');
-
+            else {
+                $(this).hide();
+            }
         });
-    }
+
+        if (!exist) {
+            quota_list.find('.search_message').show();
+        } else
+            quota_list.find('.search_message').hide();
+
+        quota_list.scrollTop(0);
+        quota_list.perfectScrollbar('update');
+
+    });
+}
 
 //fill out the customer list
 function getClient() {
@@ -253,15 +260,15 @@ function getClient() {
 
 //set customer in session
 function setClient(url, client_id) {
-        $.ajax({
-            url: "/setClient",
-            type: "GET",
-            data: {client_id: client_id},
-            success: function () {
-                window.location.replace(url);
-            }
-        });
-    }
+    $.ajax({
+        url: "/setClient",
+        type: "GET",
+        data: {client_id: client_id},
+        success: function () {
+            window.location.replace(url);
+        }
+    });
+}
 
 //Ancre Onclick base type
 function ancreLink() {

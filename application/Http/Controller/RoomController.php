@@ -68,6 +68,7 @@ class RoomController extends PrestationController
 
             $price_room = (float)$data['rate'] * $currency_value;
 
+            $others['stay']       = $data['stay'];
             $others['vignet']       = $data['vignet'];
             $others['room_title']   = $data['room_title'];
             $others['euro']         = $exchange['euro'];
@@ -111,11 +112,12 @@ class RoomController extends PrestationController
             $res['house_title'] = $houseModel->getHouse($res['id_house'])[0]['house_title'];
             $details[] = $res;
 
-            $price[$base] += $res['price_room'];
+            $stay = $res['others']->stay;
+            $price[$base] += $res['price_room'] * $stay;
 
             if(array_key_exists('board', $res['others'])){
                 foreach ((array)$res['others']->board as $key => $value){
-                    $boards[$base][$key] += $value;
+                    $boards[$base][$key] += $value * $stay;
                 }
             }
 

@@ -93,8 +93,13 @@
                                     <div class="col-xs-8">{{ details[i]['others'].room_title }}</div>
                                 </div>
                                 <div class="row">
+                                    {% set stay = details[i]['others'].stay|roundValue %}
+                                    <div class="col-xs-4">Number of stays</div>
+                                    <div class="col-xs-8">{{ stay }} {% if stay > 1 %}days{% else %}day{% endif %}</div>
+                                </div>
+                                <div class="row">
                                     <div class="col-xs-4">Wau rate </div>
-                                    <div class="col-xs-8">Ar {{ details[i]['price_room']|roundValue }}</div>
+                                    <div class="col-xs-8">Ar {{ details[i]['price_room']|roundValue }} / day</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-4">Vignette </div>

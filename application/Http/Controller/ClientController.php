@@ -6,7 +6,7 @@ use App\Utils\Exchange;
 use Wau\Http\Controller;
 use App\Model\ClientModel;
 
-class ClientController extends Controller
+class ClientController extends RoomController
 {
     //edit client
     public function informationClient(){
@@ -17,8 +17,13 @@ class ClientController extends Controller
                 $_SESSION['client'] = $client;
             }
         }
+        $client_id = $_SESSION['client']->id;
+        $room = $this->getRoom($client_id);
+        $prestation = $this->getPrestation($client_id);
 
         array_set($data, 'title', 'Customer');
+        array_set($data, 'room', $room['detail']);
+        array_set($data, 'prestation', $prestation);
         return $this->app()->make('twig.view')->render('aboutClient.twig', $data);
     }
 

@@ -1,24 +1,20 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-    <form class="form-horizontal" id="room_form">
-        <p id="hotel_label" class="col-xs-12" style="white-space: nowrap; margin: 0!important;padding: 0!important;">Hotel :</p>
-        <div class="row">
-            <div class="col-xs-7">
-                <select class="selectpicker" id="select-hotel" data-live-search="true" title="Select hotel">
-                    {% for house in listhouse %}
-                        <option value={{ house['item_id'] }}> {{ house['house_title'] }} </option>
-                    {% endfor %}
-                </select>
-                <img class="loader" src="/images/loading.gif" alt="loading..." style="display: none;">
-            </div>
-            <div class="row col-xs-5">
+    <form id="room_form">
+        <div class="form-inline">
+            <label for="select-hotel">Hotel </label>
+            <select id="select-hotel" class="selectpicker" data-style="btn-default" data-width="200px" data-live-search="true" title="Select hotel">
+                {% for house in listhouse %}
+                    <option value={{ house['item_id'] }}> {{ house['house_title'] }} </option>
+                {% endfor %}
+            </select>
 
-                <span class="col-xs-11" id="dollar">$.{{ exchange['dollar']}}&nbsp;&nbsp;€.{{ exchange['euro'] }}</span>
-            </div>
-       </div>
+            <label for="number_stay">Number of stays</label>
+            <input type="number" class="number" min="0" max="100" name="number_stay" id="number_stay" style="width: 90px;height: 35px"/>
 
-        <br/>
+            <label id="current_exchange" class="pull-right" for="select-hotel">$.{{ exchange['dollar']}}&nbsp;&nbsp;€.{{ exchange['euro'] }}</label>
+        </div>
 
         <div id="accordion">
             {% if client.number_child < 1 %}
@@ -29,7 +25,7 @@
 
             {% set base = ['single','double','triple','family','extra-bed'] %}
             {% set board = ['breakfast','lunch','dinner','menu','hb','fb'] %}
-            
+
             {% for i in 0..type|length-1 %}
                 <div class="room" id="accordion_head_{{ type[i] }}">
                     <span>{{ type[i]|capitalize }}</span>
