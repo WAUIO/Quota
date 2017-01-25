@@ -25,7 +25,7 @@ $( function() {
     //trigger for quota_prestation calculation
     $(document).on('change','[name="pax_min"],[name="pax_max"],[name="nb_service"]',function(){
         if($('[name="nb_service"]').val() != ''){
-           addColumn();
+           calculatePrestation();
         }
     });
 
@@ -54,7 +54,7 @@ $( function() {
 
 /*add column according to the pax_min and pax_max value
 * calculate prestation quotation*/
-function addColumn() {
+function calculatePrestation() {
     var minvalues = [];
     var maxvalues = [];
     var tr = $("#Tbody > tr");
@@ -72,59 +72,50 @@ function addColumn() {
 
     var minimum = Math.min.apply(Math,minvalues);
     var maximum = Math.max.apply(Math,maxvalues);
+    var nb_pax = maximum - minimum + 1;
 
     if( minimum <= maximum ){
-        for (i = minimum;i<maximum+1;i++){
-            var colhead = $("<th>");
-            colhead.attr("rowspan","2");
-            colhead.attr("class","quota");
-            colhead.text(i);
-            $("#Thead").append(colhead);
+        for (i=minimum; i<=maximum; i++){
+            var th_pax = $("<th>");
+            th_pax.attr("class","quota");
+            th_pax.text(i);
+            $("#tr_pax_rowspan").append(th_pax);
 
-            var bigtotal = 0;
-            var colfoot = $("<td>");
-            colfoot.attr("class","quota");
+            var sum = 0;
+            var td_foot = $("<td>");
+            td_foot.attr("class","quota");
             tr.each(function(){
                 var type = $(this).find(".type").html();
                 var service_unit = parseInt($(this).find("td > [name='nb_service']").val());
                 var amount = parseInt($(this).find(".tarif").html());
                 var total = service_unit * amount;
 
-                var colbody = $("<td>");
-                var subtotal;
+                var td_body = $("<td>");
 
                 min = $(this).find('td > [name="pax_min"]').val();
                 max = $(this).find('td > [name="pax_max"]').val();
                 $(this).find('td').eq(7).html(total);
 
-                colbody.attr("class","quota");
-                if(type == "Per Person"){
-                    subtotal = total;
-                }else {
-                    subtotal = total / i;
+                td_body.attr("class","quota");
+                if(type.toLowerCase() != "per person"){
+                    total = total / i;
                 }
 
-                if( i<min || i>max ){
-                    colbody.html('');
+                if( i<min || i>max || total == 0 ){
+                    td_body.html('');
                 }else{
-                    if(subtotal == 0){
-                        colbody.html('');
-                        bigtotal = bigtotal + subtotal;
-                    }else{
-                        colbody.html(roundValue(subtotal));
-                        bigtotal = bigtotal + subtotal;
-                    }
+                    td_body.html(roundValue(total));
+                    sum += total;
                 }
 
-                $(this).append(colbody);
-
-                $(".table").append($(this));
+                $(this).append(td_body);
+                $("#prestation_table").append($(this));
             });
 
-            colfoot.html(roundValue(bigtotal));
-            colfoot.css({"font-weight":"bold","color":"#2B838E"});
-            $("#Tfoot").append(colfoot);
+            td_foot.html(roundValue(sum));
+            $("#Tfoot").append(td_foot);
         }
+        $('#tr_pax').attr('colspan', nb_pax).css('text-align','center');
     }else{
         $('#prestation_message').text('pax_max must be higher than pax_min!').css({'display':'block', 'color':'#FF0F22', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
     }
@@ -212,7 +203,8 @@ jQuery.fn.hasScrollBar = function(direction) {
     {
         // return this.get(0).scrollHeight > this.innerHeight();
     }
-    else if (direction == 'horizontal')
+
+    if (direction == 'horizontal')
     {
         return this.get(0).scrollWidth > this.innerWidth();
     }
@@ -262,7 +254,7 @@ function deletePrestation($this){
     $('#id_'+$checked_prestation.attr('id')).prop('checked', false);
 
     checked_id.prop('checked', false);
-    ifUnchecked(id);
+    deleteInTable(id);
 
     if(parent_div.find('.check_value:checked').length == 0){
         parent_div.find('.checked_lists').css('height', 36);
@@ -272,8 +264,9 @@ function deletePrestation($this){
     checkScroll(parent_div);
 }
 
-function ifUnchecked(id){
-    $('#tr_id_'+id).remove();
+function deleteInTable(id){
+    $('.tr_class_'+id).remove();
+    calculatePrestation();
 }
 
 function mouseEvent(){
@@ -319,7 +312,7 @@ function checkPrestation() {
             }
 
             //remove this from table
-            $('.tr_'+$(this).attr('id')).remove();
+            deleteInTable($(this).attr('id').replace('id_',''));
         }
 
         resetCheckedScroll(parent_div);
@@ -336,9 +329,9 @@ function addInTab($this) {
     var euro = $($this).siblings('.others_euro').text();
     var dollar = $($this).siblings('.others_dollar').text();
     var type = $($this).siblings('.others_type').text();
-    var tr = $('#Tbody > tr');
+    var $Tbody = $('#Tbody');
+    var tr = $Tbody.find('tr');
     var price;
-
 
     if(currency == "EUR"){
          price = (euro * rate).toFixed(2);
@@ -348,69 +341,70 @@ function addInTab($this) {
         price = rate;
     }
 
-    var row =   '<tr id="tr_' + input_id + '"  class="tr_class_' + input_id + '"> ' +
-                    '<td class="table-add add_record" onclick="duplicateRow(this)">' +
-                        '<span class="glyphicon glyphicon-plus"></span>' +
-                    '</td>' +
-                    '<td class="label_text">' +
-                        '<span>' + label_text + '</span>' +
-                        '<input type="text" class="n_pax" name="n_pax">' +
-                    '</td> ' +
-                    '<td title="min">' +
-                        '<input type="number" min="1" max="50" class="check number" name="pax_min" style="width: 50px;" onkeypress="return validateNumber(event)">' +
-                    '</td>' +
-                    '<td title="max">' +
-                        '<input type="number" min="1" max="50" class="check number" name="pax_max" style="width: 50px;" onkeypress="return validateNumber(event)" required="true">' +
-                    '</td> ' +
-                    '<td class="tarif">' + roundValue(price)+ '</td>' +
-                    '<td title="number">' +
-                        '<input type="number" min="1" max="50" class="nb_services number" name="nb_service" value="1" style="width: 50px;" onkeypress="return validateNumber(event)" >' +
-                    '</td> ' +
-                    '<td class="type">' + type + '</td> ' +
-                    '<td class="total"> </td>' +
-                '</tr>';
-    $("#Tbody").append(row);
+    var row = '<tr id="tr_' + input_id + '"  class="tr_class' + input_id.replace('id', '') + '"> ' +
+                '<td class="table-add add_record" onclick="duplicateRow(this)">' +
+                    '<span class="glyphicon glyphicon-plus"></span>' +
+                '</td>' +
+                '<td class="label_text">' +
+                    '<span>' + label_text + '</span>' +
+                    '<input type="text" class="n_pax" name="n_pax">' +
+                '</td> ' +
+                '<td title="min">' +
+                    '<input type="number" value="1" min="1" max="50" class="check number" name="pax_min" style="width: 50px;" onkeypress="return validateNumber(event)">' +
+                '</td>' +
+                '<td title="max">' +
+                    '<input type="number" value="1" min="1" max="50" class="check number" name="pax_max" style="width: 50px;" onkeypress="return validateNumber(event)" required="true">' +
+                '</td> ' +
+                '<td class="tarif">' + roundValue(price)+ '</td>' +
+                '<td title="number">' +
+                    '<input type="number" value="1" min="1" max="50" class="nb_services number" name="nb_service" style="width: 50px;" onkeypress="return validateNumber(event)" >' +
+                '</td> ' +
+                '<td class="type">' + type + '</td> ' +
+                '<td class="total"></td>' +
+            '</tr>';
+    $Tbody.append(row);
+    calculatePrestation();
 }
+
 //clone row in prestation tab
 function duplicateRow($this){
     var original = $($this).closest('tr');
     var tr_class = original.attr('class');
-    var last_tr = $('.'+tr_class).last();
-    var pax_max =  last_tr.find('input[name="pax_max"]').val();
-    var pax_min =  last_tr.find('input[name="pax_min"]').val();
-    var myInput =  last_tr.find('input[name="pax_max"]');
+    var last_tr  = $('.'+tr_class).last();
+    var pax_max  =  last_tr.find('input[name="pax_max"]').val();
+    var pax_min  =  last_tr.find('input[name="pax_min"]').val();
+    var myInput  =  last_tr.find('input[name="pax_max"]');
     var minInput =  last_tr.find('input[name="pax_min"]');
-    var $clone = original.clone(true);
-        if(pax_min =='') {
-            $('#pax_min_tooltip').tooltip({
-                //use 'of' to link the tooltip to your specified input
-                position: {of: minInput, my: 'left center', at: 'right-2 center'}
-            });
-            $('#pax_min_tooltip').tooltip('open');
+    var $clone   = original.clone(true);
+    var $pax_min_tooltip = $('#pax_min_tooltip');
+    var $pax_max_tooltip = $('#pax_max_tooltip');
 
-
-        }else if(pax_max ==''){
-
-            $('#pax_max_tooltip').tooltip({
-                //use 'of' to link the tooltip to your specified input
-                position: {of: myInput, my: 'right center', at: 'left-2 center'}
-            });
-            $('#pax_max_tooltip').tooltip('open');
-
-        }else{
-            var pax = parseInt(pax_max) + 1;
-            $clone.find('td:eq(0)').prop('onclick', null).off('click');
-            $clone.find('td:eq(0)').click(function () {
-                $clone.remove();
-            });
-            $clone.find('.quota').text(0);
-            $clone.find('input[name="pax_max"]').val('');
-            $clone.find('input[name="nb_service"]').val('0');
-            $clone.find('input[name="pax_min"]').val(pax).attr('disabled', 'disabled');
-            $clone.find('input[name="pax_max"]').val(pax).attr({'min':pax,'max':50});
-            $clone.find('td:eq(0) span').attr('class', 'table-remove glyphicon glyphicon-remove');
-            last_tr.last().after($clone);
-        }
+    if(pax_min =='') {
+        $pax_min_tooltip.tooltip({
+            //use 'of' to link the tooltip to your specified input
+            position: {of: minInput, my: 'left center', at: 'right-2 center'}
+        });
+        $pax_min_tooltip.tooltip('open');
+    }else if(pax_max ==''){
+        $pax_max_tooltip.tooltip({
+            //use 'of' to link the tooltip to your specified input
+            position: {of: myInput, my: 'right center', at: 'left-2 center'}
+        });
+        $pax_max_tooltip.tooltip('open');
+    }else{
+        var pax = parseInt(pax_max) + 1;
+        $clone.find('td:eq(0)').prop('onclick', null).off('click');
+        $clone.find('td:eq(0)').click(function () {
+            $clone.remove();
+        });
+        $clone.find('.quota').text(0);
+        $clone.find('input[name="pax_max"]').val('');
+        $clone.find('input[name="nb_service"]').val('0');
+        $clone.find('input[name="pax_min"]').val(pax).attr('disabled', 'disabled');
+        $clone.find('input[name="pax_max"]').val(pax).attr({'min':pax,'max':50});
+        $clone.find('td:eq(0) span').attr('class', 'table-remove glyphicon glyphicon-remove');
+        last_tr.last().after($clone);
+    }
 }
 
 /*show checked service(s)
@@ -429,9 +423,8 @@ function showQuotationTable(){
 
 //save Prestation into database
 function savePrestation(){
-    var allTR = $('#Tbody').children('tr');
     var all_data = [];
-    allTR.each(function() {
+    $('#Tbody').children('tr').each(function() {
         var info = {};
         var others = {};
         others.pax_min          = $(this).find('input[name="pax_min"]').val();

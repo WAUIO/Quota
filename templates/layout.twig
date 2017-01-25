@@ -38,74 +38,6 @@
 {#https://jsfiddle.net/jme11/k89wydu0/#}
 <body class="main ">
     <!-- Navigation -->
-    {#<nav class="navbar navbar-default  navbar-fixed-top">#}
-        {#<div class="container">#}
-            {#{% if user != null %}#}
-                {#<!-- Brand and toggle get grouped for better mobile display -->#}
-                {#<div class="navbar-header">#}
-                    {#<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu_nav_bar">#}
-                        {#<span class="icon-bar"></span>#}
-                        {#<span class="icon-bar"></span>#}
-                        {#<span class="icon-bar"></span>#}
-                    {#</button>#}
-                    {#<img class="center-block" id="logo" src="/images/logo_new.png"/>#}
-                {#</div>#}
-
-                {#<!-- Collect the nav links, forms, and other content for toggling -->#}
-
-                {#<div class="collapse navbar-collapse" id="menu_nav_bar">#}
-                    {#<ul class="nav navbar-nav">#}
-                        {#<li>#}
-                            {#<a href="/informationClient">Home</a>#}
-                        {#</li>#}
-                        {#<li class="dropdown">#}
-                            {#<a class="dropdown-toggle" data-toggle="dropdown" href="#">Create<span class="caret"></span></a>#}
-                            {#<ul class="dropdown-menu">#}
-                                {#<li><a href="/addClient">Customer</a></li>#}
-                                {#<li><a href="/editRoom">Room</a></li>#}
-                                {#<li><a href="/prestation">Benefit</a></li>#}
-                            {#</ul>#}
-                        {#</li>#}
-                        {#<li class="dropdown">#}
-                            {#<a class="dropdown-toggle" data-toggle="dropdown" href="#">View<span class="caret"></span></a>#}
-                            {#<ul class="dropdown-menu">#}
-                                {#<li><a href="/quotaRoom">Room</a></li>#}
-                                {#<li><a href="/quotaPrestation">Benefit</a></li>#}
-                                {#<li><a href="/quotaTotal">Total</a></li>#}
-                            {#</ul>#}
-                        {#</li>#}
-                    {#</ul>#}
-
-                    {#<div class="nav navbar-nav navbar-right">#}
-                        {#<div class="user" id="logout">#}
-                            {#<div class="center-block" id="user_logout"></div>#}
-                        {#</div>#}
-                        {#<div class="user">#}
-                            {#<div class="center-block" id="user_icon">#}
-                                {#<img class="media-object img-responsive" id="user_avatar" src="{{ user.image.thumbnail_link }}">#}
-                            {#</div>#}
-                        {#</div>#}
-                        {#<div class="pull-right" id="user_name"  style="display: none;">#}
-                            {#<span>{{ user.name }}</span>#}
-                        {#</div>#}
-                    {#</div>#}
-                {#</div>#}
-            {#{% endif %}#}
-            {#<!-- /.navbar-collapse -->#}
-        {#</div>#}
-
-        {#<!-- /.container -->#}
-        {#<div id="header_title" class="row" style="background: #ffffff;margin: 0 !important;padding: 0 !important;">#}
-            {#<div class="container ref_client" >#}
-                {#<div class="col-xs-12">#}
-                    {#<span class="pull-left title">{{ title }}</span>#}
-                    {#{% if client != null and user != null %}#}
-                        {#<span class="pull-right">Current customer : <span id="client_reference">{{ client.reference }}</span></span>#}
-                    {#{% endif %}#}
-                {#</div>#}
-            {#</div>#}
-        {#</div>#}
-    {#</nav>#}
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -124,7 +56,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-collapse-menu">
                 <ul class="nav navbar-nav">
-                    <li><a href="/informationClient"><span class="menu_text">Home</span></a></li>
+                    <li><a href="/"><span class="menu_text">Home</span></a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="menu_text">Create<b class="caret"></b></span></a>
                         <ul class="dropdown-menu">
