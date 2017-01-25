@@ -9,7 +9,7 @@ use App\Model\ClientModel;
 class ClientController extends RoomController
 {
     //edit client
-    public function informationClient(){
+    public function home(){
         if($_SESSION['client'] == null){
             $clientModel = new ClientModel();
             $client = $clientModel->getLastClient();
@@ -24,7 +24,7 @@ class ClientController extends RoomController
         array_set($data, 'title', 'Customer');
         array_set($data, 'room', $room['detail']);
         array_set($data, 'prestation', $prestation);
-        return $this->app()->make('twig.view')->render('aboutClient.twig', $data);
+        return $this->app()->make('twig.view')->render('home.twig', $data);
     }
 
     public function addClient(){
@@ -42,7 +42,6 @@ class ClientController extends RoomController
 
         $parts = explode('/', $_GET['date']);
         $date = "$parts[2]-$parts[1]-$parts[0]";
-
 
         $client->setReference($_GET['reference']);
         $client->setName($_GET['name']);

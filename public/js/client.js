@@ -75,7 +75,6 @@ function insertClient(){
             else client_message.text('Empty adult number !').css(message_error).delay(5000).fadeOut();
         else client_message.text('Name format invalid or too short !').css(message_error).delay(5000).fadeOut();
     else client_message.text('Reference empty or too short !').css(message_error).delay(5000).fadeOut();
-
 }
 
 //check if input value is a number between 0..100

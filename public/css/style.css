@@ -413,9 +413,6 @@ td {
 .check{
     width:50px;
 }
-#Tbody > tr > td{
-    font-weight: bold;
-}
 #Tfoot > tr > td{
     font-weight:bold;
 }

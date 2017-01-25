@@ -1,13 +1,10 @@
 $( function() {
+    var quota_list = $('#quota_list');
+
     //don't call getClient() when displaying login page
-    if( !$('#login_form').length )
-    {
+    if( !$('#login_form').length ) {
         getClient();
     }
-
-    searchClient();
-
-    var quota_list = $('#quota_list');
 
     $(window).on('resize', function(){
         windowResize();
@@ -38,21 +35,6 @@ $( function() {
         $('#about_client').dialog({modal: true, height: 205, width: 400 });
     });
 
-    $('input').keydown(function (e) {
-        e.stopPropagation();
-    });
-
-    quota_list.perfectScrollbar();
-
-    if(quota_list.hasScrollBar('vertical')) {
-        $('.quota_lists').css('margin-right', '15px');
-        $('.ps-scrollbar-y-rail').css('z-index', '1000');
-    }
-
-    $('.table-editable').perfectScrollbar();
-
-    $('.based_on').removeAttr("href");
-
     $('#search_glyphicon').click(function(e){
         e.preventDefault();
         ShowHideQuotaList($('#quota_list'), 0);
@@ -62,12 +44,25 @@ $( function() {
         getClient();
     });
 
+    $('input').keydown(function (e) {
+        e.stopPropagation();
+    });
+
+    if(quota_list.hasScrollBar('vertical')) {
+        $('.quota_lists').css('margin-right', '15px');
+        $('.ps-scrollbar-y-rail').css('z-index', '1000');
+    }
+
+    $('.table-editable').perfectScrollbar();
+    $('.based_on').removeAttr("href");
     $('.taxes').css('border-bottom', 'none');
     $('.others').css('border-bottom', 'none');
     $('.selectpicker').attr("disabled","disabled");
     $('#select-hotel').removeAttr("disabled");
     $('#search_control').removeAttr("disabled");
 
+    quota_list.perfectScrollbar();
+    searchClient();
     ancreLink();
     windowResize();
 });

@@ -15,8 +15,7 @@ $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware
 //ClientController
         $app->get('/getClient', 'App\Http\Controller\ClientController@getClient');
         $app->get('/setClient', 'App\Http\Controller\ClientController@setClient');
-        $app->get('/', 'App\Http\Controller\ClientController@informationClient');
-        $app->get('/informationClient', 'App\Http\Controller\ClientController@informationClient');
+        $app->get('/', 'App\Http\Controller\ClientController@home');
         $app->get('/addClient', 'App\Http\Controller\ClientController@addClient');
         $app->get('/saveClient', 'App\Http\Controller\ClientController@saveClient');
 
@@ -27,8 +26,10 @@ $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware
 
 //RoomController
         $app->get('/quotaRoom', 'App\Http\Controller\RoomController@quotaRoom');
-        $app->get('/quotaTotal', 'App\Http\Controller\RoomController@quotaTotal');
         $app->get('/saveQuotaRoom', 'App\Http\Controller\RoomController@saveQuotaRoom');
+
+//TotalController
+        $app->get('/quotaTotal', 'App\Http\Controller\TotalController@quotaTotal');
 
 //HouseController
         $app->get('/editRoom', 'App\Http\Controller\HouseController@editRoom');
