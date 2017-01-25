@@ -77,42 +77,42 @@
                                     <hr>
                                 {% endif %}
                                 <div class="row">
-                                    <div class="col-xs-4">EUR </div>
+                                    <div class="col-xs-4 denominated">EUR </div>
                                     <div class="col-xs-8">{{ details[i]['others'].euro }}</div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xs-4">USD </div>
+                                    <div class="col-xs-4 denominated">USD </div>
                                     <div class="col-xs-8">{{ details[i]['others'].dollar }}</div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xs-4">Hotel </div>
+                                    <div class="col-xs-4 denominated">Hotel </div>
                                     <div class="col-xs-8">{{ details[i]['house_title'] }}</div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xs-4">Room </div>
+                                    <div class="col-xs-4 denominated">Room </div>
                                     <div class="col-xs-8">{{ details[i]['others'].room_title }}</div>
                                 </div>
                                 <div class="row">
                                     {% set stay = details[i]['others'].stay|roundValue %}
-                                    <div class="col-xs-4">Number of stays</div>
+                                    <div class="col-xs-4 denominated">Number of stays</div>
                                     <div class="col-xs-8">{{ stay }} {% if stay > 1 %}days{% else %}day{% endif %}</div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xs-4">Wau rate </div>
+                                    <div class="col-xs-4 denominated">Wau rate </div>
                                     <div class="col-xs-8">Ar {{ details[i]['price_room']|roundValue }} / day</div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xs-4">Vignette </div>
+                                    <div class="col-xs-4 denominated">Vignette </div>
                                     <div class="col-xs-8">Ar {{ details[i]['others'].vignet|roundValue }}</div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xs-4">Taxes </div>
+                                    <div class="col-xs-4 denominated">Taxes </div>
                                     <div class="col-xs-8">Ar {{ details[i]['others'].tax|roundValue }}</div>
                                 </div>
                                 {% set boards = details[i]['others'].board %}
                                 {% if boards|length != 0 %}
                                     <div class="row">
-                                        <div class="col-xs-4">Board </div>
+                                        <div class="col-xs-4 denominated">Board </div>
                                         <div class="col-xs-8">
                                             {% for key, value in boards|cast_to_array %}
                                                 {% if key|lower in ['hb','fb'] %}
@@ -120,7 +120,7 @@
                                                 {% else %}
                                                     {% set label = key|capitalize %}
                                                 {% endif %}
-                                                {{ label }} Ar {{ value|roundValue }}<br/>
+                                                <span class="denominated">{{ label }}</span> Ar {{ value|roundValue }}<br/>
                                             {% endfor %}
                                         </div>
                                     </div>

@@ -489,6 +489,10 @@ table > thead > tr > th, .total_designation {
     display: none;
     height: 10px;
 }
+.denominated{
+    font-weight: bold;
+}
+
 /******* For no_quota *******/
 .no_quota, .no_base{
     font-style: italic;

@@ -119,8 +119,12 @@ function setBase(data, house_id, name_house){
         room_option.rate = others['wau-rate'].value;
         if ("currency-used" in others){
             room_option.currency = others['currency-used'].value;
-        }else
+        }else if("public-rate" in others){
+            room_option.currency = others['public-rate'].currency;
+        }
+        else{
             room_option.currency = 'MGA';
+        }
         room_option.room_title = others['name'].value;
         room_option.vignet = vignette;
         room_option.tax = tax;
