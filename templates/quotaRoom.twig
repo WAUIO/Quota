@@ -1,0 +1,164 @@
+{% extends 'layout.twig' %}
+
+
+{% block body %}
+    <!--Content LEFT-->
+    <br/>
+    {% if(base_rooms|length > 0) %}
+        {% for room in base_rooms %}
+            <p class="base_title" id="{{ room.type|replace({' ' : '_'}) }}">Based on {{ room.type }}</p>
+            <div class="calculation_quota">
+                <div class="table-editable">
+                    <!--table for each quota-->
+                    <table class="flat-table" id="table_{{ room.type|replace({' ' : '_'}) }}">
+                        <tbody>
+                            <tr>
+                                <th class="td_designation">DESIGNATION</th>
+                                <th class="td_amount">ARIARY</th>
+                                <th class="td_amount">EURO<div class="exchange_euro hide">{{ room.exchange['euro'] }}</div></th>
+                                <th class="td_amount">USD<div class="exchange_dollar hide">{{ room.exchange['dollar'] }}</div></th>
+                            </tr>
+                            {% for content in room.content %}
+                                {% if(content['label'] == 'Total / pax') %}
+                                    {% set tr_class = "tr_total" %}
+                                {% elseif(content['label'] == 'Family room') %}
+                                    {% set tr_class = "tr_room" %}
+                                {% elseif(content['label'] == 'Vignette') %}
+                                    {% set tr_class = "tr_vignette" %}
+                                {% elseif(content['label'] == 'Various taxes') %}
+                                    {% set tr_class = "tr_tax" %}
+                                {% endif %}
+                                <tr class="{{ tr_class }}">
+                                    {% if('room' in content['label']) %}
+                                        {% set glyphicon = "glyphicon glyphicon-bed" %}
+                                    {% elseif(content['label'] in ['Vignette','Various taxes']) %}
+                                        {% set glyphicon = "glyphicon glyphicon-usd" %}
+                                    {% elseif(content['label'] == 'Total / pax') %}
+                                        {% set glyphicon = "glyphicon glyphicon-plus" %}
+                                    {% else %}
+                                        {% set glyphicon = "glyphicon glyphicon-cutlery" %}
+                                    {% endif %}
+                                    <td>
+                                        <span class="{{ glyphicon }}"></span>
+                                        {% if(content['label'] == 'Total / pax') %}
+                                            <span class="designation_total">{{ content['label'] }}</span>
+                                            {% if(room.type == 'family room') %}
+                                                <span style="white-space:pre"> : 1 person out of </span>
+                                                <input type="number" min="1" max="20" name="family_member" id="family_member" class="number" style="width: 50px;" value="1"/>
+                                            {% endif %}
+                                        {% else %}
+                                            <span class="designation_element">{{ content['label'] }} </span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="td_amount">
+                                        <span class="mga_value">{{ content['value']|roundValue }}</span>
+                                        {% if(room.type == 'family room') %}
+                                            <span class="hide">{{ content['value']|roundValue }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="td_amount">{{ (content['value'] / room.exchange['euro'])|roundValue }}</td>
+                                    <td class="td_amount">{{ (content['value'] / room.exchange['dollar'])|roundValue}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- for details -->
+                <div class="detail" id="detail_{{ room.type|replace({' ' : '_'}) }}">
+                    <div class="detail_head">Details<span class="glyphicon glyphicon-menu-down"></span></div>
+
+                    <div class="detail_body">
+                        {% set time = 0 %}
+                        {% for i in 0..details|length-1 %}
+                            {% if(room.type|split(' ')[0]|lower == details[i]['base']|split(' ')[0]|lower) %}
+                                {% set time = time+1 %}
+                                {% if(time > 1) %}
+                                    <hr>
+                                {% endif %}
+                                <div class="row">
+                                    <div class="col-xs-4">EUR </div>
+                                    <div class="col-xs-8">{{ details[i]['others'].euro }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4">USD </div>
+                                    <div class="col-xs-8">{{ details[i]['others'].dollar }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4">Hotel </div>
+                                    <div class="col-xs-8">{{ details[i]['house_title'] }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4">Room </div>
+                                    <div class="col-xs-8">{{ details[i]['others'].room_title }}</div>
+                                </div>
+                                <div class="row">
+                                    {% set stay = details[i]['others'].stay|roundValue %}
+                                    <div class="col-xs-4">Number of stays</div>
+                                    <div class="col-xs-8">{{ stay }} {% if stay > 1 %}days{% else %}day{% endif %}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4">Wau rate </div>
+                                    <div class="col-xs-8">Ar {{ details[i]['price_room']|roundValue }} / day</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4">Vignette </div>
+                                    <div class="col-xs-8">Ar {{ details[i]['others'].vignet|roundValue }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4">Taxes </div>
+                                    <div class="col-xs-8">Ar {{ details[i]['others'].tax|roundValue }}</div>
+                                </div>
+                                {% set boards = details[i]['others'].board %}
+                                {% if boards|length != 0 %}
+                                    <div class="row">
+                                        <div class="col-xs-4">Board </div>
+                                        <div class="col-xs-8">
+                                            {% for key, value in boards|cast_to_array %}
+                                                {% if key|lower in ['hb','fb'] %}
+                                                    {% set label = key|upper %}
+                                                {% else %}
+                                                    {% set label = key|capitalize %}
+                                                {% endif %}
+                                                {{ label }} Ar {{ value|roundValue }}<br/>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="detail_foot"></div>
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <div class="no_quota">
+            No room quotation for this customer !<br/><br/>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-md-12 add_quotation" onclick="location.href ='/editRoom'">
+                        Add room quotation
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock body %}
+
+{% if(base_rooms|length > 0) %}
+    {% block menu_room %}
+        <!-- Side Widget Well -->
+        <div class="row well">
+            <h4>Existing room for this quota</h4>
+                {% for room in base_rooms %}
+                    <div class="base_types">
+                        <a class="base_type" href="#{{ (room.content[0]['label']|lower)|replace({' ' : '_'}) }}" >{{ room.content[0]['label'] }}</a>
+                    </div>
+                {% endfor %}
+            <div class="add_room_button " onclick="location.href ='/editRoom'">Add room</div>
+        </div>
+
+    {% endblock menu_room %}
+{% endif %}

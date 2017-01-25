@@ -1,0 +1,111 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+    <br/>
+    <div id="current_customer">
+        {% if client != null %}
+        <div class="calculation_quota">
+            <div class="table-editable">
+                <table class="table table-striped">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th colspan="2">Customer Information</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="td_aboutClient"><label for="label">Reference</label></td>
+                        <td>{{ client.reference }}</td>
+                    </tr>
+                    <tr>
+                        {% if(client.name) != '' %}
+                            <td class="td_aboutClient"><label for="label">Name</label></td>
+                            <td>{{ client.name }}</td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        {% if(client.numberAdult) != '' %}
+                            <td class="td_aboutClient"><label for="label">Number of adult</label></td>
+                            <td>{{ client.number_adult }}</td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        {% if(client.numberChild) != '' %}
+                            <td class="td_aboutClient"><label for="label">Number of children</label></td>
+                            <td>{{ client.number_child }}</td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        {% if(client.start_date) != '' %}
+                            <td class="td_aboutClient" ><label for="label">Date</label></td>
+                            <td>{{ client.start_date }}</td>
+                        {% endif %}
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+            <hr>
+        <div class="calculation_quota">
+            <div class="table-editable">
+                <table class="table table-striped">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th colspan="2">Booked rooms ({{ room|length }})</th>
+                    </tr>
+                    </thead>
+                    {% if room|length > 0 %}
+                        <tbody>
+                        {% for i in 0..room|length-1 %}
+                            <tr>
+                                <td class="td_aboutClient"><label for="label">{{ room[i]['house_title'] }} ({{ room[i]['base'] }})</label></td>
+                                <td>{{ room[i]['others'].room_title }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+            <hr>
+        <div class="calculation_quota">
+            <div class="table-editable">
+                <table class="table table-striped">
+                    <thead class="thead-inverse">
+                    {% set services = prestation.all_prestation['service'] %}
+                    {% set others = prestation.all_prestation['other'] %}
+                    <tr>
+                        <th colspan="2">Benefits ({{ services|length }})</th>
+                    </tr>
+                    </thead>
+
+                    {% if services|length > 0 %}
+                        <tbody>
+                        {% for i in 0..services|length-1 %}
+                            <tr>
+                                <td class="td_aboutClient"><label for="label">{{ services[i] }}</label></td>
+                                <td>{{ others[i].type_service }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+        {% else %}
+            <div id="user_home">
+                <div class="row" style="margin: 0!important; padding: 0!important;">
+                    <div class="span12 text-center">
+                        <h3 style="color: #2B838E">
+                            Welcome {{ user.name }} !<br/>
+                        </h3>
+                        <h4>To create quotations, you need to add a new customer.</h4>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+
+{% endblock body %}
+

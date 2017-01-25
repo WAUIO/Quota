@@ -1,0 +1,114 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+    <br/>
+    <a id="pax_max_tooltip" title="Set the pax maximal" style="color: red"></a>
+    <a id="pax_min_tooltip" title="Set the pax minimal" style="color: red"></a>
+    <form id="prestation_form">
+        <div id="choose_service">
+            <div id="accordion">
+                {% for i in 0..prestations|length - 1 %}
+
+                    {% if(i == 0) %}
+                        {% set image = "/images/individual.png" %}
+                        {% set service_title = "Individual services" %}
+                        {% set search_id = "search_individual" %}
+                        {% set per_price = "person" %}
+                    {% else %}
+                        {% set image = "/images/collective.png" %}
+                        {% set service_title = "Collective services" %}
+                        {% set search_id = "search_collective" %}
+                        {% set per_price = "booking" %}
+                    {% endif %}
+
+                    <div class="service">
+                        <img class="prestation_image" src="{{ image }}">
+                        <span class="service_title">{{ service_title }}</span>
+                        <input type="text" id="{{ search_id }}" class="form-control search_control search_prestation" placeholder="Search...">
+                    </div>
+
+                    <div class="row per_price" id="{{ per_price }}">
+                        <div class="col-xs-7 funkyradio list_service" style="height:300px;">
+                            <div class="search_message">No result for this search !</div>
+                            {% for prest in prestations[i] %}
+                                <div class="funkyradio-success line">
+                                    <input type="checkbox" name="individual" id="id_{{ prest.item_id }}" class="check_value" value="check_value_{{ prest.item_id }}"/>
+                                    <label class="funky_label" for="id_{{ prest.item_id }}" style="border: none">{{ prest.others.title.value }}</label>
+                                    <span class="others_currency span_hide">{{ prest.others.price.value.currency }}</span>
+                                    <span class="others_rate span_hide">{% if(prest.table == 'activity') %}{{ attribute(prest.others, 'wau-rate').value }}{% else %}{{ attribute(prest.others, 'wau-rate-transport').value }}{% endif %}</span>
+                                    <span class="others_type span_hide" >{{ prest.price }}</span>
+                                    <span class="others_euro span_hide" >{{ exchange['euro'] }}</span>
+                                    <span class="others_dollar span_hide" >{{ exchange['dollar'] }}</span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-xs-5 checked_lists">
+                            <div class="checked_list_title">List of checked services</div>
+                            <div class="checked_list_content">
+                                <div class="checked_list checked_prestation hide">
+                                    <div class="prestation_label" style="float: left;"></div>
+                                    <div class="delete_prestation glyphicon glyphicon-remove"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="form-group row">
+                <div class="col-xs-10">
+                    <span class="no_service"  style="display:none">No service checked!</span>
+                 </div>
+                <div class="col-xs-2">
+                    <div class="all_btn" id="btn_next">
+                        <span style="white-space:pre">Next  </span>
+                        <span class="glyphicon glyphicon-arrow-right"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="quotafade">
+            <div class="calculation_quota">
+                <div class="table-responsive">
+                    <table class="table" id="prestation_table">
+                        <thead>
+                            <tr id="Thead">
+                                <th rowspan="2"></th>
+                                <th rowspan="2">Services</th>
+                                <th rowspan="2">Pax min</th>
+                                <th rowspan="2">Pax max</th>
+                                <th rowspan="2">Rate(day/litre)</th>
+                                <th rowspan="2">Amount</th>
+                                <th rowspan="2">Type</th>
+                                <th rowspan="2">Total price</th>
+                                <th id="tr_pax">Pax</th>
+                            </tr>
+                            <tr id="tr_pax_rowspan"></tr>
+                        </thead>
+
+                        <tbody id="Tbody" class="table-bordered">
+                        </tbody>
+                        <tfoot>
+                        <tr id="Tfoot" class="tr_total">
+                            <td colspan="8">Total</td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-xs-12">
+                    <div class="all_btn">
+                        <button type="submit" class="col-xs-12" style="margin: 0!important;padding: 0!important"><span class="col-xs-12" id="btn_save_prestation">Save</span></button>
+                    </div>
+                    <div class="all_btn" id="back" style="margin-right: 20px;">
+                        <span class="glyphicon glyphicon-arrow-left"></span>
+                        <span> Back</span>
+                    </div>
+                    <span class="message" id="prestation_message" style="margin-right:20px; color: #5cb85c; line-height: 40; font-style: italic;"></span>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock body %}

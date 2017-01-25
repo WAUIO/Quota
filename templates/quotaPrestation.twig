@@ -1,0 +1,81 @@
+{% extends 'layout.twig' %}
+{% block body %}
+    <br/>
+    {% if prestation.all_prestation['service']|length > 0 %}
+        <div class="calculation_quota">
+            <div class="table-editable">
+                <table class="table" >
+                    <thead>
+                        <tr id="Thead">
+                            <th rowspan="2">Services</th>
+                            <th rowspan="2">Pax min</th>
+                            <th rowspan="2">Pax max</th>
+                            <th >Rate/day</th>
+                            <th >Number</th>
+                            <th >Person</th>
+                            <th rowspan="2">Total price</th>
+                            {% for j in prestation.min..prestation.max %}
+                                <th rowspan="2">{{ j }}</th>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <th>Rate/litre</th>
+                            <th >Number/litre</th>
+                            <th>Pax</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="Tbod" class="table-bordered">
+                    {% set services = prestation.all_prestation['service'] %}
+                    {% set others = prestation.all_prestation['other'] %}
+                    {% for i in 0..services|length-1 %}
+                        <tr>
+                            <td ><span>{{ services[i] }}</span></td>
+                            <td title="min">{{ others[i].pax_min }}</td>
+                            <td  title="max">{{ others[i].pax_max }}</td>
+                            <td class="tarif">{{ others[i].rate_service }}</td>
+                            <td title="number">{{ others[i].number_service}}</td>
+
+                            <td class="type">{{ others[i].type_service }}</td>
+                            <td class="total">{{ others[i].rate_service * others[i].number_service }}</td>
+                            {% for j in prestation.min..prestation.max %}
+                                <td>
+                                    {%if j >= others[i].pax_min and j <= others[i].pax_max  %}
+                                        {% if others[i].type_service|lower == "per person" %}
+                                            {{ (others[i].rate_service * others[i].number_service)|roundValue }}
+                                        {% else %}
+                                            {{ ((others[i].rate_service * others[i].number_service)/j)|roundValue }}
+                                        {% endif %}
+                                    {% endif %}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                    <tr id="Tfoot" class="tr_total">
+                        <td colspan="7">Total</td>
+                        {% for j in prestation.min..prestation.max %}
+                            <td>{{ (prestation.value[j-1])|roundValue }}</td>
+                        {% endfor %}
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    {% else %}
+        <div class="no_quota">
+            No quota for this customer !<br/><br/>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-md-12 add_quotation" onclick="location.href ='/prestation'">
+                        Add benefit quotation
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock body %}
+
