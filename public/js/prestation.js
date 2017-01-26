@@ -350,14 +350,14 @@ function addInTab($this) {
                     '<input type="text" class="n_pax" name="n_pax">' +
                 '</td> ' +
                 '<td title="min">' +
-                    '<input type="number" value="1" min="1" max="50" class="check number" name="pax_min" style="width: 50px;" onkeypress="return validateNumber(event)">' +
+                    '<input type="number" value="1" min="1" max="100" class="check number" name="pax_min" style="width: 50px;" onkeypress="return validateNumber(event)">' +
                 '</td>' +
                 '<td title="max">' +
-                    '<input type="number" value="1" min="1" max="50" class="check number" name="pax_max" style="width: 50px;" onkeypress="return validateNumber(event)" required="true">' +
+                    '<input type="number" value="1" min="1" max="100" class="check number" name="pax_max" style="width: 50px;" onkeypress="return validateNumber(event)" required="true">' +
                 '</td> ' +
                 '<td class="tarif">' + roundValue(price)+ '</td>' +
                 '<td title="number">' +
-                    '<input type="number" value="1" min="1" max="50000" class="nb_services number" name="nb_service" style="width: 60px;" onkeypress="return validateNumber(event)" >' +
+                    '<input type="number" value="1" min="1" max="50000" class="nb_services number" name="nb_service" style="width: 70px;" onkeypress="return validateNumber(event)" >' +
                 '</td> ' +
                 '<td class="type">' + type + '</td> ' +
                 '<td class="total"></td>' +

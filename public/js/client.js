@@ -92,7 +92,7 @@ function validateNumber(event) {
             return false;
         }
         else{
-            if(parseInt($(this).val()+String.fromCharCode(key)) > 100){
+            if(parseInt($(this).val()+String.fromCharCode(key)) > 50000){
                 return false;
             }
             return true;
