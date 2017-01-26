@@ -52,7 +52,7 @@
                 <table class="table table-striped" id="table_about_room">
                     <thead class="thead-inverse">
                         <tr>
-                            <th colspan="4">Rooms (<span class="item_number">{{ room|length }}</span>)</th>
+                            <th colspan="5">Rooms (<span class="item_number">{{ room|length }}</span>)</th>
                         </tr>
                     </thead>
 
@@ -65,6 +65,8 @@
                             </td>
                             <td>{{ room[i]['house_title'] }}</td>
                             <td>{{ room[i]['others'].room_title }}</td>
+                            {% set stay = room[i]['others'].stay|roundValue %}
+                            <td>{{ stay }} {% if stay > 1 %}days{% else %}day{% endif %}</td>
                             <td>{{ room[i]['base']|capitalize }}</td>
                         </tr>
                     {% endfor %}

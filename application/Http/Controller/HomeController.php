@@ -15,7 +15,6 @@ class HomeController extends RoomController{
         $client_id = $_SESSION['client']->id;
         $room = $this->getRoom($client_id);
         $prestation = $this->getPrestation($client_id);
-
         array_set($data, 'title', 'Customer information');
         array_set($data, 'room', $room['detail']);
         array_set($data, 'prestation', $prestation);

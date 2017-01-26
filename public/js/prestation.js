@@ -357,7 +357,7 @@ function addInTab($this) {
                 '</td> ' +
                 '<td class="tarif">' + roundValue(price)+ '</td>' +
                 '<td title="number">' +
-                    '<input type="number" value="1" min="1" max="50" class="nb_services number" name="nb_service" style="width: 50px;" onkeypress="return validateNumber(event)" >' +
+                    '<input type="number" value="1" min="1" max="50000" class="nb_services number" name="nb_service" style="width: 60px;" onkeypress="return validateNumber(event)" >' +
                 '</td> ' +
                 '<td class="type">' + type + '</td> ' +
                 '<td class="total"></td>' +
