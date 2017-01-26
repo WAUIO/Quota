@@ -1,15 +1,11 @@
-<?php
-
-namespace App\Http\Controller;
-
+<?php namespace App\Http\Controller;
 
 use App\Model\ExchangeModel;
 
-class TotalController extends RoomController
-{
+class TotalController extends RoomController{
+
     //show total (room & prestation) quotation
-    public function quotaTotal()
-    {
+    public function quotaTotal(){
         $data = array();
 
         $client_id = $_SESSION['client']->id;

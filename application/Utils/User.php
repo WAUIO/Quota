@@ -9,14 +9,13 @@
 namespace App\Utils;
 
 
-class User
-{
+class User{
+
     var $user_id;
     var $name;
     var $avatar;
 
-    public function __construct($user)
-    {
+    public function __construct($user){
         $this->user_id = $user->user_id;
         $this->name = $user->name;
         $this->image = $user->image;

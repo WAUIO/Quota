@@ -1,16 +1,7 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: rindra
- * Date: 16/11/2016
- * Time: 11:53
- */
+<?php namespace App\Utils;
 
-namespace App\Utils;
+class HtmlToText{
 
-
-class HtmlToText
-{
     function html2text($html){
         $text = $html;
         static $search = array(
@@ -35,8 +26,8 @@ class HtmlToText
         return $text;
     }
 
-// replace encoded and double encoded entities to equivalent unicode character
-// also see /app/bookmarkletPopup.js
+    // replace encoded and double encoded entities to equivalent unicode character
+    // also see /app/bookmarkletPopup.js
     function normalizeEntities($text) {
         static $find = array();
         static $repl = array();

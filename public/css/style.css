@@ -480,9 +480,15 @@ table > thead > tr > th, .total_designation {
     background: #FCFCFC;
     display: none;
     max-height: 300px;
-    padding: 10px 40px 0 40px;
+    padding: 10px 20px 0 40px;
     overflow-y: auto;
     position: relative;
+}
+.accordion-body{
+    padding: 0 10px 10px 10px;
+}
+.accordion-toggle:hover,.accordion-toggle:focus{
+    text-decoration: none;
 }
 .detail_foot{
     background: #FCFCFC;
@@ -1014,6 +1020,23 @@ ul{
 #add_new_customer{
     margin-top: 10px;
 }
-.td_aboutClient{
-    padding-left: 10px;
+.data_client_remove{
+    width: 30px;
+    cursor: pointer;
+}
+.data_client_remove:hover{
+    color: #FF0F22;
+}
+.popup_btn{
+    margin-right: 10px;
+    width: 60px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;float: right;
+    background: #e9e9e9;
+    border-radius: 1px;
+    cursor: pointer;
+}
+.popup_btn:hover{
+    background: #D1D3D4;
 }

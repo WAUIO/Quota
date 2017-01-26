@@ -9,52 +9,51 @@
 namespace App\Utils;
 
 
-class Restaurant
-{
+class Restaurant{
+
     var $id;
     var $house_id;
     var $menu;
     var $meals;
     var $others;
 
-    public function getId()
-    {
+    public function getId(){
         return $this->id;
     }
-    public function setId($id)
-    {
+
+    public function setId($id) {
         $this->id = $id;
     }
-    public function getHouseId()
-    {
+
+    public function getHouseId(){
         return $this->house_id;
     }
-    public function setHouseId($house_id)
-    {
+
+    public function setHouseId($house_id) {
         $this->house_id = $house_id;
     }
-    public function getMenu()
-    {
+
+    public function getMenu(){
         return $this->menu;
     }
-    public function setMenu($menu)
-    {
+
+    public function setMenu($menu) {
         $this->menu = $menu;
     }
-    public function getMeals()
-    {
+
+    public function getMeals(){
         return $this->meals;
     }
-    public function setMeals($meals)
-    {
+
+    public function setMeals($meals) {
         $this->meals = $meals;
     }
-    public function getOthers()
-    {
+
+    public function getOthers(){
         return $this->others;
     }
-    public function setOthers($others)
-    {
+
+    public function setOthers($others) {
         $this->others = $others;
     }
 }

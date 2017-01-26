@@ -28,10 +28,7 @@
                         <thead>
                             <tr>
                                 <th class="table_header" rowspan="2" colspan="2">Designation</th>
-                                <th class="table_header" colspan="{{ prestation.max - prestation.min }}">Pax</th>
-                                {% if prestation != null %}
-                                    <th class="table_header col_abs"></th>
-                                {% endif %}
+                                <th class="table_header" colspan="{{ prestation.max - prestation.min + 1 }}">Pax</th>
                             </tr>
                             <tr>
                                 {% for i in prestation.min..prestation.max %}

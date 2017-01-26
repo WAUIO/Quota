@@ -3,8 +3,8 @@
 namespace App\Utils;
 
 
-class PrestationQuota
-{
+class PrestationQuota{
+
     var $min;
     var $max;
     var $value;
@@ -12,8 +12,7 @@ class PrestationQuota
     var $vat;
     var $all_prestation;
 
-    public function __construct($array)
-    {
+    public function __construct($array){
         $this->min = $array[0];
         $this->max = $array[1];
         $this->value = $array[2];//array

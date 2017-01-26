@@ -4,28 +4,28 @@ use App\Model\ExchangeModel;
 use App\Model\HouseModel;
 use App\Model\RoomModel;
 use App\Utils\RoomQuota;
+use Wau\Request;
 
-class RoomController extends PrestationController
-{
+class RoomController extends PrestationController{
+
     //show room quotation
-    public function quotaRoom()
-    {
+    public function quotaRoom(){
         $data = array();
         $client_id = $_SESSION['client']->id;
-        $array = $this->getRoom($client_id);
+        $room = $this->getRoom($client_id);
 
         array_set($data, 'title', 'Room quotation');
-        array_set($data, 'details', $array['detail']);
-        array_set($data, 'base_rooms', $array['room']);
+        array_set($data, 'details', $room['detail']);
+        array_set($data, 'base_rooms', $room['room']);
 
         return $this->app()->make('twig.view')->render('quotaRoom.twig',$data);
     }
 
     //save room quotation
-    public function saveQuotaRoom(){
+    public function saveQuotaRoom(Request $request){
         $quotaModel = new RoomModel();
         $name_house= "";
-        $all_data = $_GET['all_data'];
+        $all_data = $request->get('all_data');
         $id_client = $_SESSION['client']->id;
         $exchange = $_SESSION['exchange'];
 
@@ -67,6 +67,12 @@ class RoomController extends PrestationController
         return $name_house;
     }
 
+    //delete room quotation
+    public function deleteQuotaRoom(){
+        $id_room = $_GET['id_item'];
+        $quotaModel = new RoomModel();
+        $quotaModel->deleteQuotaRoom($id_room);
+    }
     //select client room
     public function getRoom($client_id){
         $houseModel = new HouseModel();
@@ -82,7 +88,6 @@ class RoomController extends PrestationController
         $boards[][] = 0;
 
         $result = $roomModel->selectQuotaRoom($client_id);
-
         foreach ($result as $res){
             $base = strtolower($res['base']);
             $res['base'] = $base;

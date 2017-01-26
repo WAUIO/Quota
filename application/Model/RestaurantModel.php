@@ -1,22 +1,14 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: ninah
- * Date: 17/11/16
- * Time: 14:46
- */
+<?php namespace App\Model;
 
-namespace App\Model;
 use App\DatabaseConnection\PDOConnection;
 
-class RestaurantModel
-{
+class RestaurantModel{
+
     var $instance;
 
     public function __construct(){
         $this->instance = new PDOConnection();
     }
-//    :application/Model/RestaurantModel.php
 
     public function selectRestaurant($id){
         $sql="SELECT * FROM restaurant WHERE house_id = $id";

@@ -3,10 +3,9 @@
 use App\Utils\Migration;
 use Wau\Http\Controller;
 
-class MigrationController extends Controller
-{
-    public function migrate()
-    {
+class MigrationController extends Controller{
+
+    public function migrate(){
         set_time_limit(0);
         $migrate = new Migration();
         $space_id = 4691756;

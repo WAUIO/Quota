@@ -441,7 +441,7 @@ function savePrestation(){
 
     $('#btn_save_prestation').html('Saving&nbsp;<img src="/images/loader.gif" alt="Avatar" class="" style="width:20px; height:5px">');
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: "/savePrestation",
         data: {all_data : all_data},
         dataType: "html",

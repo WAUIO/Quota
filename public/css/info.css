@@ -77,13 +77,14 @@
 }
 .add_quotation{
     height: 30px;
-    color: #fff;
-    background: #6F6F6F;
+    color: #6F6F6F;
+    background: #e9e9e9;
     line-height: 30px;
     text-align: center;
     cursor: pointer;
 }
 .add_quotation:hover{
-    background: #6F6F6F;
+    background: #D1D3D4;
     opacity: .8;
+    color: #000000;
 }

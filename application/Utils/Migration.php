@@ -1,20 +1,17 @@
-<?php
-namespace App\Utils;
+<?php namespace App\Utils;
 
 use App\DatabaseConnection\PDOConnection;
 use League\Flysystem\Exception;
 
-class Migration
-{
+class Migration{
+
     var $instance;
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->instance = new  PDOConnection();
     }
 
-    public function getItems($app)
-    {
+    public function getItems($app) {
         $offset = 0;
 
         $limit = 100;
@@ -259,15 +256,15 @@ class Migration
     }
 
     //dump table structure
-    public function dumpTable()
-    {
-        try {
-            $dump = new Mysqldump('mysql:host=localhost;dbname=wm-database', 'root', '');
-            $dump->start('C:\wamp2\www\Travel\dump.sql');
-        } catch (\Exception $e) {
-            echo 'mysqldump-php error: ' . $e->getMessage();
-        }
-    }
+//    public function dumpTable()
+//    {
+//        try {
+//            $dump = new Mysqldump('mysql:host=localhost;dbname=wm-database', 'root', '');
+//            $dump->start('C:\wamp2\www\Travel\dump.sql');
+//        } catch (\Exception $e) {
+//            echo 'mysqldump-php error: ' . $e->getMessage();
+//        }
+//    }
 
     //insert in array
     function array_insert_before($key, array $array, $new_key, $new_value) {
@@ -282,5 +279,4 @@ class Migration
         }
         return $new;
     }
-
 }

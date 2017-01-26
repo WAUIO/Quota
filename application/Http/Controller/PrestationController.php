@@ -1,13 +1,13 @@
 <?php namespace App\Http\Controller;
 
-use App\DatabaseConnection\PDOConnection;
 use App\Model\PrestationModel;
 use App\Utils\Prestation;
 use App\Utils\PrestationQuota;
 use Wau\Http\Controller;
+use Wau\Request;
 
-class PrestationController extends Controller
-{
+class PrestationController extends Controller{
+
     //edit prestation
     public function prestation(){
         $data = array();
@@ -21,8 +21,7 @@ class PrestationController extends Controller
     }
 
     //show prestation quotation
-    public function quotaPrestation()
-    {
+    public function quotaPrestation(){
         $data = array();
         $prestation = $this->getPrestation($_SESSION['client']->id);
 
@@ -34,9 +33,9 @@ class PrestationController extends Controller
     }
 
     // save Prestation
-    public function savePrestation(){
+    public function savePrestation(Request $request){
         $prestationModel = new PrestationModel();
-        $all_data = $_GET['all_data'];
+        $all_data = $request->get('all_data');
         $id_client = $_SESSION['client']->id;
 
         foreach ($all_data as $data){
@@ -49,12 +48,18 @@ class PrestationController extends Controller
         return $all_data;
     }
 
+    //delete prestation quotation
+    public function deleteQuotaPrestation(){
+        $id_prestation = $_GET['id_item'];
+        $prestationModel = new PrestationModel();
+        $prestationModel->deleteQuotaPrestation($id_prestation);
+    }
+
     //get all services
-    public function getService($table)
-    {
+    public function getService($table){
         $array = array();
-        $person = array();
-        $group = array();
+        $per_person = array();
+        $per_group = array();
         $prestationModel = new PrestationModel();
 
         foreach($table as $tab){
@@ -68,13 +73,13 @@ class PrestationController extends Controller
                 $prestation->setOthers(json_decode($service['others']));
 
                 if(strtolower($service['price']) == 'per person'){
-                    $person[] = $prestation;
+                    $per_person[] = $prestation;
                 }else{
-                    $group[] = $prestation;
+                    $per_group[] = $prestation;
                 }
             }
         }
-        array_push($array, $person, $group);
+        array_push($array, $per_person, $per_group);
         return $array;
     }
 
@@ -82,6 +87,7 @@ class PrestationController extends Controller
     public function getPrestation($client_id){
         $service = array();
         $other = array();
+        $id = array();
         $prestation[] = 0;
         $smaller = 100;
         $bigger = 0;
@@ -95,6 +101,7 @@ class PrestationController extends Controller
             foreach ($result as $res){
                 $others = json_decode($res['others']);
 
+                $id[]= $res['id'];
                 $service[] = $res['service'];
                 $other[] = $others;
 
@@ -123,7 +130,7 @@ class PrestationController extends Controller
                     $bigger = $max;
                 }
             }
-            $all_prestation = ['service'=>$service, 'other'=>$other];
+            $all_prestation = ['id'=>$id,'service'=>$service, 'other'=>$other];
 
             $margin = 20;
             $vat = 20;

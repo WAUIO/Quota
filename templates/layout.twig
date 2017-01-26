@@ -10,32 +10,28 @@
 
     <title>WAU Travel Quota</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
     <link rel="stylesheet" href="/css/bootstrap.min.css" >
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/css/bootstrap-select.css">
+    <link rel="stylesheet" href="/css/bootstrap-select.min.css">
 
     <link rel="stylesheet" href="/css/bootstrap-select.css.map">
     <link rel="stylesheet" href="/css/bootstrap-editable.css">
-    <link rel="stylesheet" type="text/css" href="/css/tooltipster.bundle.min.css" />
 
     <!--Stylesheet-->
-    <link href="/css/style.css" rel="stylesheet">
-    <link href="/css/funky.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/funky.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-    <link href="/css/info.css" rel="stylesheet">
-    <link href="/css/spinner.css" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/info.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+    <link rel="stylesheet" href="/css/perfect-scrollbar.min.css">
 
     <link rel="shortcut icon" href="/images/favicon.ico">
 </head>
 
-{#http://bootsnipp.com/snippets/4zmQ#}
-{#http://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_navbar_collapse&stacked=h#}
-{#https://jsfiddle.net/jme11/k89wydu0/#}
 <body class="main ">
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -80,7 +76,6 @@
                             <div class="roundedImage">
                                 <img class="media-object img-responsive" id="user_avatar" src="{{ user.image.thumbnail_link }}">
                             </div>
-
                         </a>
                     </li>
                     <li>
@@ -165,15 +160,11 @@
 
         </div>
 
-        {% block edit_room %}
-        {% endblock edit_room %}
-
         <footer class="footer">
             <div class="container" style="margin-top: auto">
                 <p class="text-muted rw-center">{{ 'now' | date("Y") }} WAU Travel</p>
             </div>
         </footer>
-
 
         <!-- Bootstrap core JavaScript
         ================================================== -->
@@ -193,6 +184,7 @@
         <script src="/js/export/tableExport.min.js"></script>
 
         <script src="/js/function.js"></script>
+        <script src="/js/home.js"></script>
         <script src="/js/client.js"></script>
         <script src="/js/room.js"></script>
         <script src="/js/prestation.js"></script>

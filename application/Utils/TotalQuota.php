@@ -3,8 +3,8 @@
 namespace App\Utils;
 
 
-class TotalQuota
-{
+class TotalQuota{
+
     var $euro;
     var $dollar;
     var $type;
@@ -19,8 +19,7 @@ class TotalQuota
 
     static $room_typee = array();
 
-    public function __construct($array)
-    {
+    public function __construct($array){
         $this->content = array();
         $type       = $array[0];
         $room       = $array[1];
@@ -85,8 +84,6 @@ class TotalQuota
         $this->dollar = $dollar;
 
         array_push($this->content, $this->room, $this->breakfast, $this->lunch, $this->dinner, $this->vignette, $this->tax, $this->total);
-
-
         array_push(self::$room_typee, $this->room[0]);
     }
 }

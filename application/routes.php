@@ -9,29 +9,34 @@ $app->group(['prefix' => '/webhook',
 
 $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware'],
     function() use (&$app){
-//UserController
+
+    //HomeController
+        $app->get('/', 'App\Http\Controller\HomeController@home');
+
+    //UserController
         $app->get('/logout', 'App\Http\Controller\UserController@logout');
 
-//ClientController
+    //ClientController
         $app->get('/getClient', 'App\Http\Controller\ClientController@getClient');
         $app->get('/setClient', 'App\Http\Controller\ClientController@setClient');
-        $app->get('/', 'App\Http\Controller\ClientController@home');
         $app->get('/addClient', 'App\Http\Controller\ClientController@addClient');
         $app->get('/saveClient', 'App\Http\Controller\ClientController@saveClient');
 
-//PrestationController
+    //PrestationController
         $app->get('/quotaPrestation', 'App\Http\Controller\PrestationController@quotaPrestation');
         $app->get('/prestation', 'App\Http\Controller\PrestationController@prestation');
-        $app->get('/savePrestation', 'App\Http\Controller\PrestationController@savePrestation');
+        $app->post('/savePrestation', 'App\Http\Controller\PrestationController@savePrestation');
+        $app->get('/deleteQuotaPrestation', 'App\Http\Controller\PrestationController@deleteQuotaPrestation');
 
-//RoomController
+    //RoomController
         $app->get('/quotaRoom', 'App\Http\Controller\RoomController@quotaRoom');
-        $app->get('/saveQuotaRoom', 'App\Http\Controller\RoomController@saveQuotaRoom');
+        $app->post('/saveQuotaRoom', 'App\Http\Controller\RoomController@saveQuotaRoom');
+        $app->get('/deleteQuotaRoom', 'App\Http\Controller\RoomController@deleteQuotaRoom');
 
-//TotalController
+    //TotalController
         $app->get('/quotaTotal', 'App\Http\Controller\TotalController@quotaTotal');
 
-//HouseController
+    //HouseController
         $app->get('/editRoom', 'App\Http\Controller\HouseController@editRoom');
         $app->get('/getAllHouseData', 'App\Http\Controller\HouseController@getAllHouseData');
     }

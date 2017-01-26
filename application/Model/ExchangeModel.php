@@ -11,8 +11,8 @@ namespace App\Model;
 
 use App\Utils\Exchange;
 
-class ExchangeModel
-{
+class ExchangeModel{
+
     public function getExchange(){
         $euro = new Exchange(0);
         $dollar = new Exchange(1);

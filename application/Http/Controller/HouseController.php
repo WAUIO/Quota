@@ -7,8 +7,7 @@ use App\Utils\Restaurant;
 use App\Utils\Room;
 use Wau\Http\Controller;
 
-class HouseController extends Controller
-{
+class HouseController extends Controller{
 
     //edit room quotation
     public function editRoom(){
