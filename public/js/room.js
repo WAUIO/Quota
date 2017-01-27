@@ -46,7 +46,7 @@ function checkOption(){
 // get all data about room and board when house selected,
 function dataHouse(){
 
-    $('.check_able').prop('disabled', true);
+    $('.check_able').prop('disabled',false);
     $('#room_message').fadeOut();
     $('#adult_select_single').html('');
     $('#adult_select_double').html('');
@@ -177,7 +177,6 @@ function setBoard(data){
                     id_row = "#id_row_adult_"+val;
                 }
 
-                board_option.currency = others['currency-used'].value;
                 board_option[val] = others['wau-rate'].value;
                 option = "<option value='"+ JSON.stringify(board_option) +"'>"+ value.menu +"</option>";
                 $(select_id).append(option);

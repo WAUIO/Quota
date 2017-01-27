@@ -21,6 +21,17 @@ class RoomController extends PrestationController
         return $this->app()->make('twig.view')->render('quotaRoom.twig',$data);
     }
 
+    public function informationRoom(){
+        $data = array();
+        $client_id = $_SESSION['client']->id;
+        $array = $this->getRoom($client_id);
+
+        array_set($data, 'title', 'Room');
+        array_set($data, 'details', $array['detail']);
+        array_set($data, 'base_rooms', $array['room']);
+
+        return $this->app()->make('twig.view')->render('aboutClient.twig',$data);
+    }
 
     //show total (room & prestation) quotation
     public function quotaTotal()
@@ -78,7 +89,6 @@ class RoomController extends PrestationController
             }
 
             $others['board'] = $data['board'];
-
             $array  =  array('base'=>$base, 'id_client'=>$id_client, 'id_house'=>$id_house,'price_room'=>$price_room,'others'=>json_encode($others));
             $quotaModel->insertToQuotaRoom($array);
         }

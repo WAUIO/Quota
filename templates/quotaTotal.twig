@@ -27,11 +27,18 @@
                            data-show-toggle="true"
                            data-tableexport-display="always">
                         <thead>
-                            <tr>
-                                <th class="table_header" rowspan="2" colspan="2">Designation</th>
-                                <th class="table_header" colspan="{{ prestation.max - prestation.min }}">Pax</th>
-                                <th class="table_header col_abs"></th>
-                            </tr>
+                            {% if prestation.min >=1 %}
+                                <tr>
+                                    <th class="table_header" rowspan="2" colspan="2">Designation</th>
+                                    <th class="table_header" colspan="{{ prestation.max - prestation.min }}">Pax</th>
+                                    <th class="table_header col_abs"></th>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <th class="table_header" rowspan="2" colspan="2">Designation</th>
+                                    <th class="table_header" colspan="{{ prestation.max - prestation.min }}">Pax</th>
+                                </tr>
+                            {% endif %}
                             <tr>
                                 {% for i in prestation.min..prestation.max %}
                                     <th class="tr_value">{{ i }}</th>
