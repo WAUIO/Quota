@@ -1,26 +1,10 @@
 <?php namespace App\Http\Controller;
 
-use App\DatabaseConnection\PDOConnection;
 use App\Utils\Client;
 use App\Utils\Exchange;
-use Wau\Http\Controller;
 use App\Model\ClientModel;
 
-class ClientController extends Controller
-{
-    //edit client
-    public function informationClient(){
-        if($_SESSION['client'] == null){
-            $clientModel = new ClientModel();
-            $client = $clientModel->getLastClient();
-            if($client != null){
-                $_SESSION['client'] = $client;
-            }
-        }
-
-        array_set($data, 'title', 'Customer');
-        return $this->app()->make('twig.view')->render('aboutClient.twig', $data);
-    }
+class ClientController extends RoomController{
 
     public function addClient(){
         if($_SESSION['client'] == null){
@@ -37,7 +21,6 @@ class ClientController extends Controller
 
         $parts = explode('/', $_GET['date']);
         $date = "$parts[2]-$parts[1]-$parts[0]";
-
 
         $client->setReference($_GET['reference']);
         $client->setName($_GET['name']);

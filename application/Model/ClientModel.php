@@ -1,16 +1,13 @@
-<?php
-
-namespace App\Model;
+<?php namespace App\Model;
 
 use App\DatabaseConnection\PDOConnection;
 use App\Utils\Client;
 
-class ClientModel
-{
+class ClientModel{
+
     var $instance;
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->instance = new PDOConnection();
     }
 

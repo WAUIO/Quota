@@ -4,23 +4,24 @@ use App\Model\ExchangeModel;
 use App\Model\HouseModel;
 use App\Model\RoomModel;
 use App\Utils\RoomQuota;
+use Wau\Request;
 
-class RoomController extends PrestationController
-{
+class RoomController extends PrestationController{
+
     //show room quotation
-    public function quotaRoom()
-    {
+    public function quotaRoom(){
         $data = array();
         $client_id = $_SESSION['client']->id;
-        $array = $this->getRoom($client_id);
+        $room = $this->getRoom($client_id);
 
         array_set($data, 'title', 'Room quotation');
-        array_set($data, 'details', $array['detail']);
-        array_set($data, 'base_rooms', $array['room']);
+        array_set($data, 'details', $room['detail']);
+        array_set($data, 'base_rooms', $room['room']);
 
         return $this->app()->make('twig.view')->render('quotaRoom.twig',$data);
     }
 
+<<<<<<< HEAD
     public function informationRoom(){
         $data = array();
         $client_id = $_SESSION['client']->id;
@@ -55,10 +56,17 @@ class RoomController extends PrestationController
         return $this->app()->make('twig.view')->render('quotaTotal.twig',$data);
     }
 
+=======
+>>>>>>> eff06a0211d91ded9e24f2ce9723f48d5a1c3f7d
     //save room quotation
-    public function saveQuotaRoom(){
+    public function saveQuotaRoom(Request $request){
         $quotaModel = new RoomModel();
+<<<<<<< HEAD
         $all_data = $_POST['all_data'];
+=======
+        $name_house= "";
+        $all_data = $request->get('all_data');
+>>>>>>> eff06a0211d91ded9e24f2ce9723f48d5a1c3f7d
         $id_client = $_SESSION['client']->id;
         $exchange = $_SESSION['exchange'];
 
@@ -79,22 +87,32 @@ class RoomController extends PrestationController
 
             $price_room = (float)$data['rate'] * $currency_value;
 
+            $others['stay']       = $data['stay'];
             $others['vignet']       = $data['vignet'];
             $others['room_title']   = $data['room_title'];
             $others['euro']         = $exchange['euro'];
             $others['dollar']       = $exchange['dollar'];
 
-            foreach ($data['board'] as $key=>$value){
-                $data['board'][$key] = (float)$value * $currency_value;
+            if(array_key_exists('board', $data)){
+                foreach ($data['board'] as $key=>$value){
+                    $data['board'][$key] = (float)$value * $currency_value;
+                }
             }
 
             $others['board'] = $data['board'];
             $array  =  array('base'=>$base, 'id_client'=>$id_client, 'id_house'=>$id_house,'price_room'=>$price_room,'others'=>json_encode($others));
             $quotaModel->insertToQuotaRoom($array);
         }
+
         return $name_house;
     }
 
+    //delete room quotation
+    public function deleteQuotaRoom(){
+        $id_room = $_GET['id_item'];
+        $quotaModel = new RoomModel();
+        $quotaModel->deleteQuotaRoom($id_room);
+    }
     //select client room
     public function getRoom($client_id){
         $houseModel = new HouseModel();
@@ -110,7 +128,6 @@ class RoomController extends PrestationController
         $boards[][] = 0;
 
         $result = $roomModel->selectQuotaRoom($client_id);
-
         foreach ($result as $res){
             $base = strtolower($res['base']);
             $res['base'] = $base;
@@ -118,11 +135,12 @@ class RoomController extends PrestationController
             $res['house_title'] = $houseModel->getHouse($res['id_house'])[0]['house_title'];
             $details[] = $res;
 
-            $price[$base] += $res['price_room'];
+            $stay = $res['others']->stay;
+            $price[$base] += $res['price_room'] * $stay;
 
             if(array_key_exists('board', $res['others'])){
-                foreach ($res['others']->board as $key => $value){
-                    $boards[$base][$key] += $value;
+                foreach ((array)$res['others']->board as $key => $value){
+                    $boards[$base][$key] += $value * $stay;
                 }
             }
 

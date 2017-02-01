@@ -10,190 +10,188 @@
 
     <title>WAU Travel Quota</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
     <link rel="stylesheet" href="/css/bootstrap.min.css" >
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/css/bootstrap-select.css">
+    <link rel="stylesheet" href="/css/bootstrap-select.min.css">
 
     <link rel="stylesheet" href="/css/bootstrap-select.css.map">
     <link rel="stylesheet" href="/css/bootstrap-editable.css">
-    <link rel="stylesheet" type="text/css" href="/css/tooltipster.bundle.min.css" />
 
     <!--Stylesheet-->
-    <link href="/css/style.css" rel="stylesheet">
-    <link href="/css/funky.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/funky.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-    <link href="/css/info.css" rel="stylesheet">
-    <link href="/css/spinner.css" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/info.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+    <link rel="stylesheet" href="/css/perfect-scrollbar.min.css">
 
     <link rel="shortcut icon" href="/images/favicon.ico">
 </head>
 
-<body class="main">
-
-<!-- Navigation -->
-<nav class="navbar  navbar-fixed-top" role="navigation">
-    <div class="container" style="padding: 0 !important;">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <img class="center-block" id="logo" src="/images/logo_new.png"/>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        {% if user != null %}
-            <div class="collapse navbar-collapse" id="menu_nav_bar">
-                <ul  class="nav navbar-nav" id="menu">
-                    <li><a href="/informationClient">Home</a></li>
-                    <li>
-                        <a href="#">Create</a>
-                        <ul>
-                            <li><a href="/addClient">Customer</a></li>
-                            <li><a href="/editRoom">Room</a></li>
-                            <li><a href="/prestation">Benefit</a></li>
+<body class="main ">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                {% if user != null %}
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-menu">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                {% endif %}
+                <img class="center-block" id="logo" src="/images/logo_new.png"/>
+            </div>
+            {% if user != null %}
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-collapse-menu">
+                <ul class="nav navbar-nav">
+                    <li><a href="/"><span class="menu_text">Home</span></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="menu_text">Create<b class="caret"></b></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/addClient"><span class="menu_text">Customer</span></a></li>
+                            <li><a href="/editRoom"><span class="menu_text">Room</span></a></li>
+                            <li><a href="/prestation"><span class="menu_text">Benefit</span></a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="#">View</a>
-                        <ul>
-                            <li><a href="/quotaRoom">Room</a></li>
-                            <li><a href="/quotaPrestation">Benefit</a></li>
-                            <li><a href="/quotaTotal">Total</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="menu_text">View<b class="caret"></b></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/quotaRoom"><span class="menu_text">Room</span></a></li>
+                            <li><a href="/quotaPrestation"><span class="menu_text">Benefit</span></a></li>
+                            <li><a href="/quotaTotal"><span class="menu_text">Total</span></a></li>
                         </ul>
                     </li>
                 </ul>
-
-                {% if user != null %}
-                <div class="pull-right user" id="logout">
-                    <div class="center-block" id="user_logout"></div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#">
+                            <div class="roundedImage">
+                                <img class="media-object img-responsive" id="user_avatar" src="{{ user.image.thumbnail_link }}">
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div id="user_logout"></div>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#">
+                            <span class="nav navbar-nav navbar-right menu_text" id="user_name" style="display: none;">{{ user.name }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+            {% endif %}
+        </div><!-- /.container -->
+        <div id="header_title" class="row" style="background: #ffffff;margin: 0 !important;padding: 0 !important;">
+            <div class="container ref_client" >
+                <div class="col-xs-12">
+                    <span class="pull-left title">{{ title }}</span>
+                    {% if client != null and user != null %}
+                        <span class="pull-right">Current customer : <span id="client_reference">{{ client.reference }}</span></span>
+                    {% endif %}
                 </div>
-                <div class="pull-right user"  id="user">
-                    <div class="center-block" id="user_icon">
-                        <img class="media-object img-responsive" id="user_avatar" src="{{ user.image.thumbnail_link }}">
-                    </div>
-                </div>
-                <div class="pull-right" id="user_name"  style="display: none;">
-                    <span>{{ user.name }}</span>
-                </div>
-                {% endif %}
-            </div>
-        {% endif %}
-        <!-- /.navbar-collapse -->
-    </div>
-
-    <!-- /.container -->
-    <div id="header_title" class="row" style="background: #ffffff;margin: 0 !important;padding: 0 !important;">
-        <div class="container ref_client" >
-            <div class="col-xs-12">
-                <span class="pull-left title">{{ title }}</span>
-                {% if client != null and user != null %}
-                    <span class="pull-right">Current customer : <span id="client_reference">{{ client.reference }}</span></span>
-                {% endif %}
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
-<div class="container">
-    <div class="row">
-        {% if user == null %}
-            <div class="col-xs-12">
-                {% block login %}
-                {% endblock login %}
-            </div>
-        {% else %}
-            <!--/left side-->
-            <div class="col-xs-9">
-                {% block body %}
-                {% endblock body %}
-            </div>
+    <div class="container">
+        <div class="row">
+            {% if user == null %}
+                <div class="col-xs-12">
+                    {% block login %}
+                    {% endblock login %}
+                </div>
+            {% else %}
+                <!--/left side-->
+                <div class="col-xs-9">
+                    {% block body %}
+                    {% endblock body %}
+                </div>
 
-            <!--/right side-->
-            <div id="right_side" class="col-xs-3 sidebar-outer">
-                <div class="fixed">
-                    <div id="well_search" class="row well">
-                            <div id="search_menu_title">
-                                <div style="float: left"><h4>All customer</h4></div>
-                                <div id="refresh_client" style="float: right"><span class="glyphicon glyphicon-refresh"></span></div>
+                <!--/right side-->
+                <div id="right_side" class="col-xs-3 sidebar-outer">
+                    <div class="fixed">
+                        <div id="well_search" class="row well">
+                                <div id="search_menu_title">
+                                    <div style="float: left"><h4>All customer</h4></div>
+                                    <div id="refresh_client" style="float: right"><span class="glyphicon glyphicon-refresh"></span></div>
+                                </div>
+
+                            <div class="input-group" style="width:100%;">
+                                <input type="text" class="form-control search_control" id="search_client" placeholder="Search...">
+                            </div>
+                            <!-- /.input-group -->
+                            <div class="row" id="quota_list">
+                                <div class="search_message">No result for this search !</div>
                             </div>
 
-                        <div class="input-group" style="width:100%;">
-                            <input type="text" class="form-control search_control" id="search_client" placeholder="Search...">
-                        </div>
-                        <!-- /.input-group -->
-                        <div class="row" id="quota_list">
-                            <div class="search_message">No result for this search !</div>
+                            <div id="expand">
+                                <span id="search_glyphicon" class="menu_glyphicon glyphicon glyphicon-chevron-up"></span>
+                            </div>
                         </div>
 
-                        <div id="expand">
-                            <span id="search_glyphicon" class="menu_glyphicon glyphicon glyphicon-chevron-up"></span>
-                        </div>
+                        {% block menu_room %}
+                        {% endblock menu_room %}
+                        <!--/.well -->
                     </div>
-
-                    {% block menu_room %}
-                    {% endblock menu_room %}
-                    <!--/.well -->
+                    <!--/sidebar-nav-fixed -->
                 </div>
-                <!--/sidebar-nav-fixed -->
+                <!--/span-->
+            {% endif %}
+        </div>
+        <div id="about_client" title="About this customer" style="display: none;">
+            <p>Reference : {{ client.reference }}</p>
+            {% if(client.name) != '' %}<p>Name : {{ client.name }}</p>{% endif %}
+            {% if(client.numberAdult) != '' %}<p>Adult number : {{ client.number_adult }}</p>{% endif %}
+            {% if(client.numberChild) != '' %}<p>Child number : {{ client.number_child }}</p>{% endif %}
+            {% if(client.start_date) != '' %}<p>Date : {{ client.start_date }}</p>{% endif %}
+
+        </div>
+
+        <footer class="footer">
+            <div class="container" style="margin-top: auto">
+                <p class="text-muted rw-center">{{ 'now' | date("Y") }} WAU Travel</p>
             </div>
-            <!--/span-->
-        {% endif %}
+        </footer>
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Latest compiled and minified JavaScript -->
+        {% block scripts %}
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/bootstrap-editable.min.js"></script>
+        <script src="/js/bootstrap-select.min.js"></script>
+        <script src="/js/perfect-scrollbar.jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+        <script src="/js/export/FileSaver.min.js"></script>
+        <script src="/js/export/xlsx.core.min.js"></script>
+        <script src="/js/export/jspdf.min.js"></script>
+        <script src="/js/export/jspdf.plugin.autotable.js"></script>
+        <script src="/js/export/tableExport.min.js"></script>
+
+        <script src="/js/function.js"></script>
+        <script src="/js/home.js"></script>
+        <script src="/js/client.js"></script>
+        <script src="/js/room.js"></script>
+        <script src="/js/prestation.js"></script>
+        <script src="/js/quotaRoom.js"></script>
+        <script src="/js/quotaprestation.js"></script>
+        <script src="/js/quotaTotal.js"></script>
+    {% endblock scripts %}
     </div>
-    <!--/row-->
-</div>
-<!--/.fluid-container-->
-<div id="about_client" title="About this customer" style="display: none;">
-    <p>Reference : {{ client.reference }}</p>
-    {% if(client.name) != '' %}<p>Name : {{ client.name }}</p>{% endif %}
-    {% if(client.numberAdult) != '' %}<p>Adult number : {{ client.number_adult }}</p>{% endif %}
-    {% if(client.numberChild) != '' %}<p>Child number : {{ client.number_child }}</p>{% endif %}
-    {% if(client.start_date) != '' %}<p>Date : {{ client.start_date }}</p>{% endif %}
-
-</div>
-
-{% block edit_room %}
-{% endblock edit_room %}
-
-<footer class="footer">
-    <div class="container" style="margin-top: auto">
-        <p class="text-muted rw-center">{{ 'now' | date("Y") }} WAU Travel</p>
-    </div>
-</footer>
-
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Latest compiled and minified JavaScript -->
-{% block scripts %}
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/bootstrap-editable.min.js"></script>
-    <script src="/js/bootstrap-select.min.js"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-    <script src="/js/export/FileSaver.min.js"></script>
-    <script src="/js/export/xlsx.core.min.js"></script>
-    <script src="/js/export/jspdf.min.js"></script>
-    <script src="/js/export/jspdf.plugin.autotable.js"></script>
-    <script src="/js/export/tableExport.min.js"></script>
-
-    <script src="/js/function.js"></script>
-    <script src="/js/client.js"></script>
-    <script src="/js/room.js"></script>
-    <script src="/js/prestation.js"></script>
-    <script src="/js/quotaRoom.js"></script>
-    <script src="/js/quotaprestation.js"></script>
-    <script src="/js/quotaTotal.js"></script>
-{% endblock scripts %}
 </body>
 </html>

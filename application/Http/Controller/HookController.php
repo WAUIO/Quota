@@ -5,16 +5,14 @@ use App\Utils\Migration;
 use Symfony\Component\HttpFoundation\Request;
 use Wau\Http\Controller\WebhookController;
 
-class HookController extends WebhookController
-{
+class HookController extends WebhookController{
     protected $routes = [
         "item.create" => 'itemCreate',
         "item.update" => 'itemCreate',
         "item.delete" => 'itemDelete'
     ];
 
-    public function itemCreate(Request $request)
-    {
+    public function itemCreate(Request $request){
         $migration = new Migration();
         $item_id = intval($request->get('item_id'));
         $item = \PodioItem::get_basic( $item_id);
@@ -22,15 +20,13 @@ class HookController extends WebhookController
         $migration->saveItem($app_id, $item);
     }
 
-    public function itemDelete(Request $request)
-    {
+    public function itemDelete(Request $request){
         $item_id = intval($request->get('item_id'));
         $app_id = $_POST['app_id'];
         $this->deleteItem($app_id, $item_id);
     }
 
-    public function deleteItem($app_id, $item_id)
-    {
+    public function deleteItem($app_id, $item_id){
         //app_id
         $id_app_houses         = 17063114;
         $id_app_rooms          = 17063267;

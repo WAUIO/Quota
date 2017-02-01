@@ -17,8 +17,7 @@
                     <div class="btn_export export_pdf" id="export_pdf_{{ room.type|replace({' ' : '_'}) }}"></div>
                 </div>
             </div>
-            {#<button id="export_excel_{{ room.type|replace({' ' : '_'}) }}" class="btn_export btn btn-lg btn-danger clearfix"><span class="fa fa-file-pdf-o"></span> Export to Excel</button>#}
-            {#<button id="export_pdf_{{ room.type|replace({' ' : '_'}) }}" class="btn_export btn btn-lg btn-danger clearfix"><span class="fa fa-file-pdf-o"></span> Export to PDF</button>#}
+
             <div class="calculation_quota">
                 <div class="table-editable">
                     <table class="table"
@@ -27,18 +26,10 @@
                            data-show-toggle="true"
                            data-tableexport-display="always">
                         <thead>
-                            {% if prestation.min >=1 %}
-                                <tr>
-                                    <th class="table_header" rowspan="2" colspan="2">Designation</th>
-                                    <th class="table_header" colspan="{{ prestation.max - prestation.min }}">Pax</th>
-                                    <th class="table_header col_abs"></th>
-                                </tr>
-                            {% else %}
-                                <tr>
-                                    <th class="table_header" rowspan="2" colspan="2">Designation</th>
-                                    <th class="table_header" colspan="{{ prestation.max - prestation.min }}">Pax</th>
-                                </tr>
-                            {% endif %}
+                            <tr>
+                                <th class="table_header" rowspan="2" colspan="2">Designation</th>
+                                <th class="table_header" colspan="{{ prestation.max - prestation.min + 1 }}">Pax</th>
+                            </tr>
                             <tr>
                                 {% for i in prestation.min..prestation.max %}
                                     <th class="tr_value">{{ i }}</th>

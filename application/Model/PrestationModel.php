@@ -1,22 +1,15 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: ninah
- * Date: 13/12/16
- * Time: 15:49
- */
-
-namespace App\Model;
+<?php namespace App\Model;
 
 use App\DatabaseConnection\PDOConnection;
 
-class PrestationModel
-{
+class PrestationModel{
+
     var $instance;
-    public function __construct()
-    {
+
+    public function __construct(){
         $this->instance = new PDOConnection();
     }
+
     public function insertToQuotaprestation($array){
         try{
 
@@ -42,14 +35,25 @@ class PrestationModel
 
         return $this->instance->select($sql);
     }
+
     public function getServices($tab){
         $sql = "SELECT * FROM ".$tab." WHERE price NOT LIKE ''";
 
         return $this->instance->select($sql);
     }
+
     public function selectQuotaprestation($id){
         $sql = "SELECT * FROM quotaprestation WHERE id_client = $id";
 
         return $this->instance->select($sql);
+    }
+
+    public function deleteQuotaPrestation($id){
+        try{
+            $sql = "DELETE FROM quotaprestation WHERE id=$id";
+            $this->instance->delete($sql);
+        }catch (\Exception $e){
+            echo $e->getCode(),$e->getMessage(),$e->getLine();
+        }
     }
 }

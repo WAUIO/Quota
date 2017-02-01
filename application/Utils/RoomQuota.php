@@ -1,8 +1,8 @@
 <?php namespace App\Utils;
 
 
-class RoomQuota
-{
+class RoomQuota{
+
     var $exchange;
     var $type;
     var $content;
@@ -14,8 +14,7 @@ class RoomQuota
     var $margin;
     var $vat;
 
-    public function __construct($array)
-    {
+    public function __construct($array){
         $somme = 0;
         $array_type = array("integer", "double");
         $this->content = array();

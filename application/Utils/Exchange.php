@@ -4,8 +4,7 @@ namespace App\Utils;
 
 use League\Flysystem\Exception;
 
-class Exchange
-{
+class Exchange{
 
     var $exchange = array();
 
@@ -51,6 +50,7 @@ class Exchange
                 $tagCount++;
             }
         }
+
         return $response;
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'CLIENT_ID'     => 'new-xuo5zs',
-    'CLIENT_SECRET' => 'f7ZeWUi4sFLgapOxzZK2oLssx7hmwkJAiG0WUfo8sqCM3OCv7chXnOOVWtPXIKit',
-    'USERNAME'      => 'ninah@wau.solutions',
-    'PASSWORD'      => 'ninahwaupodio24',
+    'CLIENT_ID'     => env('CLIENT_ID', ''),
+    'CLIENT_SECRET' => env('CLIENT_SECRET', ''),
+    'USERNAME'      => env('USERNAME', ''),
+    'PASSWORD'      => env('PASSWORD', ''),
 ];

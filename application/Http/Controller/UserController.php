@@ -1,6 +1,4 @@
-<?php
-
-namespace App\Http\Controller;
+<?php namespace App\Http\Controller;
 
 use App\Model\ClientModel;
 use App\Model\ExchangeModel;
@@ -8,10 +6,9 @@ use App\Utils\User;
 use Wau\Http\Controller;
 use Wau\Request;
 
-class UserController extends Controller
-{
-    public function authenticate (Request $request)
-    {
+class UserController extends Controller{
+
+    public function authenticate (Request $request){
         //wm-database workspace
         $space_id = 4691756;
         $email = $request->get('login_email', '');
@@ -40,8 +37,8 @@ class UserController extends Controller
         //only allow workspace member even if credentials are correct
         try {
             $member = $this->isUserAMemberOfWorkspace($space_id);
-            if ( $member !== false) {
 
+            if ($member !== false) {
                 $this->fillSessionDatas(['member' => $member]);
 
                 $return['authenticated'] = true;
@@ -59,8 +56,8 @@ class UserController extends Controller
             $return['message'] = $e->getMessage();
 
         }
-        return $return;
 
+        return $return;
     }
 
 
@@ -69,8 +66,7 @@ class UserController extends Controller
      *
      * @param array $additionalDatas
      */
-    private function fillSessionDatas ($additionalDatas = [])
-    {
+    private function fillSessionDatas ($additionalDatas = []) {
         if (array_key_exists('member', $additionalDatas)) {
             $user = new User($additionalDatas['member']->profile);
             $_SESSION['user'] = $user;
@@ -92,8 +88,7 @@ class UserController extends Controller
      * @param $workspaceId
      * @return mixed
      */
-    private function isUserAMemberOfWorkspace ($workspaceId)
-    {
+    private function isUserAMemberOfWorkspace ($workspaceId) {
         $userDetails = \PodioUser::get();
 
         try {
@@ -110,8 +105,8 @@ class UserController extends Controller
         return false;
     }
 
-    public function logout ()
-    {
+    public function logout (){
         $_SESSION['user'] = null;
+        $_SESSION['client'] = null;
     }
 }

@@ -1,19 +1,12 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: ninah
- * Date: 10/11/16
- * Time: 08:24
- */
+<?php namespace App\Model;
 
-namespace App\Model;
 use App\DatabaseConnection\PDOConnection;
-use Illuminate\Database\Eloquent\Model;
 
 
-class HouseModel
-{
+class HouseModel{
+
     var $instance;
+
     public function __construct(){
         $this->instance = new PDOConnection();
     }
