@@ -66,6 +66,12 @@ class PDOConnection
         return $stm->fetchAll();
     }
 
+    public function update($query,$array){
+        $stmt = $this->getInstance()->prepare($query, array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+        $stmt->execute($array);
+        $stmt->closeCursor();
+    }
+
     public function is_exist($table, $data){
         $result = $this->getInstance()->query("SELECT * FROM ".$table." WHERE item_id = '".$data[0]."'");
         if ($result->rowCount()>0)

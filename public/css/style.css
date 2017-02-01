@@ -575,6 +575,9 @@ table > thead > tr > th, .total_designation {
     background: #2B838E;
     cursor: pointer;
 }
+#btn_update{
+    display: none;
+}
 .all_btn:hover{
     background: #2aa198;
 }

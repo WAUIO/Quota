@@ -248,6 +248,8 @@ function saveRoom(){
 
     if(all_data.length > 0 ){
 
+        console.log(all_data);
+
         $('#btn_save_room').html('Saving&nbsp;<img src="/images/loader.gif" alt="Avatar" class="" style="width:20px; height:5px">');
         $.ajax({
             type: 'POST',

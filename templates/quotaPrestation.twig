@@ -28,13 +28,14 @@
                     <tbody id="Tbod" class="table-bordered">
                     {% set services = prestation.all_prestation['service'] %}
                     {% set others = prestation.all_prestation['other'] %}
+                    {% set id = prestation.all_prestation['id'] %}
                     {% for i in 0..services|length-1 %}
-                        <tr>
-                            <td ><span>{{ services[i] }}</span></td>
-                            <td title="min">{{ others[i].pax_min }}</td>
-                            <td  title="max">{{ others[i].pax_max }}</td>
+                        <tr id="{{ id[i] }}">
+                            <td ><span id="service"> {{ services[i] }}</span></td>
+                            <td title="min"><input type="number" min="1" max="50" class="check number" name="pax_min" style="width: 50px;"  value="{{ others[i].pax_min }}" onkeypress="return validateNumber(event)"></td>
+                            <td  title="max"><input type="number" min="1" max="50" class="check number" name="pax_max" style="width: 50px;" value="{{ others[i].pax_max }}" onkeypress="return validateNumber(event)" required="true"></td>
                             <td class="tarif">{{ others[i].rate_service }}</td>
-                            <td title="number">{{ others[i].number_service}}</td>
+                            <td title="number"><input type="number" min="1" max="50" class="nb_services number" name="nb_service" value="{{ others[i].number_service}}" style="width: 50px;" onkeypress="return validateNumber(event)"></td>
 
                             <td class="type">{{ others[i].type_service }}</td>
                             <td class="total">{{ others[i].rate_service * others[i].number_service }}</td>
@@ -61,6 +62,14 @@
                     </tr>
                     </tfoot>
                 </table>
+            </div>
+        </div>
+        <div  class="form-group row">
+            <div class="col-xs-12">
+                <div  id="btn_update" class="all_btn">
+                    <button type="submit" class="col-xs-12" style=" margin: 0!important;padding: 0!important"><span class="col-xs-12" id="btn_modif_prestation">Modify</span></button>
+                </div>
+                <span class="message" id="prestationUpdate_message" style="margin-right:20px; color: #5cb85c; line-height: 40; font-style: italic;"></span>
             </div>
         </div>
     {% else %}

@@ -6,9 +6,9 @@ $app->group(['prefix' => '/webhook',
         $app->WebhookController('/hookController', 'App\Http\Controller\HookController');
     }
 ]);
-
-$app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware'],
-    function() use (&$app){
+//
+//$app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware'],
+//    function() use (&$app){
 //UserController
         $app->get('/logout', 'App\Http\Controller\UserController@logout');
 
@@ -24,6 +24,7 @@ $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware
         $app->get('/quotaPrestation', 'App\Http\Controller\PrestationController@quotaPrestation');
         $app->get('/prestation', 'App\Http\Controller\PrestationController@prestation');
         $app->get('/savePrestation', 'App\Http\Controller\PrestationController@savePrestation');
+        $app->get('/updatePrestation', 'App\Http\Controller\PrestationController@updatePrestation');
 
 //RoomController
         $app->get('/quotaRoom', 'App\Http\Controller\RoomController@quotaRoom');
@@ -33,12 +34,12 @@ $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware
 //HouseController
         $app->get('/editRoom', 'App\Http\Controller\HouseController@editRoom');
         $app->get('/getAllHouseData', 'App\Http\Controller\HouseController@getAllHouseData');
-    }
-]);
+//    }
+//]);
 
-$app->group(['prefix'=>'/', 'middleware' => ['Wau\Podio\PodioAuthMiddleware'],
-    function() use (&$app){
+//$app->group(['prefix'=>'/', 'middleware' => ['Wau\Podio\PodioAuthMiddleware'],
+//    function() use (&$app){
         $app->get('/migrate','App\Http\Controller\MigrationController@migrate');
         $app->post('/authenticate', 'App\Http\Controller\UserController@authenticate');
-    }
-]);
+//    }
+//]);

@@ -28,6 +28,15 @@ class PrestationModel
         }
     }
 
+    public function updateToQuotaprestation($array){
+        try{
+            $sqlQuery = "UPDATE quotaprestation SET service = :service , others = :others WHERE id= :id";
+            $this->instance->update($sqlQuery,$array);
+        }catch(\Exception $e){
+            echo $e->getCode(),$e->getMessage(),$e->getLine();
+        }
+    }
+
     public function getPrestation($client_id){
         $sql = "SELECT * FROM quotaprestation WHERE id_client = $client_id";
 
