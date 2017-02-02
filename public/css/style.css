@@ -196,10 +196,6 @@ img#user_avatar{
     min-width: 200px;
     padding-top: 5px;
 }
-.sidebar-outer {
-    margin-top: 0;
-    position: relative;
-}
 .fixed {
     width: 18%;
     position: fixed;
@@ -681,7 +677,6 @@ table > thead > tr > th, .total_designation {
 .type_client{
     margin-left: 20px;
 }
-
 .all_btn{
     float: right;
     font-size: 110%;
@@ -696,6 +691,10 @@ table > thead > tr > th, .total_designation {
 }
 .all_btn:hover{
     background: #2aa198;
+}
+.btn_update{
+    width: 160px;
+    display: none;
 }
 #hotel{
     width: 80px;
@@ -1038,19 +1037,17 @@ ul{
     font-style: italic;
     font-weight: bold;
 }
-#client_message{
+#client_message, #prestationUpdate_message{
     display: none;
     color: #FF0F22;
     height: 40px;
     float: right;
     font-style: italic;
     line-height: 40px;
-    border-radius: 2px;
     font-weight: bold;
 }
 .message{
     margin-right: 10px;
-
 }
 .no_client{
     color: #FF0F22;

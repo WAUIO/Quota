@@ -75,6 +75,21 @@ class PrestationController extends Controller{
         $prestationModel->duplicateRegistration($registration, $new_registration, $current_date);
     }
 
+    public function updatePrestation(){
+        $prestationModel = new PrestationModel();
+        $datas = $_GET['datas'];
+
+        foreach ($datas as $data) {
+            $service = $data['service'];
+            $others = $data['others'];
+            $id = $data['id'];
+
+            $array = array('id' => $id, 'service' => $service, 'others' => json_encode($others));
+            $prestationModel->updatePrestation($array);
+        }
+        return $datas;
+    }
+
     //get all services
     public function getService($table){
         $array = array();
@@ -117,13 +132,20 @@ class PrestationController extends Controller{
             $smaller = 100;
             $bigger = 0;
 
+            $date_registration = null;
+            $date1 = "2000-01-01 00:00:00";
             $registration = $reg['registration'];
             $result = $prestationModel->selectQuotaPrestation($client_id, $registration);
 
             if($result == null){
                 return null;
             }else {
-                foreach ($result as $res) {
+                foreach ($result as $res) {$date2 = $res['date'];
+
+                    if(strtotime($date2)>strtotime($date1)){
+                        $date1 = $date2;
+                        $date_registration = $date2;
+                    }
                     $others = json_decode($res['others']);
 
                     $id[] = $res['id'];
@@ -158,7 +180,7 @@ class PrestationController extends Controller{
                 $all_prestation = ['id' => $id, 'service' => $service, 'other' => $other];
             }
 
-            $dataPrestation[$registration] = new PrestationQuota(array($smaller, $bigger, $prestation, $all_prestation));
+            $dataPrestation[$registration] = new PrestationQuota(array($smaller, $bigger, $prestation, $all_prestation,(new \DateTime($date_registration))->format("D, d M Y")));
             unset($prestation);
         }
         return $dataPrestation;

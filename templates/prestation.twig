@@ -10,7 +10,6 @@
         <div id="choose_service">
             <div id="accordion">
                 {% for i in 0..prestations|length - 1 %}
-
                     {% if(i == 0) %}
                         {% set image = "/images/individual.png" %}
                         {% set service_title = "Individual services" %}
@@ -104,18 +103,19 @@
                                 <th rowspan="2">Amount</th>
                                 <th rowspan="2">Type</th>
                                 <th rowspan="2">Total price</th>
-                                <th id="tr_pax">Pax</th>
+                                <th class="tr_pax">Pax</th>
                             </tr>
-                            <tr id="tr_pax_rowspan"></tr>
+                            <tr class="tr_pax_rowspan"></tr>
                         </thead>
 
-                        <tbody id="Tbody" class="table-bordered">
+                        <tbody>
                         </tbody>
+
                         <tfoot>
-                        <tr id="Tfoot" class="tr_total">
-                            <td></td>
-                            <td colspan="7">Total</td>
-                        </tr>
+                            <tr class="tr_total">
+                                <td></td>
+                                <td colspan="7">Total</td>
+                            </tr>
                         </tfoot>
                     </table>
                 </div>

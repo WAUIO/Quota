@@ -3,6 +3,9 @@ $( function() {
     if( $('#well_search').length ) {
         getClient();
     }
+    $(document).on('change','#registration_number',function(){
+        $('#registration_number_message').hide();
+    });
 
     $('#btn_duplicate_registration').click(function () {
         duplicateRegistration();

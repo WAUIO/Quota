@@ -47,6 +47,15 @@ class PrestationModel{
         }
     }
 
+    public function updatePrestation($array){
+        try{
+            $sqlQuery = "UPDATE quotaprestation SET service = :service , others = :others WHERE id= :id";
+            $this->instance->update($sqlQuery,$array);
+        }catch(\Exception $e){
+            echo $e->getCode(),$e->getMessage(),$e->getLine();
+        }
+    }
+
     public function deleteRegistration($registration){
         try{
             $sql = "DELETE FROM quotaprestation WHERE registration = $registration";

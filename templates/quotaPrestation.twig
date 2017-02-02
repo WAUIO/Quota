@@ -4,97 +4,111 @@
 <br/>
 <div class="col-xs-12" id="main">
     {% set registration = 0 %}
-    <div class="row" id="registration_prestation"><b>Registration :</b></div>
-    <div class="row" style="height: 30px;">
-        {% for k in dataPrestation|keys %}
-            <div class="{% if registration == 0 %}active{% endif %} registration_menu" id="registration_{{ k }}">
-                {{ k }}
-            </div>
-            {% set registration = registration + 1%}
-        {% endfor %}
-    </div>
-    <br/>
-
-    {% set registration = 0 %}
-    {% for k in dataPrestation|keys %}
-        {% set prestation = dataPrestation[k] %}
-        {% set registration = registration + 1%}
-
-        {% if prestation.all_prestation['service']|length > 0 %}
-        <div class="row group_table {% if registration > 1 %}table_hide{% endif %}" id="group_{{ k }}">
-            <div class="calculation_quota">
-                <div class="table-editable">
-                    <table class="table" >
-                        <thead>
-                            <tr id="Thead">
-                                <th rowspan="2">Services</th>
-                                <th rowspan="2">Pax min</th>
-                                <th rowspan="2">Pax max</th>
-                                <th rowspan="2">Rate(day/litre)</th>
-                                <th rowspan="2">Amount</th>
-                                <th rowspan="2">Type</th>
-                                <th rowspan="2">Total price</th>
-                                <th colspan="{{ prestation.max - prestation.min +1 }}" id="tr_pax" class="td_right">Pax</th>
-                            </tr>
-                            <tr id="tr_pax_rowspan">
-                                {% for j in prestation.min..prestation.max %}
-                                    <th class="td_right">{{ j }}</th>
-                                {% endfor %}
-                            </tr>
-                        </thead>
-
-                        <tbody id="Tbod" class="table-bordered">
-                        {% set services = prestation.all_prestation['service'] %}
-                        {% set others = prestation.all_prestation['other'] %}
-                        {% for i in 0..services|length-1 %}
-                            <tr>
-                                <td ><span>{{ services[i] }}</span></td>
-                                <td title="min">{{ others[i].pax_min }}</td>
-                                <td  title="max">{{ others[i].pax_max }}</td>
-                                <td class="tarif">{{ others[i].rate_service }}</td>
-                                <td title="number">{{ others[i].number_service}}</td>
-
-                                <td class="type">{{ others[i].type_service }}</td>
-                                <td class="total">{{ others[i].rate_service * others[i].number_service }}</td>
-                                {% for j in prestation.min..prestation.max %}
-                                    <td class="td_right">
-                                        {%if j >= others[i].pax_min and j <= others[i].pax_max  %}
-                                            {% if others[i].type_service|lower == "per person" %}
-                                                {{ (others[i].rate_service * others[i].number_service)|roundValue }}
-                                            {% else %}
-                                                {{ ((others[i].rate_service * others[i].number_service)/j)|roundValue }}
-                                            {% endif %}
-                                        {% endif %}
-                                    </td>
-                                {% endfor %}
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                        <tfoot>
-                        <tr id="Tfoot" class="tr_total">
-                            <td colspan="7">Total</td>
-                            {% for j in prestation.min..prestation.max %}
-                                <td class="td_right">{{ (prestation.value[j-1])|roundValue }}</td>
-                            {% endfor %}
-                        </tr>
-                        </tfoot>
-                    </table>
+    {% if(dataPrestation|length > 0) %}
+        <div class="row" id="registration_prestation"><b>Registration number :</b></div>
+        <div class="row" style="height: 30px;">
+            {% for k in dataPrestation|keys %}
+                <div class="{% if registration == 0 %}active{% endif %} registration_menu" id="registration_{{ k }}">
+                    {{ k }}
                 </div>
-            </div>
+                {% set registration = registration + 1%}
+            {% endfor %}
         </div>
-        {% else %}
-            <div class="no_quota">
-                No benefit quotation for this customer !<br/><br/>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="col-md-12 add_quotation" onclick="location.href ='/prestation'">
-                            Add benefit quotation
-                        </div>
+        <br/>
 
+        {% set registration = 0 %}
+        {% for k in dataPrestation|keys %}
+            {% set prestation = dataPrestation[k] %}
+            {% set registration = registration + 1%}
+
+            {#{% if prestation.all_prestation['service']|length > 0 %}#}
+            <div class="group_table {% if registration > 1 %}table_hide{% endif %}" id="group_{{ k }}">
+                <div class="calculation_quota">
+                    <div class="table-editable">
+                        <table class="table">
+                            <thead>
+                                <tr id="Thead_{{ k }}">
+                                    <th rowspan="2"></th>
+                                    <th rowspan="2">Services</th>
+                                    <th rowspan="2">Pax min</th>
+                                    <th rowspan="2">Pax max</th>
+                                    <th rowspan="2">Rate(day/litre)</th>
+                                    <th rowspan="2">Amount</th>
+                                    <th rowspan="2">Type</th>
+                                    <th rowspan="2">Total price</th>
+                                    <th colspan="{{ prestation.max - prestation.min +1 }}" class="tr_pax td_right">Pax</th>
+                                </tr>
+                                <tr class="tr_pax_rowspan" id="tr_pax_rowspan_{{ k }}">
+                                    {% for j in prestation.min..prestation.max %}
+                                        <th class="td_right">{{ j }}</th>
+                                    {% endfor %}
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% set services = prestation.all_prestation['service'] %}
+                                {% set others = prestation.all_prestation['other'] %}
+                                {% set id_service = prestation.all_prestation['id'] %}
+                                {% for i in 0..services|length-1 %}
+                                    <tr id="{{ id_service[i] }}">
+                                        <td></td>
+                                        <td ><span id="service"> {{ services[i] }}</span></td>
+                                        <td title="min"><input type="number" min="1" max="50" class="check number" name="pax_min" style="width: 50px;" value="{{ others[i].pax_min }}" onkeypress="return validateNumber(event)"></td>
+                                        <td title="max"><input type="number" min="1" max="50" class="check number" name="pax_max" style="width: 50px;" value="{{ others[i].pax_max }}" onkeypress="return validateNumber(event)" required="true"></td>
+                                        <td class="tarif">{{ others[i].rate_service }}</td>
+                                        <td title="number"><input type="number" min="1" max="50" class="nb_services number" name="nb_service" value="{{ others[i].number_service}}" style="width: 50px;" onkeypress="return validateNumber(event)"></td>
+
+                                        <td class="type">{{ others[i].type_service }}</td>
+                                        <td class="total">{{ others[i].rate_service * others[i].number_service }}</td>
+                                        {% for j in prestation.min..prestation.max %}
+                                            <td class="td_col_pax td_right">
+                                                {%if j >= others[i].pax_min and j <= others[i].pax_max  %}
+                                                    {% if others[i].type_service|lower == "per person" %}
+                                                        {{ (others[i].rate_service * others[i].number_service)|roundValue }}
+                                                    {% else %}
+                                                        {{ ((others[i].rate_service * others[i].number_service)/j)|roundValue }}
+                                                    {% endif %}
+                                                {% endif %}
+                                            </td>
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                            <tr class="tr_total">
+                                <td></td>
+                                <td colspan="7">Total</td>
+                                {% for j in prestation.min..prestation.max %}
+                                    <td class="td_right">{{ (prestation.value[j-1])|roundValue }}</td>
+                                {% endfor %}
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-xs-12">
+                        <div class="all_btn btn_update">
+                            <button type="submit" class="col-xs-12 btn_modif_prestation" style=" margin: 0!important;padding: 0!important"><span class="col-xs-12">Save modification</span></button>
+                        </div>
+                        <span class="message prestationUpdate_message"></span>
                     </div>
                 </div>
             </div>
-        {% endif %}
-    {% endfor %}
+        {% endfor %}
+    {% else %}
+        <div class="no_quota">
+            <b>No benefit quotation for this customer !</b>
+            <br/><br/>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-md-12 add_quotation" onclick="location.href ='/prestation'">
+                        Add benefit quotation
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 </div>
 {% endblock body %}

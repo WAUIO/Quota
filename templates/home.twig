@@ -62,16 +62,16 @@
                 </div>
 
                 {% set registration = 0 %}
-                <div class="row" id="registration_room"><span><b>Registration :</b></span></div>
+                <div class="row" id="registration_room"><span><b>Registration number :</b></span></div>
                 <div class="row">
                     <div class="col-xs-10">
-                    {% for j in allRegistration|keys %}
-                        {% set k = allRegistration[j] %}
-                        {% set registration = registration + 1%}
-                        <div class="{% if registration == 1 %}active{% endif %} registration_menu" id="registration_{{ k }}">
-                            {{ k }}
-                        </div>
-                    {% endfor %}
+                        {% for j in allRegistration|keys %}
+                            {% set k = allRegistration[j] %}
+                            {% set registration = registration + 1%}
+                            <div class="{% if registration == 1 %}active{% endif %} registration_menu" id="registration_{{ k }}">
+                                {{ k }}
+                            </div>
+                        {% endfor %}
                     </div>
                     <div class="col-xs-2">
                         <div class="pull-right btn_registration" id="btn_delete_registration" title="Delete registration">
@@ -88,9 +88,12 @@
                     {% set k = allRegistration[j] %}
                     {% set registration = registration + 1%}
                     <div class="group_table {% if registration > 1 %}table_hide{% endif %}" id="group_{{ k }}">
-                        {{ dataRoom[k]['date_registration'] }}
+
+                        {% set room = dataRoom[k]['detail'] %}
+                        {% if room|length>0 %}
+                            <span>Last modification : {{ dataRoom[k]['date_registration'] }}</span>
+                        {% endif %}
                         <div class="calculation_quota">
-                            {% set room = dataRoom[k]['detail'] %}
                             <div class="table-editable">
                                 <table class="table table-striped" id="table_about_room_{{ k }}">
                                     <thead class="thead-inverse">
@@ -100,32 +103,36 @@
                                     </thead>
 
                                     {% if room|length > 0 %}
-                                    <tbody>
-                                    {% for i in 0..room|length-1 %}
-                                        <tr>
-                                            <td class="data_client_remove" id="room_{{ k }}_{{ room[i]['id'] }}" onclick="deleteItem(this)">
-                                                <span class="glyphicon glyphicon-remove"></span>
-                                                <h4 style="display: none">{{ room[i]['id'] }}</h4>
-                                            </td>
-                                            <td>{{ room[i]['house_title'] }}</td>
-                                            <td>{{ room[i]['others'].room_title }}</td>
-                                            {% set stay = room[i]['others'].stay|roundValue %}
-                                            <td>{{ stay }} {% if stay > 1 %}days{% else %}day{% endif %}</td>
-                                            <td>{{ room[i]['base']|capitalize }}</td>
-                                        </tr>
-                                    {% endfor %}
-                                    </tbody>
+                                        <tbody>
+                                        {% for i in 0..room|length-1 %}
+                                            <tr>
+                                                <td class="data_client_remove" id="room_{{ k }}_{{ room[i]['id'] }}" onclick="deleteItem(this)">
+                                                    <span class="glyphicon glyphicon-remove"></span>
+                                                    <h4 style="display: none">{{ room[i]['id'] }}</h4>
+                                                </td>
+                                                <td>{{ room[i]['house_title'] }}</td>
+                                                <td>{{ room[i]['others'].room_title }}</td>
+                                                {% set stay = room[i]['others'].stay|roundValue %}
+                                                <td>{{ stay }} {% if stay > 1 %}days{% else %}day{% endif %}</td>
+                                                <td>{{ room[i]['base']|capitalize }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
                                     {% endif %}
                                 </table>
                             </div>
                         </div>
 
+
+                        {% set prestation = dataPrestation[k] %}
+                        {% set id_prestation = prestation.all_prestation['id'] %}
+                        {% set services = prestation.all_prestation['service'] %}
+                        {% set others = prestation.all_prestation['other'] %}
+                        {% if services|length>0 %}
+                            <span>Last modification : {{ dataPrestation[k].date_registration }}</span>
+                        {% endif %}
                         <div class="calculation_quota">
                             <div class="table-editable">
-                                {% set prestation = dataPrestation[k] %}
-                                {% set id_prestation = prestation.all_prestation['id'] %}
-                                {% set services = prestation.all_prestation['service'] %}
-                                {% set others = prestation.all_prestation['other'] %}
                                 <table class="table table-striped" id="table_about_prestation_{{ k }}">
                                     <thead class="thead-inverse">
                                         <tr>
@@ -134,18 +141,18 @@
                                     </thead>
 
                                     {% if services|length > 0 %}
-                                    <tbody>
-                                    {% for i in 0..services|length-1 %}
-                                        <tr>
-                                            <td class="data_client_remove" id="prestation_{{ k }}_{{ id_prestation[i] }}" onclick="deleteItem(this)">
-                                                <span class="glyphicon glyphicon-remove"></span>
-                                                <h4 style="display: none">{{ id_prestation[i] }}</h4>
-                                            </td>
-                                            <td>{{ services[i] }}</td>
-                                            <td>{{ others[i].type_service }}</td>
-                                        </tr>
-                                    {% endfor %}
-                                    </tbody>
+                                        <tbody>
+                                        {% for i in 0..services|length-1 %}
+                                            <tr>
+                                                <td class="data_client_remove" id="prestation_{{ k }}_{{ id_prestation[i] }}" onclick="deleteItem(this)">
+                                                    <span class="glyphicon glyphicon-remove"></span>
+                                                    <h4 style="display: none">{{ id_prestation[i] }}</h4>
+                                                </td>
+                                                <td>{{ services[i] }}</td>
+                                                <td>{{ others[i].type_service }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
                                     {% endif %}
                                 </table>
                             </div>
@@ -191,9 +198,8 @@
         </div>
     </div>
 </div>
-{% endblock body %}
 
-{% block right_menu %}
+
 <div id="right_side" class="col-xs-3 sidebar-outer">
     <div class="fixed">
         <div id="well_search" class="well">
@@ -216,4 +222,4 @@
         </div>
     </div>
 </div>
-{% endblock right_menu %}
+{% endblock body %}

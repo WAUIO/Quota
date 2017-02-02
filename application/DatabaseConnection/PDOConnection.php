@@ -64,6 +64,12 @@ class PDOConnection
         $stmt->closeCursor();
     }
 
+    public function update($query,$array){
+        $stmt = $this->getInstance()->prepare($query, array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+        $stmt->execute($array);
+        $stmt->closeCursor();
+    }
+
     public function  select($query)
     {
         $stm = $this->getInstance()->prepare($query);

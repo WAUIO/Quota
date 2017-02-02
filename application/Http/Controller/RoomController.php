@@ -103,11 +103,16 @@ class RoomController extends PrestationController{
             $exchange[] = 0;
             $boards[][] = 0;
             $date_registration = null;
-
+            $date1 = "2000-01-01 00:00:00";
             $registration = $reg['registration'];
             $result = $roomModel->selectQuotaRoom($client_id, $registration);
             foreach ($result as $res){
-                $date_registration = $res['date'];
+                $date2 = $res['date'];
+                if(strtotime($date2)>strtotime($date1)){
+                    $date1 = $date2;
+                    $date_registration = $date2;
+                }
+
                 $base = strtolower($res['base']);
                 $res['base'] = $base;
                 $res['others'] = json_decode($res['others']);
