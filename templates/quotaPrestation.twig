@@ -4,7 +4,7 @@
 <br/>
 <div class="col-xs-12" id="main">
     {% set registration = 0 %}
-    <div class="row" id="registration_prestation"><b>Registration</b></div>
+    <div class="row" id="registration_prestation"><b>Registration :</b></div>
     <div class="row" style="height: 30px;">
         {% for k in dataPrestation|keys %}
             <div class="{% if registration == 0 %}active{% endif %} registration_menu" id="registration_{{ k }}">
