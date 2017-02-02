@@ -53,6 +53,18 @@ function setTooltip(client) {
     });
 }
 
+//set customer in session
+function setClient(client_id) {
+    $.ajax({
+        url: "/setClient",
+        type: "GET",
+        data: {client_id: client_id},
+        success: function () {
+            window.location.replace('/');
+        }
+    });
+}
+
 //fill out the customer list
 function getClient() {
     var quota_list = $('#quota_list'),
@@ -77,7 +89,7 @@ function getClient() {
                     quota_list.append($('<div id="client_' + data[i].id + '" class="quota_lists">' + data[i].reference + ' : ' + data[i].name + '</div>')
                         .click(function () {
                             client_id = $(this).attr('id').replace('client_', '');
-                            setClient(window.location, client_id);
+                            setClient(client_id);
                         })
                     );
                     setTooltip(data[i]);

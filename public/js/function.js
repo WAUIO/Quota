@@ -171,18 +171,6 @@ function searchClient() {
     });
 }
 
-//set customer in session
-function setClient(url, client_id) {
-    $.ajax({
-        url: "/setClient",
-        type: "GET",
-        data: {client_id: client_id},
-        success: function () {
-            window.location.replace(url);
-        }
-    });
-}
-
 //Ancre Onclick base type
 function ancreLink() {
     if($('#header_title').height() > 100 ){
