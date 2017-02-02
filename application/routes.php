@@ -12,6 +12,8 @@ $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware
 
     //HomeController
         $app->get('/', 'App\Http\Controller\HomeController@home');
+        $app->get('/duplicateRegistration', 'App\Http\Controller\HomeController@duplicateRegistration');
+        $app->get('/deleteRegistration', 'App\Http\Controller\HomeController@deleteRegistration');
 
     //UserController
         $app->get('/logout', 'App\Http\Controller\UserController@logout');

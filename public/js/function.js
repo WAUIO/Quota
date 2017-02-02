@@ -1,11 +1,6 @@
 $( function() {
     var quota_list = $('#quota_list');
 
-    //don't call getClient() when displaying login page
-    if( !$('#login_form').length ) {
-        getClient();
-    }
-
     $(window).on('resize', function(){
         windowResize();
     });
@@ -40,10 +35,6 @@ $( function() {
         ShowHideQuotaList($('#quota_list'), 0);
     });
 
-    $('#refresh_client').click(function () {
-        getClient();
-    });
-
     $('input').keydown(function (e) {
         e.stopPropagation();
     });
@@ -76,43 +67,6 @@ function windowResize(){
     if ($( window ).width() > 768) {
         $('.dropdown').removeClass('open');
     }
-}
-
-//if cursor hover list customer
-function setTooltip(client) {
-    var $content = '<p>Reference : '+ client.reference +'</p>'+
-                    '<p>Name : '+ client.name +'</p>'+
-                    '<p>Adult number : '+ client.number_adult +'</p>'+
-                    '<p>Child number : '+ client.number_child +'</p>'+
-                    '<p>Stay beginning : '+ client.start_date +'</p>';
-
-    $('#client_'+client.id).tooltip({
-        items: '.quota_lists',
-        content: $content,
-        show: null, // show immediately
-        open: function (event, ui) {
-            if (typeof(event.originalEvent) === 'undefined') {
-                return false;
-            }
-
-            var $id = $(ui.tooltip).attr('id');
-
-            // close any lingering tooltips
-            $('div.ui-tooltip').not('#' + $id).remove();
-
-            // ajax function to pull in data and add it to the tooltip goes here
-        },
-        close: function (event, ui) {
-            ui.tooltip.hover(function () {
-                $(this).stop(true).fadeTo(400, 1);
-            },
-            function () {
-                $(this).fadeOut('400', function () {
-                    $(this).remove();
-                });
-            });
-        }
-    });
 }
 
 //test validation email
@@ -214,42 +168,6 @@ function searchClient() {
         quota_list.scrollTop(0);
         quota_list.perfectScrollbar('update');
 
-    });
-}
-
-//fill out the customer list
-function getClient() {
-    var quota_list = $('#quota_list'),
-        $icon = $('#refresh_client').find('.glyphicon.glyphicon-refresh'),
-        animateClass = "glyphicon-refresh-animate";
-    $icon.addClass(animateClass);
-
-    $.ajax({
-        url: "/getClient",
-        type: "GET",
-        dataType: "json",
-        success: function (data) {
-            var $length = data.length;
-            quota_list.html('');
-
-            if($length == 0){
-                quota_list.append('<div class="no_client">No existing customer !</div>'+
-                    '<div class="add_room_button " id="add_new_customer" onclick="location.href =\'/addClient\'">Add customer</div>');
-
-            }else{
-                for (i = 0; i < $length; i++) {
-                    quota_list.append($('<div id="client_' + data[i].id + '" class="quota_lists">' + data[i].reference + ' : ' + data[i].name + '</div>')
-                        .click(function () {
-                            client_id = $(this).attr('id').replace('client_', '');
-                            setClient(window.location, client_id);
-                        })
-                    );
-                    setTooltip(data[i]);
-                }
-            }
-            quota_list.perfectScrollbar('update');
-            $icon.removeClass(animateClass);
-        }
     });
 }
 

@@ -14,10 +14,12 @@ $(document).ready(function () {
     $('[type = "checkbox"]').prop('checked', false);
     $('.check_able').prop('disabled', true);
 
-    $( "#form_accordion" ).accordion();
+    if($('#form_accordion').length){
+        $('#form_accordion').accordion();
+    }
 
     // save room trigger
-    $("form#room_form").on("submit", function(e) {
+    $('form#room_form').on('submit', function(e) {
         e.preventDefault();
         saveRoom();
     });
@@ -209,68 +211,75 @@ function checkbox_enable(){
 
 //get room data to save
 function saveRoom(){
-    if( $('#select-hotel').val() ) {
+    var registration = $('#number_registration').val();
+    if( registration > 0 ) {
         var stay = $('#number_stay').val();
         if( stay > 0 ) {
-            var board_option = {};
-            var all_data = [];
-            var client_form_button = $('#client_form button');
-            client_form_button.prop('disabled', true);
+            if( $('#select-hotel').val() ) {
+                var board_option = {};
+                var all_data = [];
+                var client_form_button = $('#client_form button');
+                client_form_button.prop('disabled', true);
 
-            $('.accordion_body').each( function( ) {
-                base_checkbox = $(this).find('.base_checkbox');
-                board_checkbox = $(this).find('.board_checkbox');
+                $('.accordion_body').each( function( ) {
+                    base_checkbox = $(this).find('.base_checkbox');
+                    board_checkbox = $(this).find('.board_checkbox');
 
-                //get all checked board
-                board_checkbox.each( function( ) {
-                    if (this.checked) {
-                        parent = $(this).parents().eq(2);
-                        select = parent.find('select option:selected');
+                    //get all checked board
+                    board_checkbox.each( function( ) {
+                        if (this.checked) {
+                            parent = $(this).parents().eq(2);
+                            select = parent.find('select option:selected');
 
-                        $.each(select, function () {
-                            $.each( JSON.parse($(this).val()), function(key, value){
-                                board_option[key] = value;
+                            $.each(select, function () {
+                                $.each( JSON.parse($(this).val()), function(key, value){
+                                    board_option[key] = value;
+                                });
                             });
-                        });
-                    }
+                        }
+                    });
+
+                    //get all checked room
+                    base_checkbox.each( function( ) {
+                        if (this.checked) {
+                            base = $(this).val();
+                            accordion_body_id = $(this).parents().eq(4).attr('id');
+                            parent = $(this).parents().eq(2);
+                            select = parent.find('select option:selected');
+                            $.each(select,function () {
+                                room_option = JSON.parse($(this).val().replace("&quot","'"));
+                                room_option.base = base;
+                                room_option.stay = stay;
+                                room_option.registration = registration;
+                                if(Object.keys(board_option).length  > 0){
+                                    room_option.board = board_option;
+                                }
+                                all_data.push(room_option);
+                            });
+                        }
+                    });
                 });
 
-                //get all checked room
-                base_checkbox.each( function( ) {
-                    if (this.checked) {
-                        base = $(this).val();
-                        accordion_body_id = $(this).parents().eq(4).attr('id');
-                        parent = $(this).parents().eq(2);
-                        select = parent.find('select option:selected');
-                        $.each(select,function () {
-                            room_option = JSON.parse($(this).val().replace("&quot","'"));
-                            room_option.base = base;
-                            room_option.stay = stay;
-                            if(Object.keys(board_option).length  > 0){
-                                room_option.board = board_option;
-                            }
-                            all_data.push(room_option);
-                        });
-                    }
-                });
-            });
+                if(all_data.length > 0 ){
 
-            if(all_data.length > 0 ){
-
-                $('#btn_save_room').html('Saving&nbsp;<img src="/images/loader.gif" alt="Avatar" class="" style="width:20px; height:5px">');
-                $.ajax({
-                    type: 'POST',
-                    url: '/saveQuotaRoom',
-                    dataType:'html',
-                    data: {all_data : all_data},
-                    success: function(data){
-                        $('#room_message').text('Room(s) saved for '+data+' hotel !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'});
-                        $('#btn_save_room').html('Save');
-                        client_form_button.prop('disabled', false);
-                    }
-                });
-            }else{
-                $('#room_message').text('No room checked !').css({'display':'block', 'color':'#FF0F22', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
+                    $('#btn_save_room').html('Saving&nbsp;<img src="/images/loader.gif" alt="Avatar" class="" style="width:20px; height:5px">');
+                    $.ajax({
+                        type: 'POST',
+                        url: '/saveQuotaRoom',
+                        dataType:'html',
+                        data: {all_data : all_data},
+                        success: function(data){
+                            $('#room_message').text('Room(s) saved for '+data+' hotel !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'});
+                            $('#btn_save_room').html('Save');
+                            client_form_button.prop('disabled', false);
+                        }
+                    });
+                }else{
+                    $('#room_message').text('No room checked !').css({'display':'block', 'color':'#FF0F22', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
+                }
+            }
+            else{
+                $('#room_message').text('Please, select an hotel !').css({'display':'block', 'color':'#FF0F22', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
             }
         }
         else{
@@ -278,6 +287,6 @@ function saveRoom(){
         }
     }
     else{
-        $('#room_message').text('Please, select an hotel !').css({'display':'block', 'color':'#FF0F22', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
+        $('#room_message').text('Please, enter registration number !').css({'display':'block', 'color':'#FF0F22', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
     }
 }

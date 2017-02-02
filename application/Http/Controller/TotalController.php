@@ -4,7 +4,7 @@ use App\Model\ExchangeModel;
 
 class TotalController extends RoomController{
 
-    //show total (room & prestation) quotation
+    //show total (room & benefit) quotation
     public function quotaTotal(){
         $data = array();
 
@@ -13,13 +13,17 @@ class TotalController extends RoomController{
         $exchange = $exchangeModel->getExchange();
 
         //$exchange (sale)
-        $prestation = $this->getPrestation($client_id);
-        $room = $this->getRoom($client_id)['room'];
+        $dataPrestation = $this->getPrestation($client_id);
+        $dataRoom = $this->getRoom($client_id);
+        $registration_room = array_keys($dataRoom);
+        $registration_prestation = array_keys($dataPrestation);
+        $allRegistration = array_merge( array_intersect($registration_room, $registration_prestation), array_diff($registration_room, $registration_prestation), array_diff($registration_prestation, $registration_room) );
+        sort($allRegistration);
 
-        array_set($data, 'reference_quota', 'n° 123');
         array_set($data, 'title', "Total quotation");
-        array_set($data, 'prestation', $prestation);
-        array_set($data, 'base_rooms', $room);
+        array_set($data, 'allRegistration', $allRegistration);
+        array_set($data, 'dataPrestation', $dataPrestation);
+        array_set($data, 'dataRoom', $dataRoom);
         array_set($data, 'exchange', $exchange['sale']);
 
         return $this->app()->make('twig.view')->render('quotaTotal.twig',$data);

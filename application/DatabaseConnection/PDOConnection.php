@@ -34,6 +34,11 @@ class PDOConnection
         $this->getInstance()->exec($query);
     }
 
+    public function duplicate($query)
+    {
+        $this->getInstance()->query($query);
+    }
+
     public function insert_migration($query, $array)
     {
         $stmt = $this->getInstance()->prepare($query, array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));

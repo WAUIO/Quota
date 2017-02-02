@@ -1,5 +1,7 @@
 $( function() {
-    $( "#accordion" ).accordion();
+    if($( "#accordion" ).length){
+        $( "#accordion" ).accordion();
+    }
     $('.prestation_quota').perfectScrollbar();
     $('.checked_list_content').perfectScrollbar();
     $('.list_service').perfectScrollbar();
@@ -77,7 +79,7 @@ function calculatePrestation() {
     if( minimum <= maximum ){
         for (i=minimum; i<=maximum; i++){
             var th_pax = $("<th>");
-            th_pax.attr("class","quota");
+            th_pax.attr("class","quota td_right");
             th_pax.text(i);
             $("#tr_pax_rowspan").append(th_pax);
 
@@ -96,7 +98,7 @@ function calculatePrestation() {
                 max = $(this).find('td > [name="pax_max"]').val();
                 $(this).find('td').eq(7).html(total);
 
-                td_body.attr("class","quota");
+                td_body.attr("class","quota td_right");
                 if(type.toLowerCase() != "per person"){
                     total = total / i;
                 }
@@ -423,33 +425,40 @@ function showQuotationTable(){
 
 //save Prestation into database
 function savePrestation(){
-    var all_data = [];
-    $('#Tbody').children('tr').each(function() {
-        var info = {};
-        var others = {};
-        others.pax_min          = $(this).find('input[name="pax_min"]').val();
-        others.pax_max          = $(this).find('input[name="pax_max"]').val();
-        others.rate_service     = $(this).find('.tarif').html();
-        others.number_service   = $(this).find('input[name="nb_service"]').val();
-        others.type_service     = $(this).find('.type').html();
+    var registration = $('#number_registration').val();
+    if( registration > 0 ) {
+        var all_data = [];
+        $('#Tbody').children('tr').each(function() {
+            var info = {};
+            var others = {};
+            others.pax_min          = $(this).find('input[name="pax_min"]').val();
+            others.pax_max          = $(this).find('input[name="pax_max"]').val();
+            others.rate_service     = $(this).find('.tarif').html();
+            others.number_service   = $(this).find('input[name="nb_service"]').val();
+            others.type_service     = $(this).find('.type').html();
 
-        info.service =  $(this).find('.label_text span').html();
-        info.others = others;
+            info.service =  $(this).find('.label_text span').html();
+            info.registration = registration;
+            info.others = others;
 
-        all_data.push(info);
-    });
+            all_data.push(info);
+        });
 
-    $('#btn_save_prestation').html('Saving&nbsp;<img src="/images/loader.gif" alt="Avatar" class="" style="width:20px; height:5px">');
-    $.ajax({
-        type: "POST",
-        url: "/savePrestation",
-        data: {all_data : all_data},
-        dataType: "html",
-        success: function(){
-            $('#prestation_message').text('Benefit(s) saved !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'});
-            $('#btn_save_prestation').html('Save');
-        }
-    });
+        $('#btn_save_prestation').html('Saving&nbsp;<img src="/images/loader.gif" alt="Avatar" class="" style="width:20px; height:5px">');
+        $.ajax({
+            type: "POST",
+            url: "/savePrestation",
+            data: {all_data : all_data},
+            dataType: "html",
+            success: function(){
+                $('#prestation_message').text('Benefit(s) saved !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'});
+                $('#btn_save_prestation').html('Save');
+            }
+        });
+    }
+    else{
+        $('#prestation_message').text('Please, enter registration number !').css({'display':'block', 'color':'#FF0F22', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
+    }
 }
 
 //back to list of prestation

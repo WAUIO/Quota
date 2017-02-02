@@ -12,8 +12,13 @@ class HouseController extends Controller{
     //edit room quotation
     public function editRoom(){
         $houseModel = new HouseModel();
+        $roomModel = new RoomModel();
+
+        $client_id = $_SESSION['client']->id;
+        $registration = $roomModel->selectRegistration($client_id);
         $list_house = $houseModel->getAllHouse();
         array_set($data, 'title', "Room (add quotation)");
+        array_set($data, 'registration', $registration);
         array_set($data, 'listhouse', $list_house);
 
         return $this->app()->make('twig.view')->render('room.twig', $data);

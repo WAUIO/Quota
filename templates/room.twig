@@ -1,21 +1,47 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
+<div class="col-xs-12" id="main">
     <form id="room_form">
-        <div class="form-inline">
-            <label for="select-hotel">Hotel </label>
-            <select id="select-hotel" class="selectpicker" data-style="btn-default" data-width="200px" data-live-search="true" title="Select hotel">
-                {% for house in listhouse %}
-                    <option value={{ house['item_id'] }}> {{ house['house_title'] }} </option>
-                {% endfor %}
-            </select>
-
-            <label for="number_stay">Number of stays</label>
-            <input type="number" class="number" min="0" max="100" name="number_stay" id="number_stay" style="width: 90px;height: 35px"/>
-
-            <label id="current_exchange" class="pull-right" for="select-hotel">$.{{ exchange['dollar']}}&nbsp;&nbsp;€.{{ exchange['euro'] }}</label>
+        <div class="row" style="margin-top: 20px">
+            <div class="col-xs-3">Registration number</div>
+            <div class="col-xs-3">
+                <input type="number" class="number" min="0" max="100" name="number_registration" id="number_registration" style="width: 90px;height: 34px"/>
+            </div>
+            <div class="col-xs-6 Existing_registration" style="color: #6F6F6F;">
+                {% set registration_number = registration|length %}
+                {% if registration_number > 0 %}
+                    Existing registration [<b>{% for i in 0..registration_number-1 %}
+                        {% if i < registration_number-1 %}
+                            {{ registration[i]['registration'] }},&nbsp;
+                        {% else %}
+                            {{ registration[i]['registration'] }}
+                        {% endif %}
+                    {% endfor %}</b>]
+                {% else %}
+                    No registration yet.
+                {% endif %}
+            </div>
         </div>
-
+        <div class="row">
+            <div class="col-xs-3">Number of stays</div>
+            <div class="col-xs-9">
+                <input type="number" class="number" min="0" max="100" name="number_stay" id="number_stay" style="width: 90px;height: 34px"/>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 8px;">
+            <div class="col-xs-3">Hotel</div>
+            <div class="col-xs-6">
+                <select id="select-hotel" class="selectpicker select_hotel" data-style="btn-default" data-width="200px" data-live-search="true" title="Select hotel">
+                    {% for house in listhouse %}
+                        <option value={{ house['item_id'] }}> {{ house['house_title'] }} </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-xs-3"style="height: 34px; line-height: 34px; ">
+                <label id="current_exchange" class="pull-right" for="select-hotel">$.{{ exchange['dollar']}}&nbsp;&nbsp;€.{{ exchange['euro'] }}</label>
+            </div>
+        </div>
         <div id="accordion">
             {% if client.number_child < 1 %}
                 {% set type = ['adult'] %}
@@ -92,4 +118,5 @@
             </div>
         </div>
     </form>
+</div>
 {% endblock body %}
