@@ -19,7 +19,7 @@ class PrestationController extends Controller{
         $client_id = $_SESSION['client']->id;
         $registration = $prestationModel->selectRegistration($client_id);
 
-        array_set($data, 'title', 'Benefit : service offered');
+        array_set($data, 'title', 'Benefit (add quotation)');
         array_set($data, 'prestations', $array);
         array_set($data, 'registration', $registration);
 
