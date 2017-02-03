@@ -60,7 +60,9 @@ function insertClient(){
                                     'display': 'block',
                                     'color': '#5cb85c',
                                     'height': '40px',
-                                    'line-height': '40px'
+                                    'line-height': '40px',
+                                    'font-style':'italic',
+                                    'font-weight':'bold'
                                 });
                                 $('#client_saved').show();
                                 $(client_form)[0].reset();

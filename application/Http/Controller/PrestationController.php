@@ -46,7 +46,7 @@ class PrestationController extends Controller{
         $now = new \DateTime();
 
         foreach ($all_data as $data){
-            $service = $data['service'];
+            $service = $data['service_title'];
             $others = $data['others'];
             $registration = $data['registration'];
 
@@ -75,19 +75,17 @@ class PrestationController extends Controller{
         $prestationModel->duplicateRegistration($registration, $new_registration, $current_date);
     }
 
-    public function updatePrestation(){
+    public function updatePrestation(Request $request){
         $prestationModel = new PrestationModel();
-        $datas = $_GET['datas'];
-
-        foreach ($datas as $data) {
-            $service = $data['service'];
-            $others = $data['others'];
+        $all_data = $request->get('all_data');
+        foreach ($all_data as $data) {
             $id = $data['id'];
+            $service = $data['service_title'];
+            $others = $data['others'];
 
-            $array = array('id' => $id, 'service' => $service, 'others' => json_encode($others));
-            $prestationModel->updatePrestation($array);
+            $prestationModel->updatePrestation(['id' => $id, 'service' => $service, 'others' => json_encode($others)]);
         }
-        return $datas;
+        return "ok!";
     }
 
     //get all services

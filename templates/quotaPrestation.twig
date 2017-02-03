@@ -52,9 +52,12 @@
                                 {% for i in 0..services|length-1 %}
                                     <tr id="{{ id_service[i] }}">
                                         <td></td>
-                                        <td ><span id="service"> {{ services[i] }}</span></td>
-                                        <td title="min"><input type="number" min="1" max="50" class="check number" name="pax_min" style="width: 50px;" value="{{ others[i].pax_min }}" onkeypress="return validateNumber(event)"></td>
-                                        <td title="max"><input type="number" min="1" max="50" class="check number" name="pax_max" style="width: 50px;" value="{{ others[i].pax_max }}" onkeypress="return validateNumber(event)" required="true"></td>
+                                        <td>
+                                            <span class="service_title"> {{ services[i] }}</span>
+                                            <input type="text" class="n_pax" name="n_pax" value="{{ others[i].n_pax }}" disabled="disabled">
+                                        </td>
+                                        <td title="min"><input type="number" min="1" max="50" class="check number class_pax_min" name="pax_min" style="width: 50px;" value="{{ others[i].pax_min }}" onkeypress="return validateNumber(event)"></td>
+                                        <td title="max"><input type="number" min="{{ others[i].pax_min }}" max="100" class="check number class_pax_max" name="pax_max" style="width: 50px;" value="{{ others[i].pax_max }}" onkeypress="return validateNumber(event)" required="true"></td>
                                         <td class="tarif">{{ others[i].rate_service }}</td>
                                         <td title="number"><input type="number" min="1" max="50" class="nb_services number" name="nb_service" value="{{ others[i].number_service}}" style="width: 50px;" onkeypress="return validateNumber(event)"></td>
 
@@ -90,7 +93,7 @@
                 <div class="form-group row">
                     <div class="col-xs-12">
                         <div class="all_btn btn_update">
-                            <button type="submit" class="col-xs-12 btn_modif_prestation" style=" margin: 0!important;padding: 0!important"><span class="col-xs-12">Save modification</span></button>
+                            <button type="submit" class="col-xs-12" style=" margin: 0!important;padding: 0!important"><span class="col-xs-12 btn_modify_prestation">Save modification</span></button>
                         </div>
                         <span class="message prestationUpdate_message"></span>
                     </div>

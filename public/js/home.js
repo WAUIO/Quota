@@ -1,8 +1,4 @@
 $( function() {
-    //call getClient() when displaying home page
-    if( $('#well_search').length ) {
-        getClient();
-    }
     $(document).on('change','#registration_number',function(){
         $('#registration_number_message').hide();
     });
@@ -13,6 +9,10 @@ $( function() {
 
     $('#btn_delete_registration').click(function () {
         deleteRegistration();
+    });
+
+    $('#show_customers').click(function () {
+        getClient();
     });
 
     $('#refresh_client').click(function () {
@@ -70,8 +70,9 @@ function setClient(client_id) {
 
 //fill out the customer list
 function getClient() {
+    $('#show_customers').hide();
     var quota_list = $('#quota_list'),
-        $icon = $('#refresh_client').find('.glyphicon.glyphicon-refresh'),
+        $icon = $('#refresh_client').show().find('.glyphicon.glyphicon-refresh'),
         animateClass = "glyphicon-refresh-animate";
     $icon.addClass(animateClass);
 
@@ -100,6 +101,8 @@ function getClient() {
             }
             quota_list.perfectScrollbar('update');
             $icon.removeClass(animateClass);
+            $('#search_client').show();
+            $('#expand').show();
         }
     });
 }
@@ -179,7 +182,7 @@ function deleteItem($this) {
     var table = $($this).closest('table');
     var item_number = table.find('.item_number');
     var line = $($this).closest('tr');
-    var new_item_number = parseInt(item_number.text())-1;
+    var new_item_number = parseInt(item_number.text()) - 1;
     var id_item = $($this).find('h4').text();
     var to_url, delete_title, item_title;
 
@@ -211,7 +214,7 @@ function deleteItem($this) {
             dataType: "html",
             success: function(){
                 line.remove();
-                item_number.html(new_item_number);
+                item_number.text(new_item_number);
                 $('#delete_item').dialog('close');
             }
         });

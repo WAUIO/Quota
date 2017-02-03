@@ -252,6 +252,20 @@ img#user_avatar{
     overflow-y: auto;
     position: relative;
 }
+#search_client, #expand, #refresh_client{
+    display: none;
+}
+#show_customers{
+    margin: 10px 2px 0 2px;
+    font-size: 110%;
+    height: 40px;
+    color: white;
+    text-align: center;
+    line-height: 40px;
+    background: #2B838E;
+    border-radius: 2px;
+    cursor: pointer;
+}
 #expand{
     padding : 10px 50%;
     height: 20px;
@@ -1037,7 +1051,7 @@ ul{
     font-style: italic;
     font-weight: bold;
 }
-#client_message, #prestationUpdate_message{
+#client_message, .prestationUpdate_message{
     display: none;
     color: #FF0F22;
     height: 40px;

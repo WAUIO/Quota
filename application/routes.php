@@ -28,6 +28,7 @@ $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware
         $app->get('/quotaPrestation', 'App\Http\Controller\PrestationController@quotaPrestation');
         $app->get('/prestation', 'App\Http\Controller\PrestationController@prestation');
         $app->post('/savePrestation', 'App\Http\Controller\PrestationController@savePrestation');
+        $app->post('/updatePrestation', 'App\Http\Controller\PrestationController@updatePrestation');
         $app->get('/deleteQuotaPrestation', 'App\Http\Controller\PrestationController@deleteQuotaPrestation');
 
     //RoomController

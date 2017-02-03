@@ -25,7 +25,7 @@ $( function() {
     });
 
     $('.btn_update').click(function(){
-        updatePrestation();
+        updatePrestation($(this));
     });
 
     //trigger for quota_prestation calculation
@@ -34,9 +34,23 @@ $( function() {
             var group_table = $(this).closest('.group_table');
             table =  group_table.find('table');
             group_table.find('.btn_update').css('display','block');
-            group_table.find('.prestationUpdate_message').text('Benefit(s) modified !').css({'display':'none'});
+            group_table.find('.prestationUpdate_message').css({'display':'none'});
         }else{
             table = $('#quotafade').find('table');
+        }
+
+        if(~$(this).attr('class').indexOf("class_pax_min")){
+            var val_pax_min = parseInt($(this).val());
+            var this_pax_max = $(this).closest('td').next().find('.class_pax_max');
+            if(parseInt(this_pax_max.val()) < val_pax_min){
+                this_pax_max.val(val_pax_min);
+                changePaxClone(this_pax_max);
+            }
+            this_pax_max.attr('min', val_pax_min);
+        }
+
+        if(~$(this).attr('class').indexOf("class_pax_max")){
+            changePaxClone($(this));
         }
 
         if($('[name="nb_service"]').val() != ''){
@@ -67,6 +81,30 @@ $( function() {
     mouseEvent();
 });
 
+function  changePaxClone($this) {
+    if($('#quotafade').length) {
+        tr = $this.closest('tr');
+        tr_class = $this.closest('tr').attr('class');
+        next_tr = tr.next();
+        if (next_tr.length && next_tr.attr('class') == tr_class) {
+            var pax_min_next_tr = parseInt(tr.find('input[name="pax_max"]').val()) + 1;
+            var pax_max_next = next_tr.find('input[name="pax_max"]');
+
+            next_tr.find('input[name="pax_min"]').prop('disabled', false).val(pax_min_next_tr);
+
+            if (parseInt(pax_max_next.val()) < pax_min_next_tr) {
+                if (pax_min_next_tr >= 100) {
+                    pax_min_next_tr = 100;
+                }
+                pax_max_next.val(pax_min_next_tr);
+            }
+
+            pax_max_next.attr('min', pax_min_next_tr);
+            next_tr.find('input[name="pax_min"]').prop('disabled', true);
+            changePaxClone(pax_max_next);
+        }
+    }
+}
 /*add column according to the pax_min and pax_max value
 * calculate prestation quotation*/
 function calculatePrestation(table) {
@@ -441,15 +479,15 @@ function addInTab($this) {
                 '<td class="table-add add_record" onclick="duplicateRow(this)">' +
                     '<span class="glyphicon glyphicon-plus"></span>' +
                 '</td>' +
-                '<td class="label_text">' +
+                '<td class="service_title">' +
                     '<span>' + label_text + '</span>' +
                     '<input type="text" class="n_pax" name="n_pax">' +
                 '</td> ' +
                 '<td title="min">' +
-                    '<input type="number" value="1" min="1" max="100" class="check number" name="pax_min" style="width: 50px;" onkeypress="return validateNumber(event)">' +
+                    '<input type="number" value="1" min="1" max="100" class="check number class_pax_min" name="pax_min" style="width: 50px;" onkeypress="return validateNumber(event)">' +
                 '</td>' +
                 '<td title="max">' +
-                    '<input type="number" value="1" min="1" max="100" class="check number" name="pax_max" style="width: 50px;" onkeypress="return validateNumber(event)" required="true">' +
+                    '<input type="number" value="1" min="1" max="100" class="check number class_pax_max" name="pax_max" style="width: 50px;" onkeypress="return validateNumber(event)" required="true">' +
                 '</td> ' +
                 '<td class="tarif">' + roundValue(price)+ '</td>' +
                 '<td title="number">' +
@@ -495,7 +533,7 @@ function duplicateRow($this){
         });
         $clone.find('.quota').text(0);
         $clone.find('input[name="pax_max"]').val('');
-        $clone.find('input[name="nb_service"]').val('0');
+        $clone.find('input[name="nb_service"]').val(1);
         $clone.find('input[name="pax_min"]').val(pax).attr('disabled', 'disabled');
         $clone.find('input[name="pax_max"]').val(pax).attr({'min':pax,'max':50});
         $clone.find('td:eq(0) span').attr('class', 'table-remove glyphicon glyphicon-remove');
@@ -525,13 +563,14 @@ function savePrestation(){
         $('#prestation_table').find('tbody').children('tr').each(function() {
             var info = {};
             var others = {};
+            others.n_pax            = $(this).find('input[name="n_pax"]').val();
             others.pax_min          = $(this).find('input[name="pax_min"]').val();
             others.pax_max          = $(this).find('input[name="pax_max"]').val();
             others.rate_service     = $(this).find('.tarif').html();
             others.number_service   = $(this).find('input[name="nb_service"]').val();
             others.type_service     = $(this).find('.type').html();
 
-            info.service =  $(this).find('.label_text span').html();
+            info.service_title =  $(this).find('.service_title span').html();
             info.registration = registration;
             info.others = others;
 
@@ -561,9 +600,9 @@ function showQuotationEdit(){
     $('#choose_service').slideToggle('slow');
 }
 
-function updatePrestation(){
-    var active_registration = $('.registration_menu.active').attr('id').replace('registration_','');
-    var table = $('#group_'+active_registration).find('table');
+function updatePrestation($this){
+    var group_table =$this.closest('.group_table');
+    var table = group_table.find('table');
     var tbody_tr = table.find('tbody').children('tr');
     var all_data = [];
     tbody_tr.each(function() {
@@ -576,22 +615,22 @@ function updatePrestation(){
         others.type_service = $(this).find('.type').html();
 
         info.id = $(this).attr('id');
-        info.service = $(this).find('#service').html();
+        info.service_title = $(this).find('.service_title').html();
         info.others = others;
 
         all_data.push(info);
     });
-    $('#btn_modif_prestation').html('Modifing&nbsp;<img src="/images/loader.gif" alt="Avatar" class="" style="width:20px; height:5px">');
+    btn_modify_prestation = group_table.find('.btn_modify_prestation');
+    btn_modify_prestation.html('Modifying&nbsp;<img src="/images/loader.gif" alt="Avatar" class="" style="width:20px; height:5px">');
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: "/updatePrestation",
-        data: {datas : all_data},
+        data: {all_data : all_data},
         dataType: "html",
         success: function(){
-            $('.prestationUpdate_message').text('Benefit(s) modified !').css({'color':'#5cb85c'}).show().delay(5000).fadeOut();
-            $('.btn_modif_prestation').html('Save modification');
-            $('.btn_update').hide();
-            window.location.reload();
+            group_table.find('.message').text('Benefit(s) modified !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right', 'font-style':'italic', 'font-weight':'bold'});
+            $this.hide();
+            btn_modify_prestation.html('Save modification');
         }
     });
 }

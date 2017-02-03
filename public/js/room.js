@@ -269,7 +269,7 @@ function saveRoom(){
                         dataType:'html',
                         data: {all_data : all_data},
                         success: function(data){
-                            $('#room_message').text('Room(s) saved for '+data+' hotel !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'});
+                            $('#room_message').text('Room(s) saved for '+data+' hotel !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right', 'font-style':'italic', 'font-weight':'bold'});
                             $('#btn_save_room').html('Save');
                             client_form_button.prop('disabled', false);
                         }
