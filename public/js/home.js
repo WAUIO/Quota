@@ -11,101 +11,10 @@ $( function() {
         deleteRegistration();
     });
 
-    $('#show_customers').click(function () {
-        getClient();
-    });
-
     $('#refresh_client').click(function () {
         getClient();
     });
 });
-
-//if cursor hover list customer
-function setTooltip(client) {
-    var $content = '<p>Reference : '+ client.reference +'</p>'+
-        '<p>Name : '+ client.name +'</p>'+
-        '<p>Adult number : '+ client.number_adult +'</p>'+
-        '<p>Child number : '+ client.number_child +'</p>'+
-        '<p>Stay beginning : '+ client.start_date +'</p>';
-
-    $('#client_'+client.id).tooltip({
-        items: '.quota_lists',
-        content: $content,
-        show: null, // show immediately
-        open: function (event, ui) {
-            if (typeof(event.originalEvent) === 'undefined') {
-                return false;
-            }
-
-            var $id = $(ui.tooltip).attr('id');
-
-            // close any lingering tooltips
-            $('div.ui-tooltip').not('#' + $id).remove();
-            // ajax function to pull in data and add it to the tooltip goes here
-        },
-        close: function (event, ui) {
-            ui.tooltip.hover(function () {
-                $(this).stop(true).fadeTo(400, 1);
-            },
-            function () {
-                $(this).fadeOut('400', function () {
-                    $(this).remove();
-                });
-            });
-        }
-    });
-}
-
-//set customer in session
-function setClient(client_id) {
-    $.ajax({
-        url: "/setClient",
-        type: "GET",
-        data: {client_id: client_id},
-        success: function () {
-            window.location.replace('/');
-        }
-    });
-}
-
-//fill out the customer list
-function getClient() {
-    $('#show_customers').hide();
-    var quota_list = $('#quota_list'),
-        $icon = $('#refresh_client').show().find('.glyphicon.glyphicon-refresh'),
-        animateClass = "glyphicon-refresh-animate";
-    $icon.addClass(animateClass);
-
-    $.ajax({
-        url: "/getClient",
-        type: "GET",
-        dataType: "json",
-        success: function (data) {
-            var $length = data.length;
-            quota_list.html('');
-
-            if($length == 0){
-                quota_list.append('<div class="no_client">No existing customer !</div>'+
-                    '<div class="add_room_button " id="add_new_customer" onclick="location.href =\'/addClient\'">Add customer</div>');
-
-            }else{
-                for (i = 0; i < $length; i++) {
-                    quota_list.append($('<div id="client_' + data[i].id + '" class="quota_lists">' + data[i].reference + ' : ' + data[i].name + '</div>')
-                        .click(function () {
-                            client_id = $(this).attr('id').replace('client_', '');
-                            setClient(client_id);
-                        })
-                    );
-                    setTooltip(data[i]);
-                }
-            }
-            quota_list.perfectScrollbar('update');
-            $icon.removeClass(animateClass);
-            $('#search_client').show();
-            $('#expand').show();
-        }
-    });
-}
 
 function deleteRegistration(){
     var active_registration = $('.registration_menu.active').attr('id').replace('registration_','');

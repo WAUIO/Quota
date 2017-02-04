@@ -214,9 +214,7 @@ img#user_avatar{
     float: left;
 }
 #search_menu_title{
-    width:100%;
-    line-height: 40px;
-    vertical-align: middle;
+    margin: 0 5px 0 0;
 }
 #refresh_client{
     cursor: pointer;
@@ -252,10 +250,10 @@ img#user_avatar{
     overflow-y: auto;
     position: relative;
 }
-#search_client, #expand, #refresh_client{
+#expand, #refresh_client{
     display: none;
 }
-#show_customers{
+#add_new_customer{
     margin: 10px 2px 0 2px;
     font-size: 110%;
     height: 40px;
@@ -840,6 +838,7 @@ ul{
     display: none;
     color: #FF0F22;
     font-style: italic;
+    font-weight: bold;
 }
 
 .list_service{
@@ -1067,9 +1066,7 @@ ul{
     color: #FF0F22;
     padding-left: 10px;
     font-style: italic;
-}
-#add_new_customer{
-    margin-top: 10px;
+    font-weight: bold;
 }
 .data_client_remove{
     width: 30px;

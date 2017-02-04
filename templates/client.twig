@@ -68,25 +68,35 @@
 
 <div id="right_side" class="col-xs-3 sidebar-outer">
     <div class="fixed">
-        <div id="well_search" class="well">
-            <div id="search_menu_title">
-                <div style="float: left"><h4>Customer</h4></div>
-                <div id="refresh_client" style="float: right"><span class="glyphicon glyphicon-refresh"></span></div>
+        <div class="well">
+            <div class="row" id="search_menu_title">
+                <h4>Customer</h4>
             </div>
-
-            <div class="input-group" style="width:100%;">
-                <input type="text" class="form-control search_control" id="search_client" placeholder="Search...">
-            </div>
-            <!-- /.input-group -->
-
-            <div class="row" id="show_customers">
-                Show customers
-            </div>
-
-            <div class="row" id="quota_list">
-                <div class="search_message">No result for this search !</div>
-            </div>
-
+            {% if clients|length > 0 %}
+                <div class="input-group" style="width:100%;">
+                    <input type="text" class="form-control search_control" id="search_client" placeholder="Search...">
+                </div>
+                <!-- /.input-group -->
+                <div class="row" id="quota_list">
+                    {% for client in clients %}
+                        <div id="client_{{ client['id'] }}" class="quota_lists">
+                            <span class="client_reference_name">{{ client['ref_client'] }} : {{ client['name'] }}</span>
+                            <div class="tooltip hide">
+                                <p>Reference : {{ client['ref_client'] }}</p>
+                                <p>Name : {{ client['name'] }}</p>
+                                <p>Adult number : {{ client['number_adult'] }}</p>
+                                <p>Child number : {{ client['number_child'] }}</p>
+                                <p>Stay beginning : {{ client['start_date'] }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="row" id="quota_list">
+                    <span class="no_client">No customer yet !</span>
+                </div>
+            {% endif %}
+            <div class="search_message">No result for this search !</div>
             <div id="expand">
                 <span id="search_glyphicon" class="menu_glyphicon glyphicon glyphicon-chevron-up"></span>
             </div>

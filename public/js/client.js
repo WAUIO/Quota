@@ -4,6 +4,8 @@ $( function() {
         todayHighlight: true,
         autoclose: true
     };
+    var quota_lists = $('.quota_lists');
+
     $( "#stay" ).datepicker(options);
 
     $("form#client_form").on("submit", function(e) {
@@ -11,13 +13,96 @@ $( function() {
         insertClient();
     });
 
-    $('input[type="number"]').keypress(validateNumber);
-    addNewCustomer();
-} );
+    $('#search_client').keyup(function () {
+        searchClient($(this));
+    });
 
-function addNewCustomer(){
-    $('#add_customer').click(function(){
+    $('input[type="number"]').keypress(validateNumber);
+
+    quota_lists.each(function () {
+        setToolTip($(this));
+    });
+
+    quota_lists.click(function () {
+        client_id = $(this).attr('id').replace('client_', '');
+        setClient(client_id);
+    });
+
+    $('#add_new_customer').click(function () {
         window.location.replace('/addClient');
+    });
+});
+
+
+//set customer in session
+function setClient(client_id) {
+    $.ajax({
+        url: "/setClient",
+        type: "GET",
+        data: {client_id: client_id},
+        success: function () {
+            window.location.replace('/');
+        }
+    });
+}
+
+//search customer (search input)
+function searchClient($this) {
+    var exist = false;
+    var quota_list = $('#quota_list');
+    var input_text = $this.val().toLowerCase();
+
+    if (quota_list.is(":visible") === false) {
+        quota_list.fadeIn(200);
+    }
+
+    $('.quota_lists').each(function () {
+        if (~$(this).find('.client_reference_name').text().toLowerCase().indexOf(input_text)) {
+            $(this).show();
+            exist = true;
+        }
+        else {
+            $(this).hide();
+        }
+    });
+
+    if (!exist) {
+        $('.search_message').show();
+    } else
+        $('.search_message').hide();
+
+    quota_list.scrollTop(0);
+    quota_list.perfectScrollbar('update');
+}
+
+//set tooltip for each client in list
+function setToolTip($this){
+    var content = $this.find('.tooltip').html();
+    $this.tooltip({
+        items: '.quota_lists',
+        content:content ,
+        show: null, // show immediately
+            open: function (event, ui) {
+            if (typeof(event.originalEvent) === 'undefined') {
+                return false;
+            }
+
+            var $id = $(ui.tooltip).attr('id');
+
+            // close any lingering tooltips
+            $('div.ui-tooltip').not('#' + $id).remove();
+            // ajax function to pull in data and add it to the tooltip goes here
+        },
+        close: function (event, ui) {
+            ui.tooltip.hover(function () {
+                    $(this).stop(true).fadeTo(400, 1);
+                },
+                function () {
+                    $(this).fadeOut('400', function () {
+                        $(this).remove();
+                    });
+                });
+        }
     });
 }
 

@@ -5,13 +5,14 @@ use App\Model\ClientModel;
 class HomeController extends RoomController{
 
     public function home(){
+        $clientModel = new ClientModel();
         if($_SESSION['client'] == null){
-            $clientModel = new ClientModel();
             $client = $clientModel->getLastClient();
             if($client != null){
                 $_SESSION['client'] = $client;
             }
         }
+        $clients = $clientModel->selectAllClient();
         $client_id = $_SESSION['client']->id;
         $dataRoom = $this->getRoom($client_id);
         $dataPrestation = $this->getPrestation($client_id);
@@ -21,6 +22,7 @@ class HomeController extends RoomController{
         sort($allRegistration);
 
         array_set($data, 'title', 'Customer information');
+        array_set($data, 'clients', $clients);
         array_set($data, 'allRegistration', $allRegistration);
         array_set($data, 'dataRoom', $dataRoom);
         array_set($data, 'dataPrestation', $dataPrestation);

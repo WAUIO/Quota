@@ -53,7 +53,6 @@ $( function() {
     $('#search_control').removeAttr("disabled");
 
     quota_list.perfectScrollbar();
-    searchClient();
     ancreLink();
     windowResize();
 });
@@ -137,40 +136,6 @@ function roundValue(value) {
     return value;
 }
 
-//search customer (search input)
-function searchClient() {
-    $('#search_client').keyup(function () {
-        var exist = false;
-        var quota_list = $('#quota_list');
-        var input_text = $(this).val().toLowerCase();
-
-        if (quota_list.is(":visible") === false) {
-            quota_list.fadeIn(200);
-            $('#search_glyphicon').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
-        }
-
-        $('.quota_lists').each(function () {
-            var text = $(this).text().toLowerCase();
-            if (text.indexOf(input_text) != -1) {
-                $(this).show();
-                exist = true;
-            }
-            else {
-                $(this).hide();
-            }
-        });
-
-        if (!exist) {
-            quota_list.find('.search_message').show();
-        } else
-            quota_list.find('.search_message').hide();
-
-        quota_list.scrollTop(0);
-        quota_list.perfectScrollbar('update');
-
-    });
-}
-
 //Ancre Onclick base type
 function ancreLink() {
     if($('#header_title').height() > 100 ){
@@ -197,27 +162,4 @@ function isFloat(val) {
         return false;
 
     return true;
-}
-
-//when user show / hide customer list
-function ShowHideQuotaList(quota_list, nbr) {
-    if (nbr == 0) {
-        if (quota_list.is(":visible") === true) {
-            quota_list.fadeOut(200);
-            $('#search_glyphicon').toggleClass('glyphicon-chevron-up').toggleClass('glyphicon-chevron-down');
-        } else {
-            quota_list.fadeIn(200);
-            $('#search_glyphicon').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
-        }
-    } else if (nbr == 1) {
-        if (quota_list.is(":visible") === true) {
-            quota_list.fadeOut(200);
-            $('#search_glyphicon').toggleClass('glyphicon-chevron-up').toggleClass('glyphicon-chevron-down');
-        }
-    } else {
-        if (quota_list.is(":visible") === false) {
-            quota_list.fadeIn(200);
-            $('#search_glyphicon').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
-        }
-    }
 }
