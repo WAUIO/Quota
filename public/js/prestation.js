@@ -134,7 +134,7 @@ function calculatePrestation(table) {
         tr_pax_rowspan.html('');
         
         var tr_total = table.find('.tr_total');
-        tr_total.html(' <td></td><td colspan="7">Total</td>');
+        tr_total.html('<td></td><td colspan="7">Total (Ariary)</td>');
 
         if($('.td_col_pax').length){
             $('.td_col_pax').remove();
@@ -147,10 +147,8 @@ function calculatePrestation(table) {
             th_pax.text(i);
             tr_pax_rowspan.append(th_pax);
 
-            //
             var sum = 0;
             var td_total = $("<td>");
-            td_total.attr("class","quota");
             tr_body.each(function(){
                 var type = $(this).find(".type").html();
                 var number_service = parseInt($(this).find("td > [name='nb_service']").val());
@@ -186,73 +184,7 @@ function calculatePrestation(table) {
     }else{
         $('#prestation_message').text('pax_max must be higher than pax_min!').css({'display':'block', 'color':'#FF0F22', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
     }
-}
-
-function blabla(){
-    var minvalues = [];
-    var maxvalues = [];
-    var tr = $("#Tbody > tr");
-
-    $(".quota").remove();
-
-    tr.each(function(){
-        var min = $(this).find("td > [name = 'pax_min']").val();
-        var max = $(this).find("td > [name = 'pax_max']").val();
-        if(min != "" && max != ""){
-            minvalues.push(parseInt(min));
-            maxvalues.push(parseInt(max));
-        }
-    });
-
-    var minimum = Math.min.apply(Math,minvalues);
-    var maximum = Math.max.apply(Math,maxvalues);
-    var nb_pax = maximum - minimum + 1;
-
-    if( minimum <= maximum ){
-        for (i=minimum; i<=maximum; i++){
-            var th_pax = $("<th>");
-            th_pax.attr("class","quota td_right");
-            th_pax.text(i);
-            $("#tr_pax_rowspan").append(th_pax);
-
-            var sum = 0;
-            var td_total = $("<td>");
-            td_total.attr("class","quota");
-            tr.each(function(){
-                var type = $(this).find(".type").html();
-                var service_unit = parseInt($(this).find("td > [name='nb_service']").val());
-                var amount = parseInt($(this).find(".tarif").html());
-                var total = service_unit * amount;
-
-                var td_body = $("<td>");
-
-                min = $(this).find('td > [name="pax_min"]').val();
-                max = $(this).find('td > [name="pax_max"]').val();
-                $(this).find('td').eq(7).html(total);
-
-                td_body.attr("class","quota td_right");
-                if(type.toLowerCase() != "per person"){
-                    total = total / i;
-                }
-
-                if( i<min || i>max || total == 0 ){
-                    td_body.html('');
-                }else{
-                    td_body.html(roundValue(total));
-                    sum += total;
-                }
-
-                $(this).append(td_body);
-                $("#prestation_table").append($(this));
-            });
-
-            td_total.html(roundValue(sum));
-            $("#Tfoot").append(td_total);
-        }
-        $('#tr_pax').attr('colspan', nb_pax).css('text-align','center');
-    }else{
-        $('#prestation_message').text('pax_max must be higher than pax_min!').css({'display':'block', 'color':'#FF0F22', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
-    }
+    $('.table-editable').perfectScrollbar('update');
 }
 
 //service search filter

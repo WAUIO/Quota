@@ -78,13 +78,13 @@
                                 {% endfor %}
                             </tbody>
                             <tfoot>
-                            <tr class="tr_total">
-                                <td></td>
-                                <td colspan="7">Total</td>
-                                {% for j in prestation.min..prestation.max %}
-                                    <td class="td_right">{{ (prestation.value[j-1])|roundValue }}</td>
-                                {% endfor %}
-                            </tr>
+                                <tr class="tr_total">
+                                    <td></td>
+                                    <td colspan="7">Total</td>
+                                    {% for j in prestation.min..prestation.max %}
+                                        <td class="td_right">{{ (prestation.value[j-1])|roundValue }}</td>
+                                    {% endfor %}
+                                </tr>
                             </tfoot>
                         </table>
                     </div>

@@ -90,5 +90,6 @@ function detailView() {
             $(detail_id +' .detail_body').hide();
             $(this).find(".glyphicon").toggleClass("glyphicon-menu-up").toggleClass("glyphicon-menu-down");
         }
+        $('.detail_body').perfectScrollbar('update');
     });
 }
