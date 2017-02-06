@@ -24,6 +24,20 @@ $( function() {
 
     //trigger for quota_prestation calculation
     $(document).on('change','[name="pax_min"],[name="pax_max"],[name="nb_service"]',function(){
+        if(~$(this).attr('class').indexOf("class_pax_min")){
+            var val_pax_min = parseInt($(this).val());
+            var this_pax_max = $(this).closest('td').next().find('.class_pax_max');
+
+            if(parseInt(this_pax_max.val()) < val_pax_min){
+                this_pax_max.val(val_pax_min);
+                changePaxClone(this_pax_max);
+            }
+            this_pax_max.attr('min', val_pax_min);
+        }
+        if(~$(this).attr('class').indexOf("class_pax_max")){
+            changePaxClone($(this));
+        }
+
         if($('[name="nb_service"]').val() != ''){
            calculatePrestation();
         }
@@ -51,6 +65,30 @@ $( function() {
     checkPrestation();
     mouseEvent();
 });
+
+
+function  changePaxClone($this) {
+    tr = $this.closest('tr');
+    tr_class = $this.closest('tr').attr('class');
+    next_tr = tr.next();
+    if(next_tr.length && next_tr.attr('class') == tr_class){
+        var pax_min_next_tr = parseInt(tr.find('input[name="pax_max"]').val()) + 1;
+        var pax_max_next = next_tr.find('input[name="pax_max"]');
+
+        next_tr.find('input[name="pax_min"]').prop('disabled', false).val(pax_min_next_tr);
+
+        if(parseInt(pax_max_next.val()) < pax_min_next_tr){
+            if(pax_min_next_tr >= 100){
+                pax_min_next_tr = 100;
+            }
+            pax_max_next.val(pax_min_next_tr);
+        }
+        pax_max_next.attr('min', pax_min_next_tr);
+
+        next_tr.find('input[name="pax_min"]').prop('disabled', true);
+        changePaxClone(pax_max_next);
+    }
+}
 
 /*add column according to the pax_min and pax_max value
 * calculate prestation quotation*/
@@ -350,10 +388,10 @@ function addInTab($this) {
                     '<input type="text" class="n_pax" name="n_pax">' +
                 '</td> ' +
                 '<td title="min">' +
-                    '<input type="number" value="1" min="1" max="100" class="check number" name="pax_min" style="width: 50px;" onkeypress="return validateNumber(event)">' +
+                    '<input type="number" value="1" min="1" max="100" class="check number class_pax_min" name="pax_min" style="width: 50px;" onkeypress="return validateNumber(event)">' +
                 '</td>' +
                 '<td title="max">' +
-                    '<input type="number" value="1" min="1" max="100" class="check number" name="pax_max" style="width: 50px;" onkeypress="return validateNumber(event)" required="true">' +
+                    '<input type="number" value="1" min="1" max="100" class="check number class_pax_max" name="pax_max" style="width: 50px;" onkeypress="return validateNumber(event)" >' +
                 '</td> ' +
                 '<td class="tarif">' + roundValue(price)+ '</td>' +
                 '<td title="number">' +
@@ -363,7 +401,7 @@ function addInTab($this) {
                 '<td class="total"></td>' +
             '</tr>';
     $Tbody.append(row);
-    calculatePrestation();
+       calculatePrestation();
 }
 
 //clone row in prestation tab
@@ -404,6 +442,7 @@ function duplicateRow($this){
         $clone.find('input[name="pax_max"]').val(pax).attr({'min':pax,'max':50});
         $clone.find('td:eq(0) span').attr('class', 'table-remove glyphicon glyphicon-remove');
         last_tr.last().after($clone);
+
     }
 }
 

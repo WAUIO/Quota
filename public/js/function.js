@@ -3,7 +3,7 @@ $( function() {
 
     //don't call getClient() when displaying login page
     if( !$('#login_form').length ) {
-        getClient();
+        // getClient();
     }
 
     $(window).on('resize', function(){
@@ -218,40 +218,40 @@ function searchClient() {
 }
 
 //fill out the customer list
-function getClient() {
-    var quota_list = $('#quota_list'),
-        $icon = $('#refresh_client').find('.glyphicon.glyphicon-refresh'),
-        animateClass = "glyphicon-refresh-animate";
-    $icon.addClass(animateClass);
-
-    $.ajax({
-        url: "/getClient",
-        type: "GET",
-        dataType: "json",
-        success: function (data) {
-            var $length = data.length;
-            quota_list.html('');
-
-            if($length == 0){
-                quota_list.append('<div class="no_client">No existing customer !</div>'+
-                    '<div class="add_room_button " id="add_new_customer" onclick="location.href =\'/addClient\'">Add customer</div>');
-
-            }else{
-                for (i = 0; i < $length; i++) {
-                    quota_list.append($('<div id="client_' + data[i].id + '" class="quota_lists">' + data[i].reference + ' : ' + data[i].name + '</div>')
-                        .click(function () {
-                            client_id = $(this).attr('id').replace('client_', '');
-                            setClient(window.location, client_id);
-                        })
-                    );
-                    setTooltip(data[i]);
-                }
-            }
-            quota_list.perfectScrollbar('update');
-            $icon.removeClass(animateClass);
-        }
-    });
-}
+// function getClient() {
+//     var quota_list = $('#quota_list'),
+//         $icon = $('#refresh_client').find('.glyphicon.glyphicon-refresh'),
+//         animateClass = "glyphicon-refresh-animate";
+//     $icon.addClass(animateClass);
+//
+//     $.ajax({
+//         url: "/getClient",
+//         type: "GET",
+//         dataType: "json",
+//         success: function (data) {
+//             var $length = data.length;
+//             quota_list.html('');
+//
+//             if($length == 0){
+//                 quota_list.append('<div class="no_client">No existing customer !</div>'+
+//                     '<div class="add_room_button " id="add_new_customer" onclick="location.href =\'/addClient\'">Add customer</div>');
+//
+//             }else{
+//                 for (i = 0; i < $length; i++) {
+//                     quota_list.append($('<div id="client_' + data[i].id + '" class="quota_lists">' + data[i].reference + ' : ' + data[i].name + '</div>')
+//                         .click(function () {
+//                             client_id = $(this).attr('id').replace('client_', '');
+//                             setClient(window.location, client_id);
+//                         })
+//                     );
+//                     setTooltip(data[i]);
+//                 }
+//             }
+//             quota_list.perfectScrollbar('update');
+//             $icon.removeClass(animateClass);
+//         }
+//     });
+// }
 
 //set customer in session
 function setClient(url, client_id) {

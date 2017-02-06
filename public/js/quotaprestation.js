@@ -35,8 +35,10 @@ function updatePrestation(){
             dataType: "html",
             success: function(){
                 $('#prestationUpdate_message').text('Benefit(s) modified !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'});
-                $('#btn_modif_prestation').html('Modify');
+                $('#btn_modif_prestation').html('Modification saved');
+                $('#btn_update').css('display','none');
                 window.location.reload();
             }
         });
 }
+

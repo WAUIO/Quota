@@ -6,9 +6,9 @@ $app->group(['prefix' => '/webhook',
         $app->WebhookController('/hookController', 'App\Http\Controller\HookController');
     }
 ]);
-//
-//$app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware'],
-//    function() use (&$app){
+
+$app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware'],
+    function() use (&$app){
 //UserController
 
     //HomeController
@@ -33,7 +33,6 @@ $app->group(['prefix' => '/webhook',
 
     //RoomController
         $app->get('/quotaRoom', 'App\Http\Controller\RoomController@quotaRoom');
-        $app->get('/quotaTotal', 'App\Http\Controller\RoomController@quotaTotal');
         $app->post('/saveQuotaRoom', 'App\Http\Controller\RoomController@saveQuotaRoom');
         $app->get('/deleteQuotaRoom', 'App\Http\Controller\RoomController@deleteQuotaRoom');
 
@@ -43,12 +42,12 @@ $app->group(['prefix' => '/webhook',
     //HouseController
         $app->get('/editRoom', 'App\Http\Controller\HouseController@editRoom');
         $app->get('/getAllHouseData', 'App\Http\Controller\HouseController@getAllHouseData');
-//    }
-//]);
+    }
+]);
 
-//$app->group(['prefix'=>'/', 'middleware' => ['Wau\Podio\PodioAuthMiddleware'],
-//    function() use (&$app){
+$app->group(['prefix'=>'/', 'middleware' => ['Wau\Podio\PodioAuthMiddleware'],
+    function() use (&$app){
         $app->get('/migrate','App\Http\Controller\MigrationController@migrate');
         $app->post('/authenticate', 'App\Http\Controller\UserController@authenticate');
-//    }
-//]);
+    }
+]);
