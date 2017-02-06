@@ -14,7 +14,7 @@ $( function() {
         showQuotationEdit();
     });
 
-    $("form#prestation_form").on("submit", function(e) {
+    $("#btn_save_prestation").click( function(e) {
         e.preventDefault();
         savePrestation();
     });
@@ -182,7 +182,7 @@ function calculatePrestation(table) {
         }
         $('.tr_pax').attr('colspan', nb_pax).css('text-align','center');
     }else{
-        $('#prestation_message').text('pax_max must be higher than pax_min!').css({'display':'block', 'color':'#FF0F22', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
+        $('#prestation_message').text('pax_max must be higher than pax_min!').css({'display':'block', 'color':'#FF0F22'}).delay(5000).fadeOut();
     }
     $('.table-editable').perfectScrollbar('update');
 }
@@ -478,7 +478,7 @@ function duplicateRow($this){
  * show list of service(s)*/
 function showQuotationTable(){
     if($('#accordion').find('.check_value:checked').length < 1){
-        $('.no_service').css({'display':'block', 'line-height':'40px'}).delay(5000).fadeOut();
+        $('.no_service').css({'display':'block'}).delay(5000).fadeOut();
     }
     else{
         $('#choose_service').css('display','none');
@@ -509,20 +509,20 @@ function savePrestation(){
             all_data.push(info);
         });
 
-        $('#btn_save_prestation').html('Saving&nbsp;<img src="/images/loader.gif" alt="Avatar" class="" style="width:20px; height:5px">');
+        $('#btn_save_prestation').html('Saving&nbsp;<img src="/images/loader.gif" class="" style="width:20px; height:5px">');
         $.ajax({
             type: "POST",
             url: "/savePrestation",
             data: {all_data : all_data},
             dataType: "html",
             success: function(){
-                $('#prestation_message').text('Benefit(s) saved !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right'});
+                $('#prestation_message').text('Benefit(s) saved !').css({'display':'block', 'color':'#5cb85c'});
                 $('#btn_save_prestation').html('Save');
             }
         });
     }
     else{
-        $('#prestation_message').text('Please, enter registration number !').css({'display':'block', 'color':'#FF0F22', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
+        $('#prestation_message').text('Please, enter registration number !').css({'display':'block', 'color':'#FF0F22'}).delay(5000).fadeOut();
     }
 }
 

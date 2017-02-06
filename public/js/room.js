@@ -19,7 +19,7 @@ $(document).ready(function () {
     }
 
     // save room trigger
-    $('form#room_form').on('submit', function(e) {
+    $('#btn_save_room').click( function(e) {
         e.preventDefault();
         saveRoom();
     });
@@ -34,7 +34,7 @@ $(document).ready(function () {
 //make select menu enable if checkbox checked
 function checkOption(){
     $("input[type = 'checkbox']").click(function () {
-        var parent = $(this).parents().eq(2);
+        var parent = $(this).closest('.all_select');
         var select_picker = parent.find('select');
 
         if($(this).is(':checked')){
@@ -261,7 +261,6 @@ function saveRoom(){
                 });
 
                 if(all_data.length > 0 ){
-
                     $('#btn_save_room').html('Saving&nbsp;<img src="/images/loader.gif" alt="Avatar" class="" style="width:20px; height:5px">');
                     $.ajax({
                         type: 'POST',
@@ -269,24 +268,25 @@ function saveRoom(){
                         dataType:'html',
                         data: {all_data : all_data},
                         success: function(data){
-                            $('#room_message').text('Room(s) saved for '+data+' hotel !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right', 'font-style':'italic', 'font-weight':'bold'});
+                            $('#room_message').text('Room(s) saved for '+data+' hotel !').css({'display':'block', 'color':'#5cb85c'});
                             $('#btn_save_room').html('Save');
                             client_form_button.prop('disabled', false);
                         }
                     });
                 }else{
-                    $('#room_message').text('No room checked !').css({'display':'block', 'color':'#FF0F22', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
+                    $('#room_message').text('No room checked !').css({'display':'block', 'color':'#FF0F22'}).delay(5000).fadeOut();
                 }
+
             }
             else{
-                $('#room_message').text('Please, select an hotel !').css({'display':'block', 'color':'#FF0F22', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
+                $('#room_message').text('Please, select an hotel !').css({'display':'block', 'color':'#FF0F22'}).delay(5000).fadeOut();
             }
         }
         else{
-            $('#room_message').text('Please, enter number of stays !').css({'display':'block', 'color':'#FF0F22', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
+            $('#room_message').text('Please, enter number of stays !').css({'display':'block', 'color':'#FF0F22'}).delay(5000).fadeOut();
         }
     }
     else{
-        $('#room_message').text('Please, enter registration number !').css({'display':'block', 'color':'#FF0F22', 'line-height':'40px', 'float':'right'}).delay(5000).fadeOut();
+        $('#room_message').text('Please, enter registration number !').css({'display':'block', 'color':'#FF0F22'}).delay(5000).fadeOut();
     }
 }
