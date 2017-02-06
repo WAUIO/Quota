@@ -89,9 +89,6 @@ function duplicateRegistration(){
 
 function deleteItem($this) {
     var table = $($this).closest('table');
-    var item_number = table.find('.item_number');
-    var line = $($this).closest('tr');
-    var new_item_number = parseInt(item_number.text()) - 1;
     var id_item = $($this).find('h4').text();
     var to_url, delete_title, item_title;
 
@@ -122,8 +119,12 @@ function deleteItem($this) {
             data: {id_item : id_item},
             dataType: "html",
             success: function(){
-                line.remove();
-                item_number.text(new_item_number);
+                //delete row
+                $($this).closest('tr').remove();
+
+                //set number of items(room / service)
+                var item_number = table.find('tbody').children('tr').length;
+                table.find('.item_number').text(item_number);
                 $('#delete_item').dialog('close');
             }
         });

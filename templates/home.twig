@@ -9,40 +9,40 @@
                 <div class="table-editable">
                     <table class="table table-striped" id="table_about_customer">
                         <thead class="thead-inverse">
-                        <tr>
-                            <th colspan="2">Customer Information</th>
-                        </tr>
+                            <tr>
+                                <th colspan="2">Customer Information</th>
+                            </tr>
                         </thead>
 
                         <tbody>
-                        <tr>
-                            <td><label for="label">Reference</label></td>
-                            <td>{{ client.reference }}</td>
-                        </tr>
-                        <tr>
-                            {% if(client.name) != '' %}
-                                <td><label for="label">Name</label></td>
-                                <td>{{ client.name }}</td>
-                            {% endif %}
-                        </tr>
-                        <tr>
-                            {% if(client.numberAdult) != '' %}
-                                <td><label for="label">Number of adult</label></td>
-                                <td>{{ client.number_adult }}</td>
-                            {% endif %}
-                        </tr>
-                        <tr>
-                            {% if(client.numberChild) != '' %}
-                                <td><label for="label">Number of children</label></td>
-                                <td>{{ client.number_child }}</td>
-                            {% endif %}
-                        </tr>
-                        <tr>
-                            {% if(client.start_date) != '' %}
-                                <td ><label for="label">Date</label></td>
-                                <td>{{ client.start_date }}</td>
-                            {% endif %}
-                        </tr>
+                            <tr>
+                                <td><label for="label">Reference</label></td>
+                                <td>{{ client.reference }}</td>
+                            </tr>
+                            <tr>
+                                {% if(client.name) != '' %}
+                                    <td><label for="label">Name</label></td>
+                                    <td>{{ client.name }}</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                {% if(client.numberAdult) != '' %}
+                                    <td><label for="label">Number of adult</label></td>
+                                    <td>{{ client.number_adult }}</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                {% if(client.numberChild) != '' %}
+                                    <td><label for="label">Number of children</label></td>
+                                    <td>{{ client.number_child }}</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                {% if(client.start_date) != '' %}
+                                    <td ><label for="label">Date</label></td>
+                                    <td>{{ client.start_date }}</td>
+                                {% endif %}
+                            </tr>
                         </tbody>
                     </table>
                 </div>
