@@ -1,11 +1,5 @@
 $( function() {
     var quota_list = $('#quota_list');
-
-    //don't call getClient() when displaying login page
-    if( !$('#login_form').length ) {
-        // getClient();
-    }
-
     $(window).on('resize', function(){
         windowResize();
     });
@@ -40,10 +34,6 @@ $( function() {
         ShowHideQuotaList($('#quota_list'), 0);
     });
 
-    $('#refresh_client').click(function () {
-        getClient();
-    });
-
     $('input').keydown(function (e) {
         e.stopPropagation();
     });
@@ -62,7 +52,6 @@ $( function() {
     $('#search_control').removeAttr("disabled");
 
     quota_list.perfectScrollbar();
-    searchClient();
     ancreLink();
     windowResize();
 });
@@ -76,43 +65,6 @@ function windowResize(){
     if ($( window ).width() > 768) {
         $('.dropdown').removeClass('open');
     }
-}
-
-//if cursor hover list customer
-function setTooltip(client) {
-    var $content = '<p>Reference : '+ client.reference +'</p>'+
-                    '<p>Name : '+ client.name +'</p>'+
-                    '<p>Adult number : '+ client.number_adult +'</p>'+
-                    '<p>Child number : '+ client.number_child +'</p>'+
-                    '<p>Stay beginning : '+ client.start_date +'</p>';
-
-    $('#client_'+client.id).tooltip({
-        items: '.quota_lists',
-        content: $content,
-        show: null, // show immediately
-        open: function (event, ui) {
-            if (typeof(event.originalEvent) === 'undefined') {
-                return false;
-            }
-
-            var $id = $(ui.tooltip).attr('id');
-
-            // close any lingering tooltips
-            $('div.ui-tooltip').not('#' + $id).remove();
-
-            // ajax function to pull in data and add it to the tooltip goes here
-        },
-        close: function (event, ui) {
-            ui.tooltip.hover(function () {
-                $(this).stop(true).fadeTo(400, 1);
-            },
-            function () {
-                $(this).fadeOut('400', function () {
-                    $(this).remove();
-                });
-            });
-        }
-    });
 }
 
 //test validation email
@@ -182,89 +134,6 @@ function roundValue(value) {
     } else value = value.toFixed(0);
     return value;
 }
-
-//search customer (search input)
-function searchClient() {
-    $('#search_client').keyup(function () {
-        var exist = false;
-        var quota_list = $('#quota_list');
-        var input_text = $(this).val().toLowerCase();
-
-        if (quota_list.is(":visible") === false) {
-            quota_list.fadeIn(200);
-            $('#search_glyphicon').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
-        }
-
-        $('.quota_lists').each(function () {
-            var text = $(this).text().toLowerCase();
-            if (text.indexOf(input_text) != -1) {
-                $(this).show();
-                exist = true;
-            }
-            else {
-                $(this).hide();
-            }
-        });
-
-        if (!exist) {
-            quota_list.find('.search_message').show();
-        } else
-            quota_list.find('.search_message').hide();
-
-        quota_list.scrollTop(0);
-        quota_list.perfectScrollbar('update');
-
-    });
-}
-
-//fill out the customer list
-// function getClient() {
-//     var quota_list = $('#quota_list'),
-//         $icon = $('#refresh_client').find('.glyphicon.glyphicon-refresh'),
-//         animateClass = "glyphicon-refresh-animate";
-//     $icon.addClass(animateClass);
-//
-//     $.ajax({
-//         url: "/getClient",
-//         type: "GET",
-//         dataType: "json",
-//         success: function (data) {
-//             var $length = data.length;
-//             quota_list.html('');
-//
-//             if($length == 0){
-//                 quota_list.append('<div class="no_client">No existing customer !</div>'+
-//                     '<div class="add_room_button " id="add_new_customer" onclick="location.href =\'/addClient\'">Add customer</div>');
-//
-//             }else{
-//                 for (i = 0; i < $length; i++) {
-//                     quota_list.append($('<div id="client_' + data[i].id + '" class="quota_lists">' + data[i].reference + ' : ' + data[i].name + '</div>')
-//                         .click(function () {
-//                             client_id = $(this).attr('id').replace('client_', '');
-//                             setClient(window.location, client_id);
-//                         })
-//                     );
-//                     setTooltip(data[i]);
-//                 }
-//             }
-//             quota_list.perfectScrollbar('update');
-//             $icon.removeClass(animateClass);
-//         }
-//     });
-// }
-
-//set customer in session
-function setClient(url, client_id) {
-    $.ajax({
-        url: "/setClient",
-        type: "GET",
-        data: {client_id: client_id},
-        success: function () {
-            window.location.replace(url);
-        }
-    });
-}
-
 //Ancre Onclick base type
 function ancreLink() {
     if($('#header_title').height() > 100 ){
@@ -291,27 +160,4 @@ function isFloat(val) {
         return false;
 
     return true;
-}
-
-//when user show / hide customer list
-function ShowHideQuotaList(quota_list, nbr) {
-    if (nbr == 0) {
-        if (quota_list.is(":visible") === true) {
-            quota_list.fadeOut(200);
-            $('#search_glyphicon').toggleClass('glyphicon-chevron-up').toggleClass('glyphicon-chevron-down');
-        } else {
-            quota_list.fadeIn(200);
-            $('#search_glyphicon').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
-        }
-    } else if (nbr == 1) {
-        if (quota_list.is(":visible") === true) {
-            quota_list.fadeOut(200);
-            $('#search_glyphicon').toggleClass('glyphicon-chevron-up').toggleClass('glyphicon-chevron-down');
-        }
-    } else {
-        if (quota_list.is(":visible") === false) {
-            quota_list.fadeIn(200);
-            $('#search_glyphicon').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
-        }
-    }
 }

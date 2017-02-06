@@ -1,9 +1,10 @@
 {% extends 'layout.twig' %}
 
-{% block login %}
+{% block body %}
+<div class="col-xs-12" id="main">
     <div class="col-xs-6 col-centered">
         <div class="imgcontainer">
-            <img src="/images/user1.png" alt="Avatar" class="avatar">
+            <img src="/images/user1.png" alt="" class="avatar">
         </div>
 
         <form id="login_form" method="post">
@@ -22,6 +23,7 @@
             </button>
         </form>
     </div>
-{% endblock login %}
+</div>
+{% endblock body %}
 
 

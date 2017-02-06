@@ -1,128 +1,243 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-    <br/>
+<br/>
+<div class="col-xs-9" id="main">
     <div id="current_customer">
         {% if client != null %}
-        <div class="calculation_quota">
-            <div class="table-editable">
-                <table class="table table-striped" id="table_about_customer">
-                    <thead class="thead-inverse">
-                        <tr>
-                            <th colspan="2">Customer Information</th>
-                        </tr>
-                    </thead>
+            <div class="calculation_quota">
+                <div class="table-editable">
+                    <table class="table table-striped" id="table_about_customer">
+                        <thead class="thead-inverse">
+                            <tr>
+                                <th colspan="2">Customer Information</th>
+                            </tr>
+                        </thead>
 
-                    <tbody>
-                        <tr>
-                            <td><label for="label">Reference</label></td>
-                            <td>{{ client.reference }}</td>
-                        </tr>
-                        <tr>
-                            {% if(client.name) != '' %}
-                                <td><label for="label">Name</label></td>
-                                <td>{{ client.name }}</td>
-                            {% endif %}
-                        </tr>
-                        <tr>
-                            {% if(client.numberAdult) != '' %}
-                                <td><label for="label">Number of adult</label></td>
-                                <td>{{ client.number_adult }}</td>
-                            {% endif %}
-                        </tr>
-                        <tr>
-                            {% if(client.numberChild) != '' %}
-                                <td><label for="label">Number of children</label></td>
-                                <td>{{ client.number_child }}</td>
-                            {% endif %}
-                        </tr>
-                        <tr>
-                            {% if(client.start_date) != '' %}
-                                <td ><label for="label">Date</label></td>
-                                <td>{{ client.start_date }}</td>
-                            {% endif %}
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-            <hr>
-        <div class="calculation_quota">
-            <div class="table-editable">
-                <table class="table table-striped" id="table_about_room">
-                    <thead class="thead-inverse">
-                        <tr>
-                            <th colspan="5">Rooms (<span class="item_number">{{ room|length }}</span>)</th>
-                        </tr>
-                    </thead>
-
-                    {% if room|length > 0 %}
-                    <tbody>
-                    {% for i in 0..room|length-1 %}
-                        <tr>
-                            <td class="data_client_remove" id="room_{{ room[i]['id'] }}" onclick="deleteItem(this)">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </td>
-                            <td>{{ room[i]['house_title'] }}</td>
-                            <td>{{ room[i]['others'].room_title }}</td>
-                            {% set stay = room[i]['others'].stay|roundValue %}
-                            <td>{{ stay }} {% if stay > 1 %}days{% else %}day{% endif %}</td>
-                            <td>{{ room[i]['base']|capitalize }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                    {% endif %}
-                </table>
-            </div>
-        </div>
-            <hr>
-        <div class="calculation_quota">
-            <div class="table-editable">
-                <table class="table table-striped" id="table_about_prestation">
-                    <thead class="thead-inverse">
-                    {% set id_prestation = prestation.all_prestation['id'] %}
-                    {% set services = prestation.all_prestation['service'] %}
-                    {% set others = prestation.all_prestation['other'] %}
-                        <tr>
-                            <th colspan="3">Benefits (<span class="item_number">{{ services|length }}</span>)</th>
-                        </tr>
-                    </thead>
-
-                    {% if services|length > 0 %}
-                    <tbody>
-                    {% for i in 0..services|length-1 %}
-                        <tr>
-                            <td class="data_client_remove" id="prestation_{{ id_prestation[i] }}" onclick="deleteItem(this)">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </td>
-                            <td>{{ services[i] }}</td>
-                            <td>{{ others[i].type_service }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                    {% endif %}
-                </table>
-            </div>
-        </div>
-        {% else %}
-        <div id="user_home">
-            <div class="row" style="margin: 0!important; padding: 0!important;">
-                <div class="span12 text-center">
-                    <h3 style="color: #2B838E">
-                        Welcome {{ user.name }} !<br/>
-                    </h3>
-                    <h4>To create quotations, you need to add a new customer.</h4>
+                        <tbody>
+                            <tr>
+                                <td><label for="label">Reference</label></td>
+                                <td>{{ client.reference }}</td>
+                            </tr>
+                            <tr>
+                                {% if(client.name) != '' %}
+                                    <td><label for="label">Name</label></td>
+                                    <td>{{ client.name }}</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                {% if(client.numberAdult) != '' %}
+                                    <td><label for="label">Number of adult</label></td>
+                                    <td>{{ client.number_adult }}</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                {% if(client.numberChild) != '' %}
+                                    <td><label for="label">Number of children</label></td>
+                                    <td>{{ client.number_child }}</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                {% if(client.start_date) != '' %}
+                                    <td ><label for="label">Date</label></td>
+                                    <td>{{ client.start_date }}</td>
+                                {% endif %}
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </div>
+
+            {% if allRegistration|length > 0 %}
+                <div class="hide" id="existing_registraton">
+                    {% set registration = 0 %}
+                    [ {% for j in allRegistration|keys %}
+                        {% set registration = registration + 1%}
+                        {% if registration == 1 %}
+                            {{ allRegistration[j] }}
+                        {% else %}
+                            , {{ allRegistration[j] }}
+                        {% endif %}
+                    {% endfor %} ]
+                </div>
+
+                {% set registration = 0 %}
+                <div class="row" id="registration_room"><span><b>Registration number :</b></span></div>
+                <div class="row">
+                    <div class="col-xs-10">
+                        {% for j in allRegistration|keys %}
+                            {% set k = allRegistration[j] %}
+                            {% set registration = registration + 1%}
+                            <div class="{% if registration == 1 %}active{% endif %} registration_menu" id="registration_{{ k }}">
+                                {{ k }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="pull-right btn_registration" id="btn_delete_registration" title="Delete registration">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </div>
+                        <div class="pull-right btn_registration" id="btn_duplicate_registration" title="Duplicate registration">
+                            <span class="glyphicon glyphicon-duplicate"></span>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                {% set registration = 0 %}
+                {% for j in allRegistration|keys %}
+                    {% set k = allRegistration[j] %}
+                    {% set registration = registration + 1%}
+                    <div class="group_table {% if registration > 1 %}table_hide{% endif %}" id="group_{{ k }}">
+
+                        {% set room = dataRoom[k]['detail'] %}
+                        {% if room|length>0 %}
+                            <span>Last modification : {{ dataRoom[k]['date_registration'] }}</span>
+                        {% endif %}
+                        <div class="calculation_quota">
+                            <div class="table-editable">
+                                <table class="table table-striped" id="table_about_room_{{ k }}">
+                                    <thead class="thead-inverse">
+                                        <tr>
+                                            <th colspan="5">Rooms (<span class="item_number">{{ room|length }}</span>)</th>
+                                        </tr>
+                                    </thead>
+
+                                    {% if room|length > 0 %}
+                                        <tbody>
+                                        {% for i in 0..room|length-1 %}
+                                            <tr>
+                                                <td class="data_client_remove" id="room_{{ k }}_{{ room[i]['id'] }}" onclick="deleteItem(this)">
+                                                    <span class="glyphicon glyphicon-remove"></span>
+                                                    <h4 style="display: none">{{ room[i]['id'] }}</h4>
+                                                </td>
+                                                <td>{{ room[i]['house_title'] }}</td>
+                                                <td>{{ room[i]['others'].room_title }}</td>
+                                                {% set stay = room[i]['others'].stay|roundValue %}
+                                                <td>{{ stay }} {% if stay > 1 %}days{% else %}day{% endif %}</td>
+                                                <td>{{ room[i]['base']|capitalize }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    {% endif %}
+                                </table>
+                            </div>
+                        </div>
+
+
+                        {% set prestation = dataPrestation[k] %}
+                        {% set id_prestation = prestation.all_prestation['id'] %}
+                        {% set services = prestation.all_prestation['service'] %}
+                        {% set others = prestation.all_prestation['other'] %}
+                        {% if services|length>0 %}
+                            <span>Last modification : {{ dataPrestation[k].date_registration }}</span>
+                        {% endif %}
+                        <div class="calculation_quota">
+                            <div class="table-editable">
+                                <table class="table table-striped" id="table_about_prestation_{{ k }}">
+                                    <thead class="thead-inverse">
+                                        <tr>
+                                            <th colspan="3">Benefits (<span class="item_number">{{ services|length }}</span>)</th>
+                                        </tr>
+                                    </thead>
+
+                                    {% if services|length > 0 %}
+                                        <tbody>
+                                        {% for i in 0..services|length-1 %}
+                                            <tr>
+                                                <td class="data_client_remove" id="prestation_{{ k }}_{{ id_prestation[i] }}" onclick="deleteItem(this)">
+                                                    <span class="glyphicon glyphicon-remove"></span>
+                                                    <h4 style="display: none">{{ id_prestation[i] }}</h4>
+                                                </td>
+                                                <td>{{ services[i] }}</td>
+                                                <td>{{ others[i].type_service }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    {% endif %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div id="registration_room" style="color: #FF0F22; font-style: italic;"><b>No quotation for this customer !</b></div>
+            {% endif %}
+        {% else %}
+            <div id="user_home">
+                <div class="row" style="margin: 0!important; padding: 0!important;">
+                    <div class="span12 text-center">
+                        <h3 style="color: #2B838E">
+                            Welcome {{ user.name }} !<br/>
+                        </h3>
+                        <h4>To create quotations, you need to add a new customer.</h4>
+                    </div>
+                </div>
+            </div>
         {% endif %}
     </div>
-
     <div id="delete_item" style="max-height: 150px;display: none; padding-bottom: 0;">
-        <div style="height: 100px;">Are you sure to delete "<span class="item_title"></span>" ?</div>
+        <div style="height: 100px;">Are you sure to delete "<span class="item_title bold"></span>" ?</div>
         <div style="height: 30px; margin-bottom: -10px;">
-            <div class="popup_btn" id="btn_delete_item">delete</div>
-            <div class="popup_btn"  id="btn_cancel_item">cancel</div>
+            <div class="popup_btn" id="btn_delete_item">Delete</div>
+            <div class="popup_btn"  id="btn_cancel_item">Cancel</div>
         </div>
     </div>
+    <div id="delete_registration" style="max-height: 150px;display: none; padding-bottom: 0;">
+        <div style="height: 100px; line-height: 100px;">Are you sure to delete "<span class="bold">Registration n°</span><span class="item_title bold"></span>" ?</div>
+        <div style="height: 30px; margin-bottom: -10px;">
+            <div class="popup_btn" id="btn_make_delete">Delete</div>
+            <div class="popup_btn"  id="btn_cancel_delete">Cancel</div>
+        </div>
+    </div>
+    <div id="duplicate_registration" style="max-height: 150px;display: none; padding-bottom: 0;">
+        <div style="height: 70px; line-height: 70px;">Duplicate for registration n° <input type="number" class="number" style="width: 60px; height: 30px;" min="1" max="100"  name="registration_number" id="registration_number" required oninvalid="this.setCustomValidity('Please complete this field')" onchange="try{setCustomValidity('')}catch(e){}"/></div>
+        <div style="height: 60px; color: #FF0F22; font-style: italic; text-align: right;"><span style="display: none;" id="registration_number_message"></span></div>
+        <div style="height: 30px; margin-bottom: -10px;">
+            <div class="popup_btn"  id="btn_make_duplicate">Duplicate</div>
+            <div class="popup_btn"  id="btn_cancel_duplicate">Cancel</div>
+        </div>
+    </div>
+</div>
+
+
+<div id="right_side" class="col-xs-3 sidebar-outer">
+    <div class="fixed">
+        <div class="well">
+            <div class="row" id="search_menu_title">
+                <h4>Customer</h4>
+            </div>
+            {% if clients|length > 0 %}
+                <div class="input-group" style="width:100%;">
+                    <input type="text" class="form-control search_control" id="search_client" placeholder="Search...">
+                </div>
+                <!-- /.input-group -->
+                <div class="row" id="quota_list">
+                    {% for client in clients %}
+                        <div id="client_{{ client['id'] }}" class="quota_lists">
+                            <span class="client_reference_name">{{ client['ref_client'] }} : {{ client['name'] }}</span>
+                            <div class="tooltip hide">
+                                <p>Reference : {{ client['ref_client'] }}</p>
+                                <p>Name : {{ client['name'] }}</p>
+                                <p>Adult number : {{ client['number_adult'] }}</p>
+                                <p>Child number : {{ client['number_child'] }}</p>
+                                <p>Stay beginning : {{ client['start_date'] }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="row" id="quota_list">
+                    <span class="no_client">No customer yet !</span>
+                </div>
+                <div class="row" id="add_new_customer">
+                    Add new customer
+                </div>
+            {% endif %}
+            <div class="search_message">No result for this search !</div>
+            <div id="expand">
+                <span id="search_glyphicon" class="menu_glyphicon glyphicon glyphicon-chevron-up"></span>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock body %}

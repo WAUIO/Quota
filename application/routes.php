@@ -13,6 +13,8 @@ $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware
 
     //HomeController
         $app->get('/', 'App\Http\Controller\HomeController@home');
+        $app->get('/duplicateRegistration', 'App\Http\Controller\HomeController@duplicateRegistration');
+        $app->get('/deleteRegistration', 'App\Http\Controller\HomeController@deleteRegistration');
 
     //UserController
         $app->get('/logout', 'App\Http\Controller\UserController@logout');
@@ -26,9 +28,8 @@ $app->group(['prefix'=>'/', 'middleware' => ['App\Http\Middleware\AuthMiddleware
     //PrestationController
         $app->get('/quotaPrestation', 'App\Http\Controller\PrestationController@quotaPrestation');
         $app->get('/prestation', 'App\Http\Controller\PrestationController@prestation');
-
-        $app->get('/savePrestation', 'App\Http\Controller\PrestationController@savePrestation');
-        $app->get('/updatePrestation', 'App\Http\Controller\PrestationController@updatePrestation');
+        $app->post('/savePrestation', 'App\Http\Controller\PrestationController@savePrestation');
+        $app->post('/updatePrestation', 'App\Http\Controller\PrestationController@updatePrestation');
         $app->get('/deleteQuotaPrestation', 'App\Http\Controller\PrestationController@deleteQuotaPrestation');
 
     //RoomController

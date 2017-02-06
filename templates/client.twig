@@ -1,7 +1,8 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-    <br/>
+<br/>
+<div class="col-xs-9" id="main">
     <form id="client_form">
         <div class="form-group row">
             <label for="reference" class="col-xs-4 col-form-label">Reference</label>
@@ -44,7 +45,6 @@
             </div>
         </div>
 
-
         <!--show if client saved-->
         <div id="client_saved" class="row">
             <div class="row">
@@ -64,6 +64,43 @@
             </div>
         </div>
     </form>
+</div>
 
+<div id="right_side" class="col-xs-3 sidebar-outer">
+    <div class="fixed">
+        <div class="well">
+            <div class="row" id="search_menu_title">
+                <h4>Customer</h4>
+            </div>
+            {% if clients|length > 0 %}
+                <div class="input-group" style="width:100%;">
+                    <input type="text" class="form-control search_control" id="search_client" placeholder="Search...">
+                </div>
+                <!-- /.input-group -->
+                <div class="row" id="quota_list">
+                    {% for client in clients %}
+                        <div id="client_{{ client['id'] }}" class="quota_lists">
+                            <span class="client_reference_name">{{ client['ref_client'] }} : {{ client['name'] }}</span>
+                            <div class="tooltip hide">
+                                <p>Reference : {{ client['ref_client'] }}</p>
+                                <p>Name : {{ client['name'] }}</p>
+                                <p>Adult number : {{ client['number_adult'] }}</p>
+                                <p>Child number : {{ client['number_child'] }}</p>
+                                <p>Stay beginning : {{ client['start_date'] }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="row" id="quota_list">
+                    <span class="no_client">No customer yet !</span>
+                </div>
+            {% endif %}
+            <div class="search_message">No result for this search !</div>
+            <div id="expand">
+                <span id="search_glyphicon" class="menu_glyphicon glyphicon glyphicon-chevron-up"></span>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock body %}
-

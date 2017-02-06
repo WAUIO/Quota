@@ -1,6 +1,5 @@
 <?php namespace App\Http\Controller;
 
-use App\Model\ExchangeModel;
 use App\Model\HouseModel;
 use App\Model\RoomModel;
 use App\Utils\RoomQuota;
@@ -12,11 +11,10 @@ class RoomController extends PrestationController{
     public function quotaRoom(){
         $data = array();
         $client_id = $_SESSION['client']->id;
-        $room = $this->getRoom($client_id);
+        $dataRoom = $this->getRoom($client_id);
 
         array_set($data, 'title', 'Room quotation');
-        array_set($data, 'details', $room['detail']);
-        array_set($data, 'base_rooms', $room['room']);
+        array_set($data, 'dataRoom', $dataRoom);
 
         return $this->app()->make('twig.view')->render('quotaRoom.twig',$data);
     }
@@ -33,31 +31,6 @@ class RoomController extends PrestationController{
 
         return $this->app()->make('twig.view')->render('aboutClient.twig',$data);
     }
-//
-//    //show total (room & prestation) quotation
-//    public function quotaTotal()
-//    {
-//        $data = array();
-//
-//        $client_id = $_SESSION['client']->id;
-//        $exchangeModel = new ExchangeModel();
-//        $exchange = $exchangeModel->getExchange();
-//
-//        //$exchange (sale)
-//        $prestation = $this->getPrestation($client_id);
-//        $room = $this->getRoom($client_id)['room'];
-//
-//        array_set($data, 'reference_quota', 'n° 123');
-//        array_set($data, 'title', "Total quotation");
-//        array_set($data, 'prestation', $prestation);
-//        array_set($data, 'base_rooms', $room);
-//        array_set($data, 'exchange', $exchange['sale']);
-//
-//        return $this->app()->make('twig.view')->render('quotaTotal.twig',$data);
-//    }
-//
-//=======
-//>>>>>>> eff06a0211d91ded9e24f2ce9723f48d5a1c3f7d
     //save room quotation
     public function saveQuotaRoom(Request $request){
         $quotaModel = new RoomModel();
@@ -66,12 +39,14 @@ class RoomController extends PrestationController{
         $all_data = $request->get('all_data');
         $id_client = $_SESSION['client']->id;
         $exchange = $_SESSION['exchange'];
+        $now = new \DateTime();
 
         foreach ($all_data as $data){
             $others = array();
-            $base       = $data['base'];
-            $id_house   = $data['id_house'];
-            $name_house = $data['name_house'];
+            $base           = $data['base'];
+            $id_house       = $data['id_house'];
+            $name_house     = $data['name_house'];
+            $registration   = $data['registration'];
 
             $currency = strtolower($data['currency']);
             if($currency == 'eur'){
@@ -84,7 +59,7 @@ class RoomController extends PrestationController{
 
             $price_room = (float)$data['rate'] * $currency_value;
 
-            $others['stay']       = $data['stay'];
+            $others['stay']         = $data['stay'];
             $others['vignet']       = $data['vignet'];
             $others['room_title']   = $data['room_title'];
             $others['euro']         = $exchange['euro'];
@@ -97,7 +72,8 @@ class RoomController extends PrestationController{
             }
 
             $others['board'] = $data['board'];
-            $array  =  array('base'=>$base, 'id_client'=>$id_client, 'id_house'=>$id_house,'price_room'=>$price_room,'others'=>json_encode($others));
+
+            $array  =  array('base'=>$base, 'id_client'=>$id_client, 'id_house'=>$id_house, 'price_room'=>$price_room, 'others'=>json_encode($others), 'registration'=>$registration,'date'=>$now->format('Y-m-d H:i:s'));
             $quotaModel->insertToQuotaRoom($array);
         }
 
@@ -107,52 +83,81 @@ class RoomController extends PrestationController{
     //delete room quotation
     public function deleteQuotaRoom(){
         $id_room = $_GET['id_item'];
-        $quotaModel = new RoomModel();
-        $quotaModel->deleteQuotaRoom($id_room);
-    }
-    //select client room
-    public function getRoom($client_id){
-        $houseModel = new HouseModel();
         $roomModel = new RoomModel();
-        $base_rooms     = array();
-        $details     = array();
-        $exist_rooms[]  = false;
+        $roomModel->deleteQuotaRoom($id_room);
+    }
 
-        $price[]    = 0;
-        $tax[]      = 0;
-        $vignette[] = 0;
-        $exchange[] = 0;
-        $boards[][] = 0;
+    //delete room quotation
+    public function deleteRegistrationRoom($registration){
+        $roomModel = new RoomModel();
+        $roomModel->deleteRegistration($registration);
+    }
 
-        $result = $roomModel->selectQuotaRoom($client_id);
-        foreach ($result as $res){
-            $base = strtolower($res['base']);
-            $res['base'] = $base;
-            $res['others'] = json_decode($res['others']);
-            $res['house_title'] = $houseModel->getHouse($res['id_house'])[0]['house_title'];
-            $details[] = $res;
+    //duplicate room quotation
+    public function duplicateRegistrationRoom($registration, $new_registration, $current_date){
+        $roomModel = new RoomModel();
+        $roomModel->duplicateRegistration($registration, $new_registration, $current_date);
+    }
 
-            $stay = $res['others']->stay;
-            $price[$base] += $res['price_room'] * $stay;
+    //select all room for client
+    public function getRoom($client_id){
+        $houseModel     = new HouseModel();
+        $roomModel      = new RoomModel();
+        $dataRoom       = array();
 
-            if(array_key_exists('board', $res['others'])){
-                foreach ((array)$res['others']->board as $key => $value){
-                    $boards[$base][$key] += $value * $stay;
+        $allRegistration = $roomModel->selectRegistration($client_id);
+        foreach($allRegistration as $reg){
+            $base_rooms = array();
+            $details    = array();
+            $exist_rooms= array();
+            $price[]    = 0;
+            $tax[]      = 0;
+            $vignette[] = 0;
+            $exchange[] = 0;
+            $boards[][] = 0;
+            $date_registration = null;
+            $date1 = "2000-01-01 00:00:00";
+            $registration = $reg['registration'];
+            $result = $roomModel->selectQuotaRoom($client_id, $registration);
+            foreach ($result as $res){
+                $date2 = $res['date'];
+                if(strtotime($date2)>strtotime($date1)){
+                    $date1 = $date2;
+                    $date_registration = $date2;
                 }
-            }
 
-            $tax[$base]         += $res['others']->tax;
-            $vignette[$base]    += $res['others']->vignet;
-            $exchange[$base]    = ['euro'=>$res['others']->euro, 'dollar'=>$res['others']->dollar];
-            $exist_rooms[$base] = true;
-        }
-        foreach ($exist_rooms as $key=>$value ){
-            if($value){
+                $base = strtolower($res['base']);
+                $res['base'] = $base;
+                $res['others'] = json_decode($res['others']);
+                $res['house_title'] = $houseModel->getHouse($res['id_house'])[0]['house_title'];
+                $details[] = $res;
+
+                $stay = $res['others']->stay;
+                $price[$base] += $res['price_room'] * $stay;
+
+                if(array_key_exists('board', $res['others'])){
+                    foreach ((array)$res['others']->board as $key => $value){
+                        $boards[$base][$key] += $value * $stay;
+                    }
+                }
+
+                $tax[$base]         += $res['others']->tax;
+                $vignette[$base]    += $res['others']->vignet;
+                $exchange[$base]    = ['euro'=>$res['others']->euro, 'dollar'=>$res['others']->dollar];
+                $exist_rooms[$base] = true;
+            }
+            foreach ($exist_rooms as $key=>$value ){
                 $room  = new RoomQuota(array($key." room", $price[$key], $boards[$key], $vignette[$key], $tax[$key], $exchange[$key]));
                 array_push($base_rooms, $room);
             }
-        }
 
-        return array('room'=>$base_rooms,'detail'=>$details);
+            $dataRoom[$registration] = array('room'=>$base_rooms,'detail'=>$details, 'date_registration'=>(new \DateTime($date_registration))->format("D, d M Y"));
+            unset($price);
+            unset($tax);
+            unset($vignette);
+            unset($exchange);
+            unset($boards);
+        }
+        return $dataRoom;
     }
 }

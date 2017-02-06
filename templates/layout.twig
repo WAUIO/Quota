@@ -108,56 +108,15 @@
 
     <div class="container">
         <div class="row">
-            {% if user == null %}
-                <div class="col-xs-12">
-                    {% block login %}
-                    {% endblock login %}
-                </div>
-            {% else %}
-                <!--/left side-->
-                <div class="col-xs-9">
-                    {% block body %}
-                    {% endblock body %}
-                </div>
-
-                <!--/right side-->
-                <div id="right_side" class="col-xs-3 sidebar-outer">
-                    <div class="fixed">
-                        <div id="well_search" class="row well">
-                                <div id="search_menu_title">
-                                    <div style="float: left"><h4>All customer</h4></div>
-                                    <div id="refresh_client" style="float: right"><span class="glyphicon glyphicon-refresh"></span></div>
-                                </div>
-
-                            <div class="input-group" style="width:100%;">
-                                <input type="text" class="form-control search_control" id="search_client" placeholder="Search...">
-                            </div>
-                            <!-- /.input-group -->
-                            <div class="row" id="quota_list">
-                                <div class="search_message">No result for this search !</div>
-                            </div>
-
-                            <div id="expand">
-                                <span id="search_glyphicon" class="menu_glyphicon glyphicon glyphicon-chevron-up"></span>
-                            </div>
-                        </div>
-
-                        {% block menu_room %}
-                        {% endblock menu_room %}
-                        <!--/.well -->
-                    </div>
-                    <!--/sidebar-nav-fixed -->
-                </div>
-                <!--/span-->
-            {% endif %}
+            <!--/left side-->
+            {% block body %}
+            {% endblock body %}
         </div>
         <div id="about_client" title="About this customer" style="display: none;">
             <p>Reference : {{ client.reference }}</p>
             {% if(client.name) != '' %}<p>Name : {{ client.name }}</p>{% endif %}
             {% if(client.numberAdult) != '' %}<p>Adult number : {{ client.number_adult }}</p>{% endif %}
             {% if(client.numberChild) != '' %}<p>Child number : {{ client.number_child }}</p>{% endif %}
-            {% if(client.start_date) != '' %}<p>Date : {{ client.start_date }}</p>{% endif %}
-
         </div>
 
         <footer class="footer">

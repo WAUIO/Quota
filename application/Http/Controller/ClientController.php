@@ -11,7 +11,11 @@ class ClientController extends RoomController{
             $clientModel = new ClientModel();
             $_SESSION['client'] = $clientModel->getLastClient();
         }
+
+        $clientModel = new ClientModel();
+        $clients = $clientModel->selectAllClient();
         array_set($data, 'title', 'New customer');
+        array_set($data, 'clients', $clients);
         return $this->app()->make('twig.view')->render('client.twig', $data);
     }
 

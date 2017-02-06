@@ -1,17 +1,43 @@
 $( function() {
     $(document).on('show','.accordion', function (e) {
-        //$('.accordion-heading i').toggleClass(' ');
         $(e.target).prev('.accordion-heading').addClass('accordion-opened');
     });
 
     $(document).on('hide','.accordion', function (e) {
         $(this).find('.accordion-heading').not($(e.target)).removeClass('accordion-opened');
-        //$('.accordion-heading i').toggleClass('fa-chevron-right fa-chevron-down');
     });
 
+    $('.registration_title_active').css({'background':'#2B838E', 'border':'none'});
+
     $('.detail_body').perfectScrollbar();
-    $('#family_member').on('change keyUp', function () {
+
+    $('.family_member').on('change keyUp', function () {
         calculateFamilyTotal($(this));
+    });
+
+    $('.registration_menu').click( function(){
+        var id = $(this).attr('id').replace('registration_','');
+        if($('#registration_prestation').length || $('#current_customer').length) {
+            $('.group_table').hide();
+            $('#group_' + id).show();
+
+            $('.registration_menu').removeClass('active');
+            $(this).addClass('active');
+        }else{
+            $('#registration_title_'+id).trigger('click');
+        }
+    });
+
+    $('.registration_title').click( function(){
+        $(document).scrollTop(0);
+        var id = $(this).attr('id').replace('registration_title_','');
+        $('.group_table').hide();
+        $('#group_'+id).show();
+
+        $('.registration_menu').removeClass('active');
+        $('#registration_'+id).addClass('active');
+        $('.registration_title').css({'background':'#F6F6F6', 'border':'none'});
+        $(this).css('background', '#2B838E');
     });
 
     detailView();
