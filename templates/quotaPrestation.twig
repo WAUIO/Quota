@@ -6,13 +6,15 @@
     {% set registration = 0 %}
     {% if(dataPrestation|length > 0) %}
         <div class="row" id="registration_prestation"><b>Registration number :</b></div>
-        <div class="row" style="height: 30px;">
-            {% for k in dataPrestation|keys %}
-                <div class="{% if registration == 0 %}active{% endif %} registration_menu" id="registration_{{ k }}">
-                    {{ k }}
-                </div>
-                {% set registration = registration + 1%}
-            {% endfor %}
+        <div class="row">
+            <div class="col-xs-12" style="height: 30px;">
+                {% for k in dataPrestation|keys %}
+                    <div class="{% if registration == 0 %}active{% endif %} registration_menu" id="registration_{{ k }}">
+                        {{ k }}
+                    </div>
+                    {% set registration = registration + 1%}
+                {% endfor %}
+            </div>
         </div>
         <br/>
 

@@ -48,7 +48,6 @@ function checkOption(){
 
 // get all data about room and board when house selected,
 function dataHouse(){
-
     $('.check_able').prop('disabled', true);
     $('#room_message').fadeOut();
     $('#adult_select_single').html('');
@@ -228,7 +227,7 @@ function saveRoom(){
                     //get all checked board
                     board_checkbox.each( function( ) {
                         if (this.checked) {
-                            parent = $(this).parents().eq(2);
+                            parent = $(this).closest('.all_select');
                             select = parent.find('select option:selected');
 
                             $.each(select, function () {
@@ -243,8 +242,7 @@ function saveRoom(){
                     base_checkbox.each( function( ) {
                         if (this.checked) {
                             base = $(this).val();
-                            accordion_body_id = $(this).parents().eq(4).attr('id');
-                            parent = $(this).parents().eq(2);
+                            parent = $(this).closest('.all_select');
                             select = parent.find('select option:selected');
                             $.each(select,function () {
                                 room_option = JSON.parse($(this).val().replace("&quot","'"));

@@ -14,7 +14,7 @@ $( function() {
         showQuotationEdit();
     });
 
-    $("#btn_save_prestation").click( function(e) {
+    $('#btn_save_prestation').click( function(e) {
         e.preventDefault();
         savePrestation();
     });
@@ -509,7 +509,7 @@ function savePrestation(){
             all_data.push(info);
         });
 
-        $('#btn_save_prestation').html('Saving&nbsp;<img src="/images/loader.gif" class="" style="width:20px; height:5px">');
+        $('#btn_save_prestation').html('<span>Saving&nbsp;<img src="/images/loader.gif" class="" style="width:20px; height:5px"></span>');
         $.ajax({
             type: "POST",
             url: "/savePrestation",
