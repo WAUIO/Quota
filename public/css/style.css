@@ -482,7 +482,7 @@ td {
     font-weight: bold;
     font-size: 110%;
 }
-#tr_pax{
+.tr_pax{
     text-align: center;
 }
 .others, .taxes{

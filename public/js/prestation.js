@@ -112,8 +112,9 @@ function calculatePrestation(table) {
     var maxvalues = [];
     var tr_body = table.find('tbody').children('tr');
 
-    if($('.quota').length){
-        $('.quota').remove();
+    quota = table.find('.quota');
+    if(quota.length){
+        quota.remove();
     }
 
     tr_body.each(function(){
@@ -140,6 +141,8 @@ function calculatePrestation(table) {
         if(td_col_pax.length){
             td_col_pax.remove();
         }
+
+        table.find('.tr_pax').attr('colspan', nb_pax).css('text-align','center');
 
         for (i=minimum; i<=maximum; i++){
             //set pax header
@@ -181,11 +184,10 @@ function calculatePrestation(table) {
             td_total.html(roundValue(sum));
             tr_total.append(td_total);
         }
-        table.find('.tr_pax').attr('colspan', nb_pax).css('text-align','center');
     }else{
         $('#prestation_message').text('pax_max must be higher than pax_min!').css({'display':'block', 'color':'#FF0F22'}).delay(5000).fadeOut();
     }
-    $('.table-editable').perfectScrollbar('update');
+    table.closest('.table-editable').perfectScrollbar('update');
 }
 
 //service search filter
