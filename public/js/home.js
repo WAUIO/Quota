@@ -99,7 +99,7 @@ function deleteItem($this) {
     }
     else {
         to_url = "/deleteQuotaPrestation";
-        delete_title = 'Deletion of benefit';
+        delete_title = 'Deletion of service';
         item_title = $($this).siblings().eq(0).text();
     }
 

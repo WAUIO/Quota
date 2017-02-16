@@ -347,7 +347,7 @@ function mouseEvent(){
 }
 
 /*
-* check service on list of Benefit
+* check service on list of Services
 * add each in table quotation
 * */
 function checkPrestation() {
@@ -516,7 +516,7 @@ function savePrestation(){
             data: {all_data : all_data},
             dataType: "html",
             success: function(){
-                $('#prestation_message').text('Benefit(s) saved !').css({'display':'block', 'color':'#5cb85c'});
+                $('#prestation_message').text('Service(s) saved !').css({'display':'block', 'color':'#5cb85c'});
                 $('#btn_save_prestation').html('Save');
             }
         });
@@ -560,7 +560,7 @@ function updatePrestation($this){
         data: {all_data : all_data},
         dataType: "html",
         success: function(){
-            group_table.find('.message').text('Benefit(s) modified !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right', 'font-style':'italic', 'font-weight':'bold'});
+            group_table.find('.message').text('Service(s) modified !').css({'display':'block', 'color':'#5cb85c', 'line-height':'40px', 'float':'right', 'font-style':'italic', 'font-weight':'bold'});
             $this.hide();
             btn_modify_prestation.html('Save modification');
         }
