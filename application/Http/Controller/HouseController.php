@@ -20,7 +20,6 @@ class HouseController extends Controller{
         array_set($data, 'title', "Room (add quotation)");
         array_set($data, 'registration', $registration);
         array_set($data, 'listhouse', $list_house);
-
         return $this->app()->make('twig.view')->render('room.twig', $data);
     }
 

@@ -130,7 +130,7 @@ function calculatePrestation(table) {
     if( minimum <= maximum ){
         var tr_pax_rowspan = table.find('.tr_pax_rowspan');
         tr_pax_rowspan.html('');
-        
+
         var tr_total = table.find('.tr_total');
         tr_total.html(' <td></td><td colspan="7">Total</td>');
 

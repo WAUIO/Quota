@@ -14,7 +14,7 @@ class RoomController extends PrestationController{
         $dataRoom = $this->getRoom($client_id);
 
         array_set($data, 'title', 'Room quotation');
-        array_set($data, 'dataRoom', $dataRoom);
+        array_set($data, 'dataRoom', $dataRoom);;
 
         return $this->app()->make('twig.view')->render('quotaRoom.twig',$data);
     }
