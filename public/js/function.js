@@ -54,6 +54,8 @@ $( function() {
     quota_list.perfectScrollbar();
     ancreLink();
     windowResize();
+    $('.ps-scrollbar-x').css('border-radius', '1px');
+    $('.ps-scrollbar-y').css('border-radius', '1px');
 });
 
 //when resize window

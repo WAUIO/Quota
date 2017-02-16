@@ -1,8 +1,16 @@
 .bootstrap-select {
     outline: none !important;
+    width: 96%!important;
+    max-width: 250px!important;
 }
 .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
     width: auto;
+}
+.left_side_checkbox{
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
 }
 body {
     padding-top: 80px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
@@ -930,11 +938,6 @@ ul{
 .no_service{
     display:none;
     color: #FF0F22;
-    height: 40px;
-    text-align: right;
-    font-style: italic;
-    line-height: 40px;
-    font-weight: bold;
 }
 .next_prestation:hover {
   background: #2aa198;
@@ -1048,26 +1051,13 @@ ul{
 .accordion_body{
     overflow: visible!important;
 }
-#room_message, #prestation_message{
-    display: none;
-    font-style: italic;
-    font-weight: bold;
-}
-#client_message, .prestationUpdate_message{
-    display: none;
-    color: #FF0F22;
-    height: 40px;
-    float: right;
-    font-style: italic;
-    line-height: 40px;
-    font-weight: bold;
-}
 .message{
-    margin-right: 10px;
-}
-.no_client{
     color: #FF0F22;
-    padding-left: 10px;
+    display: none;
+    margin-left: 10px;
+    height: 40px;
+    line-height: 40px;
+    float: left;
     font-style: italic;
     font-weight: bold;
 }

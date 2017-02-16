@@ -6,13 +6,15 @@
     {% set registration = 0 %}
     {% if(dataPrestation|length > 0) %}
         <div class="row" id="registration_prestation"><b>Registration number :</b></div>
-        <div class="row" style="height: 30px;">
-            {% for k in dataPrestation|keys %}
-                <div class="{% if registration == 0 %}active{% endif %} registration_menu" id="registration_{{ k }}">
-                    {{ k }}
-                </div>
-                {% set registration = registration + 1%}
-            {% endfor %}
+        <div class="row">
+            <div class="col-xs-12" style="height: 30px;">
+                {% for k in dataPrestation|keys %}
+                    <div class="{% if registration == 0 %}active{% endif %} registration_menu" id="registration_{{ k }}">
+                        {{ k }}
+                    </div>
+                    {% set registration = registration + 1%}
+                {% endfor %}
+            </div>
         </div>
         <br/>
 
@@ -77,13 +79,13 @@
                                 {% endfor %}
                             </tbody>
                             <tfoot>
-                            <tr class="tr_total">
-                                <td></td>
-                                <td colspan="7">Total</td>
-                                {% for j in prestation.min..prestation.max %}
-                                    <td class="td_right">{{ (prestation.value[j-1])|roundValue }}</td>
-                                {% endfor %}
-                            </tr>
+                                <tr class="tr_total">
+                                    <td></td>
+                                    <td colspan="7">Total</td>
+                                    {% for j in prestation.min..prestation.max %}
+                                        <td class="td_right">{{ (prestation.value[j-1])|roundValue }}</td>
+                                    {% endfor %}
+                                </tr>
                             </tfoot>
                         </table>
                     </div>
@@ -101,12 +103,12 @@
         {% endfor %}
     {% else %}
         <div class="no_quota">
-            <b>No benefit quotation for this customer !</b>
+            <b>No services quotation for this customer !</b>
             <br/><br/>
             <div class="row">
                 <div class="col-xs-12">
                     <div class="col-md-12 add_quotation" onclick="location.href ='/prestation'">
-                        Add benefit quotation
+                        Add services quotation
                     </div>
                 </div>
             </div>

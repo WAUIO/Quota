@@ -4,7 +4,7 @@
 <div class="col-xs-12" id="main">
     <form id="room_form">
         <div class="row" style="margin-top: 20px">
-            <div class="col-xs-3">Registration number</div>
+            <div class="col-xs-3"><span>Registration number</span></div>
             <div class="col-xs-3">
                 <input type="number" class="number" min="0" max="100" name="number_registration" id="number_registration" style="width: 90px;height: 34px"/>
             </div>
@@ -31,15 +31,13 @@
         </div>
         <div class="row" style="margin-bottom: 8px;">
             <div class="col-xs-3">Hotel</div>
-            <div class="col-xs-6">
+            <div class="col-xs-9">
                 <select id="select-hotel" class="selectpicker select_hotel" data-style="btn-default" data-width="200px" data-live-search="true" title="Select hotel">
                     {% for house in listhouse %}
                         <option value={{ house['item_id'] }}> {{ house['house_title'] }} </option>
                     {% endfor %}
                 </select>
-            </div>
-            <div class="col-xs-3"style="height: 34px; line-height: 34px; ">
-                <label id="current_exchange" class="pull-right" for="select-hotel">$.{{ exchange['dollar']}}&nbsp;&nbsp;€.{{ exchange['euro'] }}</label>
+                <div id="current_exchange" class="pull-right" style="height: 34px; line-height: 34px;">$.{{ exchange['dollar']}}&nbsp;&nbsp;€.{{ exchange['euro'] }}</div>
             </div>
         </div>
         <div id="accordion">
@@ -65,20 +63,22 @@
                         {% endif %}
                         {% for j in n..base|length-1 %}
                             <div class="row all_select" id="id_row_{{ type[i] }}_{{ base[j]|replace('-', '_') }}">
-                                <div class="funkyradio form_funky col-xs-3">
-                                    <div class="funkyradio-success form_success">
-                                        <input type="checkbox" id="{{ type[i] }}_{{ base[j] }}" class="base_checkbox check_able" value="{{ base[j]|capitalize }}"/>
-                                        <label class="funky_label form_label" for="{{ type[i] }}_{{ base[j] }}">{{ base[j]|capitalize }}</label>
+                                <div class="col-xs-6 left_side_checkbox">
+                                    <div class="funkyradio form_funky">
+                                        <div class="funkyradio-success form_success">
+                                            <input type="checkbox" id="{{ type[i] }}_{{ base[j] }}" class="base_checkbox check_able" value="{{ base[j]|capitalize }}"/>
+                                            <label class="funky_label form_label" for="{{ type[i] }}_{{ base[j] }}">{{ base[j]|capitalize }}</label>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-8">
+                                <div class="col-xs-6" style="margin-right: 0;padding-right: 0">
                                     <select title="" id="{{ type[i] }}_select_{{ base[j]|replace('-', '_') }}" class="selectpicker show-tick select_room" data-live-search="true" multiple></select>
                                 </div>
                             </div>
                         {% endfor %}
                     </div>
 
-                    <div id="right" class="col-xs-6">
+                    <div class="col-xs-6">
                         {% for j in 0..board|length-1 %}
                             {% set value = board[j]|capitalize %}
 
@@ -91,13 +91,15 @@
                                 {% set class_row = 'row_board' %}
                             {% endif %}
                             <div class="row all_select {{ class_row }}" id="id_row_{{ type[i] }}_{{ board[j]|replace('-', '_') }}">
-                                <div class="funkyradio form_funky col-xs-3">
-                                    <div class="funkyradio-success form_success">
-                                        <input type="checkbox" id="{{ type[i]}}_{{ board[j] }}" class="board_checkbox check_able" value="{{ value }}"/>
-                                        <label class="funky_label form_label" for="{{ type[i]}}_{{ board[j] }}">{{ value }}</label>
+                                <div class="col-xs-6 left_side_checkbox" style="margin-right: 0;padding-right: 0">
+                                    <div class="funkyradio form_funky">
+                                        <div class="funkyradio-success form_success">
+                                            <input type="checkbox" id="{{ type[i]}}_{{ board[j] }}" class="board_checkbox check_able" value="{{ value }}"/>
+                                            <label class="funky_label form_label" for="{{ type[i]}}_{{ board[j] }}">{{ value }}</label>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-8">
+                                <div class="col-xs-6" style="margin-right: 0;padding-right: 0">
                                     <select title="" id="{{ type[i] }}_select_{{ board[j] }}" class="selectpicker show-tick select_board" data-live-search="true" multiple></select>
                                 </div>
                             </div>
@@ -111,9 +113,9 @@
             <div class="col-xs-10">
                 <span class="message" id="room_message"></span>
             </div>
-            <div class="col-xs-2">
-                <div class="all_btn">
-                    <button type="submit" class="col-xs-12" style="margin: 0!important;padding: 0!important"><span class="col-xs-12" id="btn_save_room">Save</span></button>
+            <div class="col-xs-2" style="padding-right: 0;">
+                <div class="all_btn" id="btn_save_room">
+                    <span>Save</span>
                 </div>
             </div>
         </div>

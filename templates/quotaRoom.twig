@@ -4,14 +4,16 @@
 {% if(dataRoom|length > 0) %}
     <div class="col-xs-9" id="main">
         <div class="row" id="registration_room"><b>Registration number :</b></div>
-        <div class="row" style="height: 30px;">
-            {% set registration = 0 %}
-            {% for k in dataRoom|keys %}
-                {% set registration = registration + 1%}
-                <div class="{% if registration == 1 %}active{% endif %} registration_menu" id="registration_{{ k }}">
-                    {{ k }}
-                </div>
-            {% endfor %}
+        <div class="row">
+            <div class="col-xs-12" style="height: 30px;">
+                {% set registration = 0 %}
+                {% for k in dataRoom|keys %}
+                    {% set registration = registration + 1%}
+                    <div class="{% if registration == 1 %}active{% endif %} registration_menu" id="registration_{{ k }}">
+                        {{ k }}
+                    </div>
+                {% endfor %}
+            </div>
         </div>
         <br/>
 

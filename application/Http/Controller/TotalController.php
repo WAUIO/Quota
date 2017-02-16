@@ -4,7 +4,7 @@ use App\Model\ExchangeModel;
 
 class TotalController extends RoomController{
 
-    //show total (room & benefit) quotation
+    //show total (room & services) quotation
     public function quotaTotal(){
         $data = array();
 
