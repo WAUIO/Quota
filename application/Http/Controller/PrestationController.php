@@ -19,7 +19,7 @@ class PrestationController extends Controller{
         $client_id = $_SESSION['client']->id;
         $registration = $prestationModel->selectRegistration($client_id);
 
-        array_set($data, 'title', 'Benefit (add quotation)');
+        array_set($data, 'title', 'Services (add quotation)');
         array_set($data, 'prestations', $array);
         array_set($data, 'registration', $registration);
 
@@ -31,7 +31,7 @@ class PrestationController extends Controller{
         $data = array();
         $dataPrestation = $this->getPrestation($_SESSION['client']->id);
 
-        array_set($data, 'title', 'Benefit quotation');
+        array_set($data, 'title', 'Services quotation');
         array_set($data, 'dataPrestation', $dataPrestation);
 
         return $this->app()->make('twig.view')->render('quotaPrestation.twig', $data);
