@@ -349,7 +349,7 @@ function mouseEvent(){
 }
 
 /*
-* check service on list of Benefit
+* check service on list of Services
 * add each in table quotation
 * */
 function checkPrestation() {
