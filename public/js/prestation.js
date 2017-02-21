@@ -55,8 +55,6 @@ $( function() {
         if($('[name="nb_service"]').val() != ''){
            calculatePrestation(table);
         }
-
-        $('.table-editable').perfectScrollbar('update');
     });
 
     //tooltips message if pax_min value is empty
@@ -112,8 +110,9 @@ function calculatePrestation(table) {
     var maxvalues = [];
     var tr_body = table.find('tbody').children('tr');
 
-    if($('.quota').length){
-        $('.quota').remove();
+    quota = table.find('.quota');
+    if(quota.length){
+        quota.remove();
     }
 
     tr_body.each(function(){
@@ -136,9 +135,12 @@ function calculatePrestation(table) {
         var tr_total = table.find('.tr_total');
         tr_total.html('<td></td><td colspan="7">Total (Ariary)</td>');
 
-        if($('.td_col_pax').length){
-            $('.td_col_pax').remove();
+        var td_col_pax = table.find('.td_col_pax');
+        if(td_col_pax.length){
+            td_col_pax.remove();
         }
+
+        table.find('.tr_pax').attr('colspan', nb_pax).css('text-align','center');
 
         for (i=minimum; i<=maximum; i++){
             //set pax header
@@ -180,11 +182,10 @@ function calculatePrestation(table) {
             td_total.html(roundValue(sum));
             tr_total.append(td_total);
         }
-        $('.tr_pax').attr('colspan', nb_pax).css('text-align','center');
     }else{
         $('#prestation_message').text('pax_max must be higher than pax_min!').css({'display':'block', 'color':'#FF0F22'}).delay(5000).fadeOut();
     }
-    $('.table-editable').perfectScrollbar('update');
+    table.closest('.table-editable').perfectScrollbar('update');
 }
 
 //service search filter
