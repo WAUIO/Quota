@@ -10,9 +10,34 @@ $( function() {
     $('#btn_delete_registration').click(function () {
         deleteRegistration();
     });
+    $('.delete_service').click(function () {
+        deleteItem(this);
+    });
 
     $('#refresh_client').click(function () {
         getClient();
+    });
+
+    $('.select_all').click(function () {
+        for_quotation = $(this).closest('.for_quotation');
+        if($(this).text() == "Select all"){
+            for_quotation.find('[type="checkbox"]').prop('checked', true);
+            $(this).text('Deselect all');
+            $(this).siblings('.delete_service').show();
+        }else{
+            for_quotation.find('[type="checkbox"]').prop('checked', false);
+            $(this).text('Select all');
+            $(this).siblings('.delete_service').hide();
+        }
+    });
+
+    $('.check_service').click(function () {
+        for_quotation = $(this).closest('.for_quotation');
+        if (for_quotation.find('.check_service:checked').length > 0) {
+            for_quotation.find('.delete_service').show();
+        }else{
+            for_quotation.find('.delete_service').hide();
+        }
     });
 });
 
@@ -88,19 +113,35 @@ function duplicateRegistration(){
 }
 
 function deleteItem($this) {
-    var table = $($this).closest('table');
-    var id_item = $($this).find('h4').text();
+    var for_quotation = $($this).closest('.for_quotation');
+    var table =  for_quotation.find('table');
+    var id_items = [];
+    var service_checked = for_quotation.find('.check_service:checked');
+    var service_checked_number = service_checked.length;
+
+    service_checked.each(function() {
+        id_items.push(parseInt($(this).val()));
+    });
+
     var to_url, delete_title, item_title;
 
     if(~table.attr('id').indexOf('table_about_room_')) {
         to_url = "/deleteQuotaRoom";
         delete_title = 'Deletion of room';
-        item_title = $($this).siblings().eq(1).text();
+        if (service_checked_number == 1) {
+            item_title = "this room";
+        }else{
+            item_title = "these "+service_checked_number+" rooms";
+        }
     }
     else {
         to_url = "/deleteQuotaPrestation";
         delete_title = 'Deletion of service';
-        item_title = $($this).siblings().eq(0).text();
+        if (service_checked_number == 1) {
+            item_title = "this service";
+        }else{
+            item_title = "these "+service_checked_number+" services";
+        }
     }
 
     $('.item_title').text(item_title);
@@ -116,16 +157,21 @@ function deleteItem($this) {
         $.ajax({
             type: "GET",
             url: to_url,
-            data: {id_item : id_item},
+            data: {id_item : id_items},
             dataType: "html",
             success: function(){
                 //delete row
-                $($this).closest('tr').remove();
+                service_checked.each(function() {
+                    $(this).closest('tr').remove();
+                });
 
                 //set number of items(room / service)
                 var item_number = table.find('tbody').children('tr').length;
                 table.find('.item_number').text(item_number);
                 $('#delete_item').dialog('close');
+            },
+            error: function () {
+                aleret();
             }
         });
     });

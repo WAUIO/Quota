@@ -89,73 +89,85 @@
                     {% set registration = registration + 1%}
                     <div class="group_table {% if registration > 1 %}table_hide{% endif %}" id="group_{{ k }}">
 
-                        {% set room = dataRoom[k]['detail'] %}
-                        {% if room|length>0 %}
-                            <span>Last modification : {{ dataRoom[k]['date_registration'] }}</span>
-                        {% endif %}
-                        <div class="calculation_quota">
-                            <div class="table-editable">
-                                <table class="table table-striped" id="table_about_room_{{ k }}">
-                                    <thead class="thead-inverse">
-                                        <tr>
-                                            <th colspan="5">Rooms (<span class="item_number">{{ room|length }}</span>)</th>
-                                        </tr>
-                                    </thead>
-
-                                    {% if room|length > 0 %}
-                                        <tbody>
-                                        {% for i in 0..room|length-1 %}
+                        <div class="for_quotation" id="for_room">
+                            {% set room = dataRoom[k]['detail'] %}
+                            {% if room|length>0 %}
+                                <span>Last modification : {{ dataRoom[k]['date_registration'] }}</span>
+                            {% endif %}
+                            <div class="calculation_quota">
+                                <div class="table-editable">
+                                    <table class="table table-striped" id="table_about_room_{{ k }}">
+                                        <thead class="thead-inverse">
                                             <tr>
-                                                <td class="data_client_remove" id="room_{{ k }}_{{ room[i]['id'] }}" onclick="deleteItem(this)">
-                                                    <span class="glyphicon glyphicon-remove"></span>
-                                                    <h4 style="display: none">{{ room[i]['id'] }}</h4>
-                                                </td>
-                                                <td>{{ room[i]['house_title'] }}</td>
-                                                <td>{{ room[i]['others'].room_title }}</td>
-                                                {% set stay = room[i]['others'].stay|roundValue %}
-                                                <td>{{ stay }} {% if stay > 1 %}days{% else %}day{% endif %}</td>
-                                                <td>{{ room[i]['base']|capitalize }}</td>
+                                                <th colspan="5">Rooms (<span class="item_number">{{ room|length }}</span>)</th>
                                             </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    {% endif %}
-                                </table>
+                                        </thead>
+
+                                        {% if room|length > 0 %}
+                                            <tbody>
+                                            {% for i in 0..room|length-1 %}
+                                                <tr>
+                                                    <td class="data_client_remove" id="room_{{ k }}_{{ room[i]['id'] }}" onclick="deleteItem(this)">
+                                                        <span><input type="checkbox" class="check_service" value="{{ room[i]['id'] }}"></span>
+                                                    </td>
+                                                    <td>{{ room[i]['house_title'] }}</td>
+                                                    <td>{{ room[i]['others'].room_title }}</td>
+                                                    {% set stay = room[i]['others'].stay|roundValue %}
+                                                    <td>{{ stay }} {% if stay > 1 %}days{% else %}day{% endif %}</td>
+                                                    <td>{{ room[i]['base']|capitalize }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        {% endif %}
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 5px;">
+                                <span class="select_all">Select all</span>
+                                <div class="delete_service">Delete</div>
                             </div>
                         </div>
 
-                        <br/>
+                        <br/><br/>
 
-                        {% set prestation = dataPrestation[k] %}
-                        {% set id_prestation = prestation.all_prestation['id'] %}
-                        {% set services = prestation.all_prestation['service'] %}
-                        {% set others = prestation.all_prestation['other'] %}
-                        {% if services|length>0 %}
-                            <span>Last modification : {{ dataPrestation[k].date_registration }}</span>
-                        {% endif %}
-                        <div class="calculation_quota">
-                            <div class="table-editable">
-                                <table class="table table-striped" id="table_about_prestation_{{ k }}">
-                                    <thead class="thead-inverse">
-                                        <tr>
-                                            <th colspan="3">Services (<span class="item_number">{{ services|length }}</span>)</th>
-                                        </tr>
-                                    </thead>
-
-                                    {% if services|length > 0 %}
-                                        <tbody>
-                                        {% for i in 0..services|length-1 %}
+                        <div class="for_quotation" id="for_prestation">
+                            {% set prestation = dataPrestation[k] %}
+                            {% set id_prestation = prestation.all_prestation['id'] %}
+                            {% set services = prestation.all_prestation['service'] %}
+                            {% set others = prestation.all_prestation['other'] %}
+                            {% if services|length>0 %}
+                                <span>Last modification : {{ dataPrestation[k].date_registration }}</span>
+                            {% endif %}
+                            <div class="calculation_quota">
+                                <div class="table-editable">
+                                    <table class="table table-striped" id="table_about_prestation_{{ k }}">
+                                        <thead class="thead-inverse">
                                             <tr>
-                                                <td class="data_client_remove" id="prestation_{{ k }}_{{ id_prestation[i] }}" onclick="deleteItem(this)">
-                                                    <span class="glyphicon glyphicon-remove"></span>
-                                                    <h4 style="display: none">{{ id_prestation[i] }}</h4>
-                                                </td>
-                                                <td>{{ services[i] }}</td>
-                                                <td>{{ others[i].type_service }}</td>
+                                                <th colspan="3">Services (<span class="item_number">{{ services|length }}</span>)</th>
                                             </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    {% endif %}
-                                </table>
+                                        </thead>
+
+                                        {% if services|length > 0 %}
+                                            <tbody>
+                                            {% for i in 0..services|length-1 %}
+                                                <tr>
+                                                    <td class="data_client_remove" id="prestation_{{ k }}_{{ id_prestation[i] }}">
+                                                        <input type="checkbox" class="check_service" value="{{ id_prestation[i] }}">
+                                                    </td>
+                                                    <td>{{ services[i] }}</td>
+                                                    <td>{{ others[i].type_service }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        {% endif %}
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 5px;">
+                                <span class="select_all">Select all</span>
+                                <div class="delete_service">Delete</div>
                             </div>
                         </div>
                     </div>
@@ -177,7 +189,7 @@
         {% endif %}
     </div>
     <div id="delete_item" style="max-height: 150px;display: none; padding-bottom: 0;">
-        <div style="height: 100px;">Are you sure to delete "<span class="item_title bold"></span>" ?</div>
+        <div style="height: 100px;">Are you sure to delete <span class="item_title"></span> ?</div>
         <div style="height: 30px; margin-bottom: -10px;">
             <div class="popup_btn" id="btn_delete_item">Delete</div>
             <div class="popup_btn"  id="btn_cancel_item">Cancel</div>
