@@ -58,10 +58,11 @@ class PrestationController extends Controller{
     //delete prestation quotation
     public function deleteQuotaPrestation(){
         $id_prestations = $_GET['id_items'];
-        foreach ($id_prestations as $key=>$value){
-            $prestationModel = new PrestationModel();
-            $prestationModel->deleteQuotaPrestation($value);
-            unset($prestationModel);
+        if(is_array($id_prestations)){
+            foreach ( $id_prestations as $id){
+                $prestationModel = new PrestationModel();
+                $prestationModel->deleteQuotaPrestation($id);
+            }
         }
     }
 

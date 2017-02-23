@@ -157,9 +157,9 @@ function deleteItem($this) {
         $.ajax({
             type: "GET",
             url: to_url,
-            data: {id_item : id_items},
+            data: {id_items : id_items},
             dataType: "html",
-            success: function(){
+            success: function(data){
                 //delete row
                 service_checked.each(function() {
                     $(this).closest('tr').remove();
@@ -169,9 +169,6 @@ function deleteItem($this) {
                 var item_number = table.find('tbody').children('tr').length;
                 table.find('.item_number').text(item_number);
                 $('#delete_item').dialog('close');
-            },
-            error: function () {
-                aleret();
             }
         });
     });
