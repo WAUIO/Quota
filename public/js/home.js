@@ -159,7 +159,7 @@ function deleteItem($this) {
             url: to_url,
             data: {id_items : id_items},
             dataType: "html",
-            success: function(data){
+            success: function(){
                 //delete row
                 service_checked.each(function() {
                     $(this).closest('tr').remove();
