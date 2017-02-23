@@ -82,9 +82,11 @@ class RoomController extends PrestationController{
 
     //delete room quotation
     public function deleteQuotaRoom(){
-        $id_room = $_GET['id_item'];
+        $id_rooms = $_GET['id_items'];
         $roomModel = new RoomModel();
-        $roomModel->deleteQuotaRoom($id_room);
+        foreach ($id_rooms as $id){
+            $roomModel->deleteQuotaRoom($id);
+        }
     }
 
     //delete room quotation

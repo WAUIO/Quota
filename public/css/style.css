@@ -1084,3 +1084,23 @@ ul{
 .bold{
     font-weight: bold;
 }
+.select_all{
+    float: left;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.select_all:hover{
+    color: #2B838E;
+}
+.delete_service{
+    display: none;
+    float: right;
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background: #AE0B0C;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+}
