@@ -1,5 +1,14 @@
 <?php
 
+//JS resolver api
+$app->group([
+                'prefix' => '/api/js',
+                function () use (&$app) {
+                    $app->controller('/', 'App\Http\Controller\JSResolver');
+                }
+            ]
+);
+
 //webhook
 $app->group(['prefix' => '/webhook',
     function() use (&$app) {
