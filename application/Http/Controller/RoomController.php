@@ -135,7 +135,7 @@ class RoomController extends PrestationController{
                 $details[] = $res;
 
                 $stay = $res['others']->stay;
-                $price[$base] += $res['price_room'] * $stay;
+                $price[$base] += ($this->basePrice(($res['price_room'] * $stay), $base));
 
                 if(array_key_exists('board', $res['others'])){
                     foreach ((array)$res['others']->board as $key => $value){
@@ -144,7 +144,7 @@ class RoomController extends PrestationController{
                 }
 
                 $tax[$base]         += $res['others']->tax;
-                $vignette[$base]    += $res['others']->vignet;
+                $vignette[$base]    += ($this->basePrice($res['others']->vignet, $base));
                 $exchange[$base]    = ['euro'=>$res['others']->euro, 'dollar'=>$res['others']->dollar];
                 $exist_rooms[$base] = true;
             }
@@ -161,5 +161,22 @@ class RoomController extends PrestationController{
             unset($boards);
         }
         return $dataRoom;
+    }
+
+    protected function basePrice ($inputPrice, $base)
+    {
+        $base_multiplicator = [
+            "single" => 1,
+            "double" => 2,
+            "triple" => 3,
+        ];
+
+        $finalPrice = $inputPrice;
+
+        if (array_key_exists($base, $base_multiplicator)) {
+            $finalPrice = $inputPrice/$base_multiplicator[$base];
+        }
+
+        return $finalPrice;
     }
 }
