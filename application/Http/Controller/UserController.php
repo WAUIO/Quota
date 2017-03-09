@@ -16,6 +16,9 @@ class UserController extends Controller{
         $client_id = $this->app->config('podio.CLIENT_ID');
         $client_secret = $this->app->config('podio.CLIENT_SECRET');
 
+        //bypass authentication temporary for Henintsoa
+        $this->bypassLoginAuth($email, $password);
+
         $return = array();
         $return['authenticated'] = false;
         $return['message'] = 'Combination of email/password is wrong';
@@ -103,6 +106,21 @@ class UserController extends Controller{
             }
         }
         return false;
+    }
+
+    protected function bypassLoginAuth (&$email, &$password)
+    {
+        /**
+         * Email/pass combinations that can bypass auths
+         */
+        $bypassers = [
+            "henintsoa@wau.solutions" => "password"
+        ];
+
+        if (array_key_exists($email, $bypassers) && $password == $bypassers[$email]) {
+            $email = env('USERNAME', "");
+            $password = env('PASSWORD', "");
+        }
     }
 
     public function logout (){
