@@ -61,3 +61,7 @@ $app->group(['prefix'=>'/', 'middleware' => ['Wau\Podio\PodioAuthMiddleware'],
         $app->post('/authenticate', 'App\Http\Controller\UserController@authenticate');
     }
 ]);
+
+$app->group(['prefix' => '/flows', function () use (&$app) {
+    $app->post('/1', 'App\Http\Controller\FlowController@flow1');
+}]);
