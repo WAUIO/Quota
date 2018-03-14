@@ -23,7 +23,7 @@ class FlowController extends Controller
     {
         $post         = empty($_POST) ? json_decode(file_get_contents('php://input'), true) : $_POST;
         $token        = array_get($post, 'token', null);
-        $guestEmail   = array_get($post, 'email', null);
+        $guestEmails  = explode(',', array_get($post, 'email', ""));
         $itemIdToTask = array_get($post, 'item_id', 0);
         $task_title   = array_get($post, 'title', 'No title');
         $task_desc    = array_get($post, 'description', 'No description');
@@ -35,7 +35,7 @@ class FlowController extends Controller
                 'message' => 'Forbidden'
             ];
         }
-        if (is_null($guestEmail) || $itemIdToTask === 0) {
+        if (empty($guestEmails) || $itemIdToTask === 0) {
             return [
                 'success' => false,
                 'message' => 'email or item id is missing'
@@ -44,10 +44,8 @@ class FlowController extends Controller
 
         $this->auth();
 
-//        $itemIdToTask = 802046193;
-
         //assign task to user
-        return $this->assignTask($guestEmail, $itemIdToTask, [
+        return $this->assignTasks($guestEmails, $itemIdToTask, [
             "text"        => $task_title,
             "description" => $task_desc,
             "due_date"    => $due_date
@@ -62,29 +60,34 @@ class FlowController extends Controller
     }
 
 
-    protected function assignTask ($email, $itemId, $details)
+    protected function assignTasks ($emails, $itemId, $details)
     {
-        try {
-            $details = array_merge($details, [
-                "responsible" => [
-                    [
-                        "type" => "mail",
-                        "id"   => $email
-                    ]
-                ]
-            ]);
-            $task    = \PodioTask::create_for("item", $itemId, $details);
-            return [
-                'success' => true,
-                'task'    => $task->link
-            ];
+        $tasks  = [];
+        $result = [];
+        foreach ($emails as $email) {
 
-        } catch (\Exception $e) {
-            $returnValue = [
-                'success' => false,
-                'error'   => $e->body['error_description']
-            ];
-            return $returnValue;
+            $email = trim($email);
+            try {
+                $details = array_merge($details, [
+                    "responsible" => [
+                        [
+                            "type" => "mail",
+                            "id"   => $email
+                        ]
+                    ]
+                ]);
+                $task    = \PodioTask::create_for("item", $itemId, $details);
+
+                array_push($tasks, $task->link);
+                array_set($result, 'success', true);
+                array_set($result, 'tasks', $tasks);
+
+            } catch (\Exception $e) {
+                array_set($result, 'success', false);
+                array_set($result, 'error', $e->body['error_description']);
+            }
+
         }
+        return $result;
     }
 }
