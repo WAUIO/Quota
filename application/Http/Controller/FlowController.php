@@ -21,6 +21,8 @@ class FlowController extends Controller
 {
     public function flow1 (Request $request)
     {
+        date_default_timezone_set('UTC');
+
         $post         = empty($_POST) ? json_decode(file_get_contents('php://input'), true) : $_POST;
         $token        = array_get($post, 'token', null);
         $guestEmails  = explode(',', array_get($post, 'email', ""));
@@ -28,6 +30,7 @@ class FlowController extends Controller
         $task_title   = array_get($post, 'title', 'No title');
         $task_desc    = array_get($post, 'description', 'No description');
         $due_date     = array_get($post, 'due_date', '2018-03-13');
+        $due_time     = array_get($post, 'due_time', null);
 
         if ($token !== AUTH_TOKEN) {
             return [
@@ -48,7 +51,8 @@ class FlowController extends Controller
         return $this->assignTasks($guestEmails, $itemIdToTask, [
             "text"        => $task_title,
             "description" => $task_desc,
-            "due_date"    => $due_date
+            "due_date"    => $due_date,
+            "due_time"    => $due_time
         ]);
     }
 
