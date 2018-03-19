@@ -10,8 +10,8 @@ namespace App\Http\Controller;
 use Wau\Http\Controller;
 use Wau\Request;
 
-define("AUTH_USER", "noreply@wau.co");
-define("AUTH_PASSWD", "hWvJbNH22meK");
+define("AUTH_USER", "Campaigns@jfmedia.com.au");
+define("AUTH_PASSWD", "433LoganRoad");
 define("TRUSTED_ID", "waushare");
 define("TRUSTED_SECRET", "9vU4ArfXycs3epwQaAzq58wvPQS1VkjRjBEHqLJKN8P1hirS2iyJD11lkVUVant0");
 define("AUTH_TOKEN", "9DAE2E08814D0498A25D1E94DDCF380B748D5E17982A44D7C82D859959F248BC");
